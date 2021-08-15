@@ -1,94 +1,3 @@
-<style lang="scss">
-  ul {
-    display: flex;
-    flex-direction: column;
-    height: max-content;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-  }
-  li {
-    align-items: baseline;
-    display: flex;
-    height: max-content;
-    line-height: var(--li-line-height);
-    list-style: none;
-    width: 100%;
-    /* &.collapsed {
-      margin-bottom: 0.3em;
-    } */
-  }
-  li + li {
-    margin-top: 0.25em;
-  }
-  .empty-block {
-    visibility: hidden;
-  }
-  .node-key {
-    color: rgb(133, 217, 239);
-    margin-right: 0.5em;
-    &.has-children {
-      cursor: pointer;
-    }
-    &.p-left {
-      padding-left: 1.1em;
-    }
-  }
-  .node-value {
-    color: rgb(184, 226, 72);
-    margin-right: 0.5em;
-    word-break: break-all;
-    &[data-type='number'] {
-      color: rgb(253, 153, 60);
-    }
-    &[data-type='null'],
-    &[data-type='undefined'] {
-      color: rgb(250, 62, 126);
-    }
-    &.expanded {
-      color: rgb(209, 146, 155);
-    }
-    &.has-children {
-      cursor: pointer;
-    }
-  }
-  .arrow-btn {
-    background: transparent;
-    border: 0;
-    color: rgb(133, 217, 239);
-    cursor: pointer;
-    margin-right: 0.5em;
-    padding: 0;
-    transition: all 150ms ease 0s;
-    transform: rotateZ(0deg);
-    transform-origin: 45% 50%;
-    position: relative;
-    line-height: 1.1em;
-    font-size: 0.75em;
-    &.collapsed {
-      transform: rotateZ(90deg);
-    }
-  }
-  .buttons {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  .log-copy-button {
-    background: transparent;
-    border: 0;
-    color: rgb(133, 217, 239);
-    cursor: pointer;
-    margin: 0;
-    padding: 0 0.5em;
-    &:hover {
-      background: rgba(rgb(255, 162, 177), 0.4);
-      border-radius: 2px;
-      color: white;
-    }
-  }
-</style>
-
 <script lang="ts">
   import { getContext } from 'svelte'
 
@@ -114,7 +23,7 @@
   $: valueComponent = $propsStore.valueComponent
 
   function handleLogNode() {
-    console.info('%c [prosemirror-dev-toolkit]: Property added to window._node', 'color: #b8e248')
+    console.info('%c [svelte-tree-view]: Property added to window._node', 'color: #b8e248')
     console.log(node.value)
     window._node = node.value
   }
@@ -184,3 +93,94 @@
     </ul>
   </li>
 {/if}
+
+<style lang="scss">
+  ul {
+    display: flex;
+    flex-direction: column;
+    height: max-content;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+  }
+  li {
+    align-items: baseline;
+    display: flex;
+    height: max-content;
+    line-height: var(--tree-view-li-line-height);
+    list-style: none;
+    width: 100%;
+    /* &.collapsed {
+      margin-bottom: 0.3em;
+    } */
+  }
+  li + li {
+    margin-top: 0.25em;
+  }
+  .empty-block {
+    visibility: hidden;
+  }
+  .node-key {
+    color: var(--tree-view-base0D);
+    margin-right: 0.5em;
+    &.has-children {
+      cursor: pointer;
+    }
+    &.p-left {
+      padding-left: 1.1em;
+    }
+  }
+  .node-value {
+    color: var(--tree-view-base0B);
+    margin-right: 0.5em;
+    word-break: break-all;
+    &[data-type='number'] {
+      color: var(--tree-view-base09);
+    }
+    &[data-type='null'],
+    &[data-type='undefined'] {
+      color: var(--tree-view-base08);
+    }
+    &.expanded {
+      color: var(--tree-view-base03);
+    }
+    &.has-children {
+      cursor: pointer;
+    }
+  }
+  .arrow-btn {
+    background: transparent;
+    border: 0;
+    color: var(--tree-view-base0D);
+    cursor: pointer;
+    margin-right: 0.5em;
+    padding: 0;
+    transition: all 150ms ease 0s;
+    transform: rotateZ(0deg);
+    transform-origin: 45% 50%;
+    position: relative;
+    line-height: 1.1em;
+    font-size: 0.75em;
+    &.collapsed {
+      transform: rotateZ(90deg);
+    }
+  }
+  .buttons {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .log-copy-button {
+    background: transparent;
+    border: 0;
+    color: var(--tree-view-base0D);
+    cursor: pointer;
+    margin: 0;
+    padding: 0 0.5em;
+    &:hover {
+      background: rgba(rgb(255, 162, 177), 0.4);
+      border-radius: 2px;
+      color: white;
+    }
+  }
+</style>

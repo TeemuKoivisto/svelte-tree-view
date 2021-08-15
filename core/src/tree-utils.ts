@@ -106,7 +106,6 @@ function shouldRecurseChildren(
   } else if (node.type === 'object' || node.type === 'array') {
     const existingNodeWithValue = iteratedValues.get(node.value)
     if (existingNodeWithValue) {
-      // console.log(`node with key ${node.key} already iterated`, node.value)
       node.circularOfId = existingNodeWithValue.id
       return false
     }

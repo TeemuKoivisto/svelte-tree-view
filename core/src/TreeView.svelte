@@ -1,32 +1,3 @@
-<style>
-  * {
-    box-sizing: border-box;
-  }
-  :root {
-    --string-color: var(--json-tree-string-color, #cb3f41);
-    --symbol-color: var(--json-tree-symbol-color, #cb3f41);
-    --boolean-color: var(--json-tree-boolean-color, #112aa7);
-    --function-color: var(--json-tree-function-color, #112aa7);
-    --number-color: var(--json-tree-number-color, #3029cf);
-    --label-color: var(--json-tree-label-color, #871d8f);
-    --arrow-color: var(--json-tree-arrow-color, #727272);
-    --null-color: var(--json-tree-null-color, #8d8d8d);
-    --undefined-color: var(--json-tree-undefined-color, #8d8d8d);
-    --date-color: var(--json-tree-date-color, #8d8d8d);
-    --li-identation: var(--json-tree-li-indentation, 1em);
-    --li-line-height: var(--json-tree-li-line-height, 1.1);
-    --li-colon-space: 0.3em;
-    --font-size: var(--json-tree-font-size, 12px);
-    --font-family: var(--json-tree-font-family, 'Courier New', Courier, monospace);
-  }
-  section {
-    font-family: Helvetica Neue, Calibri Light, Roboto, sans-serif;
-    font-size: 13px;
-    height: max-content;
-    width: max-content;
-  }
-</style>
-
 <script lang="ts">
   import { getContext, onMount } from 'svelte'
   import { get } from 'svelte/store'
@@ -37,6 +8,7 @@
   import TreeNode from './TreeNode.svelte'
 
   export let data,
+    theme = undefined,
     leftIndent = 4,
     showLogButton = false,
     showCopyButton = false,
@@ -73,10 +45,6 @@
     }
     // todo update props inside context?
   }
-  let cssVarStyles = ''
-  // $: cssVarStyles = Object.entries(styles)
-	// 	.map(([key, value]) => `--${key}:${value}`)
-	// 	.join(';')
   $: {
     const nodeRecursionOpts = {
       ...defaultRecursionOpts,
@@ -103,6 +71,13 @@
     treeStore.set(newTree)
     props.recursionOpts = nodeRecursionOpts
   }
+  $: {
+    if (theme && rootElement) {
+      Object.keys(theme).forEach(key => {
+        rootElement.style.setProperty(`--tree-view-${key}`, theme[key])
+      })
+    }
+  }
 
   createContext(props)
   const { treeMapStore, treeStore, rootElementStore } = getContext('app')
@@ -112,8 +87,37 @@
   })
 </script>
 
-<section class={$$props.class} bind:this={rootElement} style="{cssVarStyles}">
+<section class={$$props.class} bind:this={rootElement}>
   {#each $treeStore.children as child}
     <TreeNode id={child.id} />
   {/each}
 </section>
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+  :root {
+    /* --string-color: var(--tree-view-string-color, #cb3f41);
+    --symbol-color: var(--tree-view-symbol-color, #cb3f41);
+    --boolean-color: var(--tree-view-boolean-color, #112aa7);
+    --function-color: var(--tree-view-function-color, #112aa7);
+    --number-color: var(--tree-view-number-color, #3029cf);
+    --label-color: var(--tree-view-label-color, #871d8f);
+    --arrow-color: var(--tree-view-arrow-color, #727272);
+    --null-color: var(--tree-view-null-color, #8d8d8d);
+    --undefined-color: var(--tree-view-undefined-color, #8d8d8d);
+    --date-color: var(--tree-view-date-color, #8d8d8d); */
+
+    --li-identation: var(--tree-view-li-indentation, 1em);
+    --li-line-height: var(--tree-view-li-line-height, 1.1);
+    --li-colon-space: 0.3em;
+  }
+  section {
+    background: var(--tree-view-base00);
+    font-family: var(--tree-view-font-family, 'Helvetica Neue', 'Calibri Light', Roboto, sans-serif);
+    font-size: var(--tree-view-font-size, 12px);
+    height: max-content;
+    width: max-content;
+  }
+</style>

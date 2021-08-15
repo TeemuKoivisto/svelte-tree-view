@@ -39,7 +39,7 @@ export default {
         // enable run-time checks when not in production
         dev: !isProduction
       },
-      preprocess: autoPreprocess(preprocessOptions),
+      preprocess: autoPreprocess(preprocessOptions)
     }),
     postcss(),
     resolve({
