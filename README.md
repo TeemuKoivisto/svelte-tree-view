@@ -1,6 +1,6 @@
 # Svelte Tree View
 
-This is a library to show Javascript objects in a nice tree layout. It's written in Svelte but since it compiles to pure JS it can be used anywhere (although to customize the rendered nodes you must Svelte).
+Library to show Javascript objects in a nice tree layout. It's written in Svelte but since it compiles to pure JS it can be used anywhere (although to customize the rendered nodes you must Svelte).
 
 [Demo](https://teemukoivisto.github.io/svelte-tree-view/)
 
@@ -8,7 +8,7 @@ This is a library to show Javascript objects in a nice tree layout. It's written
 
 Size: xx kB (no external dependencies)
 
-## API
+## How to use
 
 You can import the component as:
 
@@ -33,12 +33,48 @@ And use it as:
 />
 ```
 
-The full props as copied from the source are:
+## API
+
+The full typings as copied from the source are:
 
 ```ts
+export interface ITreeNode {
+  id: string
+  index: number
+  key: string
+  value: any
+  depth: number
+  collapsed: boolean
+  type: ValueType
+  path: number[]
+  parentId: string | null
+  circularOfId: string | null
+  children: ITreeNode[]
+}
+
+export interface IBase16Theme {
+  scheme?: string
+  base00: string // Default Background
+  base01: string // Lighter Background (Used for status bars, line number and folding marks)
+  base02: string // Selection Background
+  base03: string // Comments, Invisibles, Line Highlighting
+  base04: string // Dark Foreground (Used for status bars)
+  base05: string // Default Foreground, Caret, Delimiters, Operators
+  base06: string // Light Foreground (Not often used)
+  base07: string // Light Background (Not often used)
+  base08: string // Variables, XML Tags, Markup Link Text, Markup Lists, Diff Deleted
+  base09: string // Integers, Boolean, Constants, XML Attributes, Markup Link Url
+  base0A: string // Classes, Markup Bold, Search Text Background
+  base0B: string // Strings, Inherited Class, Markup Code, Diff Inserted
+  base0C: string // Support, Regular Expressions, Escape Characters, Markup Quotes
+  base0D: string // Functions, Methods, Attribute IDs, Headings
+  base0E: string // Keywords, Storage, Selector, Markup Italic, Diff Changed
+  base0F: string // Deprecated, Opening/Closing Embedded Language Tags, e.g. <?php ?>
+}
+
 export interface TreeViewProps {
-  data: any
-  base16theme?: { [key: string]: string }
+  data: Object
+  theme?: IBase16Theme
   leftIndent?: number
   showLogButton?: boolean
   showCopyButton?: boolean
@@ -54,69 +90,74 @@ export interface TreeViewProps {
 export interface TreeRecursionOpts {
   maxDepth?: number
   omitKeys?: string[]
-  stopRecursion?: boolean
-  isRecursiveNode?: (n: ITreeNode, iteratedValues: Map<any, ITreeNode>) => boolean
+  stopCircularRecursion?: boolean
+  isCircularNode?: (n: ITreeNode, iteratedValues: Map<any, ITreeNode>) => boolean
   shouldExpandNode?: (n: ITreeNode) => boolean
   mapChildren?: (val: any, type: ValueType, parent: ITreeNode) => [string, any][] | undefined
 }
+export class TreeView extends SvelteComponentTyped<TreeViewProps> {}
+export default TreeView
+```
 
-export interface ITreeNode {
-  id: string
-  index: number
-  key: string
-  value: any
-  depth: number
-  collapsed: boolean
-  type: ValueType
-  path: number[]
-  parentId: string | null
-  recursiveOfId: string | null
-  children: ITreeNode[]
+## Theming
+
+This library uses base16 theming, similar to react-json-tree. So basically instead of theming each value type (string, number, undefined etc) separately, you use the same color for all similar values. Here's a repo that might explain it better https://github.com/chriskempson/base16
+
+The current default theme is the example monokai theme from react-json-tree with changed background color. You can define your own theme or use one for example here https://github.com/reduxjs/redux-devtools/tree/75322b15ee7ba03fddf10ac3399881e302848874/src/react/themes
+
+To use a theme, you can either provide an object or set CSS variables.
+
+So either
+
+```tsx
+const theme = {
+  scheme: 'google',
+  author: 'seth wright (http://sethawright.com)',
+  base00: '#1d1f21',
+  base01: '#282a2e',
+  base02: '#373b41',
+  base03: '#969896',
+  base04: '#b4b7b4',
+  base05: '#c5c8c6',
+  base06: '#e0e0e0',
+  base07: '#ffffff',
+  base08: '#CC342B',
+  base09: '#F96A38',
+  base0A: '#FBA922',
+  base0B: '#198844',
+  base0C: '#3971ED',
+  base0D: '#3971ED',
+  base0E: '#A36AC7',
+  base0F: '#3971ED'
+}
+...
+<TreeView theme={theme} />
+```
+
+or
+
+```css
+:root {
+  --tree-view-base00: #1d1f21;
+  --tree-view-base01: #282a2e;
+  --tree-view-base02: #373b41;
+  --tree-view-base03: #969896;
+  --tree-view-base04: #b4b7b4;
+  --tree-view-base05: #c5c8c6;
+  --tree-view-base06: #e0e0e0;
+  --tree-view-base07: #ffffff;
+  --tree-view-base08: #CC342B;
+  --tree-view-base09: #F96A38;
+  --tree-view-base0A: #FBA922;
+  --tree-view-base0B: #198844;
+  --tree-view-base0C: #3971ED;
+  --tree-view-base0D: #3971ED;
+  --tree-view-base0E: #A36AC7;
+  --tree-view-base0F: #3971ED;
 }
 ```
 
-Which should be mostly pretty self-explanatory. The way `svelte-tree-view` works is it iterates over each object's key-value pair, often using the index as the key (or in case of Maps or Sets, xxx) and rendering the value as it is for primitives (string, number, undefined) or as a summary of the object's contents eg `{} 7 keys`. Each node receives as its unique ID the stringified path to it eg `[0,1,4,0,1]` which is quite handy compared to generating an uuid that may or may have to be recomputed each time data changes.
-
-The node's values are mapped over to generate a list of children that are basically `[string, any]` tuples. Each of these key-value pairs correspond to their respective TreeNodes. The mapping of the children can be defined by the user.
-
-To prevent unnecessary rendering, the tree is generated only to the nodes that are shown. Expanding more nodes then iterates over them as usual. You can additionally prevent recursing over circular nodes and instead a `circular` tag is added to the node and clicking them scrolls the viewport the first encountered node with that value (the checking of circularity is done with `val1 === val2` comparison).
-
-Both the rendering of the keys and the values can be user-defined. For values a custom Svelte component can also be provided that can perform complicated rendering instead of a simple string. An example here:
-
-```tsx
-{#if Array.isArray(value)}
-  <!-- The why https://github.com/benjamine/jsondiffpatch/blob/master/docs/deltas.md -->
-  {#if value.length === 1}
-    <span class="added">{getValueString(value[0])}</span>
-  {:else if value.length === 2}
-    <span class="updated">
-      <span class="deleted">{getValueString(value[0])}</span>
-      <span class="arrow"> =&gt;</span>
-      <span class="added">{getValueString(value[1])}</span>
-    </span>
-  {:else if value.length === 3 && value[1] === 0 && value[2] === 0}
-    <span class="deleted">{getValueString(value[0])}</span>
-  {:else if value.length === 3 && value[2] === 2}
-    <span class="updated">
-      {#each parseTextDiff(value[0]) as item}
-        {#if item.delete}
-          <span class="deleted">{item.delete}</span>
-        {:else if item.add}
-          <span class="added">{item.add}</span>
-        {:else}
-          <span>{item.raw}</span>
-        {/if}
-      {/each}
-    </span>
-  {/if}
-{:else}
-  {defaultFormatter(value)}
-{/if}
-```
-
-To customize the styling of the tree you can use a base16 theme object https://github.com/chriskempson/base16/blob/master/styling.md. I didn't use CSS variables since this would be probably easier to do in code. xxx Or just use them?
-
-This should be the general gist of it. I hope the source code is quite easy to grasp and to extend for any future improvements and so forth. Svelte is quite a great match for creating snappy UI components since it comes batteries included and you don't have to depend on some external framework as a dependency. Perhaps one day they can be turned into real web components but in any case, it's quite awesome already.
+works.
 
 ## How to develop locally
 
