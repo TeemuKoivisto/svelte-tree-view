@@ -7,20 +7,18 @@
     treeMapStore,
     propsStore,
     rootElementStore,
-    getNode,
-    toggleCollapse,
-    expandAllNodesToNode,
     formatValue
-  } = getContext('app')
-  $: node = getNode(id)
+  } = getContext('svelte-tree-view')
+  $: node = treeMapStore.getNode(id)
+  $: hasChildren = node.children.length > 0
+  $: valueComponent = $propsStore.valueComponent
+
   treeMapStore.subscribe(value => {
     const n = value.get(id)
     if (node !== n) {
       node = n
     }
   })
-  $: hasChildren = node.children.length > 0
-  $: valueComponent = $propsStore.valueComponent
 
   function handleLogNode() {
     console.info('%c [svelte-tree-view]: Property added to window._node', 'color: #b8e248')
@@ -32,9 +30,9 @@
   }
   function handleToggleCollapse() {
     if (hasChildren) {
-      toggleCollapse(node.id)
+      treeMapStore.toggleCollapse(node.id)
     } else if (node.circularOfId) {
-      expandAllNodesToNode(node.circularOfId)
+      treeMapStore.expandAllNodesToNode(node.circularOfId)
       $rootElementStore.querySelector(`li[data-tree-id="${node.circularOfId}"]`)?.scrollIntoView()
     }
   }
@@ -69,10 +67,10 @@
         this={valueComponent}
         value={node.value}
         {node}
-        defaultFormatter={val => formatValue(val, node)}
+        defaultFormatter={val => propsStore.formatValue(val, node)}
       />
     {:else}
-      {formatValue(node.value, node)}
+      {propsStore.formatValue(node.value, node)}
     {/if}
   </div>
   <div class="buttons">
@@ -180,7 +178,7 @@
     &:hover {
       background: rgba(rgb(255, 162, 177), 0.4);
       border-radius: 2px;
-      color: white;
+      color: var(--tree-view-base07);
     }
   }
 </style>

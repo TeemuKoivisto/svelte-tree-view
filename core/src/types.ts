@@ -31,6 +31,7 @@ export interface ITreeNode {
 
 export interface IBase16Theme {
   scheme?: string
+  author?: string
   base00: string // Default Background
   base01: string // Lighter Background (Used for status bars, line number and folding marks)
   base02: string // Selection Background

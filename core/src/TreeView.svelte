@@ -1,9 +1,11 @@
 <script lang="ts">
-  import { getContext, onMount } from 'svelte'
+  import { setContext, onMount } from 'svelte'
   import { get } from 'svelte/store'
 
   import { createNode, recurseObjectProperties, getValueType } from './tree-utils.ts'
-  import { createContext } from './context.ts'
+  import {
+    createPropsStore, rootElementStore, treeStore, treeMapStore
+  } from './stores/index.ts'
 
   import TreeNode from './TreeNode.svelte'
 
@@ -79,8 +81,13 @@
     }
   }
 
-  createContext(props)
-  const { treeMapStore, treeStore, rootElementStore } = getContext('app')
+  console.log('tree view render')
+  setContext('svelte-tree-view', {
+    propsStore: createPropsStore(props),
+    rootElementStore,
+    treeStore,
+    treeMapStore
+  })
 
   onMount(() => {
     rootElementStore.set(rootElement)
