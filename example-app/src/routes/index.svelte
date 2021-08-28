@@ -101,6 +101,10 @@
   let data = '',
     parsedData = obj1,
     leftIndent = '0.875em',
+    lineHeight = '1.1',
+    fontFamily = 'Helvetica Neue',
+    fontSize = '12px',
+    keyMarginRight = '0.5em',
     showLogButton = false,
     showCopyButton = false,
     valueComponent = undefined,
@@ -119,9 +123,13 @@
     }
   }
   $: {
-    if (leftIndent && typeof document !== undefined) {
+    if (typeof document !== undefined) {
       try {
-        document.documentElement.style.setProperty(`--tree-view-left-indent`, leftIndent)
+        leftIndent && document.documentElement.style.setProperty(`--tree-view-left-indent`, leftIndent)
+        lineHeight && document.documentElement.style.setProperty(`--tree-view-li-line-height`, lineHeight)
+        fontFamily && document.documentElement.style.setProperty(`--tree-view-font-family`, fontFamily)
+        fontSize && document.documentElement.style.setProperty(`--tree-view-font-size`, fontSize)
+        keyMarginRight && document.documentElement.style.setProperty(`--tree-view-key-margin-right`, keyMarginRight)
       } catch (e) {}
     }
   }
@@ -167,6 +175,10 @@
   <p class="my-2">Copy-paste JSON objects to view them.</p>
   <PropsForm
     bind:leftIndent={leftIndent}
+    bind:lineHeight={lineHeight}
+    bind:fontFamily={fontFamily}
+    bind:fontSize={fontSize}
+    bind:keyMarginRight={keyMarginRight}
     bind:showLogButton={showLogButton}
     bind:showCopyButton={showCopyButton}
     bind:valueComponent={valueComponent}

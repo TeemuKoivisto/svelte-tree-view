@@ -1,5 +1,9 @@
 <script>
   export let leftIndent,
+    lineHeight,
+    fontFamily,
+    fontSize,
+    keyMarginRight,
     showLogButton,
     showCopyButton,
     valueComponent,
@@ -14,6 +18,22 @@
     <div class="field">
       <label for="leftIndent">--tree-view-left-indent</label>
       <input id="leftIndent" class="w-20 pl-1 bg-01 text-0B" bind:value={leftIndent}/>
+    </div>
+    <div class="field">
+      <label for="lineHeight">--tree-view-li-line-height</label>
+      <input id="lineHeight" class="w-20 pl-1 bg-01 text-0B" bind:value={lineHeight}/>
+    </div>
+    <div class="field">
+      <label for="fontFamily">--tree-view-font-family</label>
+      <input id="fontFamily" class="w-48 pl-1 bg-01 text-0B" bind:value={fontFamily}/>
+    </div>
+    <div class="field">
+      <label for="fontSize">--tree-view-font-size</label>
+      <input id="fontSize" class="w-20 pl-1 bg-01 text-0B" bind:value={fontSize}/>
+    </div>
+    <div class="field">
+      <label for="keyMarginRight">--tree-view-key-margin-right</label>
+      <input id="keyMarginRight" class="w-20 pl-1 bg-01 text-0B" bind:value={keyMarginRight}/>
     </div>
     <div class="field">
       <label for="showLogButton">showLogButton</label>

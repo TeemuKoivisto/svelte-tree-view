@@ -106,7 +106,7 @@
     align-items: baseline;
     display: flex;
     height: max-content;
-    line-height: var(--tree-view-li-line-height);
+    line-height: var(--tree-view-line-height);
     list-style: none;
     width: 100%;
     /* &.collapsed {
@@ -121,7 +121,7 @@
   }
   .node-key {
     color: var(--tree-view-base0D);
-    margin-right: 0.5em;
+    margin-right: var(--tree-view-key-margin-right);
     &.has-children {
       cursor: pointer;
     }

@@ -119,14 +119,16 @@
     --tree-view-base0E: #BE87FF;
     --tree-view-base0F: #D6724C;
 
+    --tree-view-font-family: 'Helvetica Neue', 'Calibri Light', Roboto, sans-serif;
+    --tree-view-font-size: 12px;
     --tree-view-left-indent: 0.875em;
-    --tree-view-li-line-height: 1.1;
-    --tree-view-li-colon-space: 0.3em;
+    --tree-view-line-height: 1.1;
+    --tree-view-key-margin-right: 0.5em;
   }
   section {
     background: var(--tree-view-base00);
-    font-family: var(--tree-view-font-family, 'Helvetica Neue', 'Calibri Light', Roboto, sans-serif);
-    font-size: var(--tree-view-font-size, 12px);
+    font-family: var(--tree-view-font-family);
+    font-size: var(--tree-view-font-size);
     height: max-content;
     width: max-content;
   }
