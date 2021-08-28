@@ -41,6 +41,9 @@ h5 {
   color: var(--tree-view-base0B);
 }
 
+a {
+  color: var(--tree-view-base08);
+}
 a:hover {
   text-decoration: underline;
 }
