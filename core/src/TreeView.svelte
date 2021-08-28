@@ -21,7 +21,7 @@
   const defaultRecursionOpts = {
     maxDepth: 10,
     omitKeys: [],
-    stopRecursion: false,
+    stopCircularRecursion: false,
     shouldExpandNode: () => false
   }
   let props = {

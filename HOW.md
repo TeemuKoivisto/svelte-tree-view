@@ -1,6 +1,6 @@
 # How it works
 
-The way `svelte-tree-view` works is it iterates over each object's key-value pair, often using the index as the key (or in case of Maps or Sets, xxx) and rendering the value as it is for primitives (string, number, undefined) or as a summary of the object's contents eg `{} 7 keys`. Each node receives as its unique ID the stringified path to it eg `[0,1,4,0,1]` which is quite handy compared to generating an uuid that may or may have to be recomputed each time data changes.
+The way `svelte-tree-view` works is it iterates over each object's key-value pair, often using the index as the key (or in the case of Maps, create [key, value] pairs) and rendering the value as it is for primitives (string, number, undefined) or as a summary of the object's contents eg `{} 7 keys`. Each node receives as its unique ID the stringified path to it eg `[0,1,4,0,1]` which is quite handy compared to generating an uuid that may or may have to be recomputed each time data changes.
 
 The node's values are mapped over to generate a list of children that are basically `[string, any]` tuples. Each of these key-value pairs correspond to their respective TreeNodes. The mapping of the children can be defined by the user.
 

@@ -1,6 +1,8 @@
-# Svelte Tree View
+# [Svelte Tree View](https://github.com/TeemuKoivisto/svelte-tree-view)
 
 Library to show Javascript objects in a nice tree layout. It's written in Svelte but since it compiles to pure JS it can be used anywhere (although to customize the rendered nodes you must Svelte).
+
+Its aim was to allow me to customize a tree view in my other library https://teemukoivisto.github.io/prosemirror-dev-toolkit easier than it was with svelte-json-tree. I decided not to extend upon it as its source code seemed a little complicated (which is basically a port of react-json-tree) and I thought I could make it simpler and write it completely in TypeScript. Some neat features I ended up adding are circularity detection (basically object identity comparison) to allow expanding large trees without taking massive performance hits, some convenience buttons and base16 theming. The biggest difference compared to svelte-json-tree is I guess that I show objects or arrays without wrapping curly or square brackets.
 
 [Demo](https://teemukoivisto.github.io/svelte-tree-view/)
 
@@ -10,7 +12,9 @@ Size: xx kB (no external dependencies)
 
 ## How to use
 
-You can import the component as:
+NOTE: Since I'm a TypeScript fanboy I wrote this library in TS and therefore the `"svelte"` block in the `package.json` points to a `index.ts` file. This doesn't allow importing the project as `.svelte` files if your project uses JS which would I suppose make the development experience better (as you don't have to use the compiled version) but damn, I refuse to write this in JS. Also to import the library I noticed `@wessberg/rollup-plugin-ts` parser worked better than for example `rollup-plugin-typescript2`. Don't know the details but it was weird https://github.com/sveltejs/component-template/issues/29.
+
+You can import the library as:
 
 ```ts
 import TreeView from 'svelte-tree-view'
@@ -101,11 +105,11 @@ export default TreeView
 
 ## Theming
 
-This library uses base16 theming, similar to react-json-tree. So basically instead of theming each value type (string, number, undefined etc) separately, you use the same color for all similar values. Here's a repo that might explain it better https://github.com/chriskempson/base16
+This library uses base16 theming, similar to react-json-tree. So basically instead of theming each type (string, number, undefined etc) separately, you use the same color for all similar values. Here's a repo that might explain it better https://github.com/chriskempson/base16
 
-The current default theme is the example monokai theme from react-json-tree with changed background color. You can define your own theme or use one for example here https://github.com/reduxjs/redux-devtools/tree/75322b15ee7ba03fddf10ac3399881e302848874/src/react/themes
+The current default theme is the example monokai theme from react-json-tree with changed background color. You can define your own theme or use one from for example here https://github.com/reduxjs/redux-devtools/tree/75322b15ee7ba03fddf10ac3399881e302848874/src/react/themes
 
-To use a theme, you can either provide an object or set CSS variables.
+To use a theme, you can either provide an object or set CSS variables (recommended).
 
 So either
 
