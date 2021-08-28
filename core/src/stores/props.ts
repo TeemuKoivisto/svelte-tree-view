@@ -6,6 +6,7 @@ export const createPropsStore = (props: TreeViewProps) => {
   const propsStore = writable<TreeViewProps>(props)
 
   return {
+		set: propsStore.set,
 		subscribe: propsStore.subscribe,
 
     formatValue(val: any, node: ITreeNode) {

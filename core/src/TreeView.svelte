@@ -2,7 +2,7 @@
   import { setContext, onMount } from 'svelte'
   import { get } from 'svelte/store'
 
-  import { createNode, recurseObjectProperties, getValueType } from './tree-utils.ts'
+  import { recurseObjectProperties } from './tree-utils.ts'
   import {
     createPropsStore, rootElementStore, treeStore, treeMapStore
   } from './stores/index.ts'
@@ -11,7 +11,6 @@
 
   export let data,
     theme = undefined,
-    leftIndent = 4,
     showLogButton = false,
     showCopyButton = false,
     valueComponent = undefined,
@@ -26,7 +25,6 @@
     shouldExpandNode: () => false
   }
   let props = {
-    leftIndent,
     showLogButton,
     showCopyButton,
     valueComponent,
@@ -38,14 +36,13 @@
   }
   $: {
     props = {
-      leftIndent,
       showLogButton,
       showCopyButton,
       valueComponent,
       valueFormatter,
       recursionOpts: props.recursionOpts
     }
-    // todo update props inside context?
+    propsStore.set(props)
   }
   $: {
     const nodeRecursionOpts = {
@@ -81,9 +78,9 @@
     }
   }
 
-  console.log('tree view render')
+  const propsStore = createPropsStore(props)
   setContext('svelte-tree-view', {
-    propsStore: createPropsStore(props),
+    propsStore,
     rootElementStore,
     treeStore,
     treeMapStore
@@ -122,7 +119,7 @@
     --tree-view-base0E: #BE87FF;
     --tree-view-base0F: #D6724C;
 
-    --tree-view-li-identation: 1em;
+    --tree-view-left-indent: 0.875em;
     --tree-view-li-line-height: 1.1;
     --tree-view-li-colon-space: 0.3em;
   }

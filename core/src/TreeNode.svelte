@@ -7,7 +7,6 @@
     treeMapStore,
     propsStore,
     rootElementStore,
-    formatValue
   } = getContext('svelte-tree-view')
   $: node = treeMapStore.getNode(id)
   $: hasChildren = node.children.length > 0
@@ -84,7 +83,7 @@
 </li>
 {#if !node.collapsed && hasChildren}
   <li class="row">
-    <ul style={`padding-left: 0.875em`}>
+    <ul>
       {#each node.children as child}
         <svelte:self id={child.id} />
       {/each}
@@ -99,6 +98,7 @@
     height: max-content;
     list-style: none;
     padding: 0;
+    padding-left: var(--tree-view-left-indent);
     margin: 0;
     width: 100%;
   }
