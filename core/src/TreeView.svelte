@@ -73,7 +73,9 @@
   $: {
     if (theme && rootElement) {
       Object.keys(theme).forEach(key => {
-        rootElement.style.setProperty(`--tree-view-${key}`, theme[key])
+        if (key.includes('--tree-view-base')) {
+          rootElement.style.setProperty(`--tree-view-${key}`, theme[key])
+        }
       })
     }
   }
@@ -91,11 +93,11 @@
   })
 </script>
 
-<section class={$$props.class} bind:this={rootElement}>
+<ul class={$$props.class} bind:this={rootElement}>
   {#each $treeStore.children as child}
     <TreeNode id={child.id} />
   {/each}
-</section>
+</ul>
 
 <style>
   * {
@@ -125,11 +127,14 @@
     --tree-view-line-height: 1.1;
     --tree-view-key-margin-right: 0.5em;
   }
-  section {
+  ul {
     background: var(--tree-view-base00);
     font-family: var(--tree-view-font-family);
     font-size: var(--tree-view-font-size);
     height: max-content;
+    list-style: none;
+    margin: 0;
+    padding: 0;
     width: max-content;
   }
 </style>

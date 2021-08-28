@@ -8,17 +8,16 @@
     id: '[1]',
     index: 0,
     key: `test`,
-    value: [1,2,3],
+    value: [1, 2, 3],
     depth: 0,
     collapsed: false,
     type: 'array',
     path: [],
     parentId: null,
     circularOfId: null,
-    children: []
+    children: [],
   }
-  const defaultRecursionOpts =
-`{
+  const defaultRecursionOpts = `{
   maxDepth: 10,
   omitKeys: [],
   stopCircularRecursion: false,
@@ -58,8 +57,7 @@
     }
   }
 }`
-  const defaultValueFormatter =
-`(val, node) => {
+  const defaultValueFormatter = `(val, node) => {
   switch (node.type) {
     case 'array':
       return \u0060\${node.circularOfId ? 'circular' : ''} [] \${val.length} items\u0060
@@ -78,8 +76,7 @@
       return val
   }
 }`
-  const defaultTheme =
-`{
+  const defaultTheme = `{
   scheme: 'monokai',
   base00: '#363755', // main blue bg
   base01: '#604D49',
@@ -125,11 +122,15 @@
   $: {
     if (typeof document !== undefined) {
       try {
-        leftIndent && document.documentElement.style.setProperty(`--tree-view-left-indent`, leftIndent)
-        lineHeight && document.documentElement.style.setProperty(`--tree-view-li-line-height`, lineHeight)
-        fontFamily && document.documentElement.style.setProperty(`--tree-view-font-family`, fontFamily)
+        leftIndent &&
+          document.documentElement.style.setProperty(`--tree-view-left-indent`, leftIndent)
+        lineHeight &&
+          document.documentElement.style.setProperty(`--tree-view-li-line-height`, lineHeight)
+        fontFamily &&
+          document.documentElement.style.setProperty(`--tree-view-font-family`, fontFamily)
         fontSize && document.documentElement.style.setProperty(`--tree-view-font-size`, fontSize)
-        keyMarginRight && document.documentElement.style.setProperty(`--tree-view-key-margin-right`, keyMarginRight)
+        keyMarginRight &&
+          document.documentElement.style.setProperty(`--tree-view-key-margin-right`, keyMarginRight)
       } catch (e) {}
     }
   }
@@ -142,25 +143,22 @@
         parsed.mapChildren([], 'array', testNode)
         parsedRecursionOpts = parsed
       }
-    } catch (e) {
-    }
+    } catch (e) {}
   }
   $: {
     try {
       let parsed = new Function(`return ${valueFormatter}`)()
-      console.log(parsed)
       if (typeof parsed === 'function') {
         parsed(testNode.value, testNode)
         parsedValueFormatter = parsed
       }
-    } catch (e) {
-    }
+    } catch (e) {}
   }
   $: {
     if (theme) {
       try {
         parsedTheme = new Function(`return ${theme}`)()
-        Object.keys(parsedTheme).forEach(key => {
+        Object.keys(parsedTheme).forEach((key) => {
           document.documentElement.style.setProperty(`--tree-view-${key}`, parsedTheme[key])
         })
       } catch (e) {}
@@ -170,21 +168,21 @@
 
 <section class="p-4 m-auto lg:container md:p-16 md:pt-8 xs:p-8 rounded-2xl">
   <h1 class="my-3 text-5xl font-bold flex items-center">
-    <a target="_blank" href="https://github.com/teemukoivisto/svelte-tree-view">svelte-tree-view</a>
+    <a target="_blank" rel="noopener" href="https://github.com/teemukoivisto/svelte-tree-view">svelte-tree-view</a>
   </h1>
   <p class="my-2">Copy-paste JSON objects to view them.</p>
   <PropsForm
-    bind:leftIndent={leftIndent}
-    bind:lineHeight={lineHeight}
-    bind:fontFamily={fontFamily}
-    bind:fontSize={fontSize}
-    bind:keyMarginRight={keyMarginRight}
-    bind:showLogButton={showLogButton}
-    bind:showCopyButton={showCopyButton}
-    bind:valueComponent={valueComponent}
-    bind:recursionOpts={recursionOpts}
-    bind:valueFormatter={valueFormatter}
-    bind:theme={theme}
+    bind:leftIndent
+    bind:lineHeight
+    bind:fontFamily
+    bind:fontSize
+    bind:keyMarginRight
+    bind:showLogButton
+    bind:showCopyButton
+    bind:valueComponent
+    bind:recursionOpts
+    bind:valueFormatter
+    bind:theme
   />
   <div class="my-4">
     <button class="btn" on:click={() => (parsedData = obj1)}>Example 1</button>
@@ -194,9 +192,9 @@
     <TreeView
       class="tree-view w-1/2 px-4"
       data={parsedData}
-      showLogButton={showLogButton}
-      showCopyButton={showCopyButton}
-      valueComponent={valueComponent}
+      {showLogButton}
+      {showCopyButton}
+      {valueComponent}
       recursionOpts={parsedRecursionOpts}
       valueFormatter={parsedValueFormatter}
       theme={parsedTheme}
