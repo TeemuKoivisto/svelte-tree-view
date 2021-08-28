@@ -1,4 +1,4 @@
-import { SvelteComponent, SvelteComponentTyped } from 'svelte'
+import { SvelteComponentTyped } from 'svelte'
 
 export type ValueType =
   | 'array'
@@ -53,7 +53,6 @@ export interface IBase16Theme {
 export interface TreeViewProps {
   data: Object
   theme?: IBase16Theme
-  leftIndent?: number
   showLogButton?: boolean
   showCopyButton?: boolean
   valueComponent?: SvelteComponentTyped<{

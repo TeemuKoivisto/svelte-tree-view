@@ -4,17 +4,111 @@
   import obj1 from './obj1.json'
 
   const placeholder = `Eg. {"a": 1, "b": [1,2,3]}`
+  const testNode = {
+    id: '[1]',
+    index: 0,
+    key: `test`,
+    value: [1,2,3],
+    depth: 0,
+    collapsed: false,
+    type: 'array',
+    path: [],
+    parentId: null,
+    circularOfId: null,
+    children: []
+  }
+  const defaultRecursionOpts =
+`{
+  maxDepth: 10,
+  omitKeys: [],
+  stopCircularRecursion: false,
+  isCircularNode(node, iteratedValues) {
+    if (node.type === 'object' || node.type === 'array') {
+      const existingNodeWithValue = iteratedValues.get(node.value)
+      if (existingNodeWithValue) {
+        node.circularOfId = existingNodeWithValue.id
+        return false
+      }
+      iteratedValues.set(node.value, node)
+    }
+    return true
+  },
+  shouldExpandNode: (node) => {
+    return true
+  },
+  mapChildren(value, type, parent) {
+    switch (type) {
+      case 'array':
+        return value.map((v, i) => [i.toString(), v])
+      case 'map':
+        const entries = Array.from(value.entries())
+        return entries.map(([key, value], i) => [
+          \`[map entry \${i}]\`,
+          {
+            '[key]': key,
+            '[value]': value
+          }
+        ])
+      case 'set':
+        return Array.from(value.values()).map((v, i) => [\`[set entry \${i}]\`, v])
+      case 'object':
+        return Object.entries(value)
+      default:
+        return []
+    }
+  }
+}`
+  const defaultValueFormatter =
+`(val, node) => {
+  switch (node.type) {
+    case 'array':
+      return \u0060\${node.circularOfId ? 'circular' : ''} [] \${val.length} items\u0060
+    case 'object':
+      return \u0060\${node.circularOfId ? 'circular' : ''} {} \${Object.keys(val).length} keys\u0060
+    case 'map':
+    case 'set':
+      return \u0060\${node.circularOfId ? 'circular' : ''} () \${val.size} entries\u0060
+    case 'date':
+      return \u0060\${val.toISOString()}\u0060
+    case 'string':
+      return \u0060"\${val}"\u0060
+    case 'boolean':
+      return val ? 'true' : 'false'
+    default:
+      return val
+  }
+}`
+  const defaultTheme =
+`{
+  scheme: 'monokai',
+  base00: '#363755', // main blue bg
+  base01: '#604D49',
+  base02: '#6D5A55',
+  base03: '#D1929B', // red text
+  base04: '#B79F8D',
+  base05: '#F9F8F2',
+  base06: '#F7F4F1',
+  base07: '#FAF8F5',
+  base08: '#FA3E7E', // purple (null, undefined)
+  base09: '#FD993C', // orange (number, boolean)
+  base0A: '#F6BF81',
+  base0B: '#B8E248', // main green text
+  base0C: '#B4EFE4',
+  base0D: '#85D9EF', // main blue text
+  base0E: '#BE87FF',
+  base0F: '#D6724C'
+}`
   let data = '',
     parsedData = obj1,
     leftIndent = '0.875em',
     showLogButton = false,
     showCopyButton = false,
     valueComponent = undefined,
-    recursionOpts = {
-      shouldExpandNode: () => true,
-    },
-    valueFormatter = undefined,
-    theme = undefined,
+    recursionOpts = defaultRecursionOpts,
+    parsedRecursionOpts = undefined,
+    valueFormatter = defaultValueFormatter,
+    parsedValueFormatter = undefined,
+    theme = defaultTheme,
     parsedTheme = undefined
 
   $: {
@@ -32,6 +126,29 @@
     }
   }
   $: {
+    try {
+      let parsed = new Function(`return ${recursionOpts}`)()
+      if (typeof parsed === 'object') {
+        parsed.isCircularNode(testNode, new Map())
+        parsed.shouldExpandNode(testNode)
+        parsed.mapChildren([], 'array', testNode)
+        parsedRecursionOpts = parsed
+      }
+    } catch (e) {
+    }
+  }
+  $: {
+    try {
+      let parsed = new Function(`return ${valueFormatter}`)()
+      console.log(parsed)
+      if (typeof parsed === 'function') {
+        parsed(testNode.value, testNode)
+        parsedValueFormatter = parsed
+      }
+    } catch (e) {
+    }
+  }
+  $: {
     if (theme) {
       try {
         parsedTheme = new Function(`return ${theme}`)()
@@ -43,7 +160,7 @@
   }
 </script>
 
-<section class="p-4 m-auto text-container md:p-16 md:pt-8 xs:p-8 rounded-2xl">
+<section class="p-4 m-auto lg:container md:p-16 md:pt-8 xs:p-8 rounded-2xl">
   <h1 class="my-3 text-5xl font-bold flex items-center">
     <a target="_blank" href="https://github.com/teemukoivisto/svelte-tree-view">svelte-tree-view</a>
   </h1>
@@ -61,15 +178,15 @@
     <button class="btn" on:click={() => (parsedData = obj1)}>Example 1</button>
   </div>
   <div class="flex">
-    <textarea class="w-1/2 bg-0C text-01 p-2 border" bind:value={data} {placeholder} />
+    <textarea class="w-1/2 bg-06 text-00 p-2 border" bind:value={data} {placeholder} />
     <TreeView
       class="tree-view w-1/2 px-4"
       data={parsedData}
       showLogButton={showLogButton}
       showCopyButton={showCopyButton}
       valueComponent={valueComponent}
-      recursionOpts={recursionOpts}
-      valueFormatter={valueFormatter}
+      recursionOpts={parsedRecursionOpts}
+      valueFormatter={parsedValueFormatter}
       theme={parsedTheme}
     />
   </div>

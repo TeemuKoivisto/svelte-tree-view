@@ -72,8 +72,8 @@ export function getValueType(value: any): ValueType {
 //   return type
 // }
 
-function getChildren(value: any): [string, any][] {
-  switch (getValueType(value)) {
+function getChildren(value: any, type: ValueType): [string, any][] {
+  switch (type) {
     case 'array':
       return value.map((v: any, i: number) => [i.toString(), v])
     case 'map':
@@ -143,7 +143,7 @@ export function recurseObjectProperties(
 
   if (shouldRecurseChildren(node, iteratedValues, opts)) {
     const mappedChildren = opts.mapChildren && opts.mapChildren(value, getValueType(value), node)
-    const children = mappedChildren ?? getChildren(value)
+    const children = mappedChildren ?? getChildren(value, getValueType(value))
     node.children = children
       .map(([key, val], idx) =>
         recurseObjectProperties(
