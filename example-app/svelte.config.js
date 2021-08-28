@@ -1,5 +1,7 @@
-import node from '@sveltejs/adapter-node'
+import adapter from '@sveltejs/adapter-static'
 import preprocess from 'svelte-preprocess'
+
+const { DEPLOY_TO_GH } = process.env
 
 /** @type {import('@sveltejs/kit').Config} */
 export default {
@@ -8,8 +10,20 @@ export default {
   preprocess: preprocess(),
 
   kit: {
-    // hydrate the <div id="svelte"> element in src/app.html
     target: '#svelte',
-    adapter: node(),
+    ssr: false,
+    trailingSlash: 'never',
+    paths: {
+      base: DEPLOY_TO_GH ? '/svelte-tree-view' : '',
+    },
+    files: {
+      routes: './src/routes',
+      lib: './src/lib',
+    },
+    adapter: adapter({
+      // default options are shown
+      pages: 'build',
+      assets: 'build',
+    }),
   },
 }

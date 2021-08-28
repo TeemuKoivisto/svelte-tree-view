@@ -4,26 +4,25 @@
   "type": "module",
   "homepage": "https://teemukoivisto.github.io/svelte-tree-view/",
   "scripts": {
-    "build": "svelte-kit build --verbose",
+    "build": "rimraf build && DEPLOY_TO_GH=true svelte-kit build && rimraf build/static && touch build/.nojekyll",
+    "deploy": "gh-pages -d build -t true",
     "dev": "svelte-kit dev",
-    "format": "prettier --ignore-path .svelte-kit --write .",
+    "format": "prettier --write *.cjs src/",
     "lint": "prettier --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
-    "preview": "svelte-kit preview",
-    "postcss:watch": "TAILWIND_MODE=watch postcss tailwind.css -o build.css",
-    "tailwind:watch": "TAILWIND_MODE=watch NODE_ENV=development postcss src/tailwind.css -o src/styles/tailwind-output.css -w",
-    "tailwind:build": "TAILWIND_MODE=build NODE_ENV=production postcss src/tailwind.css -o src/styles/tailwind-output.css"
+    "preview": "svelte-kit preview"
   },
   "devDependencies": {
-    "@sveltejs/adapter-node": "next",
-    "@sveltejs/kit": "next",
-    "@types/cookie": "^0.4.1",
+    "@sveltejs/adapter-static": "^1.0.0-next.17",
+    "@sveltejs/kit": "1.0.0-next.147",
     "@typescript-eslint/eslint-plugin": "^4.29.3",
     "@typescript-eslint/parser": "^4.29.3",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-svelte3": "^3.2.0",
+    "gh-pages": "^3.2.3",
     "prettier": "~2.3.2",
     "prettier-plugin-svelte": "^2.3.1",
+    "rimraf": "^3.0.2",
     "svelte": "^3.42.3",
     "svelte-preprocess": "^4.8.0",
     "tslib": "^2.3.1",
@@ -32,7 +31,6 @@
   },
   "dependencies": {
     "autoprefixer": "^10.3.3",
-    "cookie": "^0.4.1",
     "tailwindcss": "^2.2.7"
   }
 }
