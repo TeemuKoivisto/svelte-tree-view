@@ -2,7 +2,7 @@ import { get, writable } from 'svelte/store'
 
 import { ITreeNode } from '../types'
 
-export const treeMapStore = (() => {
+export const createTreeMapStore = () => {
   const treeMapStore = writable<Map<string, ITreeNode | null>>(new Map())
 
   return {
@@ -36,4 +36,4 @@ export const treeMapStore = (() => {
       treeMapStore.set(updated)
     },
   }
-})()
+}

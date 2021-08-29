@@ -1,4 +1,4 @@
 export { createPropsStore } from './props'
-export { rootElementStore } from './root-element'
-export { treeStore } from './tree'
-export { treeMapStore } from './treemap'
+export { createRootElementStore } from './root-element'
+export { createTreeStore } from './tree'
+export { createTreeMapStore } from './treemap'

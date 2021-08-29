@@ -4,7 +4,7 @@
 
   import { recurseObjectProperties } from './tree-utils.ts'
   import {
-    createPropsStore, rootElementStore, treeStore, treeMapStore
+    createPropsStore, createRootElementStore, createTreeStore, createTreeMapStore
   } from './stores/index.ts'
 
   import TreeNode from './TreeNode.svelte'
@@ -81,6 +81,9 @@
   }
 
   const propsStore = createPropsStore(props)
+  const rootElementStore = createRootElementStore()
+  const treeStore = createTreeStore()
+  const treeMapStore = createTreeMapStore()
   setContext('svelte-tree-view', {
     propsStore,
     rootElementStore,
