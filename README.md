@@ -2,13 +2,11 @@
 
 Library to show Javascript objects in a nice tree layout. It's written in Svelte but since it compiles to pure JS it can be used anywhere (although to customize the rendered nodes you must Svelte).
 
-Its aim was to allow me to customize a tree view in my other library https://teemukoivisto.github.io/prosemirror-dev-toolkit easier than it was with svelte-json-tree. I decided not to extend upon it as its source code seemed a little complicated (which is basically a port of react-json-tree) and I thought I could make it simpler and write it completely in TypeScript. Some neat features I ended up adding are circularity detection (basically object identity comparison) to allow expanding large trees without taking massive performance hits, some convenience buttons and base16 theming. The biggest difference compared to svelte-json-tree is I guess that I show objects or arrays without wrapping curly or square brackets.
-
 [Demo](https://teemukoivisto.github.io/svelte-tree-view/)
 
 `npm i svelte-tree-view`
 
-Size: xx kB (no external dependencies)
+Size: 18 kB (no external dependencies)
 
 ## How to use
 
@@ -42,6 +40,21 @@ And use it as:
 The full typings as copied from the source are:
 
 ```ts
+export type ValueType =
+  | 'array'
+  | 'map'
+  | 'set'
+  | 'date'
+  | 'object'
+  | 'function'
+  | 'string'
+  | 'number'
+  | 'bigint'
+  | 'boolean'
+  | 'symbol'
+  | 'null'
+  | 'undefined'
+
 export interface ITreeNode {
   id: string
   index: number
@@ -58,6 +71,7 @@ export interface ITreeNode {
 
 export interface IBase16Theme {
   scheme?: string
+  author?: string
   base00: string // Default Background
   base01: string // Lighter Background (Used for status bars, line number and folding marks)
   base02: string // Selection Background
@@ -79,7 +93,6 @@ export interface IBase16Theme {
 export interface TreeViewProps {
   data: Object
   theme?: IBase16Theme
-  leftIndent?: number
   showLogButton?: boolean
   showCopyButton?: boolean
   valueComponent?: SvelteComponentTyped<{
@@ -99,6 +112,7 @@ export interface TreeRecursionOpts {
   shouldExpandNode?: (n: ITreeNode) => boolean
   mapChildren?: (val: any, type: ValueType, parent: ITreeNode) => [string, any][] | undefined
 }
+
 export class TreeView extends SvelteComponentTyped<TreeViewProps> {}
 export default TreeView
 ```
@@ -170,7 +184,7 @@ You must have yarn installed globally.
 1. `yarn`
 2. `yarn start`
 
-This should start the Rollup compiler and launch the example site at http://localhost:4300. To changes are not automatically refreshed in the React app so you must hit refresh.
+This should start the Rollup compiler for the source code and launch the SvelteKit example site at http://localhost:3000.
 
 ## Similar libraries
 
