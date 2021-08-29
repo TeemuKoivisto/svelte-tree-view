@@ -45,7 +45,11 @@
     </div>
     <div class="field">
       <label>valueComponent</label>
-      <button class="btn-example">example</button>
+      <div
+        class="px-1 py-0.5 rounded-sm transition-colors duration-100 tracking-wide text-xs text-0B"
+      >
+        See Example 2
+      </div>
     </div>
   </div>
   <div class="flex flex-col m-2 mt-0">
@@ -101,11 +105,5 @@
   }
   textarea {
     @apply p-2;
-  }
-  .btn-example {
-    background-color: var(--tree-view-base02);
-    color: var(--tree-view-base0B);
-
-    @apply px-1 py-0.5 rounded-sm transition-colors duration-100 tracking-wide text-xs;
   }
 </style>

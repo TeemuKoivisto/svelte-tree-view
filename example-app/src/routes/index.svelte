@@ -1,7 +1,12 @@
-<script>
+<script lang="ts">
   import TreeView from 'svelte-tree-view'
   import PropsForm from '../components/PropsForm.svelte'
-  import obj1 from './obj1.json'
+  import DiffValue from '../components/DiffValue.svelte'
+
+  import { mapDocDeltaChildren } from '../mapDocDeltaChildren'
+
+  import example1 from './example1.json'
+  import example2 from './example2.json'
 
   const placeholder = `Eg. {"a": 1, "b": [1,2,3]}`
   const testNode = {
@@ -96,7 +101,7 @@
   base0F: '#D6724C'
 }`
   let data = '',
-    parsedData = obj1,
+    parsedData: { [key: string]: any } = example1,
     leftIndent = '0.875em',
     lineHeight = '1.1',
     fontFamily = 'Helvetica Neue',
@@ -164,11 +169,38 @@
       } catch (e) {}
     }
   }
+
+  function handleExampleClick(example: 1 | 2) {
+    switch (example) {
+      case 1:
+        parsedData = example1
+        valueComponent = undefined
+        if (parsedRecursionOpts && parsedRecursionOpts.mapChildren === mapDocDeltaChildren) {
+          parsedRecursionOpts.mapChildren = undefined
+        }
+        return
+      case 2:
+        parsedData = example2
+        valueComponent = DiffValue
+        if (parsedRecursionOpts) {
+          parsedRecursionOpts.mapChildren = mapDocDeltaChildren
+          parsedRecursionOpts.shouldExpandNode = () => true
+        } else {
+          parsedRecursionOpts = {
+            mapChildren: mapDocDeltaChildren,
+            shouldExpandNode: () => true,
+          }
+        }
+        return
+    }
+  }
 </script>
 
 <section class="p-4 m-auto lg:container md:p-16 md:pt-8 xs:p-8 rounded-2xl">
   <h1 class="my-3 text-5xl font-bold flex items-center">
-    <a target="_blank" rel="noopener" href="https://github.com/teemukoivisto/svelte-tree-view">svelte-tree-view</a>
+    <a target="_blank" rel="noopener" href="https://github.com/teemukoivisto/svelte-tree-view"
+      >svelte-tree-view</a
+    >
   </h1>
   <p class="my-2">Copy-paste JSON objects to view them.</p>
   <PropsForm
@@ -185,12 +217,13 @@
     bind:theme
   />
   <div class="my-4">
-    <button class="btn" on:click={() => (parsedData = obj1)}>Example 1</button>
+    <button class="btn" on:click={() => handleExampleClick(1)}>Example 1</button>
+    <button class="btn" on:click={() => handleExampleClick(2)}>Example 2</button>
   </div>
   <div class="flex">
     <textarea class="w-1/2 bg-06 text-00 p-2 border" bind:value={data} {placeholder} />
     <TreeView
-      class="tree-view w-1/2 px-4"
+      class="tree-view x"
       data={parsedData}
       {showLogButton}
       {showCopyButton}
@@ -203,7 +236,8 @@
 </section>
 
 <style>
-  :global(.tree-view) {
-    width: 50% !important;
+  /** Must use second class for added specifity to override the default styles */
+  :global(.tree-view.x) {
+    @apply w-1/2 px-4;
   }
 </style>
