@@ -6,7 +6,7 @@ Library to show Javascript objects in a nice tree layout. It's written in Svelte
 
 `npm i svelte-tree-view`
 
-Size: 18 kB (no external dependencies)
+Size: 18 kBs (no external dependencies)
 
 ## How to use
 

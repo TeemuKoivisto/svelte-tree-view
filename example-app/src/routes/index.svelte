@@ -218,7 +218,7 @@
   />
   <div class="my-4">
     <button class="btn" on:click={() => handleExampleClick(1)}>Example 1</button>
-    <button class="btn" on:click={() => handleExampleClick(2)}>Example 2</button>
+    <button class="btn ml-2" on:click={() => handleExampleClick(2)}>Example 2</button>
   </div>
   <div class="flex">
     <textarea class="w-1/2 bg-06 text-00 p-2 border" bind:value={data} {placeholder} />

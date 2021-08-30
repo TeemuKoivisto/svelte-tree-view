@@ -35,32 +35,32 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/svelte": "^3.0.3",
     "@types/jest": "^27.0.1",
-    "@types/prosemirror-model": "^1.13.1",
+    "@types/prosemirror-model": "^1.13.2",
     "@types/prosemirror-state": "^1.2.7",
     "@types/prosemirror-view": "^1.18.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-import": "^2.24.0",
-    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-prettier": "^3.4.1",
     "eslint-plugin-svelte3": "^3.2.0",
-    "jest": "^27.0.6",
+    "jest": "^27.1.0",
     "jest-scss-transform": "^1.0.1",
     "node-sass": "^6.0.1",
     "postcss": "^8.3.6",
     "prettier": "^2.3.2",
-    "prettier-plugin-svelte": "^2.3.1",
-    "rollup": "^2.56.2",
+    "prettier-plugin-svelte": "^2.4.0",
+    "rollup": "^2.56.3",
     "rollup-plugin-postcss": "^4.0.1",
     "rollup-plugin-svelte": "^7.1.0",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.30.0",
-    "svelte": "^3.42.1",
-    "svelte-check": "^2.2.4",
-    "svelte-jester": "^2.0.1",
-    "svelte-preprocess": "^4.7.4",
-    "ts-jest": "^27.0.4",
+    "svelte": "^3.42.4",
+    "svelte-check": "^2.2.5",
+    "svelte-jester": "^2.1.0",
+    "svelte-preprocess": "^4.8.0",
+    "ts-jest": "^27.0.1",
     "tslib": "^2.3.1",
-    "typescript": "^4.3.5"
+    "typescript": "^4.4.2"
   },
   "jest": {
     "testMatch": [
@@ -71,13 +71,13 @@
     ],
     "transform": {
       "^.+\\.scss$": "jest-scss-transform",
+      "^.+\\.(js|ts)$": "ts-jest",
       "^.+\\.svelte$": [
         "svelte-jester",
         {
           "preprocess": true
         }
-      ],
-      "^.+\\.ts$": "ts-jest"
+      ]
     },
     "moduleFileExtensions": [
       "js",

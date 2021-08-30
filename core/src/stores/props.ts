@@ -1,6 +1,6 @@
 import { get, writable } from 'svelte/store'
 
-import { ITreeNode, TreeViewProps } from '../types'
+import type { ITreeNode, TreeViewProps } from '../types'
 
 export const createPropsStore = (props: TreeViewProps) => {
   const propsStore = writable<TreeViewProps>(props)

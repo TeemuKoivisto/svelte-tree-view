@@ -1,6 +1,6 @@
 import { get, writable } from 'svelte/store'
 
-import { ITreeNode } from '../types'
+import type { ITreeNode } from '../types'
 
 export const createTreeMapStore = () => {
   const treeMapStore = writable<Map<string, ITreeNode | null>>(new Map())

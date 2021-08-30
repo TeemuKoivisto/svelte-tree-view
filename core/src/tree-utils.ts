@@ -1,4 +1,4 @@
-import { ITreeNode, TreeRecursionOpts, ValueType } from './types'
+import type { ITreeNode, TreeRecursionOpts, ValueType } from './types'
 
 export function createNode(
   index: number,
