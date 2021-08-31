@@ -1,8 +1,8 @@
-# [Svelte Tree View](https://github.com/TeemuKoivisto/svelte-tree-view)
+# [svelte-tree-view](https://github.com/TeemuKoivisto/svelte-tree-view) ![version](https://img.shields.io/npm/v/svelte-tree-view?style=flat-square)
 
 Library to show Javascript objects in a nice tree layout. It's written in Svelte but since it compiles to pure JS it can be used anywhere (although to customize the rendered nodes you must Svelte).
 
-[Demo](https://teemukoivisto.github.io/svelte-tree-view/)
+## [Demo](https://teemukoivisto.github.io/svelte-tree-view/)
 
 `npm i svelte-tree-view`
 
@@ -56,16 +56,16 @@ export type ValueType =
   | 'undefined'
 
 export interface ITreeNode {
-  id: string
-  index: number
-  key: string
-  value: any
+  id: string // ID generated from the path to this node eg "[0,1,2]"
+  index: number // index of this node in the parent object as its values are iterated
+  key: string // key of this node eg "1" for an array key or "foo" for an object
+  value: any // the value mapped to this key
   depth: number
   collapsed: boolean
   type: ValueType
   path: number[]
   parentId: string | null
-  circularOfId: string | null
+  circularOfId: string | null // Circularity is checked by object identity to prevent recursing the same values again
   children: ITreeNode[]
 }
 
@@ -90,27 +90,29 @@ export interface IBase16Theme {
   base0F: string // Deprecated, Opening/Closing Embedded Language Tags, e.g. <?php ?>
 }
 
+export type ValueComponent = SvelteComponentTyped<{
+  value: any
+  node: ITreeNode
+  defaultFormatter?: (val: any) => string | undefined
+}>
+
 export interface TreeViewProps {
-  data: Object
+  data: Object // Data can be basically any non-primitive value
   theme?: IBase16Theme
   showLogButton?: boolean
   showCopyButton?: boolean
-  valueComponent?: SvelteComponentTyped<{
-    value: any
-    node: ITreeNode
-    defaultFormatter?: (val: any) => string | undefined
-  }>
+  valueComponent?: ValueComponent // The Svelte component to replace the default value-as-string presentation
   recursionOpts?: TreeRecursionOpts
-  valueFormatter?: (val: any, n: ITreeNode) => string | undefined
+  valueFormatter?: (val: any, n: ITreeNode) => string | undefined // For custom formatting the value string
 }
 
 export interface TreeRecursionOpts {
   maxDepth?: number
-  omitKeys?: string[]
-  stopCircularRecursion?: boolean
-  isCircularNode?: (n: ITreeNode, iteratedValues: Map<any, ITreeNode>) => boolean
-  shouldExpandNode?: (n: ITreeNode) => boolean
-  mapChildren?: (val: any, type: ValueType, parent: ITreeNode) => [string, any][] | undefined
+  omitKeys?: string[] // Quick and dirty way to prevent recursing certain object keys instead of overriding shouldExpandNode
+  stopCircularRecursion?: boolean // Stops recursing objects already recursed
+  isCircularNode?: (n: ITreeNode, iteratedValues: Map<any, ITreeNode>) => boolean // For custom circularity detection magic
+  shouldExpandNode?: (n: ITreeNode) => boolean // Will auto-expand or collapse values as data is provided
+  mapChildren?: (val: any, type: ValueType, parent: ITreeNode) => [string, any][] | undefined // For customizing the created key-value pairs
 }
 
 export class TreeView extends SvelteComponentTyped<TreeViewProps> {}

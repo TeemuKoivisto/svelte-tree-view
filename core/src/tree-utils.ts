@@ -39,7 +39,7 @@ export function getValueType(value: any): ValueType {
   }
 }
 
-// From the old dev-tools, originally from redux-dev-tools
+// From redux-dev-tools
 // case 'Object':
 //   case 'Error':
 //   case 'Array':
