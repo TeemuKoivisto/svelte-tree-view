@@ -7,6 +7,7 @@
 
   import example1 from './example1.json'
   import example2 from './example2.json'
+  import { generateObj } from '../generateObj'
 
   const placeholder = `Eg. {"a": 1, "b": [1,2,3]}`
   const testNode = {
@@ -170,7 +171,7 @@
     }
   }
 
-  function handleExampleClick(example: 1 | 2) {
+  function handleExampleClick(example: 1 | 2 | 3) {
     switch (example) {
       case 1:
         parsedData = example1
@@ -192,6 +193,12 @@
           }
         }
         return
+      case 3:
+        parsedData = generateObj(0, 4)
+        if (parsedRecursionOpts && parsedRecursionOpts.mapChildren === mapDocDeltaChildren) {
+          parsedRecursionOpts.mapChildren = undefined
+        }
+        parsedRecursionOpts.stopCircularRecursion = true
     }
   }
 </script>
@@ -219,9 +226,10 @@
   <div class="my-4">
     <button class="btn" on:click={() => handleExampleClick(1)}>Example 1</button>
     <button class="btn ml-2" on:click={() => handleExampleClick(2)}>Example 2</button>
+    <button class="btn ml-2" on:click={() => handleExampleClick(3)}>Example 3</button>
   </div>
   <div class="flex">
-    <textarea class="w-1/2 bg-06 text-00 p-2 border" bind:value={data} {placeholder} />
+    <textarea class="w-1/2 bg-06 text-00 placeholder-gray-500 p-2 border" bind:value={data} {placeholder} />
     <TreeView
       class="tree-view x"
       data={parsedData}
