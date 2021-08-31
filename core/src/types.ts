@@ -50,16 +50,18 @@ export interface IBase16Theme {
   base0F: string // Deprecated, Opening/Closing Embedded Language Tags, e.g. <?php ?>
 }
 
+export type ValueComponent = SvelteComponentTyped<{
+  value: any
+  node: ITreeNode
+  defaultFormatter?: (val: any) => string | undefined
+}>
+
 export interface TreeViewProps {
   data: Object
   theme?: IBase16Theme
   showLogButton?: boolean
   showCopyButton?: boolean
-  valueComponent?: SvelteComponentTyped<{
-    value: any
-    node: ITreeNode
-    defaultFormatter?: (val: any) => string | undefined
-  }>
+  valueComponent?: ValueComponent
   recursionOpts?: TreeRecursionOpts
   valueFormatter?: (val: any, n: ITreeNode) => string | undefined
 }

@@ -2,29 +2,41 @@
   import { setContext, onMount } from 'svelte'
   import { get } from 'svelte/store'
 
-  import { recurseObjectProperties } from './tree-utils.ts'
+  import { recurseObjectProperties } from './tree-utils'
   import {
-    createPropsStore, createRootElementStore, createTreeStore, createTreeMapStore
-  } from './stores/index.ts'
+    createPropsStore,
+    createRootElementStore,
+    createTreeStore,
+    createTreeMapStore
+  } from './stores'
 
   import TreeNode from './TreeNode.svelte'
 
-  export let data,
-    theme = undefined,
+  import type { Stores } from './stores'
+  import type {
+    ITreeNode,
+    TreeViewProps,
+    IBase16Theme,
+    ValueComponent,
+    TreeRecursionOpts
+  } from './types'
+
+  export let data: Object,
+    theme: IBase16Theme | undefined = undefined,
     showLogButton = false,
     showCopyButton = false,
-    valueComponent = undefined,
-    recursionOpts = {},
-    valueFormatter = undefined
+    valueComponent: ValueComponent | undefined = undefined,
+    recursionOpts: TreeRecursionOpts | undefined = {},
+    valueFormatter: ((val: any, n: ITreeNode) => string | undefined) | undefined = undefined
 
   let rootElement: HTMLElement | null = null
-  const defaultRecursionOpts = {
+  const defaultRecursionOpts: TreeRecursionOpts = {
     maxDepth: 10,
     omitKeys: [],
     stopCircularRecursion: false,
     shouldExpandNode: () => false
   }
-  let props = {
+  let props: Omit<TreeViewProps, 'data'> = {
     showLogButton,
     showCopyButton,
     valueComponent,
@@ -50,7 +62,7 @@
       ...recursionOpts
     }
     const recomputeExpandNode =
-      props.recursionOpts.shouldExpandNode !== nodeRecursionOpts.shouldExpandNode
+      props?.recursionOpts?.shouldExpandNode !== nodeRecursionOpts.shouldExpandNode
     const treeMap = new Map()
     const oldTreeMap = get(treeMapStore)
     const iteratedValues = new Map()
@@ -72,8 +84,8 @@
   }
   $: {
     if (theme && rootElement) {
-      Object.keys(theme).forEach(key => {
-        if (key.includes('--tree-view-base')) {
+      Object.keys(theme).forEach((key: string) => {
+        if (rootElement && key.includes('--tree-view-base')) {
           rootElement.style.setProperty(`--tree-view-${key}`, theme[key])
         }
       })
@@ -84,7 +96,7 @@
   const rootElementStore = createRootElementStore()
   const treeStore = createTreeStore()
   const treeMapStore = createTreeMapStore()
-  setContext('svelte-tree-view', {
+  setContext<Stores>('svelte-tree-view', {
     propsStore,
     rootElementStore,
     treeStore,
@@ -108,21 +120,21 @@
   }
   :root {
     --tree-view-base00: #363755;
-    --tree-view-base01: #604D49;
-    --tree-view-base02: #6D5A55;
-    --tree-view-base03: #D1929B;
-    --tree-view-base04: #B79F8D;
-    --tree-view-base05: #F9F8F2;
-    --tree-view-base06: #F7F4F1;
-    --tree-view-base07: #FAF8F5;
-    --tree-view-base08: #FA3E7E;
-    --tree-view-base09: #FD993C;
-    --tree-view-base0A: #F6BF81;
-    --tree-view-base0B: #B8E248;
-    --tree-view-base0C: #B4EFE4;
-    --tree-view-base0D: #85D9EF;
-    --tree-view-base0E: #BE87FF;
-    --tree-view-base0F: #D6724C;
+    --tree-view-base01: #604d49;
+    --tree-view-base02: #6d5a55;
+    --tree-view-base03: #d1929b;
+    --tree-view-base04: #b79f8d;
+    --tree-view-base05: #f9f8f2;
+    --tree-view-base06: #f7f4f1;
+    --tree-view-base07: #faf8f5;
+    --tree-view-base08: #fa3e7e;
+    --tree-view-base09: #fd993c;
+    --tree-view-base0A: #f6bf81;
+    --tree-view-base0B: #b8e248;
+    --tree-view-base0C: #b4efe4;
+    --tree-view-base0D: #85d9ef;
+    --tree-view-base0E: #be87ff;
+    --tree-view-base0F: #d6724c;
 
     --tree-view-font-family: 'Helvetica Neue', 'Calibri Light', Roboto, sans-serif;
     --tree-view-font-size: 12px;

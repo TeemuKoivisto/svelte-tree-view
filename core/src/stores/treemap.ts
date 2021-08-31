@@ -3,12 +3,12 @@ import { get, writable } from 'svelte/store'
 import type { ITreeNode } from '../types'
 
 export const createTreeMapStore = () => {
-  const treeMapStore = writable<Map<string, ITreeNode | null>>(new Map())
+  const treeMapStore = writable<Map<string, ITreeNode>>(new Map())
 
   return {
-		get: get(treeMapStore),
-		set: treeMapStore.set,
-		subscribe: treeMapStore.subscribe,
+    get: get(treeMapStore),
+    set: treeMapStore.set,
+    subscribe: treeMapStore.subscribe,
 
     getNode(id: string) {
       return get(treeMapStore).get(id)
@@ -31,9 +31,9 @@ export const createTreeMapStore = () => {
           recurseNodeUpwards(updated, updated.get(node.parentId))
         }
       }
-      const updated = new Map<string, ITreeNode | null>(get(treeMapStore))
+      const updated = new Map<string, ITreeNode>(get(treeMapStore))
       recurseNodeUpwards(updated, updated.get(id))
       treeMapStore.set(updated)
-    },
+    }
   }
 }
