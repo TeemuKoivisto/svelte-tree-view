@@ -8,6 +8,8 @@ import TreeView from '../TreeView.svelte'
 import example1 from './__fixtures__/example1.json'
 import { generateObj } from './generateObj'
 
+import type { ITreeNode } from '../types'
+
 // https://sveltesociety.dev/recipes/testing-and-debugging/unit-testing-svelte-component/
 
 describe('TreeView', () => {
@@ -40,7 +42,7 @@ describe('TreeView', () => {
           maxDepth: 6,
           omitKeys: ['3-c'],
           stopCircularRecursion: true,
-          isCircularNode(node, iteratedValues) {
+          isCircularNode(node: ITreeNode, iteratedValues: Map<any, ITreeNode>) {
             if (node.type === 'object' || node.type === 'array') {
               const existingNodeWithValue = iteratedValues.get(node.value)
               if (existingNodeWithValue) {
@@ -53,7 +55,7 @@ describe('TreeView', () => {
           },
           shouldExpandNode: () => true
         },
-        valueFormatter: (val, node) => {
+        valueFormatter: (val: any, node: ITreeNode) => {
           switch (node.type) {
             case 'array':
               return `${node.circularOfId ? 'circular-array' : ''} [] ${val.length} items`

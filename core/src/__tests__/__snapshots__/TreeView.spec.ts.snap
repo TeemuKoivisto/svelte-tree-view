@@ -7335,7 +7335,9 @@ exports[`TreeView should render with almost all props defined 1`] = `
                           class="node-value svelte-1d13xue"
                           data-type="function"
                         >
-                          () =&gt; { console.log('hello world'); }
+                          () =&gt; {
+                    console.log('hello world');
+                }
                         </div>
                          
                         <div
@@ -8688,7 +8690,9 @@ exports[`TreeView should render with almost all props defined 1`] = `
                           class="node-value svelte-1d13xue"
                           data-type="function"
                         >
-                          () =&gt; { console.log('hello world'); }
+                          () =&gt; {
+                    console.log('hello world');
+                }
                         </div>
                          
                         <div

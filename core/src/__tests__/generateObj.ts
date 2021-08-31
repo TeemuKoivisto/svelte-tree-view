@@ -30,7 +30,7 @@ function* valueGenerator() {
 const generator = valueGenerator()
 
 export function generateObj(depth: number, toDepth: number) {
-  let obj
+  let obj: any
   if (depth === toDepth) {
     return generator.next().value
   } else if (depth === 0 || depth > 2) {
