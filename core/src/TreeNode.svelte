@@ -1,7 +1,7 @@
 <script lang="ts">
   import { getContext } from 'svelte'
-  import type { Stores } from './stores'
-  import type { ITreeNode } from './types'
+  import type { Stores } from './stores/index.ts'
+  import type { ITreeNode } from './types.ts'
 
   export let id: string
 
