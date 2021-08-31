@@ -34,6 +34,7 @@
     "lint": "eslint --cache --ext .js,.ts,.svelte ./src",
     "lint:fix": "eslint --fix --ext .js,.ts,.svelte ./src",
     "preversion": "yarn test",
+    "version": "yarn build",
     "svelte-check": "svelte-check",
     "test": "jest src",
     "watch": "rollup -cw"
