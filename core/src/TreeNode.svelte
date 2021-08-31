@@ -7,7 +7,7 @@
 
   const { treeMapStore, propsStore, rootElementStore } = getContext<Stores>('svelte-tree-view')
   // Should explode rather than have logic written to check for undefinedness.
-  // As this compoennt should be unmounted if it's undefined.
+  // As this component should be unmounted if it's undefined.
   $: node = $treeMapStore.get(id) as ITreeNode
   $: hasChildren = node && node.children.length > 0
   $: valueComponent = $propsStore.valueComponent

@@ -3,13 +3,6 @@
   "version": "0.0.1",
   "author": "Teemu Koivisto <teemukoivisto.xyz@gmail.com>",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/TeemuKoivisto/svelte-tree-view.git"
-  },
-  "bugs": {
-    "url": "https://github.com/TeemuKoivisto/svelte-tree-view/issues"
-  },
   "homepage": "https://github.com/TeemuKoivisto/svelte-tree-view",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
@@ -19,11 +12,28 @@
     "src",
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TeemuKoivisto/svelte-tree-view.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TeemuKoivisto/svelte-tree-view/issues"
+  },
+  "keywords": [
+    "svelte",
+    "tree-view",
+    "json-tree",
+    "tree",
+    "json",
+    "base16",
+    "theme"
+  ],
   "scripts": {
     "build": "rollup -c",
     "format": "prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|svelte|md|graphql|mdx)\"",
     "lint": "eslint --cache --ext .js,.ts,.svelte ./src",
     "lint:fix": "eslint --fix --ext .js,.ts,.svelte ./src",
+    "preversion": "yarn test",
     "svelte-check": "svelte-check",
     "test": "jest src",
     "watch": "rollup -cw"
@@ -56,7 +66,7 @@
     "rollup-plugin-typescript2": "^0.30.0",
     "svelte": "^3.42.4",
     "svelte-check": "^2.2.5",
-    "svelte-jester": "^2.1.0",
+    "svelte-jester": "^1.8.2",
     "svelte-preprocess": "^4.8.0",
     "ts-jest": "^27.0.1",
     "tslib": "^2.3.1",
