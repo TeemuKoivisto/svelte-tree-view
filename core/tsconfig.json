@@ -19,9 +19,7 @@
 			to enforce using \`import type\` instead of \`import\` for Types.
 			*/
     "importsNotUsedAsValues": "error",
-    "allowJs": true,
     "allowSyntheticDefaultImports": true,
-    "checkJs": true,
     "declaration": true,
     "declarationDir": "./dist",
     "esModuleInterop": true,

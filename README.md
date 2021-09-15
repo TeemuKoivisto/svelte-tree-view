@@ -1,4 +1,4 @@
-# [svelte-tree-view](https://github.com/TeemuKoivisto/svelte-tree-view) ![version](https://img.shields.io/npm/v/svelte-tree-view?style=flat-square)
+# [svelte-tree-view](https://github.com/TeemuKoivisto/svelte-tree-view) [![version](https://img.shields.io/npm/v/svelte-tree-view?style=flat-square)](https://www.npmjs.com/package/svelte-tree-view)
 
 Library to show Javascript objects in a nice tree layout. It's written in Svelte but since it compiles to pure JS it can be used anywhere (although to customize the rendered nodes you must Svelte).
 
