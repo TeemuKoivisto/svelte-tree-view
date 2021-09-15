@@ -108,7 +108,7 @@
   })
 </script>
 
-<ul class={$$props.class} bind:this={rootElement}>
+<ul class={`${$$props.class}`} bind:this={rootElement}>
   {#each $treeStore.children as child}
     <TreeNode id={child.id} />
   {/each}
