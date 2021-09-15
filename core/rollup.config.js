@@ -1,9 +1,9 @@
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
-import typescript from 'rollup-plugin-typescript2'
+import typescript from '@wessberg/rollup-plugin-ts'
 import svelte from 'rollup-plugin-svelte'
 import autoPreprocess from 'svelte-preprocess'
-import postcss from 'rollup-plugin-postcss'
+import scss from 'rollup-plugin-scss'
 import { terser } from 'rollup-plugin-terser'
 
 import pkg from './package.json'
@@ -41,8 +41,9 @@ export default {
       },
       preprocess: autoPreprocess(preprocessOptions)
     }),
-    postcss(),
+    scss(),
     resolve({
+      browser: true,
       dedupe: ['svelte']
     }),
     isProduction && terser()

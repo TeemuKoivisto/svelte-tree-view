@@ -2,24 +2,24 @@
   import { setContext, onMount } from 'svelte'
   import { get } from 'svelte/store'
 
-  import { recurseObjectProperties } from './tree-utils.ts'
+  import { recurseObjectProperties } from './tree-utils'
   import {
     createPropsStore,
     createRootElementStore,
     createTreeStore,
     createTreeMapStore
-  } from './stores/index.ts'
+  } from './stores'
 
   import TreeNode from './TreeNode.svelte'
 
-  import type { Stores } from './stores/index.ts'
+  import type { Stores } from './stores'
   import type {
     ITreeNode,
     TreeViewProps,
     IBase16Theme,
     ValueComponent,
     TreeRecursionOpts
-  } from './types.ts'
+  } from './types'
 
   export let data: Object,
     theme: IBase16Theme | undefined = undefined,

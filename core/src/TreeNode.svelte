@@ -1,7 +1,7 @@
 <script lang="ts">
   import { getContext } from 'svelte'
-  import type { Stores } from './stores/index.ts'
-  import type { ITreeNode } from './types.ts'
+  import type { Stores } from './stores'
+  import type { ITreeNode } from './types'
 
   export let id: string
 
@@ -133,7 +133,8 @@
     color: var(--tree-view-base0B);
     margin-right: 0.5em;
     word-break: break-all;
-    &[data-type='number'] {
+    &[data-type='number'],
+    &[data-type='boolean'] {
       color: var(--tree-view-base09);
     }
     &[data-type='null'],
