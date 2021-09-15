@@ -4,7 +4,7 @@
   "type": "module",
   "homepage": "https://teemukoivisto.github.io/svelte-tree-view/",
   "scripts": {
-    "build": "rimraf build && DEPLOY_TO_GH=true svelte-kit build && rimraf build/static && touch build/.nojekyll",
+    "build": "rimraf build && DEPLOY_TO_GH=true svelte-kit build || true && rimraf build/static && touch build/.nojekyll",
     "deploy": "gh-pages -d build -t true",
     "dev": "svelte-kit dev",
     "format": "prettier --write *.cjs src/",
@@ -12,8 +12,8 @@
     "preview": "svelte-kit preview"
   },
   "devDependencies": {
-    "@sveltejs/adapter-static": "^1.0.0-next.17",
-    "@sveltejs/kit": "1.0.0-next.147",
+    "@sveltejs/adapter-static": "^1.0.0-next.18",
+    "@sveltejs/kit": "1.0.0-next.168",
     "@typescript-eslint/eslint-plugin": "^4.29.3",
     "@typescript-eslint/parser": "^4.29.3",
     "eslint": "^7.32.0",
