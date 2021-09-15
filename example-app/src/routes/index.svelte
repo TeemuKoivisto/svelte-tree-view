@@ -106,7 +106,7 @@
     leftIndent = '0.875em',
     lineHeight = '1.1',
     fontFamily = 'Helvetica Neue',
-    fontSize = '12px',
+    fontSize = '13px',
     keyMarginRight = '0.5em',
     showLogButton = false,
     showCopyButton = false,
