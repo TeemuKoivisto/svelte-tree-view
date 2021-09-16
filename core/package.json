@@ -7,7 +7,7 @@
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "svelte": "src/index.ts",
-  "types": "src/types.d.ts",
+  "types": "dist/types.d.ts",
   "files": [
     "src",
     "dist",
@@ -32,7 +32,7 @@
     "theme"
   ],
   "scripts": {
-    "build": "rimraf ./dist && rollup -c",
+    "build": "rimraf ./dist && rollup -c && cp ./src/types.ts ./dist/types.d.ts",
     "format": "prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|svelte|md|graphql|mdx)\"",
     "lint": "eslint --cache --ext .js,.ts,.svelte ./src",
     "lint:fix": "eslint --fix --ext .js,.ts,.svelte ./src",

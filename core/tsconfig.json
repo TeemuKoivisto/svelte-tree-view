@@ -20,7 +20,7 @@
 			*/
     "importsNotUsedAsValues": "error",
     "allowSyntheticDefaultImports": true,
-    "declaration": true,
+    "declaration": false,
     "declarationDir": "./dist",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
