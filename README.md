@@ -6,11 +6,11 @@ Library to show Javascript objects in a nice tree layout. It's written in Svelte
 
 `npm i svelte-tree-view`
 
-Size: 18 kBs (no external dependencies)
+Size: 15 kBs (no external dependencies)
 
 ## How to use
 
-NOTE: Since I'm a TypeScript fanboy I wrote this library in TS and therefore the `"svelte"` block in the `package.json` points to a `index.ts` file. This doesn't allow importing the project as `.svelte` files if your project uses JS which would I suppose make the development experience better (as you don't have to use the compiled version) but damn, I refuse to write this in JS. Also to import the library I noticed `@wessberg/rollup-plugin-ts` parser worked better than for example `rollup-plugin-typescript2`. Don't know the details but it was weird https://github.com/sveltejs/component-template/issues/29.
+NOTE: Since I'm a TypeScript fanboy I wrote this library in TS and therefore the `"svelte"` block in the `package.json` points to a `index.ts` file. To import this library in a Svelte project you need to add a TypeScript bundler incase you didn't already have one. While experimenting with the imports and local linking I noticed `rollup-plugin-ts` parser worked better than for example `rollup-plugin-typescript2`. Don't know the details but it was weird https://github.com/sveltejs/component-template/issues/29 and might be helpful.
 
 You can import the library as:
 
@@ -57,15 +57,16 @@ export type ValueType =
 
 export interface ITreeNode {
   id: string // ID generated from the path to this node eg "[0,1,2]"
-  index: number // index of this node in the parent object as its values are iterated
-  key: string // key of this node eg "1" for an array key or "foo" for an object
-  value: any // the value mapped to this key
+  index: number // Index of this node in the parent object as its values are iterated
+  key: string // Key of this node eg "1" for an array key or "foo" for an object
+  value: any // The value mapped to this key
   depth: number
   collapsed: boolean
   type: ValueType
   path: number[]
   parentId: string | null
-  circularOfId: string | null // Circularity is checked by object identity to prevent recursing the same values again
+  // Circularity is checked by object identity to prevent recursing the same values again
+  circularOfId: string | null
   children: ITreeNode[]
 }
 
@@ -97,22 +98,31 @@ export type ValueComponent = SvelteComponentTyped<{
 }>
 
 export interface TreeViewProps {
-  data: Object // Data can be basically any non-primitive value
+  // Data can be basically any non-primitive value
+  data: { [key in string | number | symbol]: unknown } | any[] | Map<any, any> | Set<any>
+  class?: string
   theme?: IBase16Theme
   showLogButton?: boolean
   showCopyButton?: boolean
-  valueComponent?: ValueComponent // The Svelte component to replace the default value-as-string presentation
+  // The Svelte component to replace the default value-as-string presentation
+  valueComponent?: ValueComponent
   recursionOpts?: TreeRecursionOpts
-  valueFormatter?: (val: any, n: ITreeNode) => string | undefined // For custom formatting the value string
+  // For custom formatting the value string
+  valueFormatter?: (val: any, n: ITreeNode) => string | undefined
 }
 
 export interface TreeRecursionOpts {
   maxDepth?: number
-  omitKeys?: string[] // Quick and dirty way to prevent recursing certain object keys instead of overriding shouldExpandNode
-  stopCircularRecursion?: boolean // Stops recursing objects already recursed
-  isCircularNode?: (n: ITreeNode, iteratedValues: Map<any, ITreeNode>) => boolean // For custom circularity detection magic
-  shouldExpandNode?: (n: ITreeNode) => boolean // Will auto-expand or collapse values as data is provided
-  mapChildren?: (val: any, type: ValueType, parent: ITreeNode) => [string, any][] | undefined // For customizing the created key-value pairs
+  // Quick and dirty way to prevent recursing certain object keys instead of overriding shouldExpandNode
+  omitKeys?: string[]
+  // Stops recursing objects already recursed
+  stopCircularRecursion?: boolean
+  // For custom circularity detection magic
+  isCircularNode?: (n: ITreeNode, iteratedValues: Map<any, ITreeNode>) => boolean
+  // Will auto-expand or collapse values as data is provided
+  shouldExpandNode?: (n: ITreeNode) => boolean
+  // For customizing the created key-value pairs
+  mapChildren?: (val: any, type: ValueType, parent: ITreeNode) => [string, any][] | undefined
 }
 
 export class TreeView extends SvelteComponentTyped<TreeViewProps> {}

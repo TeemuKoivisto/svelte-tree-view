@@ -17,15 +17,16 @@ export type ValueType =
 
 export interface ITreeNode {
   id: string // ID generated from the path to this node eg "[0,1,2]"
-  index: number // index of this node in the parent object as its values are iterated
-  key: string // key of this node eg "1" for an array key or "foo" for an object
-  value: any // the value mapped to this key
+  index: number // Index of this node in the parent object as its values are iterated
+  key: string // Key of this node eg "1" for an array key or "foo" for an object
+  value: any // The value mapped to this key
   depth: number
   collapsed: boolean
   type: ValueType
   path: number[]
   parentId: string | null
-  circularOfId: string | null // Circularity is checked by object identity to prevent recursing the same values again
+  // Circularity is checked by object identity to prevent recursing the same values again
+  circularOfId: string | null
   children: ITreeNode[]
 }
 
@@ -57,22 +58,31 @@ export type ValueComponent = SvelteComponentTyped<{
 }>
 
 export interface TreeViewProps {
-  data: Object // Data can be basically any non-primitive value
+  // Data can be basically any non-primitive value
+  data: { [key in string | number | symbol]: unknown } | any[] | Map<any, any> | Set<any>
+  class?: string
   theme?: IBase16Theme
   showLogButton?: boolean
   showCopyButton?: boolean
-  valueComponent?: ValueComponent // The Svelte component to replace the default value-as-string presentation
+  // The Svelte component to replace the default value-as-string presentation
+  valueComponent?: ValueComponent
   recursionOpts?: TreeRecursionOpts
-  valueFormatter?: (val: any, n: ITreeNode) => string | undefined // For custom formatting the value string
+  // For custom formatting the value string
+  valueFormatter?: (val: any, n: ITreeNode) => string | undefined
 }
 
 export interface TreeRecursionOpts {
   maxDepth?: number
-  omitKeys?: string[] // Quick and dirty way to prevent recursing certain object keys instead of overriding shouldExpandNode
-  stopCircularRecursion?: boolean // Stops recursing objects already recursed
-  isCircularNode?: (n: ITreeNode, iteratedValues: Map<any, ITreeNode>) => boolean // For custom circularity detection magic
-  shouldExpandNode?: (n: ITreeNode) => boolean // Will auto-expand or collapse values as data is provided
-  mapChildren?: (val: any, type: ValueType, parent: ITreeNode) => [string, any][] | undefined // For customizing the created key-value pairs
+  // Quick and dirty way to prevent recursing certain object keys instead of overriding shouldExpandNode
+  omitKeys?: string[]
+  // Stops recursing objects already recursed
+  stopCircularRecursion?: boolean
+  // For custom circularity detection magic
+  isCircularNode?: (n: ITreeNode, iteratedValues: Map<any, ITreeNode>) => boolean
+  // Will auto-expand or collapse values as data is provided
+  shouldExpandNode?: (n: ITreeNode) => boolean
+  // For customizing the created key-value pairs
+  mapChildren?: (val: any, type: ValueType, parent: ITreeNode) => [string, any][] | undefined
 }
 
 export class TreeView extends SvelteComponentTyped<TreeViewProps> {}
