@@ -33,6 +33,7 @@
   ],
   "scripts": {
     "build": "rimraf ./dist && rollup -c && cp ./src/types.ts ./dist/types.d.ts",
+    "watch": "rollup -cw",
     "format": "prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|svelte|md|graphql|mdx)\"",
     "lint": "eslint --cache --ext .js,.ts,.svelte ./src",
     "lint:fix": "eslint --fix --ext .js,.ts,.svelte ./src",
@@ -43,17 +44,19 @@
     "postpublish": "rm README.md LICENSE",
     "svelte-check": "svelte-check",
     "test": "jest src",
-    "watch": "rollup -cw"
+    "cy": "cypress"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^20.0.0",
     "@rollup/plugin-node-resolve": "^13.0.4",
+    "@testing-library/cypress": "^8.0.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/svelte": "^3.0.3",
     "@types/jest": "^27.0.1",
     "@types/prosemirror-model": "^1.13.2",
     "@types/prosemirror-state": "^1.2.7",
     "@types/prosemirror-view": "^1.18.0",
+    "cypress": "^8.4.1",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.24.2",

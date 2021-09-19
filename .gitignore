@@ -28,5 +28,7 @@ tmp/
 
 .eslintcache
 
+core/cypress/videos
+
 # Svelte
 .svelte-kit

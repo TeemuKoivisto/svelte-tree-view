@@ -1,4 +1,3 @@
-
 const keys = ['a', 'b', 'c']
 
 function* valueGenerator() {
@@ -10,9 +9,11 @@ function* valueGenerator() {
       case 1:
         yield null
       case 2:
-        yield [0,1,3]
+        yield [0, 1, 3]
       case 3:
-        yield () => { console.log('hello world') }
+        yield () => {
+          console.log('hello world')
+        }
       case 4:
         yield new Date('2021-08-31T17:15:12.183Z')
       case 5:
@@ -40,7 +41,7 @@ export function generateObj(depth: number, toDepth: number) {
   } else if (depth === 1) {
     obj = new Map()
     obj.set(`${depth}-${keys[0]}`, generateObj(depth + 1, toDepth))
-    obj.set([1,2,3], generateObj(depth + 1, toDepth))
+    obj.set([1, 2, 3], generateObj(depth + 1, toDepth))
     obj.set(`${depth}-${keys[2]}`, obj.get(`${depth}-${keys[0]}`))
   } else if (depth === 2) {
     obj = new Set()
