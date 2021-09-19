@@ -16,3 +16,10 @@ it('Should render all 3 examples and inputted new data', () => {
   cy.get('[data-test="input-textarea"]').focus().type(TEST_DATA)
   cy.get('.tree-view').find('li').should('have.length', 19)
 })
+
+it('Should collapse first object when clicked', () => {
+  cy.visit('/')
+  cy.get('.tree-view').find('li').should('have.length', 270)
+  cy.get('button.arrow-btn').first().click()
+  cy.get('.tree-view').find('li').should('have.length', 226)
+})
