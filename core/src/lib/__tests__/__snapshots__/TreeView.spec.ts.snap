@@ -4,7 +4,7 @@ exports[`TreeView should render 1`] = `
 <body>
   <div>
     <ul
-      class="undefined svelte-q3pq1s"
+      class=" svelte-q3pq1s"
     >
       <li
         class="row svelte-1bpmhhm"
@@ -6807,7 +6807,7 @@ exports[`TreeView should render with almost all props defined 1`] = `
 <body>
   <div>
     <ul
-      class="undefined svelte-q3pq1s"
+      class=" svelte-q3pq1s"
     >
       <li
         class="row svelte-1bpmhhm"

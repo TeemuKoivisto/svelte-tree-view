@@ -1,10 +1,22 @@
-const autoPreprocess = require('svelte-preprocess')
+import autoPreprocess from 'svelte-preprocess'
 
 const preprocessOptions = {
   scss: {}
 }
 
-module.exports = {
+export default {
   preprocess: autoPreprocess(preprocessOptions),
-  preprocessOptions
+  preprocessOptions,
+  kit: {
+    package: {
+      exports: {
+        include: ['**'],
+        exclude: ['package.json', 'types.ts']
+      },
+      files: {
+        include: ['**'],
+        exclude: ['__tests__/**/*']
+      }
+    }
+  }
 }

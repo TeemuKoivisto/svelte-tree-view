@@ -7,12 +7,12 @@ import scss from 'rollup-plugin-scss'
 import { terser } from 'rollup-plugin-terser'
 
 import pkg from './package.json'
-const preprocessOptions = require('./svelte.config').preprocessOptions
+import svelteConfig from './svelte.config'
 
 const isProduction = !process.env.ROLLUP_WATCH
 
 export default {
-  input: 'src/index.ts',
+  input: 'src/lib/index.ts',
   output: [
     {
       file: pkg.main,
@@ -39,7 +39,7 @@ export default {
         // enable run-time checks when not in production
         dev: !isProduction
       },
-      preprocess: autoPreprocess(preprocessOptions)
+      preprocess: autoPreprocess(svelteConfig.preprocessOptions)
     }),
     scss(),
     resolve({

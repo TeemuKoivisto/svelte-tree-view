@@ -21,7 +21,7 @@
     TreeRecursionOpts
   } from './types'
 
-  export let data: Object,
+  export let data: { [key in string | number | symbol]: unknown } | any[] | Map<any, any> | Set<any>,
     theme: IBase16Theme | undefined = undefined,
     showLogButton = false,
     showCopyButton = false,
@@ -108,7 +108,7 @@
   })
 </script>
 
-<ul class={`${$$props.class}`} bind:this={rootElement}>
+<ul class={$$props.class || ''} bind:this={rootElement}>
   {#each $treeStore.children as child}
     <TreeNode id={child.id} />
   {/each}

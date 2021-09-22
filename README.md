@@ -10,8 +10,6 @@ Size: 15 kBs (no external dependencies)
 
 ## How to use
 
-NOTE: Since I'm a TypeScript fanboy I wrote this library in TS and therefore the `"svelte"` block in the `package.json` points to a `index.ts` file. To import this library in a Svelte project you need to add a TypeScript bundler incase you didn't already have one. While experimenting with the imports and local linking I noticed `rollup-plugin-ts` parser worked better than for example `rollup-plugin-typescript2`. Don't know the details but it was weird https://github.com/sveltejs/component-template/issues/29.
-
 You can import the library as:
 
 ```ts
