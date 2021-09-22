@@ -10,6 +10,28 @@ Size: 15 kBs (no external dependencies)
 
 ## How to use
 
+NOTE: I've written this library completely in TypeScript and I'm standing by that decision. However, since Svelte tooling is not quite there yet in processing Svelte files from TS into JS, you might need to use TypeScript yourself too. Once the bugs are sorted out, I hope this won't be an issue anymore. https://github.com/sveltejs/kit/issues/2450 https://github.com/sveltejs/component-template/issues/29 https://stackoverflow.com/questions/69274093/how-to-import-svelte-library-written-in-typescript
+
+Basically what you probably need to do is add `typescript` block to your `svelte.config.js` eg:
+
+```js
+import autoPreprocess from 'svelte-preprocess'
+
+const preprocessOptions = {
+  scss: { prependData: `@import 'src/global.scss';` },
+  typescript: {
+    tsconfigFile: './tsconfig.json'
+  }
+}
+
+export default {
+  preprocess: autoPreprocess(preprocessOptions),
+  preprocessOptions,
+}
+```
+
+Sorry about the hassle! Will update this library once I find a solution.
+
 You can import the library as:
 
 ```ts
