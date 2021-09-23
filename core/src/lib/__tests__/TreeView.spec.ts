@@ -102,8 +102,8 @@ describe('TreeView', () => {
     const lists = results.container.querySelectorAll('ul')
     const rows = results.container.querySelectorAll('li')
 
-    expect(lists.length).toEqual(35)
-    expect(rows.length).toEqual(122)
+    expect(lists.length).toEqual(34)
+    expect(rows.length).toEqual(118)
     expect(results.container).toBeInTheDocument()
     expect(results.container).toMatchSnapshot()
   })
