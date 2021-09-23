@@ -1,6 +1,6 @@
 {
   "name": "svelte-tree-view",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "Teemu Koivisto <teemukoivisto.xyz@gmail.com>",
   "license": "MIT",
   "homepage": "https://github.com/TeemuKoivisto/svelte-tree-view",
@@ -10,7 +10,16 @@
   "types": "dist/types.d.ts",
   "type": "module",
   "exports": {
-    ".": "./src/lib/index.ts"
+    "./package.json": "./package/package.json",
+    "./TreeNode.svelte": "./package/TreeNode.svelte",
+    "./TreeView.svelte": "./package/TreeView.svelte",
+    ".": "./package/index.js",
+    "./stores": "./package/stores/index.js",
+    "./stores/props": "./package/stores/props.js",
+    "./stores/root-element": "./package/stores/root-element.js",
+    "./stores/tree": "./package/stores/tree.js",
+    "./stores/treemap": "./package/stores/treemap.js",
+    "./tree-utils": "./package/tree-utils.js"
   },
   "files": [
     "package",
