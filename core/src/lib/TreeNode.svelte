@@ -153,16 +153,16 @@
     border: 0;
     color: var(--tree-view-base0D);
     cursor: pointer;
-    margin-right: 0.5em;
+    margin-right: 0.7em;
     padding: 0;
     transition: all 150ms ease 0s;
-    transform: rotateZ(0deg);
-    transform-origin: 45% 50%;
+    transform: rotateZ(90deg);
+    transform-origin: 47% 43%;
     position: relative;
     line-height: 1.1em;
     font-size: 0.75em;
     &.collapsed {
-      transform: rotateZ(90deg);
+      transform: rotateZ(0deg);
     }
   }
   .buttons {
