@@ -17,15 +17,7 @@
   "registered": "2018-07-23T07:01:58 -03:00",
   "latitude": -39.97877,
   "longitude": -61.667911,
-  "tags": [
-    "tempor",
-    "laboris",
-    "reprehenderit",
-    "veniam",
-    "exercitation",
-    "velit",
-    "voluptate"
-  ],
+  "tags": ["tempor", "laboris", "reprehenderit", "veniam", "exercitation", "velit", "voluptate"],
   "friends": [
     {
       "id": 0,

@@ -6,22 +6,30 @@ function* valueGenerator() {
     switch (index % 8) {
       case 0:
         yield undefined
+        break
       case 1:
         yield null
+        break
       case 2:
         yield [0, 1, 3]
+        break
       case 3:
         yield () => {
           console.log('hello world')
         }
+        break
       case 4:
         yield new Date('2021-08-31T17:15:12.183Z')
+        break
       case 5:
         yield true
+        break
       case 6:
         yield 80085
+        break
       case 7:
         yield 'a value I am'
+        break
     }
     index += 1
   }

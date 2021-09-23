@@ -21,7 +21,11 @@
     TreeRecursionOpts
   } from './types'
 
-  export let data: { [key in string | number | symbol]: unknown } | any[] | Map<any, any> | Set<any>,
+  export let data:
+      | { [key in string | number | symbol]: unknown }
+      | any[]
+      | Map<any, any>
+      | Set<any>,
     theme: IBase16Theme | undefined = undefined,
     showLogButton = false,
     showCopyButton = false,

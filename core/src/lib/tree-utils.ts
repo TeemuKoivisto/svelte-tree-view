@@ -77,6 +77,7 @@ function getChildren(value: any, type: ValueType): [string, any][] {
     case 'array':
       return value.map((v: any, i: number) => [i.toString(), v])
     case 'map':
+      // eslint-disable-next-line no-case-declarations
       const entries: [any, any][] = Array.from(value.entries())
       return entries.map(([key, value], i: number) => [
         `[map entry ${i}]`,
@@ -96,7 +97,7 @@ function getChildren(value: any, type: ValueType): [string, any][] {
 
 function shouldRecurseChildren(
   node: ITreeNode,
-  iteratedValues: Map<Object, ITreeNode>,
+  iteratedValues: Map<any, ITreeNode>,
   opts: TreeRecursionOpts
 ) {
   if (!opts.stopCircularRecursion) {
@@ -122,7 +123,7 @@ export function recurseObjectProperties(
   parent: ITreeNode | null,
   treeMap: Map<string, ITreeNode>,
   oldTreeMap: Map<string, ITreeNode>,
-  iteratedValues: Map<Object, ITreeNode>,
+  iteratedValues: Map<any, ITreeNode>,
   recomputeExpandNode: boolean,
   opts: TreeRecursionOpts
 ): ITreeNode | null {

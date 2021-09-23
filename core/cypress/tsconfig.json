@@ -3,10 +3,8 @@
   "compilerOptions": {
     "baseUrl": "../node_modules",
     "target": "es5",
-    "types":["cypress", "@testing-library/cypress"]
+    "types": ["cypress", "@testing-library/cypress"]
   },
   "allowJs": true,
-  "include": [
-    "**/*..{js,ts,d.ts}"
-  ]
+  "include": ["**/*..{js,ts,d.ts}"]
 }
