@@ -7,6 +7,8 @@ import path from 'path'
 
 const exec = promisify(rawExec)
 
+const arg = process.argv[2]
+
 async function readJson(path) {
   const pkg = await fs.readFile(path, 'utf-8').catch(err => console.error(err))
   if (!pkg) return undefined
@@ -16,6 +18,14 @@ async function readJson(path) {
 async function cleanCurrentExports() {
   const pkg = await readJson('./package.json')
   pkg.exports = {}
+  await fs.writeFile('./package.json', JSON.stringify(pkg, null, 2))
+}
+
+async function setExportsForDevelopment() {
+  const pkg = await readJson('./package.json')
+  pkg.exports = {
+    '.': './src/lib/index.ts'
+  }
   await fs.writeFile('./package.json', JSON.stringify(pkg, null, 2))
 }
 
@@ -39,4 +49,10 @@ async function build() {
   await exec('rm ./package/package.json')
 }
 
-build()
+if (!arg) {
+  build()
+} else if (arg === 'dev') {
+  setExportsForDevelopment()
+} else {
+  throw Error(`Unknown command '${arg}' for build.mjs, available commands: <none> | dev`)
+}

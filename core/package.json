@@ -10,16 +10,7 @@
   "types": "dist/types.d.ts",
   "type": "module",
   "exports": {
-    "./package.json": "./package/package.json",
-    "./TreeNode.svelte": "./package/TreeNode.svelte",
-    "./TreeView.svelte": "./package/TreeView.svelte",
-    ".": "./package/index.js",
-    "./stores": "./package/stores/index.js",
-    "./stores/props": "./package/stores/props.js",
-    "./stores/root-element": "./package/stores/root-element.js",
-    "./stores/tree": "./package/stores/tree.js",
-    "./stores/treemap": "./package/stores/treemap.js",
-    "./tree-utils": "./package/tree-utils.js"
+    ".": "./src/lib/index.ts"
   },
   "files": [
     "package",
@@ -49,7 +40,7 @@
     "build": "./build.mjs",
     "build:dist": "rimraf ./dist && rollup -c && cp ./src/lib/types.ts ./dist/types.d.ts",
     "build:pkg": "svelte-kit package",
-    "watch": "rollup -cw",
+    "watch": "./build.mjs dev",
     "format": "prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|svelte|md|graphql|mdx)\"",
     "lint": "eslint --cache --ext .js,.ts,.svelte ./src",
     "lint:fix": "eslint --fix --ext .js,.ts,.svelte ./src",
