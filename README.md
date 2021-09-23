@@ -1,12 +1,10 @@
-# [svelte-tree-view](https://github.com/TeemuKoivisto/svelte-tree-view) [![version](https://img.shields.io/npm/v/svelte-tree-view?style=flat-square)](https://www.npmjs.com/package/svelte-tree-view)
+# [svelte-tree-view](https://github.com/TeemuKoivisto/svelte-tree-view) [![version](https://img.shields.io/npm/v/svelte-tree-view?style=flat-square)](https://www.npmjs.com/package/svelte-tree-view) [![package minified size](https://img.shields.io/bundlephobia/min/svelte-tree-view?style=flat-square&color=important)](https://bundlephobia.com/result?p=svelte-tree-view) [![package size](https://img.shields.io/bundlephobia/minzip/svelte-tree-view?style=flat-square)](https://bundlephobia.com/result?p=svelte-tree-view) [![dependencies](https://david-dm.org/teemukoivisto/svelte-tree-view/status.svg)](https://david-dm.org/teemukoivisto/svelte-tree-view)
 
 Library to show Javascript objects in a nice tree layout. It's written in Svelte but since it compiles to pure JS it can be used anywhere (although to customize the rendered nodes you must Svelte).
 
 ## [Demo](https://teemukoivisto.github.io/svelte-tree-view/)
 
 `npm i svelte-tree-view`
-
-Size: 15 kBs (no external dependencies)
 
 ## How to use
 
