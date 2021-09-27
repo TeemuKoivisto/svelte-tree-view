@@ -137,7 +137,7 @@ export type ValueComponent = SvelteComponentTyped<{
 export interface TreeViewProps {
   // Data can be basically any non-primitive value
   data: { [key in string | number | symbol]: unknown } | any[] | Map<any, any> | Set<any>
-  class?: string
+  class?: string // Top node has 'svelte-tree-view' class by default
   theme?: IBase16Theme
   showLogButton?: boolean
   showCopyButton?: boolean
