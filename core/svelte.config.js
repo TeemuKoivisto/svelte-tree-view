@@ -9,14 +9,14 @@ export default {
   preprocessOptions,
   kit: {
     package: {
-      exports: {
-        include: ['**'],
-        exclude: ['package.json', 'types.ts']
-      },
-      files: {
-        include: ['**'],
-        exclude: ['__tests__/**/*']
-      }
+			exports: (filepath) => {
+        if (['__tests__', 'types.ts'].some(s => filepath.includes(s))) return false
+				return true
+			},
+      files: (filepath) => {
+        if (['__tests__', 'types.ts'].some(s => filepath.includes(s))) return false
+				return true
+			},
     }
   }
 }
