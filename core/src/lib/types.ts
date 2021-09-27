@@ -66,11 +66,11 @@ export interface TreeViewProps {
   showCopyButton?: boolean
   valueComponent?: ValueComponent // The Svelte component to replace the default value-as-string presentation
   recursionOpts?: TreeRecursionOpts
-  valueFormatter?: (val: any, n: ITreeNode) => string | undefined // For custom formatting the value string
+  valueFormatter?: (val: any, n: ITreeNode) => string | undefined // For custom formatting of the value string
 }
 
 export interface TreeRecursionOpts {
-  maxDepth?: number // The default maxDepth is 10
+  maxDepth?: number // The default maxDepth is 12
   // Quick and dirty way to prevent recursing certain object keys instead of overriding shouldExpandNode
   omitKeys?: string[]
   stopCircularRecursion?: boolean // Stops recursing objects already recursed
@@ -79,5 +79,5 @@ export interface TreeRecursionOpts {
   mapChildren?: (val: any, type: ValueType, parent: ITreeNode) => [string, any][] | undefined // For customizing the created key-value pairs
 }
 
-export class TreeView extends SvelteComponentTyped<TreeViewProps> {}
+export class TreeView extends SvelteComponentTyped<TreeViewProps> { }
 export default TreeView

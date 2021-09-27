@@ -35,7 +35,7 @@
 
   let rootElement: HTMLElement | null = null
   const defaultRecursionOpts: TreeRecursionOpts = {
-    maxDepth: 10,
+    maxDepth: 12,
     omitKeys: [],
     stopCircularRecursion: false,
     shouldExpandNode: () => false
@@ -112,7 +112,7 @@
   })
 </script>
 
-<ul class={$$props.class || ''} bind:this={rootElement}>
+<ul class={`${$$props.class || ''} svelte-tree-view`} bind:this={rootElement}>
   {#each $treeStore.children as child}
     <TreeNode id={child.id} />
   {/each}

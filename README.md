@@ -53,6 +53,25 @@ And use it as:
 />
 ```
 
+Or if you are not using Svelte:
+
+```ts
+import { TreeView } from 'svelte-tree-view'
+
+const treeView = new TreeView({
+	target: document.querySelector('#mount-point'),
+	props: {
+		data: {
+      a: [1,2,3]
+      b: new Map([['c', 1,], ['d', { e: [9, 8, 7]}]])
+    },
+    recursionOpts: {
+      maxDepth: 4
+    }
+	}
+})
+```
+
 ## API
 
 The full typings as copied from the source are:
@@ -124,11 +143,11 @@ export interface TreeViewProps {
   showCopyButton?: boolean
   valueComponent?: ValueComponent // The Svelte component to replace the default value-as-string presentation
   recursionOpts?: TreeRecursionOpts
-  valueFormatter?: (val: any, n: ITreeNode) => string | undefined // For custom formatting the value string
+  valueFormatter?: (val: any, n: ITreeNode) => string | undefined // For custom formatting of the value string
 }
 
 export interface TreeRecursionOpts {
-  maxDepth?: number // The default maxDepth is 10
+  maxDepth?: number // The default maxDepth is 12
   // Quick and dirty way to prevent recursing certain object keys instead of overriding shouldExpandNode
   omitKeys?: string[]
   stopCircularRecursion?: boolean // Stops recursing objects already recursed
