@@ -22,7 +22,11 @@
   function handleLogNode() {
     console.info('%c [svelte-tree-view]: Property added to window._node', 'color: #b8e248')
     console.log(node.value)
-    window._node = node.value
+    try {
+      if (typeof window !== 'undefined') window._node = node.value
+    } catch (err) {
+      console.error('Failed to set _node, window was undefined')
+    }
   }
   function handleCopyNodeToClipboard() {
     navigator.clipboard.writeText(JSON.stringify(node.value))

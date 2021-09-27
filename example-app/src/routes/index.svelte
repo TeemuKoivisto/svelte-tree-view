@@ -179,7 +179,7 @@
         if (parsedRecursionOpts && parsedRecursionOpts.mapChildren === mapDocDeltaChildren) {
           parsedRecursionOpts.mapChildren = undefined
         }
-        return
+        break
       case 2:
         parsedData = example2
         valueComponent = DiffValue
@@ -192,7 +192,7 @@
             shouldExpandNode: () => true,
           }
         }
-        return
+        break
       case 3:
         parsedData = generateObj(0, 4)
         if (parsedRecursionOpts && parsedRecursionOpts.mapChildren === mapDocDeltaChildren) {
