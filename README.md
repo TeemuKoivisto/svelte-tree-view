@@ -59,16 +59,16 @@ Or if you are not using Svelte:
 import { TreeView } from 'svelte-tree-view'
 
 const treeView = new TreeView({
-	target: document.querySelector('#mount-point'),
-	props: {
-		data: {
-      a: [1,2,3]
-      b: new Map([['c', 1,], ['d', { e: [9, 8, 7]}]])
+  target: document.querySelector('#mount-point'),
+  props: {
+    data: {
+      a: [1, 2, 3]
+      b: new Map([['c', 1,], ['d', { e: [9, 8, 7] }]])
     },
     recursionOpts: {
       maxDepth: 4
     }
-	}
+  }
 })
 ```
 
