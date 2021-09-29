@@ -218,7 +218,6 @@
     bind:keyMarginRight
     bind:showLogButton
     bind:showCopyButton
-    bind:valueComponent
     bind:recursionOpts
     bind:valueFormatter
     bind:theme

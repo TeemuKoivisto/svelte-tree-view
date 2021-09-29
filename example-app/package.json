@@ -8,7 +8,8 @@
     "deploy": "gh-pages -d build -t true",
     "dev": "svelte-kit dev",
     "format": "prettier --write *.cjs src/",
-    "lint": "prettier --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
+    "lint": "prettier --check --plugin-search-dir=. ./src && eslint --cache --ext .js,.ts,.svelte ./src",
+    "lint:fix": "eslint --fix --cache --ext .js,.ts,.svelte ./src",
     "preview": "svelte-kit preview"
   },
   "devDependencies": {

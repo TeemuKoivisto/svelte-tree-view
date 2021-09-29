@@ -6,7 +6,6 @@
     keyMarginRight,
     showLogButton,
     showCopyButton,
-    valueComponent,
     recursionOpts,
     valueFormatter,
     theme
