@@ -37,7 +37,6 @@ jobs:
         run: |
           cd example-app
           yarn build
-          yarn deploy
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
