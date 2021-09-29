@@ -27,7 +27,12 @@ jobs:
       - name: Install dependencies
         run: yarn
 
-      - name: Build
+      - name: Build svelte-tree-view
+        run: |
+          cd core
+          yarn build
+
+      - name: Build example-app
         run: |
           cd example-app
           yarn build
