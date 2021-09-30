@@ -88,11 +88,14 @@
   }
   $: {
     if (theme && rootElement) {
-      Object.keys(theme).forEach((key: string) => {
-        if (rootElement && key.includes('--tree-view-base')) {
-          rootElement.style.setProperty(`--tree-view-${key}`, theme[key])
+      let key: keyof typeof theme
+      for (key in theme) {
+        // This ridiculous thing is for TypeScript type inference. Yey..?
+        const value = theme[key]
+        if (rootElement && key.includes('--tree-view-base') && value) {
+          rootElement.style.setProperty(`--tree-view-${key}`, value)
         }
-      })
+      }
     }
   }
 

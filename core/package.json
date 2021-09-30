@@ -53,7 +53,7 @@
     "format": "prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|svelte|md|graphql|mdx)\"",
     "lint": "eslint --cache --ext .js,.ts,.svelte ./src",
     "lint:fix": "eslint --fix --ext .js,.ts,.svelte ./src",
-    "preversion": "yarn test && yarn test:e2e",
+    "preversion": "yarn svelte-check && yarn test && yarn test:e2e",
     "version": "yarn build",
     "postversion": "git push && git push --tags",
     "prepublishOnly": "cp ../README.md . && cp ../LICENSE .",

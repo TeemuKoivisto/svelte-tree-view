@@ -39,6 +39,9 @@
       $rootElementStore.querySelector(`li[data-tree-id="${node.circularOfId}"]`)?.scrollIntoView()
     }
   }
+  function valueComponentDefaultFormatter(val: any) {
+    propsStore.formatValue(val, node)
+  }
 </script>
 
 <li class="row" class:collapsed={node.collapsed && hasChildren} data-tree-id={node.id}>
@@ -70,7 +73,7 @@
         this={valueComponent}
         value={node.value}
         {node}
-        defaultFormatter={val => propsStore.formatValue(val, node)}
+        defaultFormatter={valueComponentDefaultFormatter}
       />
     {:else}
       {propsStore.formatValue(node.value, node)}
