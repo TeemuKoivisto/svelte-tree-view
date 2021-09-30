@@ -1,4 +1,4 @@
-# [svelte-tree-view](https://github.com/TeemuKoivisto/svelte-tree-view) [![version](https://img.shields.io/npm/v/svelte-tree-view?style=flat-square)](https://www.npmjs.com/package/svelte-tree-view) [![package minified size](https://img.shields.io/bundlephobia/min/svelte-tree-view?style=flat-square&color=important)](https://bundlephobia.com/result?p=svelte-tree-view) [![package size](https://img.shields.io/bundlephobia/minzip/svelte-tree-view?style=flat-square)](https://bundlephobia.com/result?p=svelte-tree-view) [![dependencies](https://david-dm.org/teemukoivisto/svelte-tree-view/status.svg)](https://david-dm.org/teemukoivisto/svelte-tree-view)
+# [svelte-tree-view](https://github.com/TeemuKoivisto/svelte-tree-view) [![version](https://img.shields.io/npm/v/svelte-tree-view?style=flat-square)](https://www.npmjs.com/package/svelte-tree-view) [![package minified size](https://img.shields.io/bundlephobia/min/svelte-tree-view?style=flat-square&color=important)](https://bundlephobia.com/result?p=svelte-tree-view) [![package size](https://img.shields.io/bundlephobia/minzip/svelte-tree-view?style=flat-square)](https://bundlephobia.com/result?p=svelte-tree-view)
 
 Library to show Javascript objects in a nice tree layout. It's written in Svelte but since it compiles to pure JS it can be used anywhere (although to customize the rendered nodes you must Svelte).
 
@@ -40,7 +40,6 @@ And use it as:
 
 ```tsx
 <TreeView
-  class="tree-view"
   data={selectedEntry.contentDiff}
   showLogButton
   showCopyButton
@@ -53,17 +52,18 @@ And use it as:
 />
 ```
 
-Or if you are not using Svelte:
+Or if you are not using Svelte (NOTE: to use it with TS you must have svelte installed as a devDependency for the typings):
 
 ```ts
 import { TreeView } from 'svelte-tree-view'
+import 'svelte-tree-view/dist/index.css'
 
 const treeView = new TreeView({
-  target: document.querySelector('#mount-point'),
+  target: document.querySelector('#mount-point') as HTMLElement,
   props: {
     data: {
-      a: [1, 2, 3]
-      b: new Map([['c', 1,], ['d', { e: [9, 8, 7] }]])
+      a: [1, 2, 3],
+      b: new Map([['c', { d: null }], ['e', { f: [9, 8, 7] }]])
     },
     recursionOpts: {
       maxDepth: 4
@@ -223,6 +223,10 @@ works.
 ## Other
 
 [A little explanation](https://github.com/TeemuKoivisto/svelte-tree-view/blob/master/HOW.md) on the internal logic.
+
+## Caveats
+
+Rendering very large trees is not fast. The same happens with say react-json-tree but I assume that by using some clever hacks you _could_ make it faster. Like VSCode fast. In general, it seems the use of recursive components is non-optimal regardless of the framework.
 
 ## How to develop locally
 
