@@ -4,7 +4,6 @@ import typescript from 'rollup-plugin-ts'
 import svelte from 'rollup-plugin-svelte'
 import autoPreprocess from 'svelte-preprocess'
 import scss from 'rollup-plugin-scss'
-import { terser } from 'rollup-plugin-terser'
 
 import pkg from './package.json'
 import svelteConfig from './svelte.config'
@@ -46,7 +45,6 @@ export default {
       browser: true,
       dedupe: ['svelte']
     }),
-    isProduction && terser()
   ],
   watch: {
     clearScreen: false
