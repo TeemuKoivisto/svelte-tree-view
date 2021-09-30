@@ -15,6 +15,7 @@ function* valueGenerator() {
         break
       case 3:
         yield () => {
+          // eslint-disable-next-line no-console
           console.log('hello world')
         }
         break

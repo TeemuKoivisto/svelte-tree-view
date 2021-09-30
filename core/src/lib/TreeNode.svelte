@@ -20,7 +20,9 @@
   })
 
   function handleLogNode() {
+    // eslint-disable-next-line no-console
     console.info('%c [svelte-tree-view]: Property added to window._node', 'color: #b8e248')
+    // eslint-disable-next-line no-console
     console.log(node.value)
     try {
       if (typeof window !== 'undefined') window._node = node.value
@@ -116,9 +118,6 @@
     line-height: var(--tree-view-line-height);
     list-style: none;
     width: 100%;
-    /* &.collapsed {
-      margin-bottom: 0.3em;
-    } */
   }
   li + li {
     margin-top: 0.25em;
