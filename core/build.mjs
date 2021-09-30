@@ -49,10 +49,22 @@ async function build() {
   await exec('rm ./package/package.json')
 }
 
+async function checkFilesBuilt() {
+  await Promise.all([
+    fs.access('./dist/index.js'),
+    fs.access('./dist/index.es.js'),
+    fs.access('./dist/index.css'),
+    fs.access('./dist/types.d.ts'),
+    fs.access('./package/index.js'),
+  ])
+}
+
 if (!arg) {
   build()
 } else if (arg === 'dev') {
   setExportsForDevelopment()
+} else if (arg === 'check') {
+  checkFilesBuilt()
 } else {
-  throw Error(`Unknown command '${arg}' for build.mjs, available commands: <none> | dev`)
+  throw Error(`Unknown command '${arg}' for build.mjs, available commands: <none> | dev | check`)
 }

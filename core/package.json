@@ -46,7 +46,7 @@
     "theme"
   ],
   "scripts": {
-    "build": "./build.mjs",
+    "build": "./build.mjs && ./build.mjs check",
     "build:dist": "rimraf ./dist && rollup -c && cp ./src/lib/types.ts ./dist/types.d.ts",
     "build:pkg": "svelte-kit package",
     "watch": "./build.mjs dev",
