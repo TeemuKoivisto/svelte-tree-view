@@ -5,7 +5,7 @@
     "example-app"
   ],
   "scripts": {
-    "start": "concurrently --kill-others 'cd ./core && yarn watch' 'cd example-app && yarn start'"
+    "start": "concurrently --kill-others 'cd ./core && yarn dev' 'cd example-app && yarn start'"
   },
   "devDependencies": {
     "concurrently": "^6.2.1"

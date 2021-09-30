@@ -40,6 +40,7 @@ jobs:
           cd core
           yarn svelte-check
           yarn test
+          yarn dev
 
       - name: Run tests with Cypress
         id: cypress

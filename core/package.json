@@ -49,7 +49,7 @@
     "build": "./build.mjs && ./build.mjs check",
     "build:dist": "rimraf ./dist && rollup -c && cp ./src/lib/types.ts ./dist/types.d.ts",
     "build:pkg": "svelte-kit package",
-    "watch": "./build.mjs dev",
+    "dev": "./build.mjs dev",
     "format": "prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|svelte|md|graphql|mdx)\"",
     "lint": "eslint --cache --ext .js,.ts,.svelte ./src",
     "lint:fix": "eslint --fix --ext .js,.ts,.svelte ./src",
