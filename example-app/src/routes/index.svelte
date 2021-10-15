@@ -1,5 +1,6 @@
 <script lang="ts">
   import TreeView from 'svelte-tree-view'
+  import type { Base16Theme, TreeNode, ValueComponent } from 'svelte-tree-view'
   import PropsForm from '../components/PropsForm.svelte'
   import DiffValue from '../components/DiffValue.svelte'
 
@@ -110,13 +111,13 @@
     keyMarginRight = '0.5em',
     showLogButton = false,
     showCopyButton = false,
-    valueComponent = undefined,
+    valueComponent: ValueComponent | undefined = undefined,
     recursionOpts = defaultRecursionOpts,
-    parsedRecursionOpts = undefined,
+    parsedRecursionOpts: Record<string, unknown> | undefined = undefined,
     valueFormatter = defaultValueFormatter,
-    parsedValueFormatter = undefined,
+    parsedValueFormatter: (val: any, n: TreeNode) => string | undefined = undefined,
     theme = defaultTheme,
-    parsedTheme = undefined
+    parsedTheme: Base16Theme | undefined = undefined
 
   $: {
     if (data) {
@@ -176,7 +177,7 @@
       case 1:
         parsedData = example1
         valueComponent = undefined
-        if (parsedRecursionOpts && parsedRecursionOpts.mapChildren === mapDocDeltaChildren) {
+        if (parsedRecursionOpts?.mapChildren === mapDocDeltaChildren) {
           parsedRecursionOpts.mapChildren = undefined
         }
         break
@@ -195,6 +196,7 @@
         break
       case 3:
         parsedData = generateObj(0, 4)
+        valueComponent = undefined
         if (parsedRecursionOpts && parsedRecursionOpts.mapChildren === mapDocDeltaChildren) {
           parsedRecursionOpts.mapChildren = undefined
         }

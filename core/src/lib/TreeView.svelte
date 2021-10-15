@@ -10,28 +10,25 @@
     createTreeMapStore
   } from './stores'
 
-  import TreeNode from './TreeNode.svelte'
+  import TreeViewNode from './TreeViewNode.svelte'
 
   import type { Stores } from './stores'
   import type {
-    ITreeNode,
+    Data,
+    TreeNode,
     TreeViewProps,
-    IBase16Theme,
+    Base16Theme,
     ValueComponent,
     TreeRecursionOpts
   } from './types'
 
-  export let data:
-      | { [key in string | number | symbol]: unknown }
-      | any[]
-      | Map<any, any>
-      | Set<any>,
-    theme: IBase16Theme | undefined = undefined,
+  export let data: Data,
+    theme: Base16Theme | undefined = undefined,
     showLogButton = false,
     showCopyButton = false,
     valueComponent: ValueComponent | undefined = undefined,
     recursionOpts: TreeRecursionOpts | undefined = {},
-    valueFormatter: ((val: any, n: ITreeNode) => string | undefined) | undefined = undefined
+    valueFormatter: ((val: any, n: TreeNode) => string | undefined) | undefined = undefined
 
   let rootElement: HTMLElement | null = null
   const defaultRecursionOpts: TreeRecursionOpts = {
@@ -117,7 +114,7 @@
 
 <ul class={`${$$props.class || ''} svelte-tree-view`} bind:this={rootElement}>
   {#each $treeStore.children as child}
-    <TreeNode id={child.id} />
+    <TreeViewNode id={child.id} />
   {/each}
 </ul>
 

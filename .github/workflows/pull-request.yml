@@ -35,14 +35,20 @@ jobs:
         run: |
           cd core
           yarn svelte-check
-          yarn test
+          yarn test:unit
+
+      - name: Build
+        run: |
+          cd core
+          chmod +x ./build.js
+          yarn build
 
       - name: Run tests with Cypress
         id: cypress
         uses: cypress-io/github-action@v2
         with:
           cache-key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('**/yarn.lock') }}
-          start: yarn --cwd ./example-app dev
+          start: yarn --cwd ./example-app dev:no-ssr
           wait-on: 'http://localhost:3000'
           project: ./core
           browser: chrome
@@ -63,9 +69,3 @@ jobs:
           name: cypress-videos
           path: ./core/cypress/videos
           retention-days: 7
-
-      - name: Build
-        run: |
-          cd core
-          chmod +x ./build.js
-          yarn build

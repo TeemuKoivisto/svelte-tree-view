@@ -1,9 +1,9 @@
 import { get, writable } from 'svelte/store'
 
-import type { ITreeNode } from '../types'
+import type { TreeNode } from '../types'
 
 export const createTreeMapStore = () => {
-  const treeMapStore = writable<Map<string, ITreeNode>>(new Map())
+  const treeMapStore = writable<Map<string, TreeNode>>(new Map())
 
   return {
     get: get(treeMapStore),
@@ -24,14 +24,14 @@ export const createTreeMapStore = () => {
     },
 
     expandAllNodesToNode(id: string) {
-      function recurseNodeUpwards(updated: Map<string, ITreeNode | null>, node?: ITreeNode | null) {
+      function recurseNodeUpwards(updated: Map<string, TreeNode | null>, node?: TreeNode | null) {
         if (!node) return
         updated.set(node.id, { ...node, collapsed: false })
         if (node.parentId) {
           recurseNodeUpwards(updated, updated.get(node.parentId))
         }
       }
-      const updated = new Map<string, ITreeNode>(get(treeMapStore))
+      const updated = new Map<string, TreeNode>(get(treeMapStore))
       recurseNodeUpwards(updated, updated.get(id))
       treeMapStore.set(updated)
     }
