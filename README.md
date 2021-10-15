@@ -16,7 +16,6 @@ Basically what you probably need to do is add `typescript` block to your `svelte
 import autoPreprocess from 'svelte-preprocess'
 
 const preprocessOptions = {
-  scss: { prependData: `@import 'src/global.scss';` },
   typescript: {
     tsconfigFile: './tsconfig.json'
   }
@@ -92,7 +91,7 @@ export type ValueType =
   | 'null'
   | 'undefined'
 
-export interface ITreeNode {
+export interface TreeNode {
   id: string // ID generated from the path to this node eg "[0,1,2]"
   index: number // Index of this node in the parent object as its values are iterated
   key: string // Key of this node eg "1" for an array key or "foo" for an object
@@ -104,10 +103,10 @@ export interface ITreeNode {
   parentId: string | null
   // Circularity is checked by object identity to prevent recursing the same values again
   circularOfId: string | null
-  children: ITreeNode[]
+  children: TreeNode[]
 }
 
-export interface IBase16Theme {
+export interface Base16Theme {
   scheme?: string
   author?: string
   base00: string // Default Background
@@ -128,22 +127,24 @@ export interface IBase16Theme {
   base0F: string // Deprecated, Opening/Closing Embedded Language Tags, e.g. <?php ?>
 }
 
-export type ValueComponent = SvelteComponentTyped<{
+// As described in https://stackoverflow.com/questions/67697298/svelte-components-as-object-properties/67737182#67737182
+export type ValueComponent = new (...args: any) => SvelteComponentTyped<{
   value: any
-  node: ITreeNode
+  node: TreeNode
   defaultFormatter?: (val: any) => string | undefined
 }>
 
+export type Data = { [key in string | number | symbol]: unknown } | unknown[] | Map<unknown, unknown> | Set<unknown>
 export interface TreeViewProps {
-  // Data can be basically any non-primitive value
-  data: { [key in string | number | symbol]: unknown } | any[] | Map<any, any> | Set<any>
+  data: Data // Data can be basically any non-primitive value
   class?: string // Top node has 'svelte-tree-view' class by default
-  theme?: IBase16Theme
+  theme?: Base16Theme
   showLogButton?: boolean
   showCopyButton?: boolean
   valueComponent?: ValueComponent // The Svelte component to replace the default value-as-string presentation
   recursionOpts?: TreeRecursionOpts
-  valueFormatter?: (val: any, n: ITreeNode) => string | undefined // For custom formatting of the value string
+  // For custom formatting of the value string. Returning undefined will pass the value to the default formatter
+  valueFormatter?: (val: any, n: TreeNode) => string | undefined
 }
 
 export interface TreeRecursionOpts {
@@ -151,9 +152,9 @@ export interface TreeRecursionOpts {
   // Quick and dirty way to prevent recursing certain object keys instead of overriding shouldExpandNode
   omitKeys?: string[]
   stopCircularRecursion?: boolean // Stops recursing objects already recursed
-  isCircularNode?: (n: ITreeNode, iteratedValues: Map<any, ITreeNode>) => boolean // For custom circularity detection magic
-  shouldExpandNode?: (n: ITreeNode) => boolean // Will auto-expand or collapse values as data is provided
-  mapChildren?: (val: any, type: ValueType, parent: ITreeNode) => [string, any][] | undefined // For customizing the created key-value pairs
+  isCircularNode?: (n: TreeNode, iteratedValues: Map<any, TreeNode>) => boolean // For custom circularity detection magic
+  shouldExpandNode?: (n: TreeNode) => boolean // Will auto-expand or collapse values as data is provided
+  mapChildren?: (val: any, type: ValueType, parent: TreeNode) => [string, any][] | undefined // For customizing the created key-value pairs
 }
 
 export class TreeView extends SvelteComponentTyped<TreeViewProps> {}
