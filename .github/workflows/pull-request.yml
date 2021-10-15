@@ -37,6 +37,12 @@ jobs:
           yarn svelte-check
           yarn test:unit
 
+      - name: Build
+        run: |
+          cd core
+          chmod +x ./build.js
+          yarn build
+
       - name: Run tests with Cypress
         id: cypress
         uses: cypress-io/github-action@v2
@@ -63,9 +69,3 @@ jobs:
           name: cypress-videos
           path: ./core/cypress/videos
           retention-days: 7
-
-      - name: Build
-        run: |
-          cd core
-          chmod +x ./build.js
-          yarn build
