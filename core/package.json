@@ -11,8 +11,8 @@
   "type": "module",
   "exports": {
     "./package.json": "./package/package.json",
-    "./TreeNode.svelte": "./package/TreeNode.svelte",
     "./TreeView.svelte": "./package/TreeView.svelte",
+    "./TreeViewNode.svelte": "./package/TreeViewNode.svelte",
     ".": "./package/index.js",
     "./stores": "./package/stores/index.js",
     "./stores/props": "./package/stores/props.js",
