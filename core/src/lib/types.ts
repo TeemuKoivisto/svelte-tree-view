@@ -51,7 +51,8 @@ export interface Base16Theme {
   base0F: string // Deprecated, Opening/Closing Embedded Language Tags, e.g. <?php ?>
 }
 
-export type ValueComponent = SvelteComponentTyped<{
+// As described in https://stackoverflow.com/questions/67697298/svelte-components-as-object-properties/67737182#67737182
+export type ValueComponent = new (...args: any) => SvelteComponentTyped<{
   value: any
   node: TreeNode
   defaultFormatter?: (val: any) => string | undefined
