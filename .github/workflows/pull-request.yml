@@ -35,7 +35,7 @@ jobs:
         run: |
           cd core
           yarn svelte-check
-          yarn test
+          yarn test:unit
 
       - name: Run tests with Cypress
         id: cypress
