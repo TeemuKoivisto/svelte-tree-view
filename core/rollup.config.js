@@ -44,7 +44,7 @@ export default {
     resolve({
       browser: true,
       dedupe: ['svelte']
-    }),
+    })
   ],
   watch: {
     clearScreen: false

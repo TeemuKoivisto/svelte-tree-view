@@ -42,11 +42,13 @@ async function writePackageExports() {
 
 async function build() {
   await cleanCurrentExports()
-  await exec('yarn build:pkg')
-  await exec('yarn build:dist')
-  await exec('rm ./package/.npmignore')
+  await Promise.all([
+    exec('yarn build:pkg'),
+    exec('yarn build:dist'),
+  ])
   await writePackageExports()
-  await exec('rm ./package/package.json')
+  await exec('rm ./package/.npmignore && rm ./package/package.json')
+  await checkFilesBuilt()
 }
 
 async function checkFilesBuilt() {

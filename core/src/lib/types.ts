@@ -79,5 +79,5 @@ export interface TreeRecursionOpts {
   mapChildren?: (val: any, type: ValueType, parent: ITreeNode) => [string, any][] | undefined // For customizing the created key-value pairs
 }
 
-export class TreeView extends SvelteComponentTyped<TreeViewProps> { }
+export class TreeView extends SvelteComponentTyped<TreeViewProps> {}
 export default TreeView

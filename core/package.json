@@ -19,7 +19,8 @@
     "./stores/root-element": "./package/stores/root-element.js",
     "./stores/tree": "./package/stores/tree.js",
     "./stores/treemap": "./package/stores/treemap.js",
-    "./tree-utils": "./package/tree-utils.js"
+    "./tree-utils": "./package/tree-utils.js",
+    "./types": "./package/types.js"
   },
   "files": [
     "package",
@@ -49,7 +50,8 @@
     "build": "./build.mjs && ./build.mjs check",
     "build:dist": "rimraf ./dist && rollup -c && cp ./src/lib/types.ts ./dist/types.d.ts",
     "build:pkg": "svelte-kit package",
-    "dev": "./build.mjs dev",
+    "exports:dev": "./build.mjs dev",
+    "dev": "svelte-kit dev --port 3030",
     "format": "prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|svelte|md|graphql|mdx)\"",
     "lint": "eslint --cache --ext .js,.ts,.svelte ./src",
     "lint:fix": "eslint --fix --ext .js,.ts,.svelte ./src",
