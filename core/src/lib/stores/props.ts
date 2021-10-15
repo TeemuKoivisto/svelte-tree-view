@@ -1,6 +1,6 @@
 import { get, writable } from 'svelte/store'
 
-import type { ITreeNode, TreeViewProps } from '../types'
+import type { TreeNode, TreeViewProps } from '../types'
 
 export const createPropsStore = (props: Omit<TreeViewProps, 'data'>) => {
   const propsStore = writable<Omit<TreeViewProps, 'data'>>(props)
@@ -9,7 +9,7 @@ export const createPropsStore = (props: Omit<TreeViewProps, 'data'>) => {
     set: propsStore.set,
     subscribe: propsStore.subscribe,
 
-    formatValue(val: any, node: ITreeNode) {
+    formatValue(val: any, node: TreeNode) {
       const { valueFormatter } = get(propsStore)
       const customFormat = valueFormatter ? valueFormatter(val, node) : undefined
       if (customFormat) {

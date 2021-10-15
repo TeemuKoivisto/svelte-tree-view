@@ -1,14 +1,21 @@
 <script lang="ts">
   import { getContext } from 'svelte'
   import type { Stores } from './stores'
-  import type { ITreeNode } from './types'
+  import type { TreeNode } from './types'
 
   export let id: string
 
   const { treeMapStore, propsStore, rootElementStore } = getContext<Stores>('svelte-tree-view')
-  // Should explode rather than have logic written to check for undefinedness.
-  // As this component should be unmounted if it's undefined.
-  $: node = $treeMapStore.get(id) as ITreeNode
+  let node: TreeNode
+  $: {
+    let found = $treeMapStore.get(id)
+    // Should explode rather than have logic written around undefinedness
+    // as this component should be unmounted if it's undefined.
+    if (!found) {
+      throw Error('[svelte-tree-view] TreeViewNode.svelte received undefined node from treeMapStore whereas it should be already unmounted!')
+    }
+    node = found
+  }
   $: hasChildren = node && node.children.length > 0
   $: valueComponent = $propsStore.valueComponent
 

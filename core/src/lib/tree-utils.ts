@@ -1,12 +1,12 @@
-import type { ITreeNode, TreeRecursionOpts, ValueType } from './types'
+import type { TreeNode, TreeRecursionOpts, ValueType } from './types'
 
 export function createNode(
   index: number,
   key: string,
   value: any,
   depth: number,
-  parent: ITreeNode | null
-): ITreeNode {
+  parent: TreeNode | null
+): TreeNode {
   const path = parent ? [...parent.path, index] : []
   return {
     id: `[${path.join(',')}]`,
@@ -96,8 +96,8 @@ function getChildren(value: any, type: ValueType): [string, any][] {
 }
 
 function shouldRecurseChildren(
-  node: ITreeNode,
-  iteratedValues: Map<any, ITreeNode>,
+  node: TreeNode,
+  iteratedValues: Map<any, TreeNode>,
   opts: TreeRecursionOpts
 ) {
   if (!opts.stopCircularRecursion) {
@@ -120,13 +120,13 @@ export function recurseObjectProperties(
   key: string,
   value: any,
   depth: number,
-  parent: ITreeNode | null,
-  treeMap: Map<string, ITreeNode>,
-  oldTreeMap: Map<string, ITreeNode>,
-  iteratedValues: Map<any, ITreeNode>,
+  parent: TreeNode | null,
+  treeMap: Map<string, TreeNode>,
+  oldTreeMap: Map<string, TreeNode>,
+  iteratedValues: Map<any, TreeNode>,
   recomputeExpandNode: boolean,
   opts: TreeRecursionOpts
-): ITreeNode | null {
+): TreeNode | null {
   if (opts.omitKeys?.includes(key) || (opts.maxDepth && depth >= opts.maxDepth)) {
     return null
   }
@@ -160,7 +160,7 @@ export function recurseObjectProperties(
           opts
         )
       )
-      .filter(n => n !== null) as ITreeNode[]
+      .filter(n => n !== null) as TreeNode[]
   }
 
   return node
