@@ -67,5 +67,5 @@ jobs:
       - name: Build
         run: |
           cd core
-          chmod +x ./build.mjs
+          chmod +x ./build.js
           yarn build

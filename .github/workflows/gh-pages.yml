@@ -30,7 +30,7 @@ jobs:
       - name: Build svelte-tree-view
         run: |
           cd core
-          chmod +x build.mjs
+          chmod +x build.js
           yarn build
 
       - name: Build example-app

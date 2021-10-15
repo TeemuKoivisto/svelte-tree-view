@@ -68,5 +68,5 @@ if (!arg) {
 } else if (arg === 'check') {
   checkFilesBuilt()
 } else {
-  throw Error(`Unknown command '${arg}' for build.mjs, available commands: <none> | dev | check`)
+  throw Error(`Unknown command '${arg}' for build.js, available commands: <none> | dev | check`)
 }

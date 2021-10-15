@@ -40,7 +40,7 @@ jobs:
           cd core
           yarn svelte-check
           yarn test
-          chmod +x build.mjs
+          chmod +x build.js
           yarn dev
 
       - name: Run tests with Cypress
@@ -99,7 +99,7 @@ jobs:
 
       - name: Build
         run: |
-          chmod +x ./core/build.mjs
+          chmod +x ./core/build.js
           yarn --cwd ./core build
 
       - name: Publish to npm

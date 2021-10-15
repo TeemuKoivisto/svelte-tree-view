@@ -47,10 +47,10 @@
     "theme"
   ],
   "scripts": {
-    "build": "./build.mjs && ./build.mjs check",
+    "build": "./build.js && ./build.js check",
     "build:dist": "rimraf ./dist && rollup -c && cp ./src/lib/types.ts ./dist/types.d.ts",
     "build:pkg": "svelte-kit package",
-    "exports:dev": "./build.mjs dev",
+    "exports:dev": "./build.js dev",
     "dev": "svelte-kit dev --port 3030",
     "format": "prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|svelte|md|graphql|mdx)\"",
     "lint": "eslint --cache --ext .js,.ts,.svelte ./src",
