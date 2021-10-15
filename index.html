@@ -29,27 +29,1604 @@
 
 		
 
-		<link rel="modulepreload" href="/svelte-tree-view/_app/start-30ded598.js">
+		<link rel="modulepreload" href="/svelte-tree-view/_app/start-e6eec7ed.js">
 		<link rel="modulepreload" href="/svelte-tree-view/_app/chunks/vendor-7cb94cd9.js">
+		<link rel="modulepreload" href="/svelte-tree-view/_app/pages/__layout.svelte-6e48f23e.js">
+		<link rel="modulepreload" href="/svelte-tree-view/_app/pages/index.svelte-e332c2bc.js">
 		<link rel="stylesheet" href="/svelte-tree-view/_app/assets/start-d5b4de3e.css">
+		<link rel="stylesheet" href="/svelte-tree-view/_app/assets/pages/__layout.svelte-954305f9.css">
+		<link rel="stylesheet" href="/svelte-tree-view/_app/assets/pages/index.svelte-39b24f5c.css">
 
 		<script type="module">
-			import { start } from "/svelte-tree-view/_app/start-30ded598.js";
+			import { start } from "/svelte-tree-view/_app/start-e6eec7ed.js";
 			start({
 				target: document.querySelector("#svelte"),
 				paths: {"base":"/svelte-tree-view","assets":""},
 				session: {},
 				host: location.host,
 				route: true,
-				spa: true,
+				spa: false,
 				trailing_slash: "never",
-				hydrate: null
+				hydrate: {
+					status: 200,
+					error: null,
+					nodes: [
+						import("/svelte-tree-view/_app/pages/__layout.svelte-6e48f23e.js"),
+						import("/svelte-tree-view/_app/pages/index.svelte-e332c2bc.js")
+					],
+					page: {
+						host: location.host, // TODO this is redundant
+						path: "\u002F",
+						query: new URLSearchParams(""),
+						params: {}
+					}
+				}
 			});
 		</script>
   </head>
 
   <body>
     <div id="svelte">
+
+
+<main><section class="p-4 m-auto lg:container md:p-16 md:pt-8 xs:p-8 rounded-2xl"><h1 class="my-3 text-5xl font-bold flex items-center"><a target="_blank" rel="noopener" href="https://github.com/teemukoivisto/svelte-tree-view">svelte-tree-view</a></h1>
+  <p class="my-2">Copy-paste JSON objects to view them.</p>
+  <fieldset class="container-sm flex flex-col border-2 p-2 text-sm"><legend class="px-2 text-0A text-base">Available props</legend>
+  <div class="m-2 mt-0"><div class="field svelte-17inw2i"><label for="leftIndent" class="svelte-17inw2i">--tree-view-left-indent</label>
+      <input id="leftIndent" class="w-20 pl-1 bg-01 text-0B svelte-17inw2i" value="0.875em"></div>
+    <div class="field svelte-17inw2i"><label for="lineHeight" class="svelte-17inw2i">--tree-view-li-line-height</label>
+      <input id="lineHeight" class="w-20 pl-1 bg-01 text-0B svelte-17inw2i" value="1.1"></div>
+    <div class="field svelte-17inw2i"><label for="fontFamily" class="svelte-17inw2i">--tree-view-font-family</label>
+      <input id="fontFamily" class="w-48 pl-1 bg-01 text-0B svelte-17inw2i" value="Helvetica Neue"></div>
+    <div class="field svelte-17inw2i"><label for="fontSize" class="svelte-17inw2i">--tree-view-font-size</label>
+      <input id="fontSize" class="w-20 pl-1 bg-01 text-0B svelte-17inw2i" value="13px"></div>
+    <div class="field svelte-17inw2i"><label for="keyMarginRight" class="svelte-17inw2i">--tree-view-key-margin-right</label>
+      <input id="keyMarginRight" class="w-20 pl-1 bg-01 text-0B svelte-17inw2i" value="0.5em"></div>
+    <div class="field svelte-17inw2i"><label for="showLogButton" class="svelte-17inw2i">showLogButton</label>
+      <input id="showLogButton" type="checkbox" class="svelte-17inw2i"></div>
+    <div class="field svelte-17inw2i"><label for="showCopyButton" class="svelte-17inw2i">showCopyButton</label>
+      <input id="showCopyButton" type="checkbox" class="svelte-17inw2i"></div>
+    <div class="field svelte-17inw2i"><label class="svelte-17inw2i">valueComponent</label>
+      <div class="px-1 py-0.5 rounded-sm transition-colors duration-100 tracking-wide text-xs text-0B">See Example 2
+      </div></div></div>
+  <div class="flex flex-col m-2 mt-0"><div class="col-field svelte-17inw2i"><label for="recursionOpts" class="svelte-17inw2i">recursionOpts</label>
+      <textarea id="recursionOpts" class="h-44 bg-01 text-0B svelte-17inw2i">{
+  maxDepth: 10,
+  omitKeys: [],
+  stopCircularRecursion: false,
+  isCircularNode(node, iteratedValues) {
+    if (node.type === 'object' || node.type === 'array') {
+      const existingNodeWithValue = iteratedValues.get(node.value)
+      if (existingNodeWithValue) {
+        node.circularOfId = existingNodeWithValue.id
+        return false
+      }
+      iteratedValues.set(node.value, node)
+    }
+    return true
+  },
+  shouldExpandNode: (node) => {
+    return true
+  },
+  mapChildren(value, type, parent) {
+    switch (type) {
+      case 'array':
+        return value.map((v, i) => [i.toString(), v])
+      case 'map':
+        const entries = Array.from(value.entries())
+        return entries.map(([key, value], i) => [
+          `[map entry ${i}]`,
+          {
+            '[key]': key,
+            '[value]': value
+          }
+        ])
+      case 'set':
+        return Array.from(value.values()).map((v, i) => [`[set entry ${i}]`, v])
+      case 'object':
+        return Object.entries(value)
+      default:
+        return []
+    }
+  }
+}</textarea></div>
+    <div class="col-field svelte-17inw2i"><label for="valueFormatter" class="svelte-17inw2i">valueFormatter</label>
+      <textarea id="valueFormatter" class="h-44 bg-01 text-0B svelte-17inw2i">(val, node) => {
+  switch (node.type) {
+    case 'array':
+      return `${node.circularOfId ? 'circular' : ''} [] ${val.length} items`
+    case 'object':
+      return `${node.circularOfId ? 'circular' : ''} {} ${Object.keys(val).length} keys`
+    case 'map':
+    case 'set':
+      return `${node.circularOfId ? 'circular' : ''} () ${val.size} entries`
+    case 'date':
+      return `${val.toISOString()}`
+    case 'string':
+      return `"${val}"`
+    case 'boolean':
+      return val ? 'true' : 'false'
+    default:
+      return val
+  }
+}</textarea></div>
+    <div class="col-field svelte-17inw2i"><label for="theme" class="svelte-17inw2i">theme
+        <a target="_blank" rel="noopener" href="https://github.com/reduxjs/redux-devtools/tree/75322b15ee7ba03fddf10ac3399881e302848874/src/react/themes">examples</a></label>
+      <textarea id="theme" class="w-full h-44 bg-01 text-0B svelte-17inw2i">{
+  scheme: 'monokai',
+  base00: '#363755', // main blue bg
+  base01: '#604D49',
+  base02: '#6D5A55',
+  base03: '#D1929B', // red text
+  base04: '#B79F8D',
+  base05: '#F9F8F2',
+  base06: '#F7F4F1',
+  base07: '#FAF8F5',
+  base08: '#FA3E7E', // purple (null, undefined)
+  base09: '#FD993C', // orange (number, boolean)
+  base0A: '#F6BF81',
+  base0B: '#B8E248', // main green text
+  base0C: '#B4EFE4',
+  base0D: '#85D9EF', // main blue text
+  base0E: '#BE87FF',
+  base0F: '#D6724C'
+}</textarea></div></div>
+</fieldset>
+  <div class="my-4"><button class="btn" data-test="btn-1">Example 1</button>
+    <button class="btn ml-2" data-test="btn-2">Example 2</button>
+    <button class="btn ml-2" data-test="btn-3">Example 3</button></div>
+  <div class="flex"><textarea class="w-1/2 bg-06 text-00 placeholder-gray-500 p-2 border" data-test="input-textarea" placeholder="Eg. {&quot;a&quot;: 1, &quot;b&quot;: [1,2,3]}"></textarea>
+    <ul class="tree-view x svelte-tree-view svelte-q3pq1s"><li class="row svelte-ngcjq5" data-tree-id="[0]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">0:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="object"> {} 22 keys</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[0,0]">
+  <div class="node-key svelte-ngcjq5  p-left">_id:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;6127d77c7d2ff4113f24ab5c&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[0,1]">
+  <div class="node-key svelte-ngcjq5  p-left">index:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">0</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[0,2]">
+  <div class="node-key svelte-ngcjq5  p-left">guid:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;6e72c4da-c871-4aa1-aa44-1465920b90ae&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[0,3]">
+  <div class="node-key svelte-ngcjq5  p-left">isActive:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="boolean">false</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[0,4]">
+  <div class="node-key svelte-ngcjq5  p-left">balance:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;$2,256.26&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[0,5]">
+  <div class="node-key svelte-ngcjq5  p-left">picture:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;http://placehold.it/32x32&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[0,6]">
+  <div class="node-key svelte-ngcjq5  p-left">age:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">22</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[0,7]">
+  <div class="node-key svelte-ngcjq5  p-left">eyeColor:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;blue&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[0,8]">
+  <div class="node-key svelte-ngcjq5  p-left">name:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Branch Mcintosh&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[0,9]">
+  <div class="node-key svelte-ngcjq5  p-left">gender:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;male&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[0,10]">
+  <div class="node-key svelte-ngcjq5  p-left">company:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;ENTOGROK&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[0,11]">
+  <div class="node-key svelte-ngcjq5  p-left">email:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;branchmcintosh@entogrok.com&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[0,12]">
+  <div class="node-key svelte-ngcjq5  p-left">phone:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;+1 (843) 489-2199&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[0,13]">
+  <div class="node-key svelte-ngcjq5  p-left">address:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;196 Gerry Street, Sylvanite, Colorado, 3630&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[0,14]">
+  <div class="node-key svelte-ngcjq5  p-left">about:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Deserunt et laborum proident commodo. Irure mollit voluptate minim ut eiusmod qui deserunt culpa est nostrud. Ex duis aute ad eu. Ex in culpa culpa nulla non voluptate velit ex sint pariatur exercitation labore.
+&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[0,15]">
+  <div class="node-key svelte-ngcjq5  p-left">registered:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;2018-07-23T07:01:58 -03:00&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[0,16]">
+  <div class="node-key svelte-ngcjq5  p-left">latitude:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">-39.97877</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[0,17]">
+  <div class="node-key svelte-ngcjq5  p-left">longitude:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">-61.667911</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[0,18]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">tags:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="array"> [] 7 items</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[0,18,0]">
+  <div class="node-key svelte-ngcjq5  p-left">0:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;tempor&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[0,18,1]">
+  <div class="node-key svelte-ngcjq5  p-left">1:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;laboris&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[0,18,2]">
+  <div class="node-key svelte-ngcjq5  p-left">2:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;reprehenderit&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[0,18,3]">
+  <div class="node-key svelte-ngcjq5  p-left">3:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;veniam&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[0,18,4]">
+  <div class="node-key svelte-ngcjq5  p-left">4:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;exercitation&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[0,18,5]">
+  <div class="node-key svelte-ngcjq5  p-left">5:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;velit&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[0,18,6]">
+  <div class="node-key svelte-ngcjq5  p-left">6:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;voluptate&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+</ul></li><li class="row svelte-ngcjq5" data-tree-id="[0,19]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">friends:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="array"> [] 3 items</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[0,19,0]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">0:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="object"> {} 2 keys</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[0,19,0,0]">
+  <div class="node-key svelte-ngcjq5  p-left">id:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">0</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[0,19,0,1]">
+  <div class="node-key svelte-ngcjq5  p-left">name:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Shanna Shannon&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+</ul></li><li class="row svelte-ngcjq5" data-tree-id="[0,19,1]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">1:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="object"> {} 2 keys</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[0,19,1,0]">
+  <div class="node-key svelte-ngcjq5  p-left">id:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">1</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[0,19,1,1]">
+  <div class="node-key svelte-ngcjq5  p-left">name:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Lindsey Reed&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+</ul></li><li class="row svelte-ngcjq5" data-tree-id="[0,19,2]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">2:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="object"> {} 2 keys</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[0,19,2,0]">
+  <div class="node-key svelte-ngcjq5  p-left">id:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">2</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[0,19,2,1]">
+  <div class="node-key svelte-ngcjq5  p-left">name:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Elinor Hendricks&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+</ul></li></ul></li><li class="row svelte-ngcjq5" data-tree-id="[0,20]">
+  <div class="node-key svelte-ngcjq5  p-left">greeting:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Hello, Branch Mcintosh! You have 1 unread messages.&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[0,21]">
+  <div class="node-key svelte-ngcjq5  p-left">favoriteFruit:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;strawberry&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+</ul></li><li class="row svelte-ngcjq5" data-tree-id="[1]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">1:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="object"> {} 22 keys</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[1,0]">
+  <div class="node-key svelte-ngcjq5  p-left">_id:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;6127d77cdce2ef8b8b42aae8&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[1,1]">
+  <div class="node-key svelte-ngcjq5  p-left">index:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">1</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[1,2]">
+  <div class="node-key svelte-ngcjq5  p-left">guid:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;8e33bdb8-d5e6-49fb-b229-ea24501c9ba3&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[1,3]">
+  <div class="node-key svelte-ngcjq5  p-left">isActive:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="boolean">true</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[1,4]">
+  <div class="node-key svelte-ngcjq5  p-left">balance:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;$3,880.84&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[1,5]">
+  <div class="node-key svelte-ngcjq5  p-left">picture:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;http://placehold.it/32x32&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[1,6]">
+  <div class="node-key svelte-ngcjq5  p-left">age:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">29</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[1,7]">
+  <div class="node-key svelte-ngcjq5  p-left">eyeColor:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;brown&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[1,8]">
+  <div class="node-key svelte-ngcjq5  p-left">name:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Amy Cannon&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[1,9]">
+  <div class="node-key svelte-ngcjq5  p-left">gender:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;female&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[1,10]">
+  <div class="node-key svelte-ngcjq5  p-left">company:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;QUILITY&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[1,11]">
+  <div class="node-key svelte-ngcjq5  p-left">email:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;amycannon@quility.com&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[1,12]">
+  <div class="node-key svelte-ngcjq5  p-left">phone:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;+1 (842) 547-2756&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[1,13]">
+  <div class="node-key svelte-ngcjq5  p-left">address:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;564 Dahlgreen Place, Sims, Washington, 9571&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[1,14]">
+  <div class="node-key svelte-ngcjq5  p-left">about:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;In enim aliqua sint dolor laboris. Sunt veniam officia elit magna Lorem nulla occaecat culpa anim enim. Irure velit labore dolore incididunt. Aute aliquip elit ut duis anim elit esse dolor esse in nisi eiusmod tempor eiusmod. Proident eiusmod id nulla voluptate fugiat dolore do tempor dolor sunt. Adipisicing culpa quis elit enim aliquip. Tempor exercitation aute excepteur in.
+&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[1,15]">
+  <div class="node-key svelte-ngcjq5  p-left">registered:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;2020-09-23T10:54:44 -03:00&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[1,16]">
+  <div class="node-key svelte-ngcjq5  p-left">latitude:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">-73.399929</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[1,17]">
+  <div class="node-key svelte-ngcjq5  p-left">longitude:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">55.693187</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[1,18]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">tags:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="array"> [] 7 items</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[1,18,0]">
+  <div class="node-key svelte-ngcjq5  p-left">0:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;commodo&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[1,18,1]">
+  <div class="node-key svelte-ngcjq5  p-left">1:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;ex&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[1,18,2]">
+  <div class="node-key svelte-ngcjq5  p-left">2:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;elit&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[1,18,3]">
+  <div class="node-key svelte-ngcjq5  p-left">3:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;ad&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[1,18,4]">
+  <div class="node-key svelte-ngcjq5  p-left">4:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;magna&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[1,18,5]">
+  <div class="node-key svelte-ngcjq5  p-left">5:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;laboris&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[1,18,6]">
+  <div class="node-key svelte-ngcjq5  p-left">6:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;veniam&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+</ul></li><li class="row svelte-ngcjq5" data-tree-id="[1,19]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">friends:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="array"> [] 3 items</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[1,19,0]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">0:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="object"> {} 2 keys</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[1,19,0,0]">
+  <div class="node-key svelte-ngcjq5  p-left">id:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">0</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[1,19,0,1]">
+  <div class="node-key svelte-ngcjq5  p-left">name:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Barron Gonzales&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+</ul></li><li class="row svelte-ngcjq5" data-tree-id="[1,19,1]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">1:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="object"> {} 2 keys</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[1,19,1,0]">
+  <div class="node-key svelte-ngcjq5  p-left">id:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">1</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[1,19,1,1]">
+  <div class="node-key svelte-ngcjq5  p-left">name:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Therese Ramos&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+</ul></li><li class="row svelte-ngcjq5" data-tree-id="[1,19,2]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">2:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="object"> {} 2 keys</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[1,19,2,0]">
+  <div class="node-key svelte-ngcjq5  p-left">id:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">2</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[1,19,2,1]">
+  <div class="node-key svelte-ngcjq5  p-left">name:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Kirby Knight&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+</ul></li></ul></li><li class="row svelte-ngcjq5" data-tree-id="[1,20]">
+  <div class="node-key svelte-ngcjq5  p-left">greeting:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Hello, Amy Cannon! You have 9 unread messages.&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[1,21]">
+  <div class="node-key svelte-ngcjq5  p-left">favoriteFruit:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;apple&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+</ul></li><li class="row svelte-ngcjq5" data-tree-id="[2]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">2:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="object"> {} 22 keys</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[2,0]">
+  <div class="node-key svelte-ngcjq5  p-left">_id:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;6127d77c36bbb0fbc6f1e367&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[2,1]">
+  <div class="node-key svelte-ngcjq5  p-left">index:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">2</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[2,2]">
+  <div class="node-key svelte-ngcjq5  p-left">guid:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;75500a41-98ec-4050-854f-33dfef40297c&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[2,3]">
+  <div class="node-key svelte-ngcjq5  p-left">isActive:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="boolean">false</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[2,4]">
+  <div class="node-key svelte-ngcjq5  p-left">balance:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;$2,367.73&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[2,5]">
+  <div class="node-key svelte-ngcjq5  p-left">picture:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;http://placehold.it/32x32&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[2,6]">
+  <div class="node-key svelte-ngcjq5  p-left">age:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">27</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[2,7]">
+  <div class="node-key svelte-ngcjq5  p-left">eyeColor:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;blue&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[2,8]">
+  <div class="node-key svelte-ngcjq5  p-left">name:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Whitley Zamora&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[2,9]">
+  <div class="node-key svelte-ngcjq5  p-left">gender:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;male&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[2,10]">
+  <div class="node-key svelte-ngcjq5  p-left">company:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;MEDALERT&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[2,11]">
+  <div class="node-key svelte-ngcjq5  p-left">email:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;whitleyzamora@medalert.com&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[2,12]">
+  <div class="node-key svelte-ngcjq5  p-left">phone:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;+1 (825) 435-2054&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[2,13]">
+  <div class="node-key svelte-ngcjq5  p-left">address:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;619 Macon Street, Cresaptown, Rhode Island, 2046&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[2,14]">
+  <div class="node-key svelte-ngcjq5  p-left">about:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Reprehenderit velit cillum anim commodo est ex est deserunt quis consectetur ex proident do dolore. Pariatur minim enim ipsum nulla quis deserunt duis nisi. Excepteur occaecat quis dolor commodo consectetur. Officia laborum dolore tempor reprehenderit sit. Sit consectetur consequat aliquip qui. Est irure enim ex voluptate non aute.
+&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[2,15]">
+  <div class="node-key svelte-ngcjq5  p-left">registered:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;2016-03-01T09:46:19 -02:00&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[2,16]">
+  <div class="node-key svelte-ngcjq5  p-left">latitude:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">-60.824874</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[2,17]">
+  <div class="node-key svelte-ngcjq5  p-left">longitude:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">-22.249243</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[2,18]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">tags:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="array"> [] 7 items</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[2,18,0]">
+  <div class="node-key svelte-ngcjq5  p-left">0:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;minim&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[2,18,1]">
+  <div class="node-key svelte-ngcjq5  p-left">1:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;consequat&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[2,18,2]">
+  <div class="node-key svelte-ngcjq5  p-left">2:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;dolor&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[2,18,3]">
+  <div class="node-key svelte-ngcjq5  p-left">3:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;duis&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[2,18,4]">
+  <div class="node-key svelte-ngcjq5  p-left">4:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;consectetur&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[2,18,5]">
+  <div class="node-key svelte-ngcjq5  p-left">5:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;et&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[2,18,6]">
+  <div class="node-key svelte-ngcjq5  p-left">6:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;elit&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+</ul></li><li class="row svelte-ngcjq5" data-tree-id="[2,19]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">friends:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="array"> [] 3 items</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[2,19,0]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">0:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="object"> {} 2 keys</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[2,19,0,0]">
+  <div class="node-key svelte-ngcjq5  p-left">id:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">0</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[2,19,0,1]">
+  <div class="node-key svelte-ngcjq5  p-left">name:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Wynn Foster&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+</ul></li><li class="row svelte-ngcjq5" data-tree-id="[2,19,1]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">1:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="object"> {} 2 keys</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[2,19,1,0]">
+  <div class="node-key svelte-ngcjq5  p-left">id:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">1</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[2,19,1,1]">
+  <div class="node-key svelte-ngcjq5  p-left">name:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Gloria Saunders&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+</ul></li><li class="row svelte-ngcjq5" data-tree-id="[2,19,2]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">2:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="object"> {} 2 keys</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[2,19,2,0]">
+  <div class="node-key svelte-ngcjq5  p-left">id:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">2</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[2,19,2,1]">
+  <div class="node-key svelte-ngcjq5  p-left">name:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Vega Mcclain&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+</ul></li></ul></li><li class="row svelte-ngcjq5" data-tree-id="[2,20]">
+  <div class="node-key svelte-ngcjq5  p-left">greeting:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Hello, Whitley Zamora! You have 9 unread messages.&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[2,21]">
+  <div class="node-key svelte-ngcjq5  p-left">favoriteFruit:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;strawberry&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+</ul></li><li class="row svelte-ngcjq5" data-tree-id="[3]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">3:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="object"> {} 22 keys</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[3,0]">
+  <div class="node-key svelte-ngcjq5  p-left">_id:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;6127d77cab3b02db4e3558ef&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[3,1]">
+  <div class="node-key svelte-ngcjq5  p-left">index:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">3</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[3,2]">
+  <div class="node-key svelte-ngcjq5  p-left">guid:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;3e68ae9a-4943-47ac-819f-2acf5f5267a9&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[3,3]">
+  <div class="node-key svelte-ngcjq5  p-left">isActive:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="boolean">true</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[3,4]">
+  <div class="node-key svelte-ngcjq5  p-left">balance:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;$3,167.93&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[3,5]">
+  <div class="node-key svelte-ngcjq5  p-left">picture:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;http://placehold.it/32x32&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[3,6]">
+  <div class="node-key svelte-ngcjq5  p-left">age:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">20</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[3,7]">
+  <div class="node-key svelte-ngcjq5  p-left">eyeColor:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;blue&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[3,8]">
+  <div class="node-key svelte-ngcjq5  p-left">name:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Winters Kirk&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[3,9]">
+  <div class="node-key svelte-ngcjq5  p-left">gender:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;male&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[3,10]">
+  <div class="node-key svelte-ngcjq5  p-left">company:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;SIGNITY&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[3,11]">
+  <div class="node-key svelte-ngcjq5  p-left">email:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;winterskirk@signity.com&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[3,12]">
+  <div class="node-key svelte-ngcjq5  p-left">phone:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;+1 (820) 591-2943&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[3,13]">
+  <div class="node-key svelte-ngcjq5  p-left">address:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;733 Mill Lane, Loma, Wyoming, 5006&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[3,14]">
+  <div class="node-key svelte-ngcjq5  p-left">about:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Magna nulla et in dolore anim aliqua occaecat aliqua pariatur. Ut commodo duis officia minim labore. Officia aliquip ad esse commodo ea nisi Lorem esse in. Ipsum nulla ea nisi ea magna tempor veniam.
+&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[3,15]">
+  <div class="node-key svelte-ngcjq5  p-left">registered:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;2020-07-15T11:06:26 -03:00&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[3,16]">
+  <div class="node-key svelte-ngcjq5  p-left">latitude:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">-60.058287</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[3,17]">
+  <div class="node-key svelte-ngcjq5  p-left">longitude:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">88.480295</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[3,18]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">tags:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="array"> [] 7 items</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[3,18,0]">
+  <div class="node-key svelte-ngcjq5  p-left">0:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;occaecat&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[3,18,1]">
+  <div class="node-key svelte-ngcjq5  p-left">1:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;pariatur&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[3,18,2]">
+  <div class="node-key svelte-ngcjq5  p-left">2:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;dolor&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[3,18,3]">
+  <div class="node-key svelte-ngcjq5  p-left">3:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;irure&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[3,18,4]">
+  <div class="node-key svelte-ngcjq5  p-left">4:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;sit&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[3,18,5]">
+  <div class="node-key svelte-ngcjq5  p-left">5:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;eu&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[3,18,6]">
+  <div class="node-key svelte-ngcjq5  p-left">6:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;et&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+</ul></li><li class="row svelte-ngcjq5" data-tree-id="[3,19]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">friends:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="array"> [] 3 items</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[3,19,0]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">0:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="object"> {} 2 keys</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[3,19,0,0]">
+  <div class="node-key svelte-ngcjq5  p-left">id:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">0</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[3,19,0,1]">
+  <div class="node-key svelte-ngcjq5  p-left">name:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Suarez Hale&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+</ul></li><li class="row svelte-ngcjq5" data-tree-id="[3,19,1]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">1:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="object"> {} 2 keys</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[3,19,1,0]">
+  <div class="node-key svelte-ngcjq5  p-left">id:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">1</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[3,19,1,1]">
+  <div class="node-key svelte-ngcjq5  p-left">name:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Helen Pearson&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+</ul></li><li class="row svelte-ngcjq5" data-tree-id="[3,19,2]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">2:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="object"> {} 2 keys</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[3,19,2,0]">
+  <div class="node-key svelte-ngcjq5  p-left">id:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">2</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[3,19,2,1]">
+  <div class="node-key svelte-ngcjq5  p-left">name:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Misty Rosario&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+</ul></li></ul></li><li class="row svelte-ngcjq5" data-tree-id="[3,20]">
+  <div class="node-key svelte-ngcjq5  p-left">greeting:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Hello, Winters Kirk! You have 3 unread messages.&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[3,21]">
+  <div class="node-key svelte-ngcjq5  p-left">favoriteFruit:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;banana&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+</ul></li><li class="row svelte-ngcjq5" data-tree-id="[4]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">4:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="object"> {} 22 keys</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[4,0]">
+  <div class="node-key svelte-ngcjq5  p-left">_id:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;6127d77cb75a6937b0cf29dc&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[4,1]">
+  <div class="node-key svelte-ngcjq5  p-left">index:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">4</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[4,2]">
+  <div class="node-key svelte-ngcjq5  p-left">guid:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;bbb12452-3b75-4d3e-b36b-6fcfff003537&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[4,3]">
+  <div class="node-key svelte-ngcjq5  p-left">isActive:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="boolean">true</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[4,4]">
+  <div class="node-key svelte-ngcjq5  p-left">balance:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;$2,406.91&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[4,5]">
+  <div class="node-key svelte-ngcjq5  p-left">picture:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;http://placehold.it/32x32&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[4,6]">
+  <div class="node-key svelte-ngcjq5  p-left">age:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">26</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[4,7]">
+  <div class="node-key svelte-ngcjq5  p-left">eyeColor:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;green&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[4,8]">
+  <div class="node-key svelte-ngcjq5  p-left">name:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Hill Levine&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[4,9]">
+  <div class="node-key svelte-ngcjq5  p-left">gender:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;male&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[4,10]">
+  <div class="node-key svelte-ngcjq5  p-left">company:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;ZAJ&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[4,11]">
+  <div class="node-key svelte-ngcjq5  p-left">email:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;hilllevine@zaj.com&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[4,12]">
+  <div class="node-key svelte-ngcjq5  p-left">phone:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;+1 (987) 429-2624&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[4,13]">
+  <div class="node-key svelte-ngcjq5  p-left">address:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;434 Cooke Court, Elfrida, Utah, 9346&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[4,14]">
+  <div class="node-key svelte-ngcjq5  p-left">about:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Pariatur elit est eiusmod aliquip eu ad consectetur velit qui proident sit. Elit irure magna ex voluptate occaecat. Amet veniam voluptate laboris Lorem minim id irure. Laborum eu proident qui est ex nulla deserunt commodo adipisicing qui irure ea cillum nulla. Ut culpa mollit Lorem fugiat laboris duis fugiat. Sint magna anim voluptate irure aliqua magna incididunt reprehenderit aute mollit reprehenderit quis mollit.
+&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[4,15]">
+  <div class="node-key svelte-ngcjq5  p-left">registered:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;2015-11-20T07:07:25 -02:00&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[4,16]">
+  <div class="node-key svelte-ngcjq5  p-left">latitude:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">14.786267</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[4,17]">
+  <div class="node-key svelte-ngcjq5  p-left">longitude:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">-28.163592</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[4,18]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">tags:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="array"> [] 7 items</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[4,18,0]">
+  <div class="node-key svelte-ngcjq5  p-left">0:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;id&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[4,18,1]">
+  <div class="node-key svelte-ngcjq5  p-left">1:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;pariatur&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[4,18,2]">
+  <div class="node-key svelte-ngcjq5  p-left">2:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;commodo&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[4,18,3]">
+  <div class="node-key svelte-ngcjq5  p-left">3:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;laboris&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[4,18,4]">
+  <div class="node-key svelte-ngcjq5  p-left">4:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;occaecat&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[4,18,5]">
+  <div class="node-key svelte-ngcjq5  p-left">5:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;nulla&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[4,18,6]">
+  <div class="node-key svelte-ngcjq5  p-left">6:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;nostrud&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+</ul></li><li class="row svelte-ngcjq5" data-tree-id="[4,19]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">friends:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="array"> [] 3 items</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[4,19,0]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">0:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="object"> {} 2 keys</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[4,19,0,0]">
+  <div class="node-key svelte-ngcjq5  p-left">id:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">0</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[4,19,0,1]">
+  <div class="node-key svelte-ngcjq5  p-left">name:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Gladys Matthews&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+</ul></li><li class="row svelte-ngcjq5" data-tree-id="[4,19,1]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">1:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="object"> {} 2 keys</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[4,19,1,0]">
+  <div class="node-key svelte-ngcjq5  p-left">id:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">1</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[4,19,1,1]">
+  <div class="node-key svelte-ngcjq5  p-left">name:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Pittman Lewis&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+</ul></li><li class="row svelte-ngcjq5" data-tree-id="[4,19,2]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">2:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="object"> {} 2 keys</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[4,19,2,0]">
+  <div class="node-key svelte-ngcjq5  p-left">id:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">2</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[4,19,2,1]">
+  <div class="node-key svelte-ngcjq5  p-left">name:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Marci Pugh&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+</ul></li></ul></li><li class="row svelte-ngcjq5" data-tree-id="[4,20]">
+  <div class="node-key svelte-ngcjq5  p-left">greeting:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Hello, Hill Levine! You have 4 unread messages.&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[4,21]">
+  <div class="node-key svelte-ngcjq5  p-left">favoriteFruit:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;strawberry&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+</ul></li><li class="row svelte-ngcjq5" data-tree-id="[5]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">5:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="object"> {} 22 keys</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[5,0]">
+  <div class="node-key svelte-ngcjq5  p-left">_id:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;6127d77c8e3565e495329780&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[5,1]">
+  <div class="node-key svelte-ngcjq5  p-left">index:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">5</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[5,2]">
+  <div class="node-key svelte-ngcjq5  p-left">guid:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;e6b6f813-4081-4aae-a0bb-2dba74f15368&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[5,3]">
+  <div class="node-key svelte-ngcjq5  p-left">isActive:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="boolean">false</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[5,4]">
+  <div class="node-key svelte-ngcjq5  p-left">balance:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;$3,874.14&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[5,5]">
+  <div class="node-key svelte-ngcjq5  p-left">picture:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;http://placehold.it/32x32&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[5,6]">
+  <div class="node-key svelte-ngcjq5  p-left">age:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">20</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[5,7]">
+  <div class="node-key svelte-ngcjq5  p-left">eyeColor:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;green&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[5,8]">
+  <div class="node-key svelte-ngcjq5  p-left">name:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Hawkins Benton&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[5,9]">
+  <div class="node-key svelte-ngcjq5  p-left">gender:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;male&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[5,10]">
+  <div class="node-key svelte-ngcjq5  p-left">company:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;COMVEYER&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[5,11]">
+  <div class="node-key svelte-ngcjq5  p-left">email:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;hawkinsbenton@comveyer.com&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[5,12]">
+  <div class="node-key svelte-ngcjq5  p-left">phone:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;+1 (863) 401-3632&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[5,13]">
+  <div class="node-key svelte-ngcjq5  p-left">address:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;994 Havens Place, Cazadero, Arizona, 7731&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[5,14]">
+  <div class="node-key svelte-ngcjq5  p-left">about:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Deserunt culpa magna culpa sit aliqua eu ut enim ex aliquip quis sit ut qui. Id Lorem tempor Lorem do enim tempor tempor. Nisi proident commodo ea voluptate. Sint ad laborum proident nostrud incididunt deserunt quis amet. Anim exercitation do irure do eiusmod ad consequat aliqua et.
+&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[5,15]">
+  <div class="node-key svelte-ngcjq5  p-left">registered:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;2016-12-24T11:40:01 -02:00&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[5,16]">
+  <div class="node-key svelte-ngcjq5  p-left">latitude:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">-74.812367</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[5,17]">
+  <div class="node-key svelte-ngcjq5  p-left">longitude:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">161.825889</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[5,18]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">tags:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="array"> [] 7 items</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[5,18,0]">
+  <div class="node-key svelte-ngcjq5  p-left">0:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;irure&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[5,18,1]">
+  <div class="node-key svelte-ngcjq5  p-left">1:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;velit&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[5,18,2]">
+  <div class="node-key svelte-ngcjq5  p-left">2:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;excepteur&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[5,18,3]">
+  <div class="node-key svelte-ngcjq5  p-left">3:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;cillum&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[5,18,4]">
+  <div class="node-key svelte-ngcjq5  p-left">4:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;magna&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[5,18,5]">
+  <div class="node-key svelte-ngcjq5  p-left">5:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;culpa&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[5,18,6]">
+  <div class="node-key svelte-ngcjq5  p-left">6:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;ullamco&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+</ul></li><li class="row svelte-ngcjq5" data-tree-id="[5,19]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">friends:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="array"> [] 3 items</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[5,19,0]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">0:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="object"> {} 2 keys</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[5,19,0,0]">
+  <div class="node-key svelte-ngcjq5  p-left">id:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">0</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[5,19,0,1]">
+  <div class="node-key svelte-ngcjq5  p-left">name:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Meyers Harrell&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+</ul></li><li class="row svelte-ngcjq5" data-tree-id="[5,19,1]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">1:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="object"> {} 2 keys</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[5,19,1,0]">
+  <div class="node-key svelte-ngcjq5  p-left">id:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">1</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[5,19,1,1]">
+  <div class="node-key svelte-ngcjq5  p-left">name:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Rachael Rodriquez&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+</ul></li><li class="row svelte-ngcjq5" data-tree-id="[5,19,2]"><button class="arrow-btn  svelte-ngcjq5">▶
+    </button>
+  <div class="node-key svelte-ngcjq5 has-children">2:
+  </div>
+  <div class="node-value svelte-ngcjq5 expanded has-children" data-type="object"> {} 2 keys</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5"><ul class="svelte-ngcjq5"><li class="row svelte-ngcjq5" data-tree-id="[5,19,2,0]">
+  <div class="node-key svelte-ngcjq5  p-left">id:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="number">2</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[5,19,2,1]">
+  <div class="node-key svelte-ngcjq5  p-left">name:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Ila Vaughn&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+</ul></li></ul></li><li class="row svelte-ngcjq5" data-tree-id="[5,20]">
+  <div class="node-key svelte-ngcjq5  p-left">greeting:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;Hello, Hawkins Benton! You have 10 unread messages.&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+<li class="row svelte-ngcjq5" data-tree-id="[5,21]">
+  <div class="node-key svelte-ngcjq5  p-left">favoriteFruit:
+  </div>
+  <div class="node-value svelte-ngcjq5" data-type="string">&quot;strawberry&quot;</div>
+  <div class="buttons svelte-ngcjq5">
+    </div></li>
+</ul></li>
+</ul></div>
+</section></main>
+
+
 
 			
 		</div>
