@@ -48,7 +48,7 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           cache-key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('**/yarn.lock') }}
-          start: yarn --cwd ./example-app dev
+          start: yarn --cwd ./example-app dev:no-ssr
           wait-on: 'http://localhost:3000'
           project: ./core
           browser: chrome
@@ -103,7 +103,6 @@ jobs:
           yarn --cwd ./core build
 
       - name: Publish to npm
-        run: |
-          yarn --cwd ./core publish
+        run: yarn --cwd ./core publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
