@@ -11,7 +11,6 @@ export default {
 
   kit: {
     target: '#svelte',
-    ssr: false,
     trailingSlash: 'never',
     paths: {
       base: DEPLOY_TO_GH ? '/svelte-tree-view' : '',

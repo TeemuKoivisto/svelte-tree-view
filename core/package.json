@@ -68,7 +68,7 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^20.0.0",
     "@rollup/plugin-node-resolve": "^13.0.4",
-    "@sveltejs/kit": "^1.0.0-next.174",
+    "@sveltejs/kit": "^1.0.0-next.184",
     "@testing-library/cypress": "^8.0.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/svelte": "^3.0.3",
