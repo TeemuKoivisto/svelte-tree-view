@@ -5,7 +5,7 @@
     "example-app"
   ],
   "scripts": {
-    "start": "concurrently 'cd ./core && yarn exports:dev' 'cd example-app && yarn dev:no-ssr'"
+    "start": "concurrently 'cd ./core && yarn exports:dev' 'cd example-app && yarn dev'"
   },
   "devDependencies": {
     "concurrently": "^6.2.1"
