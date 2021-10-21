@@ -49,7 +49,7 @@
     }
   }
   function valueComponentDefaultFormatter(val: any) {
-    propsStore.formatValue(val, node)
+    return propsStore.formatValue(val, node)
   }
 </script>
 
