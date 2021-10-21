@@ -15,11 +15,11 @@ export type ValueType =
   | 'null'
   | 'undefined'
 
-export interface TreeNode {
+export interface TreeNode<T = any> {
   id: string // ID generated from the path to this node eg "[0,1,2]"
   index: number // Index of this node in the parent object as its values are iterated
   key: string // Key of this node eg "1" for an array key or "foo" for an object
-  value: any // The value mapped to this key
+  value: T // The value mapped to this key
   depth: number
   collapsed: boolean
   type: ValueType
@@ -58,9 +58,8 @@ export type ValueComponent = new (...args: any) => SvelteComponentTyped<{
   defaultFormatter?: (val: any) => string | undefined
 }>
 
-export type Data = { [key in string | number | symbol]: unknown } | unknown[] | Map<unknown, unknown> | Set<unknown>
 export interface TreeViewProps {
-  data: Data // Data can be basically any non-primitive value
+  data: object // Data can be basically any non-primitive value
   class?: string // Top node has 'svelte-tree-view' class by default
   theme?: Base16Theme
   showLogButton?: boolean

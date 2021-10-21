@@ -14,7 +14,6 @@
 
   import type { Stores } from './stores'
   import type {
-    Data,
     TreeNode,
     TreeViewProps,
     Base16Theme,
@@ -22,7 +21,7 @@
     TreeRecursionOpts
   } from './types'
 
-  export let data: Data,
+  export let data: object,
     theme: Base16Theme | undefined = undefined,
     showLogButton = false,
     showCopyButton = false,
