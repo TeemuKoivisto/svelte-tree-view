@@ -64,7 +64,7 @@ export const createTreeStore = (propsStore: PropsStore) => {
         newTreeMap,
         oldTreeMap,
         previouslyIterated,
-        true,
+        false, // Never recompute shouldExpandNode since it may override the collapsing of this node
         recursionOpts
       )
       if (!nodeWithUpdatedChildren) return

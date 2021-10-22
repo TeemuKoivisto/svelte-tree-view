@@ -187,8 +187,8 @@ export function recomputeTree(
   recursionOpts: TreeRecursionOpts,
   recomputeExpandNode: boolean
 ) {
-  const treeMap = new Map()
-  const iteratedValues = new Map()
+  const treeMap = new Map<string, TreeNode>()
+  const iteratedValues = new Map<any, TreeNode>()
   const newTree = recurseObjectProperties(
     -1,
     'root',
