@@ -2,12 +2,11 @@
   import { setContext, onMount } from 'svelte'
   import { get } from 'svelte/store'
 
-  import { recurseObjectProperties } from './tree-utils'
+  import { recomputeTree } from './tree-utils'
   import {
     createPropsStore,
     createRootElementStore,
     createTreeStore,
-    createTreeMapStore
   } from './stores'
 
   import TreeViewNode from './TreeViewNode.svelte'
@@ -46,7 +45,11 @@
     },
     valueFormatter
   }
+  $: rootNode = treeStore.tree
   $: {
+    // To keep things less messy all props are joined to one object _except_ the recursionOpts
+    // which is picked from the old props. This is to allow checking between the old and new recursionOpts
+    // in the recomputeTree.
     props = {
       showLogButton,
       showCopyButton,
@@ -54,33 +57,22 @@
       valueFormatter,
       recursionOpts: props.recursionOpts
     }
-    propsStore.set(props)
   }
   $: {
-    const nodeRecursionOpts = {
+    // Combine the defaultProps with the possible new recursion opts
+    const newRecursionOpts = {
       ...defaultRecursionOpts,
       ...recursionOpts
     }
+    // Compare the old shouldExpandNode option with the possible new shouldExpandNode
+    // to know whether to whole tree should be recomputed.
     const recomputeExpandNode =
-      props?.recursionOpts?.shouldExpandNode !== nodeRecursionOpts.shouldExpandNode
-    const treeMap = new Map()
-    const oldTreeMap = get(treeMapStore)
-    const iteratedValues = new Map()
-    const newTree = recurseObjectProperties(
-      -1,
-      'root',
-      data,
-      -1,
-      null,
-      treeMap,
-      oldTreeMap,
-      iteratedValues,
-      recomputeExpandNode,
-      nodeRecursionOpts
-    )
-    treeMapStore.set(treeMap)
-    treeStore.set(newTree)
-    props.recursionOpts = nodeRecursionOpts
+      props?.recursionOpts?.shouldExpandNode !== newRecursionOpts.shouldExpandNode
+    const oldTreeMap = get(treeStore.treeMap)
+    const { treeMap, tree } = recomputeTree(data, oldTreeMap, newRecursionOpts, recomputeExpandNode)
+    treeStore.init(tree, treeMap)
+    props.recursionOpts = newRecursionOpts
+    propsStore.setProps(props)
   }
   $: {
     if (theme && rootElement) {
@@ -98,12 +90,10 @@
   const propsStore = createPropsStore(props)
   const rootElementStore = createRootElementStore()
   const treeStore = createTreeStore()
-  const treeMapStore = createTreeMapStore()
   setContext<Stores>('svelte-tree-view', {
     propsStore,
     rootElementStore,
     treeStore,
-    treeMapStore
   })
 
   onMount(() => {
@@ -112,7 +102,7 @@
 </script>
 
 <ul class={`${$$props.class || ''} svelte-tree-view`} bind:this={rootElement}>
-  {#each $treeStore.children as child}
+  {#each $rootNode.children as child}
     <TreeViewNode id={child.id} />
   {/each}
 </ul>
