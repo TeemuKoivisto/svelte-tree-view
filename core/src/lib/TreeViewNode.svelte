@@ -40,7 +40,11 @@
     }
   }
   function handleCopyNodeToClipboard() {
-    navigator.clipboard.writeText(JSON.stringify(node.value))
+    try {
+      navigator.clipboard.writeText(JSON.stringify(node.value))
+    } catch (err) {
+      console.error('Copying node to clipboard failed: ', err)
+    }
   }
   function handleToggleCollapse() {
     if (hasChildren) {
