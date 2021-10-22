@@ -71,6 +71,24 @@ const treeView = new TreeView({
 })
 ```
 
+To override default styles I suggest using child or element selector to get enough specificity:
+
+```tsx
+<div class="tree-view-wrapper">
+  <TreeView/>
+</div>
+
+<style>
+  .tree-view-wrapper > :global(.svelte-tree-view) {
+    ...
+  }
+  /* OR */
+  :global(ul.svelte-tree-view) {
+    ...
+  }
+</style>
+```
+
 ## API
 
 The full typings as copied from the source are:

@@ -1,6 +1,6 @@
 declare global {
   interface Window {
-    _node: any
+    _node?: any
   }
 }
 
