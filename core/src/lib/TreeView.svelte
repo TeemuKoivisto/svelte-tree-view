@@ -30,7 +30,7 @@
 
   let rootElement: HTMLElement | null = null
   const defaultRecursionOpts: TreeRecursionOpts = {
-    maxDepth: 12,
+    maxDepth: 16,
     omitKeys: [],
     stopCircularRecursion: false,
     shouldExpandNode: () => false
