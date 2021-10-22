@@ -1,14 +1,15 @@
 <script lang="ts">
   import { getContext } from 'svelte'
+
   import type { Stores } from './stores'
   import type { TreeNode } from './types'
 
   export let id: string
 
-  const { treeMapStore, propsStore, rootElementStore } = getContext<Stores>('svelte-tree-view')
+  const { treeStore, propsStore, rootElementStore } = getContext<Stores>('svelte-tree-view')
   let node: TreeNode
   $: {
-    let found = $treeMapStore.get(id)
+    let found = treeStore.getNode(id)
     // Should explode rather than have logic written around undefinedness
     // as this component should be unmounted if it's undefined.
     if (!found) {
@@ -17,9 +18,10 @@
     node = found
   }
   $: hasChildren = node && node.children.length > 0
-  $: valueComponent = $propsStore.valueComponent
+  $: props = propsStore.props
+  $: valueComponent = $props.valueComponent
 
-  treeMapStore.subscribe(value => {
+  treeStore.treeMap.subscribe(value => {
     const n = value.get(id)
     if (n && node !== n) {
       node = n
@@ -42,9 +44,9 @@
   }
   function handleToggleCollapse() {
     if (hasChildren) {
-      treeMapStore.toggleCollapse(node.id)
+      treeStore.toggleCollapse(node.id)
     } else if (node.circularOfId) {
-      treeMapStore.expandAllNodesToNode(node.circularOfId)
+      treeStore.expandAllNodesToNode(node.circularOfId)
       $rootElementStore.querySelector(`li[data-tree-id="${node.circularOfId}"]`)?.scrollIntoView()
     }
   }
@@ -89,10 +91,10 @@
     {/if}
   </div>
   <div class="buttons">
-    {#if $propsStore.showLogButton}
+    {#if $props.showLogButton}
       <button class="log-copy-button" on:click={handleLogNode}>log</button>
     {/if}
-    {#if $propsStore.showCopyButton}
+    {#if $props.showCopyButton}
       <button class="log-copy-button" on:click={handleCopyNodeToClipboard}>copy</button>
     {/if}
   </div>
