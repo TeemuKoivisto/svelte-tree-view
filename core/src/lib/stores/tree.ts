@@ -3,6 +3,8 @@ import { get, writable } from 'svelte/store'
 import { createNode, recurseObjectProperties, recomputeTree } from '../tree-utils'
 import type { TreeNode, TreeRecursionOpts } from '../types'
 
+export type TreeStore = ReturnType<typeof createTreeStore>
+
 export const createTreeStore = () => {
   const defaultRootNode = createNode(0, 'root', [], 0, null)
   const tree = writable<TreeNode>(defaultRootNode)
