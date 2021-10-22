@@ -25,7 +25,7 @@
     children: [],
   }
   const defaultRecursionOpts = `{
-  maxDepth: 10,
+  maxDepth: 16,
   omitKeys: [],
   stopCircularRecursion: false,
   isCircularNode(node, iteratedValues) {

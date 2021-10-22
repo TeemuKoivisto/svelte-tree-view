@@ -30,7 +30,7 @@
 
   let rootElement: HTMLElement | null = null
   const defaultRecursionOpts: TreeRecursionOpts = {
-    maxDepth: 12,
+    maxDepth: 16,
     omitKeys: [],
     stopCircularRecursion: false,
     shouldExpandNode: () => false
@@ -69,8 +69,12 @@
     const recomputeExpandNode =
       props?.recursionOpts?.shouldExpandNode !== newRecursionOpts.shouldExpandNode
     const oldTreeMap = get(treeStore.treeMap)
-    const { treeMap, tree } = recomputeTree(data, oldTreeMap, newRecursionOpts, recomputeExpandNode)
-    treeStore.init(tree, treeMap)
+    const {
+      treeMap,
+      tree,
+      iteratedValues
+    } = recomputeTree(data, oldTreeMap, newRecursionOpts, recomputeExpandNode)
+    treeStore.init(tree, treeMap, iteratedValues)
     props.recursionOpts = newRecursionOpts
     propsStore.setProps(props)
   }
@@ -89,7 +93,7 @@
 
   const propsStore = createPropsStore(props)
   const rootElementStore = createRootElementStore()
-  const treeStore = createTreeStore()
+  const treeStore = createTreeStore(propsStore)
   setContext<Stores>('svelte-tree-view', {
     propsStore,
     rootElementStore,

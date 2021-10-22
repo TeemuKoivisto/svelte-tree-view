@@ -1,12 +1,16 @@
-import { get, writable } from 'svelte/store'
+import { derived, get, writable } from 'svelte/store'
 
 import type { TreeNode, TreeViewProps } from '../types'
 
+export type PropsStore = ReturnType<typeof createPropsStore>
+
 export const createPropsStore = (initialProps: Omit<TreeViewProps, 'data'>) => {
   const props = writable<Omit<TreeViewProps, 'data'>>(initialProps)
+  const recursionOpts = derived(props, p => p.recursionOpts)
 
   return {
     props,
+    recursionOpts,
 
     setProps(newProps: Omit<TreeViewProps, 'data'>) {
       props.set(newProps)

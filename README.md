@@ -44,7 +44,7 @@ And use it as:
   showCopyButton
   valueComponent={DiffValue}
   recursionOpts={{
-    maxDepth: 12,
+    maxDepth: 16,
     mapChildren: mapDocDeltaChildren,
     shouldExpandNode: () => true
   }}
@@ -165,7 +165,7 @@ export interface TreeViewProps {
 }
 
 export interface TreeRecursionOpts {
-  maxDepth?: number // The default maxDepth is 12
+  maxDepth?: number // The default maxDepth is 16
   // Quick and dirty way to prevent recursing certain object keys instead of overriding shouldExpandNode
   omitKeys?: string[]
   stopCircularRecursion?: boolean // Stops recursing objects already recursed
