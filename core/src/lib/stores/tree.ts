@@ -1,27 +1,30 @@
 import { get, writable } from 'svelte/store'
 
-import { createNode, recurseObjectProperties, recomputeTree } from '../tree-utils'
+import { createNode, recurseObjectProperties } from '../tree-utils'
 import type { TreeNode, TreeRecursionOpts } from '../types'
+import type { PropsStore } from './props'
 
 export type TreeStore = ReturnType<typeof createTreeStore>
 
-export const createTreeStore = () => {
+export const createTreeStore = (propsStore: PropsStore) => {
   const defaultRootNode = createNode(0, 'root', [], 0, null)
   const tree = writable<TreeNode>(defaultRootNode)
   const treeMap = writable<Map<string, TreeNode>>(new Map())
+  const iteratedValues = writable<Map<any, TreeNode>>(new Map())
 
   return {
     tree,
     treeMap,
     defaultRootNode,
 
-    init(newTree: TreeNode | null, newTreeMap: Map<string, TreeNode>) {
+    init(newTree: TreeNode | null, newTreeMap: Map<string, TreeNode>, iterated: Map<any, TreeNode>) {
       if (newTree) {
         tree.set(newTree)
       } else {
         tree.set(defaultRootNode)
       }
       treeMap.set(newTreeMap)
+      iteratedValues.set(iterated)
     },
 
     getNode(id: string) {
@@ -30,39 +33,46 @@ export const createTreeStore = () => {
 
     toggleCollapse(id: string) {
       const node = get(treeMap).get(id)
-      if (node) {
-        treeMap.update(m => new Map(m.set(node.id, { ...node, collapsed: !node.collapsed })))
-      } else {
+      if (!node) {
         console.warn(`Attempted to collapse non-existent node: ${id}`)
+        return
+      }
+      const updatedNode = { ...node, collapsed: !node.collapsed }
+      treeMap.update(m => new Map(m.set(node.id, updatedNode)))
+      const recursionOpts = get(propsStore.recursionOpts)
+      if (recursionOpts) {
+        this.expandNodeChildren(updatedNode, recursionOpts)
       }
     },
 
-    expandNodeChildren(id: string, recursionOpts: TreeRecursionOpts) {
-      const oldNode = this.getNode(id)
-      const parent = this.getNode(oldNode?.parentId || '') || null
-      if (!oldNode || !parent) throw Error('No node or parent found to expand children for!')
-      const newTreeMap = new Map()
+    expandNodeChildren(node: TreeNode, recursionOpts: TreeRecursionOpts) {
+      const parent = this.getNode(node?.parentId || '') || null
+      if (!parent) {
+        // Only root node has no parent and it should not be expandable
+        throw Error('No parent in expandNodeChildren for node: ' + node)
+      }
+      const newTreeMap = new Map(get(treeMap))
       const oldTreeMap = get(treeMap)
-      const iteratedValues = new Map()
-      oldTreeMap.set(id, { ...oldNode, collapsed: false })
-      const node = recurseObjectProperties(
-        oldNode.index,
-        oldNode.key,
-        oldNode.value,
-        oldNode.depth,
+      const previouslyIterated = get(iteratedValues)
+      const nodeWithUpdatedChildren = recurseObjectProperties(
+        node.index,
+        node.key,
+        node.value,
+        node.depth,
+        !node.collapsed, // Ensure that when uncollapsed the node's children are always recursed
         parent,
         newTreeMap,
         oldTreeMap,
-        iteratedValues,
+        previouslyIterated,
         true,
         recursionOpts
       )
-      if (!node) return
-      parent.children = parent.children.map(c => c.id === id ? node : c)
-      Array.from(newTreeMap.entries()).forEach(([node, id]) => {
-        oldTreeMap.set(id, node)
-      })
-      treeMap.set(oldTreeMap)
+      if (!nodeWithUpdatedChildren) return
+      parent.children = parent.children.map(c => c.id === nodeWithUpdatedChildren.id ? nodeWithUpdatedChildren : c)
+      newTreeMap.set(nodeWithUpdatedChildren.id, nodeWithUpdatedChildren)
+      newTreeMap.set(parent.id, parent)
+      treeMap.set(newTreeMap)
+      iteratedValues.set(previouslyIterated)
     },
 
     expandAllNodesToNode(id: string) {

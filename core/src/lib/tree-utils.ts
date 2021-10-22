@@ -97,16 +97,25 @@ function getChildren(value: any, type: ValueType): [string, any][] {
 
 function shouldRecurseChildren(
   node: TreeNode,
+  parent: TreeNode | null,
   iteratedValues: Map<any, TreeNode>,
   opts: TreeRecursionOpts
 ) {
-  if (!opts.stopCircularRecursion) {
+  if (!parent) {
+    // The root node's children should always be recursed
+    return true
+  } else if (node.collapsed && parent?.collapsed) {
+    // If the node's parent is uncollapsed the node's children should still be recursed
+    // in order to compute its value properly eg "{} 4 keys" and to place clickable arrow caret.
+    // Only when the node is completely hidden it should not be recursed
+    return false
+  } else if (!opts.stopCircularRecursion) {
     return true
   } else if (opts.isCircularNode) {
     return opts.isCircularNode(node, iteratedValues)
   } else if (node.type === 'object' || node.type === 'array') {
     const existingNodeWithValue = iteratedValues.get(node.value)
-    if (existingNodeWithValue) {
+    if (existingNodeWithValue && node.id !== existingNodeWithValue.id) {
       node.circularOfId = existingNodeWithValue.id
       return false
     }
@@ -120,6 +129,7 @@ export function recurseObjectProperties(
   key: string,
   value: any,
   depth: number,
+  ensureNotCollapsed: boolean,
   parent: TreeNode | null,
   treeMap: Map<string, TreeNode>,
   oldTreeMap: Map<string, TreeNode>,
@@ -132,9 +142,13 @@ export function recurseObjectProperties(
   }
   const node = createNode(index, key, value, depth, parent)
   const oldNode = oldTreeMap.get(node.id)
-  // Maintain the same expanded/collapsed toggle for a node in this path/id
-  // EXCEPT when the shouldExpandNode prop is changed...
-  if (oldNode && !recomputeExpandNode) {
+  if (ensureNotCollapsed) {
+    // Used to ensure that either root node is always uncollapsed or when uncollapsing new nodes
+    // with expandNodeChildren the node children are recursed (if applicable) with mapChildren
+    node.collapsed = false
+  } else if (oldNode && !recomputeExpandNode) {
+    // Maintain the same expanded/collapsed toggle for a node in this path/id
+    // EXCEPT when the shouldExpandNode prop is changed...
     node.collapsed = oldNode.collapsed
   } else if (opts.shouldExpandNode) {
     node.collapsed = !opts.shouldExpandNode(node)
@@ -142,7 +156,7 @@ export function recurseObjectProperties(
 
   treeMap.set(node.id, node)
 
-  if (shouldRecurseChildren(node, iteratedValues, opts)) {
+  if (shouldRecurseChildren(node, parent, iteratedValues, opts)) {
     const mappedChildren = opts.mapChildren && opts.mapChildren(value, getValueType(value), node)
     const children = mappedChildren ?? getChildren(value, getValueType(value))
     node.children = children
@@ -152,6 +166,7 @@ export function recurseObjectProperties(
           key,
           val,
           depth + 1,
+          false,
           node,
           treeMap,
           oldTreeMap,
@@ -179,6 +194,7 @@ export function recomputeTree(
     'root',
     data,
     -1,
+    true,
     null,
     treeMap,
     oldTreeMap,
@@ -186,5 +202,5 @@ export function recomputeTree(
     recomputeExpandNode,
     recursionOpts
   )
-  return { treeMap, tree: newTree }
+  return { treeMap, tree: newTree, iteratedValues }
 }
