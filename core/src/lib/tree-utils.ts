@@ -165,3 +165,26 @@ export function recurseObjectProperties(
 
   return node
 }
+
+export function recomputeTree(
+  data: object,
+  oldTreeMap: Map<string, TreeNode>,
+  recursionOpts: TreeRecursionOpts,
+  recomputeExpandNode: boolean
+) {
+  const treeMap = new Map()
+  const iteratedValues = new Map()
+  const newTree = recurseObjectProperties(
+    -1,
+    'root',
+    data,
+    -1,
+    null,
+    treeMap,
+    oldTreeMap,
+    iteratedValues,
+    recomputeExpandNode,
+    recursionOpts
+  )
+  return { treeMap, tree: newTree }
+}
