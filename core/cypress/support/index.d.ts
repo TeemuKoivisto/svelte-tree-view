@@ -2,8 +2,7 @@
 /// <reference types="cypress" />
 
 declare namespace Cypress {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Chainable<Subject> {
-    openModal: (nth?: number) => void
+  interface Chainable {
+    noop: () => Cypress.Chainable<JQuery<HTMLElement>>
   }
 }
