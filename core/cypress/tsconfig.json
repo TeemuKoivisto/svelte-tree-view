@@ -1,10 +1,11 @@
 {
-  "extends": "../tsconfig",
   "compilerOptions": {
-    "baseUrl": "../node_modules",
     "target": "es5",
-    "types": ["cypress", "@testing-library/cypress"]
+    "lib": ["es5", "dom", "dom.iterable"],
+    "types": ["node", "cypress", "@testing-library/cypress"],
+    "esModuleInterop": true,
+    "resolveJsonModule": true
   },
   "allowJs": true,
-  "include": ["**/*..{js,ts,d.ts}"]
+  "include": ["**/*.d.ts", "**/*.js", "**/*.ts", "**/*.cjs", "**/*.mjs"]
 }

@@ -8,6 +8,4 @@
 // https://on.cypress.io/custom-commands
 // ***********************************************
 
-Cypress.Commands.add('openModal', (nth = 1) => {
-  cy.get(`[data-test="btn-2"]`).click()
-})
+export {}

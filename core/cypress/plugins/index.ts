@@ -1,4 +1,3 @@
-/// <reference types="cypress" />
 // ***********************************************************
 // This example plugins/index.js can be used to load plugins
 //
@@ -17,7 +16,7 @@ let shouldSkip = false
 /**
  * @type {Cypress.PluginConfig}
  */
-module.exports = on => {
+export default (on: Cypress.PluginEvents, config: Cypress.PluginConfigOptions) => {
   on('task', {
     resetShouldSkipFlag() {
       shouldSkip = false
