@@ -8,36 +8,35 @@ Library to show Javascript objects in a nice tree layout. It's written in Svelte
 
 ## How to use
 
-NOTE: I've written this library completely in TypeScript and I'm standing by that decision. However, since Svelte tooling is not quite there yet in processing Svelte files from TS into JS, you might need to use TypeScript yourself too. Once the bugs are sorted out, I hope this won't be an issue anymore. https://github.com/sveltejs/kit/issues/2450 https://github.com/sveltejs/component-template/issues/29 https://stackoverflow.com/questions/69274093/how-to-import-svelte-library-written-in-typescript
-
-Basically what you probably need to do is add `typescript` block to your `svelte.config.js` eg:
-
-```js
-import autoPreprocess from 'svelte-preprocess'
-
-const preprocessOptions = {
-  typescript: {
-    tsconfigFile: './tsconfig.json'
-  }
-}
-
-export default {
-  preprocess: autoPreprocess(preprocessOptions),
-  preprocessOptions,
-}
-```
-
-Sorry about the hassle! Will update this library once I find a solution.
-
-You can import the library as:
+At one point there were some issues packaging this library with SvelteKit, partly because I've written it in TypeScript. Currently the only extra config that I'm aware which you must add is for ensuring you import the library with the "svelte" entry point, not "main" or "module" eg:
 
 ```ts
-import TreeView from 'svelte-tree-view'
+import nodeResolve from 'rollup-plugin-node-resolve'
+...
+
+export default {
+  ...
+  plugins: [
+    ...
+    nodeResolve({
+      browser: true,
+      mainFields: ['svelte', 'browser', 'module', 'main'],
+      dedupe: ['svelte']
+    }),
+    ...
+  ],
+  ...
+}
+
 ```
 
-And use it as:
+To use it:
 
 ```tsx
+import TreeView from 'svelte-tree-view'
+
+...
+
 <TreeView
   data={selectedEntry.contentDiff}
   showLogButton
@@ -51,7 +50,7 @@ And use it as:
 />
 ```
 
-Or if you are not using Svelte (NOTE: to use it with TS you must have svelte installed as a devDependency for the typings):
+Or if you are not using Svelte (NOTE: to use it with TS you must install svelte as a devDependency for the types):
 
 ```ts
 import { TreeView } from 'svelte-tree-view'
@@ -73,7 +72,7 @@ const treeView = new TreeView({
 
 To override default styles I suggest using child or element selector to get enough specificity:
 
-```tsx
+```svelte
 <div class="tree-view-wrapper">
   <TreeView/>
 </div>
