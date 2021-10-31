@@ -31,7 +31,7 @@
   isCircularNode(node, iteratedValues) {
     if (node.type === 'object' || node.type === 'array') {
       const existingNodeWithValue = iteratedValues.get(node.value)
-      if (existingNodeWithValue) {
+      if (existingNodeWithValue && node.id !== existingNodeWithValue.id) {
         node.circularOfId = existingNodeWithValue.id
         return false
       }
@@ -79,6 +79,8 @@
       return \u0060"\${val}"\u0060
     case 'boolean':
       return val ? 'true' : 'false'
+    case 'symbol':
+      return String(val)
     default:
       return val
   }

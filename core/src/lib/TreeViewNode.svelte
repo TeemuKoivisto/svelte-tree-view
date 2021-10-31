@@ -13,7 +13,9 @@
     // Should explode rather than have logic written around undefinedness
     // as this component should be unmounted if it's undefined.
     if (!found) {
-      throw Error('[svelte-tree-view] TreeViewNode.svelte received undefined node from treeMapStore whereas it should be already unmounted!')
+      throw Error(
+        '[svelte-tree-view] TreeViewNode.svelte received undefined node from treeMapStore whereas it should be already unmounted!'
+      )
     }
     node = found
   }

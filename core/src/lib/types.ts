@@ -59,7 +59,7 @@ export type ValueComponent = new (...args: any) => SvelteComponentTyped<{
 }>
 
 export interface TreeViewProps {
-  data: object // Data can be basically any non-primitive value
+  data: unknown // Data can be basically any non-primitive value
   class?: string // Top node has 'svelte-tree-view' class by default
   theme?: Base16Theme
   showLogButton?: boolean

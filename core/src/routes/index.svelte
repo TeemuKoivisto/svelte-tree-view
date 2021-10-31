@@ -8,7 +8,10 @@
     <TreeView
       data={{
         a: [1, 2, 3],
-        b: new Map([['c', { d: null }], ['e', { f: [9, 8, 7] }]])
+        b: new Map([
+          ['c', { d: null }],
+          ['e', { f: [9, 8, 7] }]
+        ])
       }}
       recursionOpts={{
         maxDepth: 4

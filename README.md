@@ -8,7 +8,7 @@ Library to show Javascript objects in a nice tree layout. It's written in Svelte
 
 ## How to use
 
-At one point there were some issues packaging this library with SvelteKit, partly because I've written it in TypeScript. Currently the only extra config that I'm aware which you must add is for ensuring you import the library with the "svelte" entry point, not "main" or "module" eg:
+At one point there were some issues packaging this library with SvelteKit, partly because it's written in TypeScript. Now the only extra config that I'm aware you must add is for ensuring you import the library using "svelte" entry point, not "main" or "module" eg:
 
 ```ts
 import nodeResolve from 'rollup-plugin-node-resolve'
@@ -17,13 +17,11 @@ import nodeResolve from 'rollup-plugin-node-resolve'
 export default {
   ...
   plugins: [
-    ...
     nodeResolve({
       browser: true,
       mainFields: ['svelte', 'browser', 'module', 'main'],
       dedupe: ['svelte']
     }),
-    ...
   ],
   ...
 }
@@ -50,7 +48,7 @@ import TreeView from 'svelte-tree-view'
 />
 ```
 
-Or if you are not using Svelte (NOTE: to use it with TS you must install svelte as a devDependency for the types):
+Or if you are not using Svelte (NOTE: if you're using TS you must install svelte as a devDependency for the types):
 
 ```ts
 import { TreeView } from 'svelte-tree-view'
@@ -152,7 +150,7 @@ export type ValueComponent = new (...args: any) => SvelteComponentTyped<{
 }>
 
 export interface TreeViewProps {
-  data: object // Data can be basically any non-primitive value
+  data: unknown // Data can be basically any non-primitive value
   class?: string // Top node has 'svelte-tree-view' class by default
   theme?: Base16Theme
   showLogButton?: boolean

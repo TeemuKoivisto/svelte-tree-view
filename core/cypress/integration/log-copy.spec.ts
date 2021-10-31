@@ -15,7 +15,10 @@ it('Should show functioning log & copy buttons', () => {
   cy.get('.log-copy-button').eq(1).click()
   cy.get('@write').should('be.calledWith', JSON.stringify(item1))
   cy.get('.log-copy-button').eq(0).click()
-  cy.get('@consoleInfo').should('be.calledWith', '%c [svelte-tree-view]: Property added to window._node')
+  cy.get('@consoleInfo').should(
+    'be.calledWith',
+    '%c [svelte-tree-view]: Property added to window._node'
+  )
   cy.get('@consoleLog').should('be.calledWith', item1)
   cy.get('@consoleError').should('be.callCount', 0)
 })
