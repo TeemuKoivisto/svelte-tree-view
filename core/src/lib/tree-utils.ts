@@ -182,7 +182,7 @@ export function recurseObjectProperties(
 }
 
 export function recomputeTree(
-  data: object,
+  data: unknown,
   oldTreeMap: Map<string, TreeNode>,
   recursionOpts: TreeRecursionOpts,
   recomputeExpandNode: boolean

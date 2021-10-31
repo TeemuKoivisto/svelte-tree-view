@@ -20,7 +20,7 @@
     TreeRecursionOpts
   } from './types'
 
-  export let data: object,
+  export let data: unknown,
     theme: Base16Theme | undefined = undefined,
     showLogButton = false,
     showCopyButton = false,
