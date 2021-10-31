@@ -13,7 +13,7 @@ export function createNode(
     index,
     key,
     value,
-    depth: depth + 1,
+    depth,
     collapsed: true,
     type: getValueType(value),
     path,
@@ -137,7 +137,7 @@ export function recurseObjectProperties(
   recomputeExpandNode: boolean,
   opts: TreeRecursionOpts
 ): TreeNode | null {
-  if (opts.omitKeys?.includes(key) || (opts.maxDepth && depth >= opts.maxDepth)) {
+  if (opts.omitKeys?.includes(key) || (opts.maxDepth && depth > opts.maxDepth)) {
     return null
   }
   const node = createNode(index, key, value, depth, parent)
@@ -193,7 +193,7 @@ export function recomputeTree(
     -1,
     'root',
     data,
-    -1,
+    0,
     true,
     null,
     treeMap,

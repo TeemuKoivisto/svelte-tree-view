@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { render } from '@testing-library/svelte'
+import { render, fireEvent, findAllByText } from '@testing-library/svelte'
 import TreeView from '../TreeView.svelte'
 
 import example1 from './__fixtures__/example1.json'
@@ -11,6 +11,16 @@ import { generateObj } from './generateObj'
 import type { TreeNode } from '../types'
 
 // https://sveltesociety.dev/recipes/testing-and-debugging/unit-testing-svelte-component/
+
+async function clickByText(container: HTMLElement, text: string, index = 0) {
+  const el = (await findAllByText(container, text))[index]
+  if (el) {
+    return fireEvent(el, new MouseEvent('click', {
+      bubbles: true,
+      cancelable: true,
+    }))
+  }
+}
 
 describe('TreeView', () => {
   it('should render', async () => {
@@ -23,11 +33,8 @@ describe('TreeView', () => {
       }
     })
 
-    const lists = results.container.querySelectorAll('ul')
-    const rows = results.container.querySelectorAll('li')
-
-    expect(lists.length).toEqual(37)
-    expect(rows.length).toEqual(270)
+    expect(results.container.querySelectorAll('ul').length).toEqual(37)
+    expect(results.container.querySelectorAll('li').length).toEqual(270)
     expect(results.container).toBeInTheDocument()
     expect(results.container).toMatchSnapshot()
   })
@@ -99,12 +106,86 @@ describe('TreeView', () => {
       }
     })
 
-    const lists = results.container.querySelectorAll('ul')
-    const rows = results.container.querySelectorAll('li')
-
-    expect(lists.length).toEqual(34)
-    expect(rows.length).toEqual(118)
+    expect(results.container.querySelectorAll('ul').length).toEqual(34)
+    expect(results.container.querySelectorAll('li').length).toEqual(118)
     expect(results.container).toBeInTheDocument()
     expect(results.container).toMatchSnapshot()
+  })
+
+  it('should respect maxDepth and collapse nodes correctly', async () => {
+    const data = {
+      a: [1, 2, 3],
+      b: new Map<string, any>([['c', { d: null }], ['e', { f: [9, 8, 7] }]])
+    }
+    const results = render(TreeView, {
+      props: {
+        data,
+        recursionOpts: {
+          maxDepth: 4
+        }
+      }
+    })
+    window.HTMLElement.prototype.scrollIntoView = jest.fn()
+
+    expect(results.container.querySelectorAll('li').length).toEqual(2)
+    expect(results.container).toBeInTheDocument()
+
+    await clickByText(results.container, 'b:')
+    expect(results.container.querySelectorAll('li').length).toEqual(5)
+
+    await clickByText(results.container, '[map entry 1]:')
+    expect(results.container.querySelectorAll('li').length).toEqual(8)
+
+    await clickByText(results.container, '[value]:')
+    expect(results.container.querySelectorAll('li').length).toEqual(10)
+
+    // Here should not expand the 'f:' value since it's beyond maxDepth
+    await clickByText(results.container, 'f:')
+    expect(results.container.querySelectorAll('li').length).toEqual(10)
+
+    // Collapsing and uncollapsing should not change anything
+    await clickByText(results.container, '[value]:')
+    await clickByText(results.container, '[value]:')
+    expect(results.container.querySelectorAll('li').length).toEqual(10)
+
+    await clickByText(results.container, 'b:')
+    await clickByText(results.container, 'b:')
+    expect(results.container.querySelectorAll('li').length).toEqual(10)
+
+    // Add circular node to the data and use stopCircularRecursion
+    data.b = data.b.set('g', data.b.get('e'))
+    results.rerender({
+      props: {
+        data,
+        recursionOpts: {
+          maxDepth: 5,
+          stopCircularRecursion: true
+        }
+      }
+    })
+
+    // Rerendering should collapse again everything
+    expect(results.container.querySelectorAll('li').length).toEqual(2)
+ 
+    await clickByText(results.container, 'b:')
+    expect(results.container.querySelectorAll('li').length).toEqual(6)
+
+    await clickByText(results.container, '[map entry 1]:')
+    expect(results.container.querySelectorAll('li').length).toEqual(9)
+
+    await clickByText(results.container, '[value]:')
+    expect(results.container.querySelectorAll('li').length).toEqual(11)
+
+    // Now clicking f: should expand more nodes since maxDepth was increased
+    await clickByText(results.container, 'f:')
+    expect(results.container.querySelectorAll('li').length).toEqual(15)
+
+    // Clicking the added 'g' value open
+    await clickByText(results.container, '[map entry 2]:')
+    expect(results.container.querySelectorAll('li').length).toEqual(18)
+
+    // Should not expand since it's a circular value
+    await clickByText(results.container, '[value]:', 1)
+    expect(results.container.querySelectorAll('li').length).toEqual(18)
   })
 })
