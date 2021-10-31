@@ -16,7 +16,8 @@ export default {
     target: '#svelte',
     trailingSlash: 'never',
     paths: {
-      base: DEPLOY_TO_GH ? '/svelte-tree-view' : '',
+      // For Github pages deployment, locally with preview favicon points to wrong path 
+      base: '/svelte-tree-view',
     },
     files: {
       routes: './src/routes',
