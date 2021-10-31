@@ -29,16 +29,16 @@
 
 		
 
-		<link rel="modulepreload" href="/svelte-tree-view/_app/start-872a487c.js">
-		<link rel="modulepreload" href="/svelte-tree-view/_app/chunks/vendor-aace852b.js">
-		<link rel="modulepreload" href="/svelte-tree-view/_app/pages/__layout.svelte-f5d1564a.js">
-		<link rel="modulepreload" href="/svelte-tree-view/_app/pages/index.svelte-3b88ee22.js">
+		<link rel="modulepreload" href="/svelte-tree-view/_app/start-b06e7851.js">
+		<link rel="modulepreload" href="/svelte-tree-view/_app/chunks/vendor-c1c9054e.js">
+		<link rel="modulepreload" href="/svelte-tree-view/_app/pages/__layout.svelte-23bed582.js">
+		<link rel="modulepreload" href="/svelte-tree-view/_app/pages/index.svelte-cfc1bc16.js">
 		<link rel="stylesheet" href="/svelte-tree-view/_app/assets/start-d5b4de3e.css">
 		<link rel="stylesheet" href="/svelte-tree-view/_app/assets/pages/__layout.svelte-954305f9.css">
 		<link rel="stylesheet" href="/svelte-tree-view/_app/assets/pages/index.svelte-39b24f5c.css">
 
 		<script type="module">
-			import { start } from "/svelte-tree-view/_app/start-872a487c.js";
+			import { start } from "/svelte-tree-view/_app/start-b06e7851.js";
 			start({
 				target: document.querySelector("#svelte"),
 				paths: {"base":"/svelte-tree-view","assets":""},
@@ -51,8 +51,8 @@
 					status: 200,
 					error: null,
 					nodes: [
-						import("/svelte-tree-view/_app/pages/__layout.svelte-f5d1564a.js"),
-						import("/svelte-tree-view/_app/pages/index.svelte-3b88ee22.js")
+						import("/svelte-tree-view/_app/pages/__layout.svelte-23bed582.js"),
+						import("/svelte-tree-view/_app/pages/index.svelte-cfc1bc16.js")
 					],
 					page: {
 						host: location.host, // TODO this is redundant
@@ -97,7 +97,7 @@
   isCircularNode(node, iteratedValues) {
     if (node.type === 'object' || node.type === 'array') {
       const existingNodeWithValue = iteratedValues.get(node.value)
-      if (existingNodeWithValue) {
+      if (existingNodeWithValue && node.id !== existingNodeWithValue.id) {
         node.circularOfId = existingNodeWithValue.id
         return false
       }
@@ -146,6 +146,8 @@
       return `"${val}"`
     case 'boolean':
       return val ? 'true' : 'false'
+    case 'symbol':
+      return String(val)
     default:
       return val
   }
