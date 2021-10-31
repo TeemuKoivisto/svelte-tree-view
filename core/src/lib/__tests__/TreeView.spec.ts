@@ -15,10 +15,13 @@ import type { TreeNode } from '../types'
 async function clickByText(container: HTMLElement, text: string, index = 0) {
   const el = (await findAllByText(container, text))[index]
   if (el) {
-    return fireEvent(el, new MouseEvent('click', {
-      bubbles: true,
-      cancelable: true,
-    }))
+    return fireEvent(
+      el,
+      new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true
+      })
+    )
   }
 }
 
@@ -115,7 +118,10 @@ describe('TreeView', () => {
   it('should respect maxDepth and collapse nodes correctly', async () => {
     const data = {
       a: [1, 2, 3],
-      b: new Map<string, any>([['c', { d: null }], ['e', { f: [9, 8, 7] }]])
+      b: new Map<string, any>([
+        ['c', { d: null }],
+        ['e', { f: [9, 8, 7] }]
+      ])
     }
     const results = render(TreeView, {
       props: {
@@ -166,7 +172,7 @@ describe('TreeView', () => {
 
     // Rerendering should collapse again everything
     expect(results.container.querySelectorAll('li').length).toEqual(2)
- 
+
     await clickByText(results.container, 'b:')
     expect(results.container.querySelectorAll('li').length).toEqual(6)
 
@@ -187,5 +193,46 @@ describe('TreeView', () => {
     // Should not expand since it's a circular value
     await clickByText(results.container, '[value]:', 1)
     expect(results.container.querySelectorAll('li').length).toEqual(18)
+  })
+
+  it('should respect maxDepth and collapse nodes correctly', async () => {
+    const results = render(TreeView, {
+      props: {
+        data: undefined
+      }
+    })
+    window.HTMLElement.prototype.scrollIntoView = jest.fn()
+
+    expect(results.container.querySelectorAll('li').length).toEqual(0)
+
+    const nonTreeValues = [
+      null,
+      Symbol('foo'),
+      NaN,
+      123,
+      BigInt('0x1fffffffffffff'),
+      'asdf',
+      /\w+/,
+      () => undefined,
+      function () {
+        return 0
+      },
+      document.createElement('li')
+    ]
+    nonTreeValues.forEach(val => {
+      results.rerender({
+        props: {
+          data: val
+        }
+      })
+      expect(results.container.querySelectorAll('li').length).toEqual(0)
+    })
+
+    results.rerender({
+      props: {
+        data: nonTreeValues
+      }
+    })
+    expect(results.container.querySelectorAll('li').length).toEqual(10)
   })
 })

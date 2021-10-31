@@ -79,6 +79,8 @@
       return \u0060"\${val}"\u0060
     case 'boolean':
       return val ? 'true' : 'false'
+    case 'symbol':
+      return String(val)
     default:
       return val
   }
