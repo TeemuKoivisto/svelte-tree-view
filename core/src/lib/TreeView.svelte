@@ -3,11 +3,7 @@
   import { get } from 'svelte/store'
 
   import { recomputeTree } from './tree-utils'
-  import {
-    createPropsStore,
-    createRootElementStore,
-    createTreeStore,
-  } from './stores'
+  import { createPropsStore, createRootElementStore, createTreeStore } from './stores'
 
   import TreeViewNode from './TreeViewNode.svelte'
 
@@ -69,11 +65,12 @@
     const recomputeExpandNode =
       props?.recursionOpts?.shouldExpandNode !== newRecursionOpts.shouldExpandNode
     const oldTreeMap = get(treeStore.treeMap)
-    const {
-      treeMap,
-      tree,
-      iteratedValues
-    } = recomputeTree(data, oldTreeMap, newRecursionOpts, recomputeExpandNode)
+    const { treeMap, tree, iteratedValues } = recomputeTree(
+      data,
+      oldTreeMap,
+      newRecursionOpts,
+      recomputeExpandNode
+    )
     treeStore.init(tree, treeMap, iteratedValues)
     props.recursionOpts = newRecursionOpts
     propsStore.setProps(props)
@@ -97,7 +94,7 @@
   setContext<Stores>('svelte-tree-view', {
     propsStore,
     rootElementStore,
-    treeStore,
+    treeStore
   })
 
   onMount(() => {

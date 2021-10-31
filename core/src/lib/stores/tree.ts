@@ -17,7 +17,11 @@ export const createTreeStore = (propsStore: PropsStore) => {
     treeMap,
     defaultRootNode,
 
-    init(newTree: TreeNode | null, newTreeMap: Map<string, TreeNode>, iterated: Map<any, TreeNode>) {
+    init(
+      newTree: TreeNode | null,
+      newTreeMap: Map<string, TreeNode>,
+      iterated: Map<any, TreeNode>
+    ) {
       if (newTree) {
         tree.set(newTree)
       } else {
@@ -68,7 +72,9 @@ export const createTreeStore = (propsStore: PropsStore) => {
         recursionOpts
       )
       if (!nodeWithUpdatedChildren) return
-      parent.children = parent.children.map(c => c.id === nodeWithUpdatedChildren.id ? nodeWithUpdatedChildren : c)
+      parent.children = parent.children.map(c =>
+        c.id === nodeWithUpdatedChildren.id ? nodeWithUpdatedChildren : c
+      )
       newTreeMap.set(nodeWithUpdatedChildren.id, nodeWithUpdatedChildren)
       newTreeMap.set(parent.id, parent)
       treeMap.set(newTreeMap)

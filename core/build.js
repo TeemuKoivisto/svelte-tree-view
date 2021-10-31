@@ -42,10 +42,7 @@ async function writePackageExports() {
 
 async function build() {
   await cleanCurrentExports()
-  await Promise.all([
-    exec('yarn build:pkg'),
-    exec('yarn build:dist'),
-  ])
+  await Promise.all([exec('yarn build:pkg'), exec('yarn build:dist')])
   await writePackageExports()
   await exec('rm ./package/.npmignore && rm ./package/package.json')
   await checkFilesBuilt()
@@ -57,7 +54,7 @@ async function checkFilesBuilt() {
     fs.access('./dist/index.es.js'),
     fs.access('./dist/index.css'),
     fs.access('./dist/types.d.ts'),
-    fs.access('./package/index.js'),
+    fs.access('./package/index.js')
   ])
 }
 
