@@ -4,8 +4,8 @@
   "type": "module",
   "homepage": "https://teemukoivisto.github.io/svelte-tree-view/",
   "scripts": {
-    "build": "rimraf build && svelte-kit build",
-    "build:gh-pages": "rimraf build && svelte-kit build && touch build/.nojekyll",
+    "build": "rimraf build && DEPLOY_TO_GH=true svelte-kit build",
+    "build:gh-pages": "rimraf build && DEPLOY_TO_GH=true svelte-kit build && touch build/.nojekyll",
     "deploy": "gh-pages -d build -t true",
     "dev": "NO_SSR=true svelte-kit dev",
     "dev:ssr": "svelte-kit dev",
