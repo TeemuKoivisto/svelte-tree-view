@@ -195,7 +195,7 @@ describe('TreeView', () => {
     expect(results.container.querySelectorAll('li').length).toEqual(18)
   })
 
-  it('should respect maxDepth and collapse nodes correctly', async () => {
+  it('should not map primitive values and renders them correctly in list', async () => {
     const results = render(TreeView, {
       props: {
         data: undefined
