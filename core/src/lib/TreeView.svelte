@@ -81,7 +81,7 @@
       for (key in theme) {
         // This ridiculous thing is for TypeScript type inference. Yey..?
         const value = theme[key]
-        if (rootElement && key.includes('--tree-view-base') && value) {
+        if (rootElement && key.includes('base') && value) {
           rootElement.style.setProperty(`--tree-view-${key}`, value)
         }
       }
