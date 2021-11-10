@@ -235,7 +235,7 @@
       >Example 3</button
     >
   </div>
-  <div class="flex">
+  <div class="flex tree-wrapper">
     <textarea
       class="w-1/2 bg-06 text-00 placeholder-gray-500 p-2 border"
       data-test="input-textarea"
@@ -243,7 +243,6 @@
       {placeholder}
     />
     <TreeView
-      class="tree-view x"
       data={parsedData}
       {showLogButton}
       {showCopyButton}
@@ -256,8 +255,7 @@
 </section>
 
 <style>
-  /** Must use second class for added specifity to override the default styles */
-  :global(.tree-view.x) {
+  .tree-wrapper > :global(.svelte-tree-view) {
     @apply w-1/2 px-4;
   }
 </style>
