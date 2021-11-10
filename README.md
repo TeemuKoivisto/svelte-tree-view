@@ -2,9 +2,11 @@
 
 Library to show Javascript objects in a nice tree layout. It's written in Svelte but since it compiles to pure JS it can be used anywhere (although to customize the rendered nodes you must Svelte).
 
-## [Demo](https://teemukoivisto.github.io/svelte-tree-view/)
-
 `npm i svelte-tree-view`
+
+### [Demo site](https://teemukoivisto.github.io/svelte-tree-view/)
+
+### [Svelte REPL](https://svelte.dev/repl/4f8c82da5eac4e868ff40193ee84e84a?version=3.44.1)
 
 ## How to use
 
@@ -19,7 +21,7 @@ export default {
   plugins: [
     nodeResolve({
       browser: true,
-      mainFields: ['svelte', 'browser', 'module', 'main'],
+      mainFields: ['svelte', 'module', 'browser', 'main'],
       dedupe: ['svelte']
     }),
   ],
@@ -71,12 +73,12 @@ const treeView = new TreeView({
 To override default styles I suggest using child or element selector to get enough specificity:
 
 ```svelte
-<div class="tree-view-wrapper">
+<div class="wrapper">
   <TreeView/>
 </div>
 
 <style>
-  .tree-view-wrapper > :global(.svelte-tree-view) {
+  .wrapper > :global(.svelte-tree-view) {
     ...
   }
   /* OR */
@@ -179,7 +181,7 @@ export default TreeView
 
 This library uses base16 theming, similar to react-json-tree. So basically instead of theming each type (string, number, undefined etc) separately, you use the same color for all similar values. Here's a repo that might explain it better https://github.com/chriskempson/base16
 
-The current default theme is the example monokai theme from react-json-tree with changed background color. You can define your own theme or use one from for example here https://github.com/reduxjs/redux-devtools/tree/75322b15ee7ba03fddf10ac3399881e302848874/src/react/themes
+The example theme is the monokai theme from react-json-tree with changed background color. You can define your own theme or use one from for example here https://github.com/reduxjs/redux-devtools/tree/75322b15ee7ba03fddf10ac3399881e302848874/src/react/themes
 
 To use a theme, you can either provide an object or set CSS variables (recommended).
 
@@ -206,30 +208,33 @@ const theme = {
   base0E: '#A36AC7',
   base0F: '#3971ED'
 }
-...
-<TreeView theme={theme} />
+
+<div class="wrapper">
+  <TreeView theme={theme} />
+</div>
 ```
 
 or
 
 ```css
-:root {
-  --tree-view-base00: #1d1f21;
-  --tree-view-base01: #282a2e;
-  --tree-view-base02: #373b41;
-  --tree-view-base03: #969896;
-  --tree-view-base04: #b4b7b4;
-  --tree-view-base05: #c5c8c6;
-  --tree-view-base06: #e0e0e0;
-  --tree-view-base07: #ffffff;
-  --tree-view-base08: #CC342B;
-  --tree-view-base09: #F96A38;
-  --tree-view-base0A: #FBA922;
-  --tree-view-base0B: #198844;
-  --tree-view-base0C: #3971ED;
-  --tree-view-base0D: #3971ED;
-  --tree-view-base0E: #A36AC7;
-  --tree-view-base0F: #3971ED;
+/* This is the example monokai theme */
+.wrapper {
+  --tree-view-base00: #363755;
+  --tree-view-base01: #604d49;
+  --tree-view-base02: #6d5a55;
+  --tree-view-base03: #d1929b;
+  --tree-view-base04: #b79f8d;
+  --tree-view-base05: #f9f8f2;
+  --tree-view-base06: #f7f4f1;
+  --tree-view-base07: #faf8f5;
+  --tree-view-base08: #fa3e7e;
+  --tree-view-base09: #fd993c;
+  --tree-view-base0A: #f6bf81;
+  --tree-view-base0B: #b8e248;
+  --tree-view-base0C: #b4efe4;
+  --tree-view-base0D: #85d9ef;
+  --tree-view-base0E: #be87ff;
+  --tree-view-base0F: #d6724c;
 }
 ```
 
@@ -250,7 +255,9 @@ You must have yarn installed globally.
 1. `yarn`
 2. `yarn start`
 
-This should start the example-app at http://localhost:3000 that hot-reloads changes to the library inside `core`. NOTE: Since I'm using `svelte-kit package` command to build the library it uses the `"exports"` of `package.json` to make importing the package from Svelte app as efficient as possible. However, in development I'm doing this trick of manually setting the exports to `".": "./src/lib/index.ts"` which enables the example-app to auto-import the changes without having to constantly package the app. It's a bit hackish but hey, it works really well and avoids having to use `package` in development completely!
+This should start the example-app at http://localhost:3000 that hot-reloads changes to the library inside `core`.
+
+NOTE: Since I'm using `svelte-kit package` command to build the library it uses the `"exports"` of `package.json` to make importing the package from Svelte app as efficient as possible. However, in development I'm doing this trick of manually setting the exports to `".": "./src/lib/index.ts"` which enables the example-app to auto-import the changes without having to constantly package the app. It's a bit hackish but hey, it works really well and avoids having to use `package` in development completely!
 
 ## Similar libraries
 
