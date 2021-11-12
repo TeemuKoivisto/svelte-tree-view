@@ -9,6 +9,7 @@
     "deploy": "gh-pages -d build -t true",
     "dev": "NO_SSR=true svelte-kit dev",
     "dev:ssr": "svelte-kit dev",
+    "svelte-check": "svelte-check",
     "format": "prettier --write *.cjs src/",
     "lint": "prettier --check --plugin-search-dir=. ./src && eslint --cache --ext .js,.ts,.svelte ./src",
     "lint:fix": "eslint --fix --cache --ext .js,.ts,.svelte ./src",

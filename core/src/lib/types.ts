@@ -53,7 +53,6 @@ export interface Base16Theme {
 
 // As described in https://stackoverflow.com/questions/67697298/svelte-components-as-object-properties/67737182#67737182
 export type ValueComponent = new (...args: any) => SvelteComponentTyped<{
-  value: any
   node: TreeNode
   defaultFormatter?: (val: any) => string | undefined
 }>
