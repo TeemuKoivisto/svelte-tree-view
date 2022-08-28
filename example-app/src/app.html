@@ -12,9 +12,7 @@
     <script>
       try {
         if (!('theme' in localStorage)) {
-          localStorage.theme = window.matchMedia('(prefers-color-scheme: dark)').matches
-            ? 'dark'
-            : 'light'
+          localStorage.theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
         }
 
         document.querySelector('html').classList.add(localStorage.theme)
