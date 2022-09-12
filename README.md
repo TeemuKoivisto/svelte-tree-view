@@ -252,14 +252,12 @@ Rendering very large trees is not fast. The same happens with say react-json-tre
 
 ## How to develop locally
 
-You must have yarn installed globally.
+You must have pnpm installed globally.
 
-1. `yarn`
-2. `yarn start`
+1. `pnpm`
+2. `pnpm start`
 
-This should start the example-app at http://localhost:3000 that hot-reloads changes to the library inside `core`.
-
-NOTE: Since I'm using `svelte-kit package` command to build the library it uses the `"exports"` of `package.json` to make importing the package from Svelte app as efficient as possible. However, in development I'm doing this trick of manually setting the exports to `".": "./src/lib/index.ts"` which enables the example-app to auto-import the changes without having to constantly package the app. It's a bit hackish but hey, it works really well and avoids having to use `package` in development completely!
+This should start the SvelteKit app at http://localhost:5185 that hot-reloads changes to the library.
 
 ## Similar libraries
 

@@ -2,6 +2,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "start": "pnpm --filter svelte-tree-view build && pnpm --filter site dev",
     "format": "prettier --write \"**/*.+(js|jsx|json|html|css|less|scss|ts|tsx|svelte|yml|yaml|md|graphql|mdx)\" .",
     "lint:fix": "eslint --ignore-path .gitignore --fix --ext .js,.cjs,.ts,.tsx,.svelte .",
     "cs": "changeset && git add .changeset",
