@@ -3,6 +3,8 @@
  */
 
 import { render, fireEvent, findAllByText } from '@testing-library/svelte'
+import { vi } from 'vitest'
+
 import TreeView from '../TreeView.svelte'
 
 import example1 from './__fixtures__/example1.json'
@@ -131,7 +133,7 @@ describe('TreeView', () => {
         }
       }
     })
-    window.HTMLElement.prototype.scrollIntoView = jest.fn()
+    window.HTMLElement.prototype.scrollIntoView = vi.fn()
 
     expect(results.container.querySelectorAll('li').length).toEqual(2)
     expect(results.container).toBeInTheDocument()
@@ -201,7 +203,7 @@ describe('TreeView', () => {
         data: undefined
       }
     })
-    window.HTMLElement.prototype.scrollIntoView = jest.fn()
+    window.HTMLElement.prototype.scrollIntoView = vi.fn()
 
     expect(results.container.querySelectorAll('li').length).toEqual(0)
 

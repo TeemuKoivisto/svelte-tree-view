@@ -1,7 +1,7 @@
 import adapter from '@sveltejs/adapter-static'
 import preprocess from 'svelte-preprocess'
 
-const { NO_SSR, DEPLOY_TO_GH } = process.env
+const { DEPLOY_TO_GH } = process.env
 
 /** @type {import('@sveltejs/kit').Config} */
 export default {
@@ -12,8 +12,6 @@ export default {
   kit: {
     // Needed by Cypress tests as using ssr with `svelte-kit dev` might not hydrate the app fast enough,
     // resulting in failing tests.
-    ...(NO_SSR && { ssr: false }),
-    target: '#svelte',
     trailingSlash: 'never',
     paths: {
       // For Github pages deployment, locally with preview favicon points to wrong path 
