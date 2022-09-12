@@ -3,43 +3,37 @@ name: Deploy to Github Pages
 on:
   push:
     branches:
-      - main
+      - master
 
   workflow_dispatch:
 
 jobs:
   deployment:
+    timeout-minutes: 15
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [16.x]
-
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+        with:
+          # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
+          fetch-depth: 0
 
       - name: Setup node
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node_version }}
 
-      - name: Install dependencies
-        run: yarn
+      - name: Install dependencies with pnpm
+        uses: ./.github/actions/pnpm
 
-      - name: Build svelte-tree-view
-        run: |
-          cd core
-          chmod +x build.js
-          yarn build
-
-      - name: Build example-app
-        run: |
-          cd example-app
-          yarn build:gh-pages
+      - name: Build
+        run: pnpm -r build
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.GH_ACTIONS_DEPLOY_KEY }}
-          publish_dir: ./example-app/build
+          publish_dir: ./packages/example-app/build

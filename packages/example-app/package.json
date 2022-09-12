@@ -6,8 +6,7 @@
   "homepage": "https://teemukoivisto.github.io/svelte-tree-view/",
   "scripts": {
     "install": "svelte-kit sync",
-    "build": "rimraf build && DEPLOY_TO_GH=true vite build",
-    "build:gh-pages": "rimraf build && DEPLOY_TO_GH=true vite build && touch build/.nojekyll",
+    "build": "rimraf build && DEPLOY_TO_GH=true vite build && touch build/.nojekyll",
     "deploy": "gh-pages -d build -t true",
     "dev": "vite dev",
     "svelte-check": "svelte-check",
