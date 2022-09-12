@@ -19,7 +19,7 @@ runs:
       uses: cypress-io/github-action@v2
       with:
         cache-key: ${{ runner.os }}-node-${{ matrix.node-version }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-        start: pnpm --filter example-app dev
+        start: pnpm --filter site dev
         wait-on: 'http://localhost:5185'
         project: ./packages/svelte-tree-view
         browser: chrome
