@@ -1,0 +1,86 @@
+{
+  "name": "svelte-tree-view",
+  "version": "1.3.0",
+  "description": "Display JSON objects in a customizable tree-view", 
+  "author": "Teemu Koivisto <teemukoivisto.xyz@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/TeemuKoivisto/svelte-tree-view",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "svelte": "package/index.js",
+  "type": "module",
+  "types": "dist/types.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "package",
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TeemuKoivisto/svelte-tree-view.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TeemuKoivisto/svelte-tree-view/issues"
+  },
+  "keywords": [
+    "svelte",
+    "tree-view",
+    "json-tree",
+    "typescript",
+    "tree",
+    "json",
+    "base16",
+    "theme"
+  ],
+  "scripts": {
+    "install": "svelte-kit sync",
+    "build": "yarn build:pkg && yarn build:dist",
+    "build:dist": "rimraf ./dist && rollup -c && cp ./src/lib/types.ts ./dist/types.d.ts",
+    "build:pkg": "svelte-kit sync && svelte-package",
+    "watch:pkg": "svelte-package --watch",
+    "dev": "vite",
+    "preversion": "yarn svelte-check && yarn test && yarn build",
+    "prepublishOnly": "cp ../../README.md . && cp ../../LICENSE . && rm package/package.json && rm package/CHANGELOG.md",
+    "postpublish": "rm README.md LICENSE",
+    "svelte-check": "svelte-check",
+    "test": "yarn test:unit && yarn test:e2e",
+    "test:unit": "vitest run",
+    "test:e2e": "cypress run",
+    "cy": "cypress"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^22.0.2",
+    "@rollup/plugin-node-resolve": "^14.0.1",
+    "@sveltejs/kit": "^1.0.0-next.480",
+    "@sveltejs/package": "^1.0.0-next.3",
+    "@testing-library/cypress": "^8.0.3",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/svelte": "^3.2.1",
+    "cypress": "^9.7.0",
+    "jsdom": "^20.0.0",
+    "postcss": "^8.4.16",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.79.0",
+    "rollup-plugin-scss": "^3.0.0",
+    "rollup-plugin-svelte": "^7.1.0",
+    "rollup-plugin-ts": "^3.0.2",
+    "sass": "^1.54.9",
+    "svelte": "^3.50.1",
+    "svelte-check": "^2.9.0",
+    "svelte-preprocess": "^4.10.7",
+    "svelte2tsx": "^0.5.16",
+    "tslib": "^2.4.0",
+    "typescript": "^4.8.3",
+    "vitest": "^0.23.1",
+    "vite": "^3.1.0"
+  },
+  "dependencies": {}
+}

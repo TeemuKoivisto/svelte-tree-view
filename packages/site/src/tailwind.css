@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+
+:root {
+  --tree-view-base00: #363755;
+  --tree-view-base01: #604d49;
+  --tree-view-base02: #6d5a55;
+  --tree-view-base03: #d1929b;
+  --tree-view-base04: #b79f8d;
+  --tree-view-base05: #f9f8f2;
+  --tree-view-base06: #f7f4f1;
+  --tree-view-base07: #faf8f5;
+  --tree-view-base08: #fa3e7e;
+  --tree-view-base09: #fd993c;
+  --tree-view-base0A: #f6bf81;
+  --tree-view-base0B: #b8e248;
+  --tree-view-base0C: #b4efe4;
+  --tree-view-base0D: #85d9ef;
+  --tree-view-base0E: #be87ff;
+  --tree-view-base0F: #d6724c;
+
+  /* --tree-view-font-family: 'Helvetica Neue', 'Calibri Light', Roboto, sans-serif;
+  --tree-view-font-size: 13px;
+  --tree-view-left-indent: 0.875em;
+  --tree-view-line-height: 1.1;
+  --tree-view-key-margin-right: 0.5em; */
+
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+    "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+body {
+  background: var(--tree-view-base00);
+  color: var(--tree-view-base0D);
+  @apply bg-cover bg-no-repeat antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color: var(--tree-view-base0B);
+}
+
+a {
+  color: var(--tree-view-base08);
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* Hurray for multi-cursor selection.. */
+.bg-00 {
+  background: var(--tree-view-base00);
+}
+.bg-01 {
+  background: var(--tree-view-base01);
+}
+.bg-02 {
+  background: var(--tree-view-base02);
+}
+.bg-03 {
+  background: var(--tree-view-base03);
+}
+.bg-04 {
+  background: var(--tree-view-base04);
+}
+.bg-05 {
+  background: var(--tree-view-base05);
+}
+.bg-06 {
+  background: var(--tree-view-base06);
+}
+.bg-07 {
+  background: var(--tree-view-base07);
+}
+.bg-08 {
+  background: var(--tree-view-base08);
+}
+.bg-09 {
+  background: var(--tree-view-base09);
+}
+.bg-0A {
+  background: var(--tree-view-base0A);
+}
+.bg-0B {
+  background: var(--tree-view-base0B);
+}
+.bg-0C {
+  background: var(--tree-view-base0C);
+}
+.bg-0D {
+  background: var(--tree-view-base0D);
+}
+.bg-0E {
+  background: var(--tree-view-base0E);
+}
+.bg-0F {
+  background: var(--tree-view-base0F);
+}
+
+.text-00 {
+  color: var(--tree-view-base00);
+}
+.text-01 {
+  color: var(--tree-view-base01);
+}
+.text-02 {
+  color: var(--tree-view-base02);
+}
+.text-03 {
+  color: var(--tree-view-base03);
+}
+.text-04 {
+  color: var(--tree-view-base04);
+}
+.text-05 {
+  color: var(--tree-view-base05);
+}
+.text-06 {
+  color: var(--tree-view-base06);
+}
+.text-07 {
+  color: var(--tree-view-base07);
+}
+.text-08 {
+  color: var(--tree-view-base08);
+}
+.text-09 {
+  color: var(--tree-view-base09);
+}
+.text-0A {
+  color: var(--tree-view-base0A);
+}
+.text-0B {
+  color: var(--tree-view-base0B);
+}
+.text-0C {
+  color: var(--tree-view-base0C);
+}
+.text-0D {
+  color: var(--tree-view-base0D);
+}
+.text-0E {
+  color: var(--tree-view-base0E);
+}
+.text-0F {
+  color: var(--tree-view-base0F);
+}
+
+.btn {
+  background-color: var(--tree-view-base01);
+  color: var(--tree-view-base0A);
+
+  @apply px-4 py-2 rounded transition-colors duration-100 tracking-wide text-base;
+}
+.btn:hover {
+  background-color: var(--tree-view-base02);
+}
+.btn:focus {
+  @apply outline-none shadow;
+}
+
+@tailwind utilities;
