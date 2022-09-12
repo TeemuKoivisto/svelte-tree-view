@@ -5,7 +5,7 @@ runs:
   using: composite
   steps:
     - name: Build packages
-        run: pnpm -r build
+      run: pnpm -r build
 
     - name: Run type check and unit tests
       run: |
@@ -17,7 +17,7 @@ runs:
       uses: cypress-io/github-action@v2
       with:
         cache-key: ${{ runner.os }}-node-${{ matrix.node-version }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-        start:  pnpm --filter example-app dev
+        start: pnpm --filter example-app dev
         wait-on: 'http://localhost:5185'
         project: ./packages/svelte-tree-view
         browser: chrome

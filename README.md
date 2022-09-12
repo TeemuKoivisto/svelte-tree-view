@@ -61,7 +61,10 @@ const treeView = new TreeView({
   props: {
     data: {
       a: [1, 2, 3],
-      b: new Map([['c', { d: null }], ['e', { f: [9, 8, 7] }]])
+      b: new Map([
+        ['c', { d: null }],
+        ['e', { f: [9, 8, 7] }]
+      ])
     },
     recursionOpts: {
       maxDepth: 4
@@ -74,16 +77,16 @@ To override default styles I suggest using child or element selector to get enou
 
 ```svelte
 <div class="wrapper">
-  <TreeView/>
+  <TreeView />
 </div>
 
 <style>
   .wrapper > :global(.svelte-tree-view) {
-    ...
+    ...;
   }
   /* OR */
   :global(ul.svelte-tree-view) {
-    ...
+    ...;
   }
 </style>
 ```

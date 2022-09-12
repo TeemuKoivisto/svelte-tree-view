@@ -1,14 +1,14 @@
 module.exports = {
   mode: 'jit',
   theme: {
-    extend: {},
+    extend: {}
   },
   variants: {},
   darkMode: 'class',
   purge: ['./src/**/*.svelte'],
   future: {
     removeDeprecatedGapUtilities: true,
-    purgeLayersByDefault: true,
+    purgeLayersByDefault: true
   },
-  plugins: [],
+  plugins: []
 }

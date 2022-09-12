@@ -22,7 +22,7 @@
     path: [],
     parentId: null,
     circularOfId: null,
-    children: [],
+    children: []
   }
   const defaultRecursionOpts = `{
   maxDepth: 16,
@@ -167,7 +167,7 @@
     if (theme) {
       try {
         parsedTheme = new Function(`return ${theme}`)()
-        Object.keys(parsedTheme).forEach((key) => {
+        Object.keys(parsedTheme).forEach(key => {
           document.documentElement.style.setProperty(`--tree-view-${key}`, parsedTheme[key])
         })
       } catch (e) {}
@@ -192,7 +192,7 @@
         } else {
           parsedRecursionOpts = {
             mapChildren: mapDocDeltaChildren,
-            shouldExpandNode: () => true,
+            shouldExpandNode: () => true
           }
         }
         break

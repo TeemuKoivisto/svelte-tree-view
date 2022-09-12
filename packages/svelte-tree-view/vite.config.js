@@ -12,5 +12,5 @@ export default {
     globals: true,
     environment: 'jsdom',
     setupFiles: ['src/lib/__tests__/setupTests.js']
-  },
+  }
 }
