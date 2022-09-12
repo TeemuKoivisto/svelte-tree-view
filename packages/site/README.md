@@ -1,6 +1,4 @@
-# Example App built with [SvelteKit](https://github.com/sveltejs/kit)
-
-NOTE: since SvelteKit is still in preview this app is definitely not stable. Meaning upgrading any dependencies will probably cause something to break. I had at least weird 404 errors with `@sveltejs/kit 1.0.0-next.148` so I had to downgrade to 147. Deploying to github pages was also kinda annoying.
+# [SvelteKit site](https://github.com/sveltejs/kit)
 
 An amalgamation of these repositories:
 

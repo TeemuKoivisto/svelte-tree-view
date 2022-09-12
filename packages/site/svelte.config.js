@@ -10,8 +10,6 @@ export default {
   preprocess: preprocess(),
 
   kit: {
-    // Needed by Cypress tests as using ssr with `svelte-kit dev` might not hydrate the app fast enough,
-    // resulting in failing tests.
     trailingSlash: 'never',
     paths: {
       // For Github pages deployment, locally with preview favicon points to wrong path
