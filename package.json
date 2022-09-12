@@ -5,24 +5,29 @@
     "example-app"
   ],
   "scripts": {
-    "format": "prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|svelte|md|graphql|mdx)\"",
-    "lint": "eslint --cache --ext .js,.ts,.svelte ./src",
-    "lint:fix": "eslint --fix --ext .js,.ts,.svelte ./src",
-    "start": "concurrently 'cd ./core && yarn exports:dev' 'cd example-app && yarn dev'"
+    "start": "concurrently 'cd ./core && yarn exports:dev' 'cd example-app && yarn dev'",
+    "format": "prettier --write \"**/*.+(js|jsx|json|html|css|less|scss|ts|tsx|svelte|yml|yaml|md|graphql|mdx)\" .",
+    "lint:fix": "eslint --ignore-path .gitignore --fix --ext .js,.cjs,.ts,.tsx,.svelte .",
+    "cs": "changeset && git add .changeset",
+    "ci:version": "changeset version",
+    "ci:publish": "changeset publish && git push --follow-tags",
+    "prepare": "husky install"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.30.6",
-    "@typescript-eslint/parser": "^5.30.6",
-    "concurrently": "^7.2.2",
-    "eslint": "^8.19.0",
+    "@changesets/cli": "^2.24.4",
+    "@typescript-eslint/eslint-plugin": "^5.36.2",
+    "@typescript-eslint/parser": "^5.36.2",
+    "concurrently": "^7.4.0",
+    "eslint": "^8.23.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-import-resolver-typescript": "^3.2.6",
+    "eslint-import-resolver-typescript": "^3.5.1",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jsx-a11y": "^6.6.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-promise": "^6.0.1",
     "eslint-plugin-svelte3": "^4.0.0",
+    "husky": "^8.0.1",
     "prettier": "^2.7.1",
     "prettier-plugin-svelte": "^2.7.0"
   }
