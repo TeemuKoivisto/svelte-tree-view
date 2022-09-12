@@ -6,11 +6,13 @@ runs:
   steps:
     - name: Build packages
       run: pnpm -r build
+      shell: bash
 
     - name: Run type check and unit tests
       run: |
         pnpm --filter svelte-tree-view svelte-check
         pnpm --filter svelte-tree-view test:unit
+      shell: bash
 
     - name: Run tests with Cypress
       id: cypress
