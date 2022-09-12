@@ -6,7 +6,7 @@
     "module": "es2020",
     "lib": ["es2020", "dom", "dom.iterable"],
     "target": "es2019",
-    "types": ["svelte", "jest", "@testing-library/jest-dom", "cypress"],
+    "types": ["svelte", "@testing-library/jest-dom", "cypress"],
     /**
 			svelte-preprocess cannot figure out whether you have a value or a type, so tell TypeScript
 			to enforce using \`import type\` instead of \`import\` for Types.

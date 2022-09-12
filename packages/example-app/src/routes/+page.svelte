@@ -4,11 +4,11 @@
   import PropsForm from '../components/PropsForm.svelte'
   import DiffValue from '../components/DiffValue.svelte'
 
-  import { mapDocDeltaChildren } from '../mapDocDeltaChildren'
+  import { mapDocDeltaChildren } from '../utils/mapDocDeltaChildren'
 
-  import example1 from './example1.json'
-  import example2 from './example2.json'
-  import { generateObj } from '../generateObj'
+  import example1 from '../utils/example1.json'
+  import example2 from '../utils/example2.json'
+  import { generateObj } from '../utils/generateObj'
 
   const placeholder = `Eg. {"a": 1, "b": [1,2,3]}`
   const testNode = {
