@@ -7,7 +7,9 @@ runs:
     - name: Setup caching
       uses: actions/cache@v2
       with:
-        path: .pnpm-store
+        path: |
+          .pnpm-store
+          /home/runner/.cache/Cypress
         key: ${{ runner.os }}-node-${{ matrix.node-version }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
         restore-keys: ${{ runner.os }}-node-${{ matrix.node-version }}-pnpm-
 
