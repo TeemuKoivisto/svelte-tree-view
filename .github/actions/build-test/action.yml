@@ -20,7 +20,7 @@ runs:
       with:
         install: false # Don't install dependencies again
         cache-key: ${{ runner.os }}-node-${{ matrix.node-version }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-        command:  pnpm --filter svelte-tree-view cy run
+        command: pnpm --filter svelte-tree-view cy run
         start: pnpm --filter site dev
         wait-on: 'http://localhost:5185'
         project: ./packages/svelte-tree-view

@@ -10,8 +10,7 @@ it('Should show functioning log & copy buttons', () => {
     }
   })
   // Wait for svelte-kit to SSR the page
-  cy.wait(1000)
-  cy.get('#showLogButton').click()
+  cy.get('#showLogButton').wait(2000).click()
   cy.get('#showCopyButton').click()
   cy.get('.log-copy-button').should('have.length', 468)
   cy.get('.log-copy-button').eq(1).click()
