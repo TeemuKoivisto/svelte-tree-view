@@ -6,10 +6,6 @@ on:
       - master
   workflow_dispatch:
 
-env:
-  CI: true
-  PNPM_CACHE_FOLDER: .pnpm-store
-
 jobs:
   version:
     timeout-minutes: 15

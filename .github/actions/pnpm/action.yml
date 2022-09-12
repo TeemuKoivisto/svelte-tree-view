@@ -1,10 +1,5 @@
 name: pnpm
 description: Setup pnpm and install dependencies
-inputs:
-  cache: # id of input
-    description: Path of the pnpm cache
-    required: true
-    default: .pnpm-store
 
 runs:
   using: composite
@@ -12,7 +7,7 @@ runs:
     - name: Setup caching
       uses: actions/cache@v2
       with:
-        path: ${{ env.PNPM_CACHE_FOLDER }}
+        path: .pnpm-store
         key: ${{ runner.os }}-node-${{ matrix.node-version }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
         restore-keys: ${{ runner.os }}-node-${{ matrix.node-version }}-pnpm-
 
@@ -21,7 +16,7 @@ runs:
       shell: bash
 
     - name: Setup pnpm config
-      run: pnpm config set store-dir ${{ inputs.cache }}
+      run: pnpm config set store-dir .pnpm-store
       shell: bash
 
     - name: Install dependencies
