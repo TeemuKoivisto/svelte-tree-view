@@ -1,5 +1,11 @@
 # svelte-tree-view
 
+## 1.3.2
+
+### Patch Changes
+
+- 6b14678: fix(a11y): add role=presentation to non-interactive clickable divs
+
 ## 1.3.1
 
 ### Patch Changes
