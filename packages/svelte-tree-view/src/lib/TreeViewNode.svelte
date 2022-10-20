@@ -75,6 +75,7 @@
     class:has-children={hasChildren}
     class:p-left={!hasChildren}
     on:click={handleToggleCollapse}
+    role="presentation"
   >
     {node.key}:
   </div>
@@ -84,6 +85,7 @@
     class:expanded={!node.collapsed && hasChildren}
     class:has-children={hasChildren}
     on:click={handleToggleCollapse}
+    role="presentation"
   >
     {#if valueComponent}
       <svelte:component
