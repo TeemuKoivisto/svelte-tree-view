@@ -6,9 +6,9 @@
   "homepage": "https://teemukoivisto.github.io/svelte-tree-view/",
   "scripts": {
     "install": "svelte-kit sync || true",
-    "build": "rimraf build && touch build/.nojekyll",
-    "dev": "vite dev",
     "svelte-check": "svelte-check",
+    "dev": "vite",
+    "build": "rimraf build && vite build",
     "preview": "vite preview"
   },
   "devDependencies": {
