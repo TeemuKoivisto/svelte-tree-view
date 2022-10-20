@@ -3,7 +3,7 @@
  */
 
 import { render, fireEvent, findAllByText } from '@testing-library/svelte'
-import { vi } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 
 import TreeView from '../TreeView.svelte'
 
