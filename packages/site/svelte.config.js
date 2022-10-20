@@ -1,7 +1,7 @@
 import adapter from '@sveltejs/adapter-static'
 import preprocess from 'svelte-preprocess'
 
-const { DEPLOY_TO_GH } = process.env
+const { GH_PAGES } = process.env
 
 /** @type {import('@sveltejs/kit').Config} */
 export default {
@@ -13,7 +13,7 @@ export default {
     trailingSlash: 'never',
     paths: {
       // For Github pages deployment, locally with preview favicon points to wrong path
-      base: DEPLOY_TO_GH ? '/svelte-tree-view' : ''
+      base: GH_PAGES ? '/svelte-tree-view' : ''
     },
     files: {
       routes: './src/routes',

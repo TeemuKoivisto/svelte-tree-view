@@ -29,8 +29,12 @@ jobs:
       - name: Install dependencies with pnpm
         uses: ./.github/actions/pnpm
 
-      - name: Build
-        run: pnpm -r build
+      - name: Build packages
+        run: |
+          pnpm --filter svelte-tree-view build && \
+          pnpm --filter site build
+        env:
+          GH_PAGES: true
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3

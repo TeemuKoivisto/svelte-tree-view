@@ -5,27 +5,25 @@
   "type": "module",
   "homepage": "https://teemukoivisto.github.io/svelte-tree-view/",
   "scripts": {
-    "install": "svelte-kit sync",
-    "build": "rimraf build && DEPLOY_TO_GH=true vite build && touch build/.nojekyll",
-    "deploy": "gh-pages -d build -t true",
-    "dev": "vite dev",
+    "install": "svelte-kit sync || true",
     "svelte-check": "svelte-check",
+    "dev": "vite",
+    "build": "rimraf build && vite build",
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@sveltejs/adapter-static": "^1.0.0-next.42",
-    "@sveltejs/kit": "1.0.0-next.480",
-    "gh-pages": "^4.0.0",
+    "@sveltejs/adapter-static": "^1.0.0-next.45",
+    "@sveltejs/kit": "1.0.0-next.520",
     "rimraf": "^3.0.2",
-    "svelte": "^3.50.1",
+    "svelte": "^3.52.0",
     "svelte-preprocess": "^4.10.7",
-    "svelte-tree-view": "*",
+    "svelte-tree-view": "workspace:*",
     "tslib": "^2.4.0",
-    "typescript": "^4.8.3",
-    "vite": "^3.1.0"
+    "typescript": "^4.8.4",
+    "vite": "^3.1.8"
   },
   "dependencies": {
-    "autoprefixer": "^10.4.8",
-    "tailwindcss": "^3.1.8"
+    "autoprefixer": "^10.4.12",
+    "tailwindcss": "^3.2.0"
   }
 }
