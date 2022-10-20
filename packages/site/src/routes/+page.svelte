@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { base } from '$app/paths'
   import TreeView from 'svelte-tree-view'
   import type { Base16Theme, TreeNode, ValueComponent } from 'svelte-tree-view'
   import PropsForm from '../components/PropsForm.svelte'
@@ -206,6 +207,11 @@
     }
   }
 </script>
+
+<!-- TODO static adapter wont use base path correctly if this is in app.html -->
+<svelte:head>
+  <link rel="icon" href={`${base}/favicon.png`} />
+</svelte:head>
 
 <section class="p-4 m-auto lg:container md:p-16 md:pt-8 xs:p-8 rounded-2xl">
   <h1 class="my-3 text-5xl font-bold flex items-center">
