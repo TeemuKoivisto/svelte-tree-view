@@ -1,5 +1,11 @@
 # svelte-tree-view
 
+## 1.3.3
+
+### Patch Changes
+
+- b8b7ad7: fix: update deps, switch from rollup to vite, remove install script
+
 ## 1.3.2
 
 ### Patch Changes
