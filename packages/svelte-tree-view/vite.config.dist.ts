@@ -7,7 +7,6 @@ export default defineConfig({
     outDir: 'dist',
     lib: {
       entry: path.resolve('src/lib/index.ts'),
-      // name: 'SvelteTreeView',
       formats: ['es', 'cjs'],
       fileName: format => {
         if (format === 'cjs') {

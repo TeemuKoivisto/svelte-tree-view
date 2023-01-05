@@ -10,25 +10,7 @@ Library to show Javascript objects in a nice tree layout. It's written in Svelte
 
 ## How to use
 
-At one point there were some issues packaging this library with SvelteKit, partly because it's written in TypeScript. Now the only extra config that I'm aware you must add is for ensuring you import the library using "svelte" entry point, not "main" or "module" eg:
-
-```ts
-import nodeResolve from 'rollup-plugin-node-resolve'
-...
-
-export default {
-  ...
-  plugins: [
-    nodeResolve({
-      browser: true,
-      mainFields: ['svelte', 'module', 'browser', 'main'],
-      dedupe: ['svelte']
-    }),
-  ],
-  ...
-}
-
-```
+At one point there were some issues packaging this library with SvelteKit, partly because it's written in TypeScript as well as ensuring you import the library using "svelte" entry point, not "main" or "module". AFAIK most problems have now been solve with SvelteKit and Vite, see examples in `packages/site` and `packages/vite-site`. Previously you might had had to add a `mainFields` property with values like `['svelte', 'module', 'browser', 'main']`.
 
 To use it:
 
@@ -54,7 +36,6 @@ Or if you are not using Svelte (NOTE: if you're using TS you must install svelte
 
 ```ts
 import { TreeView } from 'svelte-tree-view'
-import 'svelte-tree-view/dist/index.css'
 
 const treeView = new TreeView({
   target: document.querySelector('#mount-point') as HTMLElement,
@@ -158,7 +139,7 @@ export interface TreeViewProps {
   class?: string // Top node has 'svelte-tree-view' class by default
   theme?: Base16Theme
   showLogButton?: boolean
-  showCopyButton?: boolean
+  showCopyButton?: bool  ean
   valueComponent?: ValueComponent // The Svelte component to replace the default value-as-string presentation
   recursionOpts?: TreeRecursionOpts
   // For custom formatting of the value string. Returning undefined will pass the value to the default formatter
