@@ -1,0 +1,16 @@
+{
+  "name": "vite-site",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "svelte-tree-view": "workspace:*",
+    "typescript": "^4.9.4",
+    "vite": "^4.0.4"
+  }
+}

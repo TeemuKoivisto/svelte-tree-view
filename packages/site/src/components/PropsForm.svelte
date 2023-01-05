@@ -65,7 +65,7 @@
         theme
         <a
           target="_blank"
-          rel="noopener"
+          rel="noopener noreferrer"
           href="https://github.com/reduxjs/redux-devtools/tree/75322b15ee7ba03fddf10ac3399881e302848874/src/react/themes"
           >examples</a
         >

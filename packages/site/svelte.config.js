@@ -10,7 +10,6 @@ export default {
   preprocess: preprocess(),
 
   kit: {
-    trailingSlash: 'never',
     paths: {
       // For Github pages deployment, locally with preview favicon points to wrong path
       base: GH_PAGES ? '/svelte-tree-view' : ''
