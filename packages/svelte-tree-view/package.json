@@ -8,20 +8,19 @@
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "svelte": "package/index.js",
-  "style": "dist/index.css",
   "type": "module",
   "types": "dist/types.d.ts",
   "exports": {
+    "./package.json": "./package.json",
     ".": {
+      "svelte": "./package/index.js",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
-    },
-    "./package.json": "./package.json"
+    }
   },
   "scripts": {
-    "install": "svelte-kit sync || true",
     "build": "pnpm build:pkg && pnpm build:dist",
-    "build:dist": "rimraf ./dist && rollup -c && cp ./src/lib/types.ts ./dist/types.d.ts",
+    "build:dist": "vite build --config vite.config.dist.ts && cp ./src/lib/types.ts ./dist/types.d.ts",
     "build:pkg": "svelte-kit sync && svelte-package",
     "watch:pkg": "svelte-package --watch",
     "dev": "vite",
@@ -35,33 +34,30 @@
     "cy": "cypress"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^23.0.0",
-    "@rollup/plugin-node-resolve": "^15.0.0",
-    "@sveltejs/kit": "^1.0.0-next.520",
-    "@sveltejs/package": "^1.0.0-next.5",
+    "@sveltejs/kit": "^1.0.1",
+    "@sveltejs/package": "^1.0.1",
+    "@sveltejs/vite-plugin-svelte": "^2.0.2",
     "@testing-library/cypress": "^8.0.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/svelte": "^3.2.2",
     "@types/testing-library__jest-dom": "^5.14.5",
-    "cypress": "^9.7.0",
-    "jsdom": "^20.0.1",
-    "postcss": "^8.4.18",
-    "rimraf": "^3.0.2",
-    "rollup": "^2.79.0",
-    "rollup-plugin-scss": "^3.0.0",
-    "rollup-plugin-svelte": "^7.1.0",
-    "rollup-plugin-typescript2": "^0.34.1",
-    "sass": "^1.55.0",
-    "svelte": "^3.52.0",
-    "svelte-check": "^2.9.2",
-    "svelte-preprocess": "^4.10.7",
-    "svelte2tsx": "^0.5.20",
-    "tslib": "^2.4.0",
-    "typescript": "^4.8.4",
-    "vite": "^3.1.8",
-    "vitest": "^0.24.3"
+    "cypress": "9.7.0",
+    "jsdom": "^20.0.3",
+    "postcss": "^8.4.20",
+    "sass": "^1.57.1",
+    "svelte": "^3.55.0",
+    "svelte-check": "^3.0.1",
+    "svelte-preprocess": "^5.0.0",
+    "svelte2tsx": "^0.6.0",
+    "tslib": "^2.4.1",
+    "typescript": "^4.9.4",
+    "vite": "^4.0.4",
+    "vitest": "^0.26.3"
   },
   "dependencies": {},
+  "peerDependencies": {
+    "svelte": ">=3"
+  },
   "files": [
     "package",
     "dist",

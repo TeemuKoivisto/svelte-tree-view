@@ -215,8 +215,10 @@
 
 <section class="p-4 m-auto lg:container md:p-16 md:pt-8 xs:p-8 rounded-2xl">
   <h1 class="my-3 text-5xl font-bold flex items-center">
-    <a target="_blank" rel="noopener" href="https://github.com/teemukoivisto/svelte-tree-view"
-      >svelte-tree-view</a
+    <a
+      target="_blank"
+      rel="noopener noreferrer"
+      href="https://github.com/teemukoivisto/svelte-tree-view">svelte-tree-view</a
     >
   </h1>
   <p class="my-2">Copy-paste JSON objects to view them.</p>
