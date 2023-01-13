@@ -10,7 +10,7 @@ Library to show Javascript objects in a nice tree layout. It's written in Svelte
 
 ## How to use
 
-At one point there were some issues packaging this library with SvelteKit, partly because it's written in TypeScript as well as ensuring you import the library using "svelte" entry point, not "main" or "module". AFAIK most problems have now been solve with SvelteKit and Vite, see examples in `packages/site` and `packages/vite-site`. Previously you might had had to add a `mainFields` property with values like `['svelte', 'module', 'browser', 'main']`.
+The package should work without extra setup with both SvelteKit and Vite, see examples in `packages/site` and `packages/vite-site`. Previously, at least with Rollup, you had to add a `mainFields` property with values like `['svelte', 'module', 'browser', 'main']` to ensure it was imported as a Svelte component.
 
 To use it:
 
