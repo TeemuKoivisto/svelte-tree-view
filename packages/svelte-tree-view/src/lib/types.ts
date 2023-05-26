@@ -41,7 +41,7 @@ export interface TreeNode<T = any> {
    * Circularity is checked by object identity to prevent recursing the same values again
    */
   circularOfId: string | null
-  children: TreeNode[]
+  children: TreeNode<T>[]
 }
 
 export interface Base16Theme {
@@ -116,12 +116,12 @@ export interface Base16Theme {
 /**
  * As described in https://stackoverflow.com/questions/67697298/svelte-components-as-object-properties/67737182#67737182
  */
-export type ValueComponent = new (...args: any) => SvelteComponentTyped<{
-  node: TreeNode
+export type ValueComponent<T = any> = new (...args: any) => SvelteComponentTyped<{
+  node: TreeNode<T>
   defaultFormatter?: (val: any) => string | undefined
 }>
 
-export interface TreeViewProps {
+export interface TreeViewProps<T = any> {
   /**
    * Data can be basically any non-primitive value
    */
@@ -136,18 +136,18 @@ export interface TreeViewProps {
   /**
    * Svelte component to replace the default value-as-string presentation
    */
-  valueComponent?: ValueComponent
-  recursionOpts?: TreeRecursionOpts
+  valueComponent?: ValueComponent<T>
+  recursionOpts?: TreeRecursionOpts<T>
   /**
    * For custom formatting of the value string. Returning undefined will pass the value to the default formatter
    * @param val
    * @param n
    * @returns
    */
-  valueFormatter?: (val: any, n: TreeNode) => string | undefined
+  valueFormatter?: (val: any, n: TreeNode<T>) => string | undefined
 }
 
-export interface TreeRecursionOpts {
+export interface TreeRecursionOpts<T = any> {
   /**
    * Default maxDepth is 16
    */
@@ -166,13 +166,13 @@ export interface TreeRecursionOpts {
    * @param iteratedValues Map of all iterated values
    * @returns
    */
-  isCircularNode?: (n: TreeNode, iteratedValues: Map<any, TreeNode>) => boolean
+  isCircularNode?: (n: TreeNode<T>, iteratedValues: Map<any, TreeNode<T>>) => boolean
   /**
    * Will auto-expand or collapse values as data is provided
    * @param n
    * @returns
    */
-  shouldExpandNode?: (n: TreeNode) => boolean
+  shouldExpandNode?: (n: TreeNode<T>) => boolean
   /**
    * For customizing the created key-value pairs
    * @param val Iterated value
@@ -180,7 +180,7 @@ export interface TreeRecursionOpts {
    * @param parent
    * @returns
    */
-  mapChildren?: (val: any, type: ValueType, parent: TreeNode) => [string, any][] | undefined
+  mapChildren?: (val: any, type: ValueType, parent: TreeNode<T>) => [string, any][] | undefined
 }
 
 export class TreeView extends SvelteComponentTyped<TreeViewProps> {}
