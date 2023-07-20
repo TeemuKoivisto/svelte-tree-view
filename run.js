@@ -9,7 +9,7 @@ async function run() {
       return
     }
   })
-  exec('sleep 3 && curl -o - -I http://localhost:5185', { signal }, (error, stdout, stderr) => {
+  exec('pnpm --filter svelte-tree-view cy run --browser=chrome --config baseUrl=http://localhost:5185', { signal }, (error, stdout, stderr) => {
     if (error) {
       console.error(`exec error: ${error}`)
       return
