@@ -24,8 +24,8 @@ runs:
         config: pageLoadTimeout=100000,baseUrl=http://127.0.0.1:5185
         install: false
         quiet: true
-        start: pnpm --filter site dev --host
-        wait-on: 'npx wait-on --timeout 5000 http://127.0.0.1:5185'
+        start: pnpm --filter site dev
+        wait-on: http://[::1]:5185/ # https://github.com/cypress-io/github-action/issues/634
         working-directory: ./packages/svelte-tree-view
 
       # uses: cypress-io/github-action@v2
