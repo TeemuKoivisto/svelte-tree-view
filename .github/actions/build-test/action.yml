@@ -21,7 +21,7 @@ runs:
         browser: chrome
         cache-key: ${{ runner.os }}-node-${{ matrix.node-version }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
         command: pnpm --filter svelte-tree-view cy run
-        config: pageLoadTimeout=100000,baseUrl=http://127.0.0.1:5185
+        config: pageLoadTimeout=100000,baseUrl=http://localhost:5185
         install: false
         quiet: true
         start: pnpm --filter site dev
