@@ -37,6 +37,7 @@ certs
 # build
 build
 dist
+pkg
 
 tmp/
 

@@ -1,4 +1,4 @@
-import { SvelteComponentTyped } from 'svelte'
+import { SvelteComponent } from 'svelte'
 
 export type ValueType =
   | 'array'
@@ -116,7 +116,7 @@ export interface Base16Theme {
 /**
  * As described in https://stackoverflow.com/questions/67697298/svelte-components-as-object-properties/67737182#67737182
  */
-export type ValueComponent<T = any> = new (...args: any) => SvelteComponentTyped<{
+export type ValueComponent<T = any> = new (...args: any) => SvelteComponent<{
   node: TreeNode<T>
   defaultFormatter?: (val: any) => string | undefined
 }>
@@ -183,5 +183,5 @@ export interface TreeRecursionOpts<T = any> {
   mapChildren?: (val: any, type: ValueType, parent: TreeNode<T>) => [string, any][] | undefined
 }
 
-export class TreeView extends SvelteComponentTyped<TreeViewProps> {}
+export class TreeView extends SvelteComponent<TreeViewProps> {}
 export default TreeView

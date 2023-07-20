@@ -53,7 +53,7 @@
       treeStore.toggleCollapse(node.id)
     } else if (node.circularOfId) {
       treeStore.expandAllNodesToNode(node.circularOfId)
-      $rootElementStore.querySelector(`li[data-tree-id="${node.circularOfId}"]`)?.scrollIntoView()
+      $rootElementStore?.querySelector(`li[data-tree-id="${node.circularOfId}"]`)?.scrollIntoView()
     }
   }
   function valueComponentDefaultFormatter(val: any) {
