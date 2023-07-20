@@ -14,11 +14,6 @@ runs:
         pnpm --filter svelte-tree-view test:unit
       shell: bash
 
-    - name: Curl localhost
-      shell: bash
-      run: |
-        pnpm --filter site dev --host | (sleep 7 && curl -o - -I http://localhost:5185 >> $GITHUB_OUTPUT)
-
     - name: Run tests with Cypress
       id: cypress
       uses: cypress-io/github-action@v5

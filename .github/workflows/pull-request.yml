@@ -26,3 +26,8 @@ jobs:
 
       - name: Build & test
         uses: ./.github/actions/build-test
+
+      - name: Curl localhost
+        shell: bash
+        run: |
+          pnpm --filter site dev --host | (sleep 7 && curl -o - -I http://localhost:5185 >> $GITHUB_OUTPUT)
