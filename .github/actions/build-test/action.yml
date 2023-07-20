@@ -20,12 +20,12 @@ runs:
       with:
         browser: chrome
         cache-key: ${{ runner.os }}-node-${{ matrix.node-version }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-        command: pnpm --filter svelte-tree-view cy run --browser=chrome --config baseUrl=http://localhost:5185
+        command: pnpm --filter site cy run --config baseUrl=http://localhost:5185
         install: false
         quiet: false
-        start: pnpm --filter site dev
+        start: pnpm --filter site dev --host
         wait-on: http://localhost:5185 # https://github.com/cypress-io/github-action/issues/634
-        working-directory: ./packages/svelte-tree-view
+        working-directory: ./packages/site
 
       # uses: cypress-io/github-action@v2
       # with:

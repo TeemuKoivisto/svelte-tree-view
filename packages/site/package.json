@@ -6,13 +6,16 @@
   "homepage": "https://teemukoivisto.github.io/svelte-tree-view/",
   "scripts": {
     "svelte-check": "svelte-check",
-    "dev": "vite",
+    "dev": "svelte-kit sync && vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "cypress run --browser=chrome --config baseUrl=http://localhost:5185",
+    "cy": "cypress"
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "^2.0.2",
     "@sveltejs/kit": "1.22.3",
+    "cypress": "12.17.1",
     "svelte": "^4.1.0",
     "svelte-preprocess": "^5.0.4",
     "svelte-tree-view": "workspace:*",
