@@ -28,7 +28,7 @@ jobs:
         shell: bash
         run: |
           pnpm --filter svelte-tree-view build &&
-          pnpm --filter site dev --host | (sleep 7 && curl -o - -I http://localhost:5185)
+          node run.js
 
       - name: Build & test
         uses: ./.github/actions/build-test
