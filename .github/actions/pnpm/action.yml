@@ -4,27 +4,22 @@ description: Setup pnpm and install dependencies
 runs:
   using: composite
   steps:
-    - name: Get pnpm store path
-      id: pnpm-cache
+    - name: Install pnpm
       shell: bash
-      run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+      run: npm i pnpm -g
+
+    - name: Setup pnpm config
+      run: pnpm config set store-dir ~/.pnpm-store
+      shell: bash
 
     - name: Setup caching
       uses: actions/cache@v3
       with:
         path: |
-          ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          ~/.pnpm-store
           ~/.cache/Cypress
         key: ${{ runner.os }}-node-${{ matrix.node-version }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
         restore-keys: ${{ runner.os }}-node-${{ matrix.node-version }}-pnpm-
-
-    - name: Install pnpm
-      shell: bash
-      run: npm i pnpm -g
-
-    # - name: Setup pnpm config
-    #   shell: bash
-    #   run: pnpm config set store-dir .pnpm-store
 
     - name: Install dependencies
       shell: bash
