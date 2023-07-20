@@ -8,7 +8,7 @@ const TEST_DATA = `{{}
 
 describe('# UI', () => {
   it('Should render all 3 examples and inputted new data', () => {
-    cy.visit('/', { failOnStatusCode: false })
+    cy.visit('/')
     cy.get('.svelte-tree-view').wait(2000).find('li').should('have.length', 270)
     cy.get('button').contains('Example 2').click()
     cy.get('.svelte-tree-view').find('li').should('have.length', 17)
