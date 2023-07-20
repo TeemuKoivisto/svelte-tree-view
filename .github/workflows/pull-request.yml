@@ -24,10 +24,11 @@ jobs:
       - name: Install dependencies with pnpm
         uses: ./.github/actions/pnpm
 
-      - name: Build & test
-        uses: ./.github/actions/build-test
-
       - name: Curl localhost
         shell: bash
         run: |
-          pnpm --filter site dev --host | (sleep 7 && curl -o - -I http://localhost:5185 >> $GITHUB_OUTPUT)
+          pnpm --filter svelte-tree-view build &&
+          pnpm --filter site dev --host | (sleep 7 && curl -o - -I http://localhost:5185)
+
+      - name: Build & test
+        uses: ./.github/actions/build-test
