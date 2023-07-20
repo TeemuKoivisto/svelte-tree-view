@@ -24,7 +24,7 @@ runs:
         config: pageLoadTimeout=100000,baseUrl=http://localhost:5185
         install: false
         quiet: true
-        start: pnpm --filter site dev
+        start: pnpm --filter site dev --host
         wait-on: 'http://localhost:5185'
         working-directory: ./packages/svelte-tree-view
 
