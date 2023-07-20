@@ -1,0 +1,37 @@
+{
+  "_id": "6127d77c7d2ff4113f24ab5c",
+  "index": 0,
+  "guid": "6e72c4da-c871-4aa1-aa44-1465920b90ae",
+  "isActive": false,
+  "balance": "$2,256.26",
+  "picture": "http://placehold.it/32x32",
+  "age": 22,
+  "eyeColor": "blue",
+  "name": "Branch Mcintosh",
+  "gender": "male",
+  "company": "ENTOGROK",
+  "email": "branchmcintosh@entogrok.com",
+  "phone": "+1 (843) 489-2199",
+  "address": "196 Gerry Street, Sylvanite, Colorado, 3630",
+  "about": "Deserunt et laborum proident commodo. Irure mollit voluptate minim ut eiusmod qui deserunt culpa est nostrud. Ex duis aute ad eu. Ex in culpa culpa nulla non voluptate velit ex sint pariatur exercitation labore.\r\n",
+  "registered": "2018-07-23T07:01:58 -03:00",
+  "latitude": -39.97877,
+  "longitude": -61.667911,
+  "tags": ["tempor", "laboris", "reprehenderit", "veniam", "exercitation", "velit", "voluptate"],
+  "friends": [
+    {
+      "id": 0,
+      "name": "Shanna Shannon"
+    },
+    {
+      "id": 1,
+      "name": "Lindsey Reed"
+    },
+    {
+      "id": 2,
+      "name": "Elinor Hendricks"
+    }
+  ],
+  "greeting": "Hello, Branch Mcintosh! You have 1 unread messages.",
+  "favoriteFruit": "strawberry"
+}
