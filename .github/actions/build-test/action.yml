@@ -16,10 +16,15 @@ runs:
 
     - name: Run tests with Cypress
       id: cypress
-      - uses: cypress-io/github-action@v5
-        with:
-          browser: chrome
-          env: host=localhost,port=5185
+      uses: cypress-io/github-action@v5
+      with:
+        browser: chrome
+        cache-key: ${{ runner.os }}-node-${{ matrix.node-version }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+        config: pageLoadTimeout=100000,baseUrl=http://localhost:5185
+        install: false # Don't install Cypress again
+        project: ./packages/svelte-tree-view
+        quiet: true
+        start: pnpm --filter site dev
 
       # uses: cypress-io/github-action@v2
       # with:
