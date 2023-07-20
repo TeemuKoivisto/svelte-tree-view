@@ -9,8 +9,8 @@ runs:
       run: npm i pnpm -g
 
     - name: Setup pnpm config
-      run: pnpm config set store-dir ~/.pnpm-store
       shell: bash
+      run: pnpm config set store-dir ~/.pnpm-store
 
     - name: Setup caching
       uses: actions/cache@v3
