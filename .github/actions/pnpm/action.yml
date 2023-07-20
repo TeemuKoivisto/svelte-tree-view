@@ -6,6 +6,7 @@ runs:
   steps:
     - name: Setup caching
       uses: actions/cache@v3
+      id: pnpm-cache
       with:
         path: |
           .pnpm-store
