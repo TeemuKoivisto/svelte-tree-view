@@ -1,5 +1,11 @@
 # svelte-tree-view
 
+## 1.4.1
+
+### Patch Changes
+
+- 5d28a68: refactor: remove '**tests**' from npm distribution
+
 ## 1.4.0
 
 ### Minor Changes
