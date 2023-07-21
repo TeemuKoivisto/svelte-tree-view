@@ -1,4 +1,4 @@
-import { SvelteComponentTyped } from 'svelte'
+import { SvelteComponent } from 'svelte'
 
 export type ValueType =
   | 'array'
@@ -16,68 +16,172 @@ export type ValueType =
   | 'undefined'
 
 export interface TreeNode<T = any> {
-  id: string // ID generated from the path to this node eg "[0,1,2]"
-  index: number // Index of this node in the parent object as its values are iterated
-  key: string // Key of this node eg "1" for an array key or "foo" for an object
-  value: T // The value mapped to this key
+  /**
+   * ID generated from the path to this node eg "[0,1,2]"
+   */
+  id: string
+  /**
+   * Index of this node in the parent object as its values are iterated
+   */
+  index: number
+  /**
+   * Key of this node eg "1" for an array key or "foo" for an object
+   */
+  key: string
+  /**
+   * The value mapped to this key
+   */
+  value: T
   depth: number
   collapsed: boolean
   type: ValueType
   path: number[]
   parentId: string | null
-  // Circularity is checked by object identity to prevent recursing the same values again
+  /**
+   * Circularity is checked by object identity to prevent recursing the same values again
+   */
   circularOfId: string | null
-  children: TreeNode[]
+  children: TreeNode<T>[]
 }
 
 export interface Base16Theme {
   scheme?: string
   author?: string
-  base00: string // Default Background
-  base01: string // Lighter Background (Used for status bars, line number and folding marks)
-  base02: string // Selection Background
-  base03: string // Comments, Invisibles, Line Highlighting
-  base04: string // Dark Foreground (Used for status bars)
-  base05: string // Default Foreground, Caret, Delimiters, Operators
-  base06: string // Light Foreground (Not often used)
-  base07: string // Light Background (Not often used)
-  base08: string // Variables, XML Tags, Markup Link Text, Markup Lists, Diff Deleted
-  base09: string // Integers, Boolean, Constants, XML Attributes, Markup Link Url
-  base0A: string // Classes, Markup Bold, Search Text Background
-  base0B: string // Strings, Inherited Class, Markup Code, Diff Inserted
-  base0C: string // Support, Regular Expressions, Escape Characters, Markup Quotes
-  base0D: string // Functions, Methods, Attribute IDs, Headings
-  base0E: string // Keywords, Storage, Selector, Markup Italic, Diff Changed
-  base0F: string // Deprecated, Opening/Closing Embedded Language Tags, e.g. <?php ?>
+  /**
+   * Default Background
+   */
+  base00: string
+  /**
+   * Lighter Background (Used for status bars, line number and folding marks)
+   */
+  base01: string
+  /**
+   * Selection Background
+   */
+  base02: string
+  /**
+   * Comments, Invisibles, Line Highlighting
+   */
+  base03: string
+  /**
+   * Dark Foreground (Used for status bars)
+   */
+  base04: string
+  /**
+   * Default Foreground, Caret, Delimiters, Operators
+   */
+  base05: string
+  /**
+   * Light Foreground (Not often used)
+   */
+  base06: string
+  /**
+   * Light Background (Not often used)
+   */
+  base07: string
+  /**
+   * Variables, XML Tags, Markup Link Text, Markup Lists, Diff Deleted
+   */
+  base08: string
+  /**
+   * Integers, Boolean, Constants, XML Attributes, Markup Link Url
+   */
+  base09: string
+  /**
+   * Classes, Markup Bold, Search Text Background
+   */
+  base0A: string
+  /**
+   * Strings, Inherited Class, Markup Code, Diff Inserted
+   */
+  base0B: string
+  /**
+   * Support, Regular Expressions, Escape Characters, Markup Quotes
+   */
+  base0C: string
+  /**
+   * Functions, Methods, Attribute IDs, Headings
+   */
+  base0D: string
+  /**
+   * Keywords, Storage, Selector, Markup Italic, Diff Changed
+   */
+  base0E: string
+  /**
+   * Deprecated, Opening/Closing Embedded Language Tags, e.g. <?php ?>
+   */
+  base0F: string
 }
 
-// As described in https://stackoverflow.com/questions/67697298/svelte-components-as-object-properties/67737182#67737182
-export type ValueComponent = new (...args: any) => SvelteComponentTyped<{
-  node: TreeNode
+/**
+ * As described in https://stackoverflow.com/questions/67697298/svelte-components-as-object-properties/67737182#67737182
+ */
+export type ValueComponent<T = any> = new (...args: any) => SvelteComponent<{
+  node: TreeNode<T>
   defaultFormatter?: (val: any) => string | undefined
 }>
 
-export interface TreeViewProps {
-  data: unknown // Data can be basically any non-primitive value
-  class?: string // Top node has 'svelte-tree-view' class by default
+export interface TreeViewProps<T = any> {
+  /**
+   * Data can be basically any non-primitive value
+   */
+  data: unknown
+  /**
+   * Top node has 'svelte-tree-view' class by default
+   */
+  class?: string
   theme?: Base16Theme
   showLogButton?: boolean
   showCopyButton?: boolean
-  valueComponent?: ValueComponent // The Svelte component to replace the default value-as-string presentation
-  recursionOpts?: TreeRecursionOpts
-  // For custom formatting of the value string. Returning undefined will pass the value to the default formatter
-  valueFormatter?: (val: any, n: TreeNode) => string | undefined
+  /**
+   * Svelte component to replace the default value-as-string presentation
+   */
+  valueComponent?: ValueComponent<T>
+  recursionOpts?: TreeRecursionOpts<T>
+  /**
+   * For custom formatting of the value string. Returning undefined will pass the value to the default formatter
+   * @param val
+   * @param n
+   * @returns
+   */
+  valueFormatter?: (val: any, n: TreeNode<T>) => string | undefined
 }
 
-export interface TreeRecursionOpts {
-  maxDepth?: number // The default maxDepth is 16
-  // Quick and dirty way to prevent recursing certain object keys instead of overriding shouldExpandNode
+export interface TreeRecursionOpts<T = any> {
+  /**
+   * Default maxDepth is 16
+   */
+  maxDepth?: number
+  /**
+   * Quick and dirty way to prevent recursing certain object keys instead of overriding shouldExpandNode
+   */
   omitKeys?: string[]
-  stopCircularRecursion?: boolean // Stops recursing objects already recursed
-  isCircularNode?: (n: TreeNode, iteratedValues: Map<any, TreeNode>) => boolean // For custom circularity detection magic
-  shouldExpandNode?: (n: TreeNode) => boolean // Will auto-expand or collapse values as data is provided
-  mapChildren?: (val: any, type: ValueType, parent: TreeNode) => [string, any][] | undefined // For customizing the created key-value pairs
+  /**
+   * Stops recursing objects already recursed
+   */
+  stopCircularRecursion?: boolean
+  /**
+   * For custom circularity detection magic
+   * @param n Iterated node
+   * @param iteratedValues Map of all iterated values
+   * @returns
+   */
+  isCircularNode?: (n: TreeNode<T>, iteratedValues: Map<any, TreeNode<T>>) => boolean
+  /**
+   * Will auto-expand or collapse values as data is provided
+   * @param n
+   * @returns
+   */
+  shouldExpandNode?: (n: TreeNode<T>) => boolean
+  /**
+   * For customizing the created key-value pairs
+   * @param val Iterated value
+   * @param type
+   * @param parent
+   * @returns
+   */
+  mapChildren?: (val: any, type: ValueType, parent: TreeNode<T>) => [string, any][] | undefined
 }
 
-export class TreeView extends SvelteComponentTyped<TreeViewProps> {}
+export class TreeView extends SvelteComponent<TreeViewProps> {}
 export default TreeView
