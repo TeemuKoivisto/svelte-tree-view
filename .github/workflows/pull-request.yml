@@ -24,11 +24,5 @@ jobs:
       - name: Install dependencies with pnpm
         uses: ./.github/actions/pnpm
 
-      # - name: Curl localhost
-      #   shell: bash
-      #   run: |
-      #     pnpm --filter svelte-tree-view build &&
-      #     node run.js
-
       - name: Build & test
         uses: ./.github/actions/build-test

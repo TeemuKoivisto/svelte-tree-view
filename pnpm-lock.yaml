@@ -72,9 +72,6 @@ importers:
       '@sveltejs/kit':
         specifier: 1.22.3
         version: 1.22.3(svelte@4.1.0)(vite@4.4.4)
-      cypress:
-        specifier: 12.17.1
-        version: 12.17.1
       svelte:
         specifier: ^4.1.0
         version: 4.1.0
