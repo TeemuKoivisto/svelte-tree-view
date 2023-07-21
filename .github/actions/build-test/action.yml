@@ -20,19 +20,19 @@ runs:
       with:
         browser: chrome
         cache-key: ${{ runner.os }}-node-${{ matrix.node-version }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-        command: pnpm --filter site cy run --config baseUrl=http://localhost:5185
+        command: pnpm --filter svelte-tree-view cy run --config baseUrl=http://localhost:5185
         install: false
         quiet: false
         start: pnpm --filter site dev --host
         wait-on: http://localhost:5185
-        working-directory: ./packages/site
+        working-directory: ./packages/svelte-tree-view
 
     - name: Export screenshots (on failure only)
       uses: actions/upload-artifact@v3
       if: failure()
       with:
         name: cypress-screenshots
-        path: ./packages/site/cypress/screenshots
+        path: ./packages/svelte-tree-view/cypress/screenshots
         retention-days: 7
 
     - name: Export screen recordings (on failure only)
@@ -40,5 +40,5 @@ runs:
       if: failure()
       with:
         name: cypress-videos
-        path: ./packages/site/cypress/videos
+        path: ./packages/svelte-tree-view/cypress/videos
         retention-days: 7

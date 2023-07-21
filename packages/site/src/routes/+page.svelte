@@ -234,8 +234,10 @@
     bind:valueFormatter
     bind:theme
   />
-  <div class="my-4" data-test-id="buttons">
-    <button class="btn" data-test-id="btn-1" on:click={() => handleExampleClick(1)}>Example 1</button>
+  <div class="my-4">
+    <button class="btn" data-test-id="btn-1" on:click={() => handleExampleClick(1)}
+      >Example 1</button
+    >
     <button class="btn ml-2" data-test-id="btn-2" on:click={() => handleExampleClick(2)}
       >Example 2</button
     >
