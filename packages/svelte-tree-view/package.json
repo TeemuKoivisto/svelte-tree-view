@@ -26,7 +26,7 @@
     "watch:pkg": "svelte-package --watch",
     "dev": "vite",
     "preversion": "pnpm svelte-check && pnpm test && pnpm build",
-    "prepublishOnly": "cp ../../README.md . && cp ../../LICENSE .",
+    "prepublishOnly": "cp ../../README.md . && cp ../../LICENSE . && rm -r ./pkg/__tests__",
     "postpublish": "rm README.md LICENSE",
     "svelte-check": "svelte-check",
     "test": "pnpm test:unit && pnpm test:e2e",
