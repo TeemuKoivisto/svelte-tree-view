@@ -15,7 +15,7 @@ describe('# UI', () => {
     cy.get('.svelte-tree-view').find('li').should('have.length', 17)
     cy.get('[data-test-id="buttons"]').find('button').contains('Example 3').click()
     cy.get('.svelte-tree-view').find('li').should('have.length', 126)
-    cy.get('[data-test="input-textarea"]').focus().type(TEST_DATA)
+    cy.get('[data-test-id="input-textarea"]').focus().type(TEST_DATA)
     cy.get('.svelte-tree-view').find('li').should('have.length', 19)
   })
 

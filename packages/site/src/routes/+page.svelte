@@ -235,18 +235,18 @@
     bind:theme
   />
   <div class="my-4" data-test-id="buttons">
-    <button class="btn" data-test="btn-1" on:click={() => handleExampleClick(1)}>Example 1</button>
-    <button class="btn ml-2" data-test="btn-2" on:click={() => handleExampleClick(2)}
+    <button class="btn" data-test-id="btn-1" on:click={() => handleExampleClick(1)}>Example 1</button>
+    <button class="btn ml-2" data-test-id="btn-2" on:click={() => handleExampleClick(2)}
       >Example 2</button
     >
-    <button class="btn ml-2" data-test="btn-3" on:click={() => handleExampleClick(3)}
+    <button class="btn ml-2" data-test-id="btn-3" on:click={() => handleExampleClick(3)}
       >Example 3</button
     >
   </div>
   <div class="flex tree-wrapper">
     <textarea
       class="w-1/2 bg-06 text-00 placeholder-gray-500 p-2 border"
-      data-test="input-textarea"
+      data-test-id="input-textarea"
       bind:value={data}
       {placeholder}
     />
