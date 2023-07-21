@@ -1,5 +1,12 @@
 # vite-site
 
+## 0.0.4
+
+### Patch Changes
+
+- Updated dependencies [5d28a68]
+  - svelte-tree-view@1.4.1
+
 ## 0.0.3
 
 ### Patch Changes
