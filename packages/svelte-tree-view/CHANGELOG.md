@@ -1,5 +1,15 @@
 # svelte-tree-view
 
+## 1.4.0
+
+### Minor Changes
+
+- 34f49d9: refactor: update deps, svelte-package flow
+
+### Patch Changes
+
+- 34f49d9: chore: update deps, switch types.ts comments to jsdoc format
+
 ## 1.3.3
 
 ### Patch Changes
