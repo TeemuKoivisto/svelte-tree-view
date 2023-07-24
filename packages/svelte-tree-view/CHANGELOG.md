@@ -1,5 +1,11 @@
 # svelte-tree-view
 
+## 1.4.2
+
+### Patch Changes
+
+- 0559625: fix: set css variables with :root
+
 ## 1.4.1
 
 ### Patch Changes
