@@ -23,7 +23,7 @@
     "build": "pnpm build:pkg && pnpm build:dist",
     "build:dist": "vite build --config vite.config.dist.ts",
     "build:pkg": "svelte-kit sync && svelte-package -o pkg",
-    "watch:pkg": "svelte-package --watch",
+    "watch:pkg": "svelte-package --watch -o pkg",
     "dev": "vite",
     "preversion": "pnpm svelte-check && pnpm test && pnpm build",
     "prepublishOnly": "cp ../../README.md . && cp ../../LICENSE . && rm -r ./pkg/__tests__",
