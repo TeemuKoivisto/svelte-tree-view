@@ -3,27 +3,28 @@
   "version": "0.0.1",
   "private": true,
   "type": "module",
+  "imports": {
+    "#app.css": "./src/app.css"
+  },
   "homepage": "https://teemukoivisto.github.io/svelte-tree-view/",
   "scripts": {
-    "svelte-check": "svelte-check",
-    "dev": "svelte-kit sync && vite",
-    "build": "vite build",
-    "preview": "vite preview",
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"prepare": "svelte-kit sync || echo ''",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "test": "cypress run --browser=chrome --config baseUrl=http://localhost:5185",
     "cy": "cypress"
-  },
+	},
   "devDependencies": {
-    "@sveltejs/adapter-static": "^2.0.2",
-    "@sveltejs/kit": "1.22.3",
-    "svelte": "^4.1.0",
-    "svelte-preprocess": "^5.0.4",
+    "@sveltejs/adapter-static": "^3.0.8",
+    "@sveltejs/kit": "2.22.2",
+    "@sveltejs/vite-plugin-svelte": "^5.1.0",
+    "@tailwindcss/vite": "^4.1.11",
+    "svelte": "^5.35.4",
+    "svelte-preprocess": "^6.0.3",
     "svelte-tree-view": "workspace:*",
-    "tslib": "^2.6.0",
-    "typescript": "^5.1.6",
-    "vite": "^4.4.4"
-  },
-  "dependencies": {
-    "autoprefixer": "^10.4.14",
-    "tailwindcss": "^3.3.3"
+    "tailwindcss": "^4.1.11"
   }
 }

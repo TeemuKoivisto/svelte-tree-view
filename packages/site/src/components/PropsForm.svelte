@@ -12,27 +12,27 @@
 </script>
 
 <fieldset class="container-sm flex flex-col border-2 p-2 text-sm">
-  <legend class="px-2 text-0A text-base">Available props</legend>
+  <legend class="text-0A px-2 text-base">Available props</legend>
   <div class="m-2 mt-0">
     <div class="field">
       <label for="leftIndent">--tree-view-left-indent</label>
-      <input id="leftIndent" class="w-20 pl-1 bg-01 text-0B" bind:value={leftIndent} />
+      <input id="leftIndent" class="bg-01 text-0B w-20 pl-1" bind:value={leftIndent} />
     </div>
     <div class="field">
       <label for="lineHeight">--tree-view-li-line-height</label>
-      <input id="lineHeight" class="w-20 pl-1 bg-01 text-0B" bind:value={lineHeight} />
+      <input id="lineHeight" class="bg-01 text-0B w-20 pl-1" bind:value={lineHeight} />
     </div>
     <div class="field">
       <label for="fontFamily">--tree-view-font-family</label>
-      <input id="fontFamily" class="w-48 pl-1 bg-01 text-0B" bind:value={fontFamily} />
+      <input id="fontFamily" class="bg-01 text-0B w-48 pl-1" bind:value={fontFamily} />
     </div>
     <div class="field">
       <label for="fontSize">--tree-view-font-size</label>
-      <input id="fontSize" class="w-20 pl-1 bg-01 text-0B" bind:value={fontSize} />
+      <input id="fontSize" class="bg-01 text-0B w-20 pl-1" bind:value={fontSize} />
     </div>
     <div class="field">
       <label for="keyMarginRight">--tree-view-key-margin-right</label>
-      <input id="keyMarginRight" class="w-20 pl-1 bg-01 text-0B" bind:value={keyMarginRight} />
+      <input id="keyMarginRight" class="bg-01 text-0B w-20 pl-1" bind:value={keyMarginRight} />
     </div>
     <div class="field">
       <label for="showLogButton">showLogButton</label>
@@ -45,20 +45,20 @@
     <div class="field">
       <label>valueComponent</label>
       <div
-        class="px-1 py-0.5 rounded-sm transition-colors duration-100 tracking-wide text-xs text-0B"
+        class="text-0B rounded-sm px-1 py-0.5 text-xs tracking-wide transition-colors duration-100"
       >
         See Example 2
       </div>
     </div>
   </div>
-  <div class="flex flex-col m-2 mt-0">
+  <div class="m-2 mt-0 flex flex-col">
     <div class="col-field">
       <label for="recursionOpts">recursionOpts</label>
-      <textarea id="recursionOpts" class="h-44 bg-01 text-0B" bind:value={recursionOpts} />
+      <textarea id="recursionOpts" class="bg-01 text-0B h-44" bind:value={recursionOpts} />
     </div>
     <div class="col-field">
       <label for="valueFormatter">valueFormatter</label>
-      <textarea id="valueFormatter" class="h-44 bg-01 text-0B" bind:value={valueFormatter} />
+      <textarea id="valueFormatter" class="bg-01 text-0B h-44" bind:value={valueFormatter} />
     </div>
     <div class="col-field">
       <label for="theme">
@@ -70,12 +70,14 @@
           >examples</a
         >
       </label>
-      <textarea id="theme" class="w-full h-44 bg-01 text-0B" bind:value={theme} />
+      <textarea id="theme" class="bg-01 text-0B h-44 w-full" bind:value={theme} />
     </div>
   </div>
 </fieldset>
 
-<style>
+<style lang="postcss">
+  @reference "#app.css";
+
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
     -webkit-appearance: none;

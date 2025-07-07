@@ -64,7 +64,9 @@
   {defaultFormatter(value)}
 {/if}
 
-<style>
+<style lang="postcss">
+  @reference "#app.css";
+
   .added {
     display: inline-block;
     background: #87cc86;

@@ -213,8 +213,8 @@
   <link rel="icon" href={`${base}/favicon.png`} />
 </svelte:head>
 
-<section class="p-4 m-auto lg:container md:p-16 md:pt-8 xs:p-8 rounded-2xl">
-  <h1 class="my-3 text-5xl font-bold flex items-center">
+<section class="xs:p-8 m-auto rounded-2xl p-4 lg:container md:p-16 md:pt-8">
+  <h1 class="my-3 flex items-center text-5xl font-bold">
     <a
       target="_blank"
       rel="noopener noreferrer"
@@ -245,13 +245,13 @@
       >Example 3</button
     >
   </div>
-  <div class="flex tree-wrapper">
+  <div class="tree-wrapper flex">
     <textarea
-      class="w-1/2 bg-06 text-00 placeholder-gray-500 p-2 border"
+      class="bg-06 text-00 w-1/2 border p-2 placeholder-gray-500"
       data-test-id="input-textarea"
       bind:value={data}
       {placeholder}
-    />
+    ></textarea>
     <TreeView
       data={parsedData}
       {showLogButton}
@@ -264,7 +264,9 @@
   </div>
 </section>
 
-<style>
+<style lang="postcss">
+  @reference "#app.css";
+
   .tree-wrapper > :global(.svelte-tree-view) {
     @apply w-1/2 px-4;
   }
