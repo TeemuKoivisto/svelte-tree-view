@@ -3,7 +3,7 @@ import { svelteTesting } from '@testing-library/svelte/vite'
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  plugins: [sveltekit(),svelteTesting(),],
+  plugins: [sveltekit(), svelteTesting()],
   server: {
     port: 5185
   },

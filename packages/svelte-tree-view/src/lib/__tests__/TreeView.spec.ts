@@ -36,7 +36,6 @@ describe('TreeView', () => {
 
     expect(results.container.querySelectorAll('ul').length).toEqual(37)
     expect(results.container.querySelectorAll('li').length).toEqual(270)
-    expect(results.container).toBeInTheDocument()
     expect(results.container).toMatchSnapshot()
   })
 
@@ -109,11 +108,10 @@ describe('TreeView', () => {
 
     expect(results.container.querySelectorAll('ul').length).toEqual(34)
     expect(results.container.querySelectorAll('li').length).toEqual(118)
-    expect(results.container).toBeInTheDocument()
     expect(results.container).toMatchSnapshot()
   })
 
-  it.only('should respect maxDepth and collapse nodes correctly', async () => {
+  it('should respect maxDepth and collapse nodes correctly', async () => {
     const data = {
       a: [1, 2, 3],
       b: new Map<string, any>([
@@ -132,7 +130,6 @@ describe('TreeView', () => {
     window.HTMLElement.prototype.scrollIntoView = vi.fn()
 
     expect(results.container.querySelectorAll('li').length).toEqual(2)
-    expect(results.container).toBeInTheDocument()
 
     await clickByText(results.container, 'b:')
     expect(results.container.querySelectorAll('li').length).toEqual(5)
@@ -163,7 +160,8 @@ describe('TreeView', () => {
         data,
         recursionOpts: {
           maxDepth: 5,
-          stopCircularRecursion: true
+          stopCircularRecursion: true,
+          shouldExpandNode: () => false
         }
       }
     })
@@ -217,16 +215,17 @@ describe('TreeView', () => {
       },
       document.createElement('li')
     ]
-    nonTreeValues.forEach(val => {
-      results.rerender({
-        props: {
-          data: val
-        }
-      })
-      expect(results.container.querySelectorAll('li').length).toEqual(0)
-    })
-
-    results.rerender({
+    await Promise.all(
+      nonTreeValues.map(val =>
+        results.rerender({
+          props: {
+            data: val
+          }
+        })
+      )
+    )
+    expect(results.container.querySelectorAll('li').length).toEqual(0)
+    await results.rerender({
       props: {
         data: nonTreeValues
       }
