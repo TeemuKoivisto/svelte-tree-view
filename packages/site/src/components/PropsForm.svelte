@@ -1,14 +1,5 @@
-<script>
-  export let leftIndent,
-    lineHeight,
-    fontFamily,
-    fontSize,
-    keyMarginRight,
-    showLogButton,
-    showCopyButton,
-    recursionOpts,
-    valueFormatter,
-    theme
+<script lang="ts">
+  import { options } from '../utils/store'
 </script>
 
 <fieldset class="container-sm flex flex-col border-2 p-2 text-sm">
@@ -16,31 +7,35 @@
   <div class="m-2 mt-0">
     <div class="field">
       <label for="leftIndent">--tree-view-left-indent</label>
-      <input id="leftIndent" class="bg-01 text-0B w-20 pl-1" bind:value={leftIndent} />
+      <input id="leftIndent" class="bg-01 text-0B w-20 pl-1" value={$options.leftIndent} />
     </div>
     <div class="field">
       <label for="lineHeight">--tree-view-li-line-height</label>
-      <input id="lineHeight" class="bg-01 text-0B w-20 pl-1" bind:value={lineHeight} />
+      <input id="lineHeight" class="bg-01 text-0B w-20 pl-1" bind:value={$options.lineHeight} />
     </div>
     <div class="field">
       <label for="fontFamily">--tree-view-font-family</label>
-      <input id="fontFamily" class="bg-01 text-0B w-48 pl-1" bind:value={fontFamily} />
+      <input id="fontFamily" class="bg-01 text-0B w-48 pl-1" bind:value={$options.fontFamily} />
     </div>
     <div class="field">
       <label for="fontSize">--tree-view-font-size</label>
-      <input id="fontSize" class="bg-01 text-0B w-20 pl-1" bind:value={fontSize} />
+      <input id="fontSize" class="bg-01 text-0B w-20 pl-1" bind:value={$options.fontSize} />
     </div>
     <div class="field">
       <label for="keyMarginRight">--tree-view-key-margin-right</label>
-      <input id="keyMarginRight" class="bg-01 text-0B w-20 pl-1" bind:value={keyMarginRight} />
+      <input
+        id="keyMarginRight"
+        class="bg-01 text-0B w-20 pl-1"
+        bind:value={$options.keyMarginRight}
+      />
     </div>
     <div class="field">
       <label for="showLogButton">showLogButton</label>
-      <input id="showLogButton" type="checkbox" bind:checked={showLogButton} />
+      <input id="showLogButton" type="checkbox" bind:checked={$options.showLogButton} />
     </div>
     <div class="field">
       <label for="showCopyButton">showCopyButton</label>
-      <input id="showCopyButton" type="checkbox" bind:checked={showCopyButton} />
+      <input id="showCopyButton" type="checkbox" bind:checked={$options.showCopyButton} />
     </div>
     <div class="field">
       <label>valueComponent</label>
@@ -54,11 +49,13 @@
   <div class="m-2 mt-0 flex flex-col">
     <div class="col-field">
       <label for="recursionOpts">recursionOpts</label>
-      <textarea id="recursionOpts" class="bg-01 text-0B h-44" bind:value={recursionOpts} />
+      <textarea id="recursionOpts" class="bg-01 text-0B h-44" bind:value={$options.recursionOpts}
+      ></textarea>
     </div>
     <div class="col-field">
       <label for="valueFormatter">valueFormatter</label>
-      <textarea id="valueFormatter" class="bg-01 text-0B h-44" bind:value={valueFormatter} />
+      <textarea id="valueFormatter" class="bg-01 text-0B h-44" bind:value={$options.valueFormatter}
+      ></textarea>
     </div>
     <div class="col-field">
       <label for="theme">
@@ -70,7 +67,7 @@
           >examples</a
         >
       </label>
-      <textarea id="theme" class="bg-01 text-0B h-44 w-full" bind:value={theme} />
+      <textarea id="theme" class="bg-01 text-0B h-44 w-full" bind:value={$options.theme}></textarea>
     </div>
   </div>
 </fieldset>
