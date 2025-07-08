@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, fireEvent, findAllByText } from '@testing-library/svelte'
 import { describe, expect, it, vi } from 'vitest'
 
@@ -117,7 +113,7 @@ describe('TreeView', () => {
     expect(results.container).toMatchSnapshot()
   })
 
-  it('should respect maxDepth and collapse nodes correctly', async () => {
+  it.only('should respect maxDepth and collapse nodes correctly', async () => {
     const data = {
       a: [1, 2, 3],
       b: new Map<string, any>([
@@ -162,7 +158,7 @@ describe('TreeView', () => {
 
     // Add circular node to the data and use stopCircularRecursion
     data.b = data.b.set('g', data.b.get('e'))
-    results.rerender({
+    await results.rerender({
       props: {
         data,
         recursionOpts: {

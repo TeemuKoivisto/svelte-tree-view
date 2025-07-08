@@ -9,8 +9,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "svelte-tree-view": "workspace:*",
-    "typescript": "^5.1.6",
-    "vite": "^4.4.4"
+    "svelte-tree-view": "workspace:*"
   }
 }
