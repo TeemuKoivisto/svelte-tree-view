@@ -19,7 +19,6 @@
 
   const placeholder = `Eg. {"a": 1, "b": [1,2,3]}`
 
-  let data = $state('')
   let leftIndent = $derived($options.leftIndent)
   let lineHeight = $derived($options.lineHeight)
   let fontFamily = $derived($options.fontFamily)
@@ -125,7 +124,8 @@
     <textarea
       class="bg-06 text-00 w-1/2 border p-2 placeholder-gray-500"
       data-test-id="input-textarea"
-      bind:value={data}
+      value={$options.data}
+      oninput={e => update('data', e.currentTarget.value)}
       {placeholder}
     ></textarea>
     <TreeView

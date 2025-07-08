@@ -2,7 +2,8 @@ import { writable } from 'svelte/store'
 import * as parser from './parser'
 import example1 from './example1.json'
 
-export interface Options {
+export interface FormState {
+  data: string
   leftIndent: string
   lineHeight: string
   fontFamily: string
@@ -16,7 +17,8 @@ export interface Options {
   theme: string
 }
 
-export const DEFAULT_OPTIONS: Options = {
+export const DEFAULT_OPTIONS: FormState = {
+  data: '',
   leftIndent: '0.875em',
   lineHeight: '1.1',
   fontFamily: 'Helvetica Neue',
@@ -130,12 +132,14 @@ export const parsedValueFormatter = writable(
 )
 export const parsedTheme = writable(parser.parseTheme(DEFAULT_OPTIONS.theme))
 
-export function update<K extends keyof Options>(key: K, val: Options[K]) {
+export function update<K extends keyof FormState>(key: K, val: FormState[K]) {
   options.update(o => {
     o[key] = val
     return o
   })
-  if (key === 'recursionOpts') {
+  if (key === 'data') {
+    parsedData.update(old => parser.parseData(val) ?? old)
+  } else if (key === 'recursionOpts') {
     parsedRecursionOpts.update(old => parser.parseRecursionOpts(val, testNode) ?? old)
   } else if (key === 'valueFormatter') {
     parsedValueFormatter.update(old => parser.parseValueFormatter(val, testNode) ?? old)
