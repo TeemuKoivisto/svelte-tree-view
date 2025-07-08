@@ -1,13 +1,12 @@
 <script lang="ts">
   import { base } from '$app/paths'
-  import TreeView from 'svelte-tree-view'
+  import TreeView, { type Base16Theme } from 'svelte-tree-view'
   import PropsForm from '../components/PropsForm.svelte'
   import DiffValue from '../components/DiffValue.svelte'
 
-  import { mapDocDeltaChildren } from '../utils/mapDocDeltaChildren'
-
   import example1 from '../utils/example1.json'
   import example2 from '../utils/example2.json'
+  import { mapDocDeltaChildren } from '../utils/mapDocDeltaChildren'
   import { generateObj } from '../utils/generateObj'
   import {
     options,
@@ -21,22 +20,37 @@
   const placeholder = `Eg. {"a": 1, "b": [1,2,3]}`
 
   let data = $state('')
+  let leftIndent = $derived($options.leftIndent)
+  let lineHeight = $derived($options.lineHeight)
+  let fontFamily = $derived($options.fontFamily)
+  let fontSize = $derived($options.fontSize)
+  let keyMarginRight = $derived($options.keyMarginRight)
 
-  // $effect(() => {
-  //   if (typeof document !== 'undefined') {
-  //     try {
-  //       leftIndent &&
-  //         document.documentElement.style.setProperty(`--tree-view-left-indent`, leftIndent)
-  //       lineHeight &&
-  //         document.documentElement.style.setProperty(`--tree-view-li-line-height`, lineHeight)
-  //       fontFamily &&
-  //         document.documentElement.style.setProperty(`--tree-view-font-family`, fontFamily)
-  //       fontSize && document.documentElement.style.setProperty(`--tree-view-font-size`, fontSize)
-  //       keyMarginRight &&
-  //         document.documentElement.style.setProperty(`--tree-view-key-margin-right`, keyMarginRight)
-  //     } catch (e) {}
-  //   }
-  // })
+  $effect(() => {
+    leftIndent && document.documentElement.style.setProperty(`--tree-view-left-indent`, leftIndent)
+  })
+  $effect(() => {
+    lineHeight &&
+      document.documentElement.style.setProperty(`--tree-view-li-line-height`, lineHeight)
+  })
+  $effect(() => {
+    fontFamily && document.documentElement.style.setProperty(`--tree-view-font-family`, fontFamily)
+  })
+  $effect(() => {
+    fontSize && document.documentElement.style.setProperty(`--tree-view-font-size`, fontSize)
+  })
+  $effect(() => {
+    keyMarginRight &&
+      document.documentElement.style.setProperty(`--tree-view-key-margin-right`, keyMarginRight)
+  })
+  $effect(() => {
+    for (const key of Object.keys($parsedTheme || {})) {
+      const val = $parsedTheme[key as keyof Base16Theme]
+      if (val) {
+        document.documentElement.style.setProperty(`--tree-view-${key}`, val)
+      }
+    }
+  })
 
   function handleExampleClick(example: 1 | 2 | 3) {
     switch (example) {

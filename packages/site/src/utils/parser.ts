@@ -37,10 +37,10 @@ export const parseValueFormatter = (
   return undefined
 }
 
-export const parseTheme = (str: string, testNode: any): Base16Theme | undefined => {
+export const parseTheme = (str: string): Base16Theme | undefined => {
   try {
     let parsedTheme = new Function(`return ${str}`)()
-    if (!parsedTheme) return
+    if (parsedTheme) return parsedTheme
     for (const key of Object.keys(parsedTheme)) {
       const value = parsedTheme[key as keyof typeof parsedTheme]
       if (value !== undefined) {

@@ -3,7 +3,6 @@ import * as parser from './parser'
 import example1 from './example1.json'
 
 export interface Options {
-  data: any
   leftIndent: string
   lineHeight: string
   fontFamily: string
@@ -18,7 +17,6 @@ export interface Options {
 }
 
 export const DEFAULT_OPTIONS: Options = {
-  data: undefined,
   leftIndent: '0.875em',
   lineHeight: '1.1',
   fontFamily: 'Helvetica Neue',
@@ -121,6 +119,7 @@ const testNode = {
   circularOfId: null,
   children: []
 }
+
 export const options = writable(DEFAULT_OPTIONS)
 export const parsedData = writable<any>(example1)
 export const parsedRecursionOpts = writable(
@@ -129,20 +128,18 @@ export const parsedRecursionOpts = writable(
 export const parsedValueFormatter = writable(
   parser.parseValueFormatter(DEFAULT_OPTIONS.valueFormatter, testNode)
 )
-export const parsedTheme = writable(parser.parseTheme(DEFAULT_OPTIONS.theme, testNode))
+export const parsedTheme = writable(parser.parseTheme(DEFAULT_OPTIONS.theme))
 
 export function update<K extends keyof Options>(key: K, val: Options[K]) {
   options.update(o => {
     o[key] = val
     return o
   })
-  if (key === 'data') {
-    parsedData.update(old => parser.parseData(val) ?? old)
-  } else if (key === 'recursionOpts') {
+  if (key === 'recursionOpts') {
     parsedRecursionOpts.update(old => parser.parseRecursionOpts(val, testNode) ?? old)
   } else if (key === 'valueFormatter') {
     parsedValueFormatter.update(old => parser.parseValueFormatter(val, testNode) ?? old)
   } else if (key === 'theme') {
-    parsedTheme.update(old => parser.parseTheme(val, testNode) ?? old)
+    parsedTheme.update(old => parser.parseTheme(val) ?? old)
   }
 }

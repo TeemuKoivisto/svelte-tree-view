@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { options } from '../utils/store'
+  import { options, update } from '../utils/store'
 </script>
 
 <fieldset class="container-sm flex flex-col border-2 p-2 text-sm">
@@ -7,7 +7,7 @@
   <div class="m-2 mt-0">
     <div class="field">
       <label for="leftIndent">--tree-view-left-indent</label>
-      <input id="leftIndent" class="bg-01 text-0B w-20 pl-1" value={$options.leftIndent} />
+      <input id="leftIndent" class="bg-01 text-0B w-20 pl-1" bind:value={$options.leftIndent} />
     </div>
     <div class="field">
       <label for="lineHeight">--tree-view-li-line-height</label>
@@ -49,12 +49,20 @@
   <div class="m-2 mt-0 flex flex-col">
     <div class="col-field">
       <label for="recursionOpts">recursionOpts</label>
-      <textarea id="recursionOpts" class="bg-01 text-0B h-44" bind:value={$options.recursionOpts}
+      <textarea
+        id="recursionOpts"
+        class="bg-01 text-0B h-44"
+        value={$options.recursionOpts}
+        oninput={e => update('recursionOpts', e.currentTarget.value)}
       ></textarea>
     </div>
     <div class="col-field">
       <label for="valueFormatter">valueFormatter</label>
-      <textarea id="valueFormatter" class="bg-01 text-0B h-44" bind:value={$options.valueFormatter}
+      <textarea
+        id="valueFormatter"
+        class="bg-01 text-0B h-44"
+        value={$options.valueFormatter}
+        oninput={e => update('valueFormatter', e.currentTarget.value)}
       ></textarea>
     </div>
     <div class="col-field">
@@ -67,7 +75,12 @@
           >examples</a
         >
       </label>
-      <textarea id="theme" class="bg-01 text-0B h-44 w-full" bind:value={$options.theme}></textarea>
+      <textarea
+        id="theme"
+        class="bg-01 text-0B h-44 w-full"
+        value={$options.theme}
+        oninput={e => update('theme', e.currentTarget.value)}
+      ></textarea>
     </div>
   </div>
 </fieldset>
