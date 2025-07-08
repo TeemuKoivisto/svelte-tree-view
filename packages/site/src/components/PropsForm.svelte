@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { options, update } from '../utils/store'
+  import { state, update } from '../utils/store'
 </script>
 
 <fieldset class="container-sm flex flex-col border-2 p-2 text-sm">
@@ -7,35 +7,35 @@
   <div class="m-2 mt-0">
     <div class="field">
       <label for="leftIndent">--tree-view-left-indent</label>
-      <input id="leftIndent" class="bg-01 text-0B w-20 pl-1" bind:value={$options.leftIndent} />
+      <input id="leftIndent" class="bg-01 text-0B w-20 pl-1" bind:value={$state.leftIndent} />
     </div>
     <div class="field">
       <label for="lineHeight">--tree-view-li-line-height</label>
-      <input id="lineHeight" class="bg-01 text-0B w-20 pl-1" bind:value={$options.lineHeight} />
+      <input id="lineHeight" class="bg-01 text-0B w-20 pl-1" bind:value={$state.lineHeight} />
     </div>
     <div class="field">
       <label for="fontFamily">--tree-view-font-family</label>
-      <input id="fontFamily" class="bg-01 text-0B w-48 pl-1" bind:value={$options.fontFamily} />
+      <input id="fontFamily" class="bg-01 text-0B w-48 pl-1" bind:value={$state.fontFamily} />
     </div>
     <div class="field">
       <label for="fontSize">--tree-view-font-size</label>
-      <input id="fontSize" class="bg-01 text-0B w-20 pl-1" bind:value={$options.fontSize} />
+      <input id="fontSize" class="bg-01 text-0B w-20 pl-1" bind:value={$state.fontSize} />
     </div>
     <div class="field">
       <label for="keyMarginRight">--tree-view-key-margin-right</label>
       <input
         id="keyMarginRight"
         class="bg-01 text-0B w-20 pl-1"
-        bind:value={$options.keyMarginRight}
+        bind:value={$state.keyMarginRight}
       />
     </div>
     <div class="field">
       <label for="showLogButton">showLogButton</label>
-      <input id="showLogButton" type="checkbox" bind:checked={$options.showLogButton} />
+      <input id="showLogButton" type="checkbox" bind:checked={$state.showLogButton} />
     </div>
     <div class="field">
       <label for="showCopyButton">showCopyButton</label>
-      <input id="showCopyButton" type="checkbox" bind:checked={$options.showCopyButton} />
+      <input id="showCopyButton" type="checkbox" bind:checked={$state.showCopyButton} />
     </div>
     <div class="field">
       <label>valueComponent</label>
@@ -52,7 +52,7 @@
       <textarea
         id="recursionOpts"
         class="bg-01 text-0B h-44"
-        value={$options.recursionOpts}
+        value={$state.recursionOpts}
         oninput={e => update('recursionOpts', e.currentTarget.value)}
       ></textarea>
     </div>
@@ -61,7 +61,7 @@
       <textarea
         id="valueFormatter"
         class="bg-01 text-0B h-44"
-        value={$options.valueFormatter}
+        value={$state.valueFormatter}
         oninput={e => update('valueFormatter', e.currentTarget.value)}
       ></textarea>
     </div>
@@ -78,7 +78,7 @@
       <textarea
         id="theme"
         class="bg-01 text-0B h-44 w-full"
-        value={$options.theme}
+        value={$state.theme}
         oninput={e => update('theme', e.currentTarget.value)}
       ></textarea>
     </div>

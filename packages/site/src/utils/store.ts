@@ -17,7 +17,7 @@ export interface FormState {
   theme: string
 }
 
-export const DEFAULT_OPTIONS: FormState = {
+export const DEFAULT_STATE: FormState = {
   data: '',
   leftIndent: '0.875em',
   lineHeight: '1.1',
@@ -122,18 +122,18 @@ const testNode = {
   children: []
 }
 
-export const options = writable(DEFAULT_OPTIONS)
+export const state = writable(DEFAULT_STATE)
 export const parsedData = writable<any>(example1)
 export const parsedRecursionOpts = writable(
-  parser.parseRecursionOpts(DEFAULT_OPTIONS.recursionOpts, testNode)
+  parser.parseRecursionOpts(DEFAULT_STATE.recursionOpts, testNode)
 )
 export const parsedValueFormatter = writable(
-  parser.parseValueFormatter(DEFAULT_OPTIONS.valueFormatter, testNode)
+  parser.parseValueFormatter(DEFAULT_STATE.valueFormatter, testNode)
 )
-export const parsedTheme = writable(parser.parseTheme(DEFAULT_OPTIONS.theme))
+export const parsedTheme = writable(parser.parseTheme(DEFAULT_STATE.theme))
 
 export function update<K extends keyof FormState>(key: K, val: FormState[K]) {
-  options.update(o => {
+  state.update(o => {
     o[key] = val
     return o
   })

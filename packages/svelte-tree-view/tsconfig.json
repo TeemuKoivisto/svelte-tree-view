@@ -13,7 +13,7 @@
     "moduleResolution": "bundler",
     "lib": ["es2020", "dom", "dom.iterable"],
     "target": "es2019",
-    "types": ["svelte", "@testing-library/jest-dom", "cypress", "vitest/globals"]
+    "types": ["svelte", "cypress", "vitest/globals"]
   },
   "include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.svelte"],
   "exclude": ["**/__tests__"]

@@ -39,14 +39,7 @@ export const parseValueFormatter = (
 
 export const parseTheme = (str: string): Base16Theme | undefined => {
   try {
-    let parsedTheme = new Function(`return ${str}`)()
-    if (parsedTheme) return parsedTheme
-    for (const key of Object.keys(parsedTheme)) {
-      const value = parsedTheme[key as keyof typeof parsedTheme]
-      if (value !== undefined) {
-        // document.documentElement.style.setProperty(`--tree-view-${key}`, value)
-      }
-    }
+    return new Function(`return ${str}`)()
   } catch (e) {}
   return undefined
 }

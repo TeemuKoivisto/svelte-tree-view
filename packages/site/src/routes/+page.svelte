@@ -9,7 +9,7 @@
   import { mapDocDeltaChildren } from '../utils/mapDocDeltaChildren'
   import { generateObj } from '../utils/generateObj'
   import {
-    options,
+    state,
     parsedData,
     parsedRecursionOpts,
     parsedTheme,
@@ -17,13 +17,11 @@
     update
   } from '../utils/store'
 
-  const placeholder = `Eg. {"a": 1, "b": [1,2,3]}`
-
-  let leftIndent = $derived($options.leftIndent)
-  let lineHeight = $derived($options.lineHeight)
-  let fontFamily = $derived($options.fontFamily)
-  let fontSize = $derived($options.fontSize)
-  let keyMarginRight = $derived($options.keyMarginRight)
+  let leftIndent = $derived($state.leftIndent)
+  let lineHeight = $derived($state.lineHeight)
+  let fontFamily = $derived($state.fontFamily)
+  let fontSize = $derived($state.fontSize)
+  let keyMarginRight = $derived($state.keyMarginRight)
 
   $effect(() => {
     leftIndent && document.documentElement.style.setProperty(`--tree-view-left-indent`, leftIndent)
@@ -124,15 +122,15 @@
     <textarea
       class="bg-06 text-00 w-1/2 border p-2 placeholder-gray-500"
       data-test-id="input-textarea"
-      value={$options.data}
+      value={$state.data}
+      placeholder={`Eg. {"a": 1, "b": [1,2,3]}`}
       oninput={e => update('data', e.currentTarget.value)}
-      {placeholder}
     ></textarea>
     <TreeView
       data={$parsedData}
-      showLogButton={$options.showLogButton}
-      showCopyButton={$options.showCopyButton}
-      valueComponent={$options.valueComponent}
+      showLogButton={$state.showLogButton}
+      showCopyButton={$state.showCopyButton}
+      valueComponent={$state.valueComponent}
       recursionOpts={$parsedRecursionOpts}
       valueFormatter={$parsedValueFormatter}
       theme={$parsedTheme}
