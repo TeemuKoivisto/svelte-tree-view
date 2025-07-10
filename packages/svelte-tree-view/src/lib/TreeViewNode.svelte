@@ -1,39 +1,35 @@
 <script lang="ts">
-  import { getContext } from 'svelte'
+  import { getContext, onMount } from 'svelte'
+  import TreeViewNode from './TreeViewNode.svelte'
 
   import type { Stores } from './stores'
   import type { TreeNode } from './types'
+  import { get } from 'svelte/store'
 
-  export let id: string
+  interface Props {
+    id: string
+  }
+
+  let { id }: Props = $props()
 
   const { treeStore, propsStore, rootElementStore } = getContext<Stores>('svelte-tree-view')
-  let node: TreeNode
-  $: {
-    let found = treeStore.getNode(id)
-    // Should explode rather than have logic written around undefinedness
-    // as this component should be unmounted if it's undefined.
-    if (!found) {
-      throw Error(
-        '[svelte-tree-view] TreeViewNode.svelte received undefined node from treeMapStore whereas it should be already unmounted!'
-      )
-    }
-    node = found
-  }
-  $: hasChildren = node && node.children.length > 0
-  $: props = propsStore.props
-  $: valueComponent = $props.valueComponent
+  let { props: propsObj } = propsStore
+  let node = $state(get(treeStore.treeMap).get(id) as TreeNode<any>)
+  let hasChildren = $derived(node && node.children.length > 0)
+  let valueComponent = $derived($propsObj.valueComponent)
+  let descend = $derived(!node.collapsed && hasChildren)
 
-  treeStore.treeMap.subscribe(value => {
-    const n = value.get(id)
-    if (n && node !== n) {
-      node = n
-    }
+  onMount(() => {
+    treeStore.treeMap.subscribe(value => {
+      const val = value.get(id) as TreeNode<any>
+      if (val) {
+        node = val
+      }
+    })
   })
 
   function handleLogNode() {
-    // eslint-disable-next-line no-console
     console.info('%c [svelte-tree-view]: Property added to window._node', 'color: #b8e248')
-    // eslint-disable-next-line no-console
     console.log(node.value)
     try {
       if (typeof window !== 'undefined') window._node = node.value
@@ -50,6 +46,7 @@
   }
   function handleToggleCollapse() {
     if (hasChildren) {
+      console.log(`collapse! ${node.id}`)
       treeStore.toggleCollapse(node.id)
     } else if (node.circularOfId) {
       treeStore.expandAllNodesToNode(node.circularOfId)
@@ -63,10 +60,7 @@
 
 <li class="row" class:collapsed={node.collapsed && hasChildren} data-tree-id={node.id}>
   {#if hasChildren}
-    <button
-      class={`arrow-btn ${node.collapsed ? 'collapsed' : ''}`}
-      on:click={handleToggleCollapse}
-    >
+    <button class={`arrow-btn ${node.collapsed ? 'collapsed' : ''}`} onclick={handleToggleCollapse}>
       ▶
     </button>
   {/if}
@@ -74,7 +68,7 @@
     class="node-key"
     class:has-children={hasChildren}
     class:p-left={!hasChildren}
-    on:click={handleToggleCollapse}
+    onclick={handleToggleCollapse}
     role="presentation"
   >
     {node.key}:
@@ -84,7 +78,7 @@
     data-type={node.type}
     class:expanded={!node.collapsed && hasChildren}
     class:has-children={hasChildren}
-    on:click={handleToggleCollapse}
+    onclick={handleToggleCollapse}
     role="presentation"
   >
     {#if valueComponent}
@@ -99,19 +93,19 @@
     {/if}
   </div>
   <div class="buttons">
-    {#if $props.showLogButton}
-      <button class="log-copy-button" on:click={handleLogNode}>log</button>
+    {#if $propsObj.showLogButton}
+      <button class="log-copy-button" onclick={handleLogNode}>log</button>
     {/if}
-    {#if $props.showCopyButton}
-      <button class="log-copy-button" on:click={handleCopyNodeToClipboard}>copy</button>
+    {#if $propsObj.showCopyButton}
+      <button class="log-copy-button" onclick={handleCopyNodeToClipboard}>copy</button>
     {/if}
   </div>
 </li>
-{#if !node.collapsed && hasChildren}
+{#if descend}
   <li class="row">
     <ul>
       {#each node.children as child}
-        <svelte:self id={child.id} />
+        <TreeViewNode id={child.id} />
       {/each}
     </ul>
   </li>

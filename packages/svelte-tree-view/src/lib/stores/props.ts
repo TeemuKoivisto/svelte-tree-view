@@ -16,7 +16,7 @@ export const createPropsStore = (initialProps: Omit<TreeViewProps, 'data'>) => {
       props.set(newProps)
     },
 
-    formatValue(val: any, node: TreeNode) {
+    formatValue(val: any, node: TreeNode): string {
       const { valueFormatter } = get(props)
       const customFormat = valueFormatter ? valueFormatter(val, node) : undefined
       if (customFormat) {
@@ -39,7 +39,7 @@ export const createPropsStore = (initialProps: Omit<TreeViewProps, 'data'>) => {
         case 'symbol':
           return String(val)
         default:
-          return val
+          return node.type
       }
     }
   }
