@@ -1,4 +1,7 @@
-import { SvelteComponent } from 'svelte'
+import { getContext, SvelteComponent, type Component, type Snippet } from 'svelte'
+import type { HTMLAttributes } from 'svelte/elements'
+import type { Writable } from 'svelte/store'
+import type { Stores } from './stores'
 
 export type ValueType =
   | 'array'
@@ -113,31 +116,25 @@ export interface Base16Theme {
   base0F: string
 }
 
-/**
- * As described in https://stackoverflow.com/questions/67697298/svelte-components-as-object-properties/67737182#67737182
- */
-export type ValueComponent<T = any> = new (...args: any) => SvelteComponent<{
+export interface NodeProps<T = any> {
   node: TreeNode<T>
-  defaultFormatter?: (val: any) => string | undefined
-}>
+  getCtx: () => ReturnType<typeof getContext<Stores>>
+  // propsObj: Writable<Omit<TreeViewProps<T>, 'data' | 'node'>>
+  children: Snippet<[{ id: string }]>
+  handleLogNode(): void
+  handleCopyNodeToClipboard(): void
+  handleToggleCollapse(): void
+}
 
-export interface TreeViewProps<T = any> {
+export interface TreeViewProps<T = any> extends HTMLAttributes<HTMLUListElement> {
   /**
    * Data can be basically any non-primitive value
    */
   data: unknown
-  restProps: any
-  /**
-   * Top node has 'svelte-tree-view' class by default
-   */
-  class?: string
+  node?: Snippet<[]>
   theme?: Base16Theme
   showLogButton?: boolean
   showCopyButton?: boolean
-  /**
-   * Svelte component to replace the default value-as-string presentation
-   */
-  valueComponent?: ValueComponent<T>
   recursionOpts?: TreeRecursionOpts<T>
   /**
    * For custom formatting of the value string. Returning undefined will pass the value to the default formatter
@@ -184,5 +181,6 @@ export interface TreeRecursionOpts<T = any> {
   mapChildren?: (val: any, type: ValueType, parent: TreeNode<T>) => [string, any][] | undefined
 }
 
+// export type TreeView = Component<TreeViewProps>
 export class TreeView extends SvelteComponent<TreeViewProps> {}
 export default TreeView

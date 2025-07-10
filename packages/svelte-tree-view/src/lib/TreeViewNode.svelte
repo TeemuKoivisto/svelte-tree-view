@@ -1,10 +1,12 @@
 <script lang="ts">
   import { getContext, onMount } from 'svelte'
+  import { get } from 'svelte/store'
+
+  import DefaultNode from './DefaultNode.svelte'
   import TreeViewNode from './TreeViewNode.svelte'
 
   import type { Stores } from './stores'
   import type { TreeNode } from './types'
-  import { get } from 'svelte/store'
 
   interface Props {
     id: string
@@ -16,8 +18,38 @@
   let { props: propsObj } = propsStore
   let node = $state(get(treeStore.treeMap).get(id) as TreeNode<any>)
   let hasChildren = $derived(node && node.children.length > 0)
-  let ValueComponent = $derived($propsObj.valueComponent)
-  let descend = $derived(!node.collapsed && hasChildren)
+  let nodeProps = $derived({
+    node,
+    getCtx: () => getContext<Stores>('svelte-tree-view'),
+    // propsObj,
+    // children,
+    handleLogNode() {
+      console.info('%c [svelte-tree-view]: Property added to window._node', 'color: #b8e248')
+      console.log(node.value)
+      try {
+        if (typeof window !== 'undefined') window._node = node.value
+      } catch (err) {
+        console.error('Failed to set _node, window was undefined')
+      }
+    },
+    handleCopyNodeToClipboard() {
+      try {
+        navigator.clipboard.writeText(JSON.stringify(node.value))
+      } catch (err) {
+        console.error('Copying node to clipboard failed: ', err)
+      }
+    },
+    handleToggleCollapse() {
+      if (hasChildren) {
+        treeStore.toggleCollapse(node.id)
+      } else if (node.circularOfId) {
+        treeStore.expandAllNodesToNode(node.circularOfId)
+        $rootElementStore
+          ?.querySelector(`li[data-tree-id="${node.circularOfId}"]`)
+          ?.scrollIntoView()
+      }
+    }
+  })
 
   onMount(() => {
     treeStore.treeMap.subscribe(value => {
@@ -28,81 +60,24 @@
     })
   })
 
-  function handleLogNode() {
-    console.info('%c [svelte-tree-view]: Property added to window._node', 'color: #b8e248')
-    console.log(node.value)
-    try {
-      if (typeof window !== 'undefined') window._node = node.value
-    } catch (err) {
-      console.error('Failed to set _node, window was undefined')
-    }
-  }
-  function handleCopyNodeToClipboard() {
-    try {
-      navigator.clipboard.writeText(JSON.stringify(node.value))
-    } catch (err) {
-      console.error('Copying node to clipboard failed: ', err)
-    }
-  }
-  function handleToggleCollapse() {
-    if (hasChildren) {
-      treeStore.toggleCollapse(node.id)
-    } else if (node.circularOfId) {
-      treeStore.expandAllNodesToNode(node.circularOfId)
-      $rootElementStore?.querySelector(`li[data-tree-id="${node.circularOfId}"]`)?.scrollIntoView()
-    }
-  }
-  function valueComponentDefaultFormatter(val: any) {
-    return propsStore.formatValue(val, node)
-  }
+  // {#snippet button()}
+  //   <button
+  //     class="hover:bg-gray-200 rounded px-1.5 py-1.5"
+  //     onclick={() => {
+  //       deleteOpen = !deleteOpen
+  //     }}><Trash class="h-4 w-4" /></button
+  //   >
+  // {/snippet}
 </script>
 
-<li class="row" class:collapsed={node.collapsed && hasChildren} data-tree-id={node.id}>
-  {#if hasChildren}
-    <button class={`arrow-btn ${node.collapsed ? 'collapsed' : ''}`} onclick={handleToggleCollapse}>
-      ▶
-    </button>
-  {/if}
-  <div
-    class="node-key"
-    class:has-children={hasChildren}
-    class:p-left={!hasChildren}
-    onclick={handleToggleCollapse}
-    role="presentation"
-  >
-    {node.key}:
-  </div>
-  <div
-    class="node-value"
-    data-type={node.type}
-    class:expanded={!node.collapsed && hasChildren}
-    class:has-children={hasChildren}
-    onclick={handleToggleCollapse}
-    role="presentation"
-  >
-    {#if ValueComponent}
-      <ValueComponent value={node.value} {node} defaultFormatter={valueComponentDefaultFormatter} />
-    {:else}
-      {propsStore.formatValue(node.value, node)}
-    {/if}
-  </div>
-  <div class="buttons">
-    {#if $propsObj.showLogButton}
-      <button class="log-copy-button" onclick={handleLogNode}>log</button>
-    {/if}
-    {#if $propsObj.showCopyButton}
-      <button class="log-copy-button" onclick={handleCopyNodeToClipboard}>copy</button>
-    {/if}
-  </div>
-</li>
-{#if descend}
-  <li class="row">
-    <ul>
-      {#each node.children as child}
-        <TreeViewNode id={child.id} />
-      {/each}
-    </ul>
-  </li>
+{#if $propsObj.node}
+  {@render $propsObj.node(nodeProps)}
+{:else}
+  <DefaultNode {...nodeProps}>
+    {#snippet children({ id })}
+      <TreeViewNode {id} />
+    {/snippet}
+  </DefaultNode>
 {/if}
 
 <style lang="scss">
