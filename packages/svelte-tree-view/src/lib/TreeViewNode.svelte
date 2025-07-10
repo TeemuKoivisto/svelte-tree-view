@@ -16,7 +16,7 @@
   let { props: propsObj } = propsStore
   let node = $state(get(treeStore.treeMap).get(id) as TreeNode<any>)
   let hasChildren = $derived(node && node.children.length > 0)
-  let valueComponent = $derived($propsObj.valueComponent)
+  let ValueComponent = $derived($propsObj.valueComponent)
   let descend = $derived(!node.collapsed && hasChildren)
 
   onMount(() => {
@@ -80,13 +80,8 @@
     onclick={handleToggleCollapse}
     role="presentation"
   >
-    {#if valueComponent}
-      <svelte:component
-        this={valueComponent}
-        value={node.value}
-        {node}
-        defaultFormatter={valueComponentDefaultFormatter}
-      />
+    {#if ValueComponent}
+      <ValueComponent value={node.value} {node} defaultFormatter={valueComponentDefaultFormatter} />
     {:else}
       {propsStore.formatValue(node.value, node)}
     {/if}

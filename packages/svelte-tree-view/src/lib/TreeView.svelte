@@ -71,11 +71,10 @@
 
   $effect(() => {
     const oldRecOptions = get(propsStore.recursionOpts)
-    // console.log('recursionOpts effect! oldRecOpts', oldRecOptions)
+    // Destruct recursionOpts to unwrap from proxy
     const opts = { ...newRecOpts }
     const newData = data
     const shouldRecompute = oldRecOptions?.shouldExpandNode !== opts.shouldExpandNode
-    // console.log(`newRecOpts ${shouldRecompute}`, opts)
     // Use untrack to prevent triggering this effect again
     untrack(() => {
       treeStore.update(newData, opts, shouldRecompute)
