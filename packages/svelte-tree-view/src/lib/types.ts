@@ -126,6 +126,7 @@ export interface TreeViewProps<T = any> {
    * Data can be basically any non-primitive value
    */
   data: unknown
+  restProps: any
   /**
    * Top node has 'svelte-tree-view' class by default
    */

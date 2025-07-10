@@ -46,7 +46,6 @@
   }
   function handleToggleCollapse() {
     if (hasChildren) {
-      console.log(`collapse! ${node.id}`)
       treeStore.toggleCollapse(node.id)
     } else if (node.circularOfId) {
       treeStore.expandAllNodesToNode(node.circularOfId)

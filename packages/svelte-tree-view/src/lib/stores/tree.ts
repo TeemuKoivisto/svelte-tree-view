@@ -1,6 +1,6 @@
 import { get, writable } from 'svelte/store'
 
-import { createNode, recurseObjectProperties } from '../tree-utils'
+import { createNode, recomputeTree, recurseObjectProperties } from '../tree-utils'
 import type { TreeNode, TreeRecursionOpts } from '../types'
 import type { PropsStore } from './props'
 
@@ -29,6 +29,20 @@ export const createTreeStore = (propsStore: PropsStore) => {
       }
       treeMap.set(newTreeMap)
       iteratedValues.set(iterated)
+    },
+
+    update(data: unknown, recursionOpts: TreeRecursionOpts<any>, recomputeExpandNode: boolean) {
+      const oldTreeMap = get(treeMap)
+      const recomputed = recomputeTree(data, oldTreeMap, recursionOpts, recomputeExpandNode)
+      if (recomputed.tree) {
+        tree.set(recomputed.tree)
+      } else {
+        tree.set(defaultRootNode)
+      }
+      treeMap.set(recomputed.treeMap)
+      iteratedValues.set(recomputed.iteratedValues)
+      // console.log('recomputed', recomputed.treeMap)
+      // treeStore.init(tree, treeMap, iteratedValues)
     },
 
     getNode(id: string) {

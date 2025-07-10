@@ -47,7 +47,6 @@ exports[`TreeView > should render 1`] = `
       <ul
         class="svelte-ngcjq5"
       >
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[0,0]"
@@ -80,8 +79,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[0,1]"
@@ -100,7 +97,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            0
+            number
             <!---->
           </div>
            
@@ -113,8 +110,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -148,8 +143,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[0,3]"
@@ -181,8 +174,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -216,8 +207,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[0,5]"
@@ -250,8 +239,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[0,6]"
@@ -270,7 +257,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            22
+            number
             <!---->
           </div>
            
@@ -283,8 +270,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -318,8 +303,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[0,8]"
@@ -351,8 +334,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -386,8 +367,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[0,10]"
@@ -419,8 +398,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -454,8 +431,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[0,12]"
@@ -488,8 +463,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[0,13]"
@@ -521,8 +494,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -557,8 +528,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[0,15]"
@@ -591,8 +560,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[0,16]"
@@ -611,7 +578,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            -39.97877
+            number
             <!---->
           </div>
            
@@ -624,8 +591,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -645,7 +610,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            -61.667911
+            number
             <!---->
           </div>
            
@@ -658,8 +623,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -703,7 +666,6 @@ exports[`TreeView > should render 1`] = `
           <ul
             class="svelte-ngcjq5"
           >
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[0,18,0]"
@@ -735,8 +697,6 @@ exports[`TreeView > should render 1`] = `
               </div>
             </li>
              
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -770,8 +730,6 @@ exports[`TreeView > should render 1`] = `
             </li>
              
             <!---->
-            
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[0,18,2]"
@@ -803,8 +761,6 @@ exports[`TreeView > should render 1`] = `
               </div>
             </li>
              
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -838,8 +794,6 @@ exports[`TreeView > should render 1`] = `
             </li>
              
             <!---->
-            
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[0,18,4]"
@@ -872,8 +826,6 @@ exports[`TreeView > should render 1`] = `
             </li>
              
             <!---->
-            
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[0,18,5]"
@@ -905,8 +857,6 @@ exports[`TreeView > should render 1`] = `
               </div>
             </li>
              
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -941,11 +891,8 @@ exports[`TreeView > should render 1`] = `
              
             <!---->
             
-            
           </ul>
         </li>
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -989,7 +936,6 @@ exports[`TreeView > should render 1`] = `
           <ul
             class="svelte-ngcjq5"
           >
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[0,19,0]"
@@ -1032,7 +978,6 @@ exports[`TreeView > should render 1`] = `
               <ul
                 class="svelte-ngcjq5"
               >
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[0,19,0,0]"
@@ -1051,7 +996,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    0
+                    number
                     <!---->
                   </div>
                    
@@ -1064,8 +1009,6 @@ exports[`TreeView > should render 1`] = `
                   </div>
                 </li>
                  
-                <!---->
-                
                 <!---->
                 <li
                   class="row svelte-ngcjq5"
@@ -1100,11 +1043,8 @@ exports[`TreeView > should render 1`] = `
                  
                 <!---->
                 
-                
               </ul>
             </li>
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -1148,7 +1088,6 @@ exports[`TreeView > should render 1`] = `
               <ul
                 class="svelte-ngcjq5"
               >
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[0,19,1,0]"
@@ -1167,7 +1106,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    1
+                    number
                     <!---->
                   </div>
                    
@@ -1180,8 +1119,6 @@ exports[`TreeView > should render 1`] = `
                   </div>
                 </li>
                  
-                <!---->
-                
                 <!---->
                 <li
                   class="row svelte-ngcjq5"
@@ -1216,11 +1153,8 @@ exports[`TreeView > should render 1`] = `
                  
                 <!---->
                 
-                
               </ul>
             </li>
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -1264,7 +1198,6 @@ exports[`TreeView > should render 1`] = `
               <ul
                 class="svelte-ngcjq5"
               >
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[0,19,2,0]"
@@ -1283,7 +1216,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    2
+                    number
                     <!---->
                   </div>
                    
@@ -1296,8 +1229,6 @@ exports[`TreeView > should render 1`] = `
                   </div>
                 </li>
                  
-                <!---->
-                
                 <!---->
                 <li
                   class="row svelte-ngcjq5"
@@ -1332,16 +1263,12 @@ exports[`TreeView > should render 1`] = `
                  
                 <!---->
                 
-                
               </ul>
             </li>
             <!---->
             
-            
           </ul>
         </li>
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -1375,8 +1302,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[0,21]"
@@ -1409,7 +1334,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
         
       </ul>
     </li>
@@ -1456,7 +1380,6 @@ exports[`TreeView > should render 1`] = `
       <ul
         class="svelte-ngcjq5"
       >
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[1,0]"
@@ -1489,8 +1412,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[1,1]"
@@ -1509,7 +1430,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            1
+            number
             <!---->
           </div>
            
@@ -1522,8 +1443,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -1557,8 +1476,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[1,3]"
@@ -1590,8 +1507,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -1625,8 +1540,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[1,5]"
@@ -1659,8 +1572,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[1,6]"
@@ -1679,7 +1590,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            29
+            number
             <!---->
           </div>
            
@@ -1692,8 +1603,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -1727,8 +1636,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[1,8]"
@@ -1760,8 +1667,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -1795,8 +1700,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[1,10]"
@@ -1828,8 +1731,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -1863,8 +1764,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[1,12]"
@@ -1897,8 +1796,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[1,13]"
@@ -1930,8 +1827,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -1966,8 +1861,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[1,15]"
@@ -2000,8 +1893,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[1,16]"
@@ -2020,7 +1911,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            -73.399929
+            number
             <!---->
           </div>
            
@@ -2033,8 +1924,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -2054,7 +1943,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            55.693187
+            number
             <!---->
           </div>
            
@@ -2067,8 +1956,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -2112,7 +1999,6 @@ exports[`TreeView > should render 1`] = `
           <ul
             class="svelte-ngcjq5"
           >
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[1,18,0]"
@@ -2144,8 +2030,6 @@ exports[`TreeView > should render 1`] = `
               </div>
             </li>
              
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -2179,8 +2063,6 @@ exports[`TreeView > should render 1`] = `
             </li>
              
             <!---->
-            
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[1,18,2]"
@@ -2212,8 +2094,6 @@ exports[`TreeView > should render 1`] = `
               </div>
             </li>
              
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -2247,8 +2127,6 @@ exports[`TreeView > should render 1`] = `
             </li>
              
             <!---->
-            
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[1,18,4]"
@@ -2281,8 +2159,6 @@ exports[`TreeView > should render 1`] = `
             </li>
              
             <!---->
-            
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[1,18,5]"
@@ -2314,8 +2190,6 @@ exports[`TreeView > should render 1`] = `
               </div>
             </li>
              
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -2350,11 +2224,8 @@ exports[`TreeView > should render 1`] = `
              
             <!---->
             
-            
           </ul>
         </li>
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -2398,7 +2269,6 @@ exports[`TreeView > should render 1`] = `
           <ul
             class="svelte-ngcjq5"
           >
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[1,19,0]"
@@ -2441,7 +2311,6 @@ exports[`TreeView > should render 1`] = `
               <ul
                 class="svelte-ngcjq5"
               >
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[1,19,0,0]"
@@ -2460,7 +2329,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    0
+                    number
                     <!---->
                   </div>
                    
@@ -2473,8 +2342,6 @@ exports[`TreeView > should render 1`] = `
                   </div>
                 </li>
                  
-                <!---->
-                
                 <!---->
                 <li
                   class="row svelte-ngcjq5"
@@ -2509,11 +2376,8 @@ exports[`TreeView > should render 1`] = `
                  
                 <!---->
                 
-                
               </ul>
             </li>
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -2557,7 +2421,6 @@ exports[`TreeView > should render 1`] = `
               <ul
                 class="svelte-ngcjq5"
               >
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[1,19,1,0]"
@@ -2576,7 +2439,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    1
+                    number
                     <!---->
                   </div>
                    
@@ -2589,8 +2452,6 @@ exports[`TreeView > should render 1`] = `
                   </div>
                 </li>
                  
-                <!---->
-                
                 <!---->
                 <li
                   class="row svelte-ngcjq5"
@@ -2625,11 +2486,8 @@ exports[`TreeView > should render 1`] = `
                  
                 <!---->
                 
-                
               </ul>
             </li>
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -2673,7 +2531,6 @@ exports[`TreeView > should render 1`] = `
               <ul
                 class="svelte-ngcjq5"
               >
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[1,19,2,0]"
@@ -2692,7 +2549,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    2
+                    number
                     <!---->
                   </div>
                    
@@ -2705,8 +2562,6 @@ exports[`TreeView > should render 1`] = `
                   </div>
                 </li>
                  
-                <!---->
-                
                 <!---->
                 <li
                   class="row svelte-ngcjq5"
@@ -2741,16 +2596,12 @@ exports[`TreeView > should render 1`] = `
                  
                 <!---->
                 
-                
               </ul>
             </li>
             <!---->
             
-            
           </ul>
         </li>
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -2784,8 +2635,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[1,21]"
@@ -2818,7 +2667,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
         
       </ul>
     </li>
@@ -2865,7 +2713,6 @@ exports[`TreeView > should render 1`] = `
       <ul
         class="svelte-ngcjq5"
       >
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[2,0]"
@@ -2898,8 +2745,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[2,1]"
@@ -2918,7 +2763,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            2
+            number
             <!---->
           </div>
            
@@ -2931,8 +2776,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -2966,8 +2809,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[2,3]"
@@ -2999,8 +2840,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -3034,8 +2873,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[2,5]"
@@ -3068,8 +2905,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[2,6]"
@@ -3088,7 +2923,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            27
+            number
             <!---->
           </div>
            
@@ -3101,8 +2936,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -3136,8 +2969,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[2,8]"
@@ -3169,8 +3000,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -3204,8 +3033,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[2,10]"
@@ -3237,8 +3064,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -3272,8 +3097,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[2,12]"
@@ -3306,8 +3129,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[2,13]"
@@ -3339,8 +3160,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -3375,8 +3194,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[2,15]"
@@ -3409,8 +3226,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[2,16]"
@@ -3429,7 +3244,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            -60.824874
+            number
             <!---->
           </div>
            
@@ -3442,8 +3257,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -3463,7 +3276,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            -22.249243
+            number
             <!---->
           </div>
            
@@ -3476,8 +3289,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -3521,7 +3332,6 @@ exports[`TreeView > should render 1`] = `
           <ul
             class="svelte-ngcjq5"
           >
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[2,18,0]"
@@ -3553,8 +3363,6 @@ exports[`TreeView > should render 1`] = `
               </div>
             </li>
              
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -3588,8 +3396,6 @@ exports[`TreeView > should render 1`] = `
             </li>
              
             <!---->
-            
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[2,18,2]"
@@ -3621,8 +3427,6 @@ exports[`TreeView > should render 1`] = `
               </div>
             </li>
              
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -3656,8 +3460,6 @@ exports[`TreeView > should render 1`] = `
             </li>
              
             <!---->
-            
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[2,18,4]"
@@ -3690,8 +3492,6 @@ exports[`TreeView > should render 1`] = `
             </li>
              
             <!---->
-            
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[2,18,5]"
@@ -3723,8 +3523,6 @@ exports[`TreeView > should render 1`] = `
               </div>
             </li>
              
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -3759,11 +3557,8 @@ exports[`TreeView > should render 1`] = `
              
             <!---->
             
-            
           </ul>
         </li>
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -3807,7 +3602,6 @@ exports[`TreeView > should render 1`] = `
           <ul
             class="svelte-ngcjq5"
           >
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[2,19,0]"
@@ -3850,7 +3644,6 @@ exports[`TreeView > should render 1`] = `
               <ul
                 class="svelte-ngcjq5"
               >
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[2,19,0,0]"
@@ -3869,7 +3662,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    0
+                    number
                     <!---->
                   </div>
                    
@@ -3882,8 +3675,6 @@ exports[`TreeView > should render 1`] = `
                   </div>
                 </li>
                  
-                <!---->
-                
                 <!---->
                 <li
                   class="row svelte-ngcjq5"
@@ -3918,11 +3709,8 @@ exports[`TreeView > should render 1`] = `
                  
                 <!---->
                 
-                
               </ul>
             </li>
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -3966,7 +3754,6 @@ exports[`TreeView > should render 1`] = `
               <ul
                 class="svelte-ngcjq5"
               >
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[2,19,1,0]"
@@ -3985,7 +3772,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    1
+                    number
                     <!---->
                   </div>
                    
@@ -3998,8 +3785,6 @@ exports[`TreeView > should render 1`] = `
                   </div>
                 </li>
                  
-                <!---->
-                
                 <!---->
                 <li
                   class="row svelte-ngcjq5"
@@ -4034,11 +3819,8 @@ exports[`TreeView > should render 1`] = `
                  
                 <!---->
                 
-                
               </ul>
             </li>
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -4082,7 +3864,6 @@ exports[`TreeView > should render 1`] = `
               <ul
                 class="svelte-ngcjq5"
               >
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[2,19,2,0]"
@@ -4101,7 +3882,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    2
+                    number
                     <!---->
                   </div>
                    
@@ -4114,8 +3895,6 @@ exports[`TreeView > should render 1`] = `
                   </div>
                 </li>
                  
-                <!---->
-                
                 <!---->
                 <li
                   class="row svelte-ngcjq5"
@@ -4150,16 +3929,12 @@ exports[`TreeView > should render 1`] = `
                  
                 <!---->
                 
-                
               </ul>
             </li>
             <!---->
             
-            
           </ul>
         </li>
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -4193,8 +3968,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[2,21]"
@@ -4227,7 +4000,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
         
       </ul>
     </li>
@@ -4274,7 +4046,6 @@ exports[`TreeView > should render 1`] = `
       <ul
         class="svelte-ngcjq5"
       >
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[3,0]"
@@ -4307,8 +4078,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[3,1]"
@@ -4327,7 +4096,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            3
+            number
             <!---->
           </div>
            
@@ -4340,8 +4109,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -4375,8 +4142,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[3,3]"
@@ -4408,8 +4173,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -4443,8 +4206,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[3,5]"
@@ -4477,8 +4238,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[3,6]"
@@ -4497,7 +4256,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            20
+            number
             <!---->
           </div>
            
@@ -4510,8 +4269,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -4545,8 +4302,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[3,8]"
@@ -4578,8 +4333,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -4613,8 +4366,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[3,10]"
@@ -4646,8 +4397,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -4681,8 +4430,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[3,12]"
@@ -4715,8 +4462,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[3,13]"
@@ -4748,8 +4493,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -4784,8 +4527,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[3,15]"
@@ -4818,8 +4559,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[3,16]"
@@ -4838,7 +4577,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            -60.058287
+            number
             <!---->
           </div>
            
@@ -4851,8 +4590,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -4872,7 +4609,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            88.480295
+            number
             <!---->
           </div>
            
@@ -4885,8 +4622,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -4930,7 +4665,6 @@ exports[`TreeView > should render 1`] = `
           <ul
             class="svelte-ngcjq5"
           >
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[3,18,0]"
@@ -4962,8 +4696,6 @@ exports[`TreeView > should render 1`] = `
               </div>
             </li>
              
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -4997,8 +4729,6 @@ exports[`TreeView > should render 1`] = `
             </li>
              
             <!---->
-            
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[3,18,2]"
@@ -5030,8 +4760,6 @@ exports[`TreeView > should render 1`] = `
               </div>
             </li>
              
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -5065,8 +4793,6 @@ exports[`TreeView > should render 1`] = `
             </li>
              
             <!---->
-            
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[3,18,4]"
@@ -5099,8 +4825,6 @@ exports[`TreeView > should render 1`] = `
             </li>
              
             <!---->
-            
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[3,18,5]"
@@ -5132,8 +4856,6 @@ exports[`TreeView > should render 1`] = `
               </div>
             </li>
              
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -5168,11 +4890,8 @@ exports[`TreeView > should render 1`] = `
              
             <!---->
             
-            
           </ul>
         </li>
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -5216,7 +4935,6 @@ exports[`TreeView > should render 1`] = `
           <ul
             class="svelte-ngcjq5"
           >
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[3,19,0]"
@@ -5259,7 +4977,6 @@ exports[`TreeView > should render 1`] = `
               <ul
                 class="svelte-ngcjq5"
               >
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[3,19,0,0]"
@@ -5278,7 +4995,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    0
+                    number
                     <!---->
                   </div>
                    
@@ -5291,8 +5008,6 @@ exports[`TreeView > should render 1`] = `
                   </div>
                 </li>
                  
-                <!---->
-                
                 <!---->
                 <li
                   class="row svelte-ngcjq5"
@@ -5327,11 +5042,8 @@ exports[`TreeView > should render 1`] = `
                  
                 <!---->
                 
-                
               </ul>
             </li>
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -5375,7 +5087,6 @@ exports[`TreeView > should render 1`] = `
               <ul
                 class="svelte-ngcjq5"
               >
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[3,19,1,0]"
@@ -5394,7 +5105,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    1
+                    number
                     <!---->
                   </div>
                    
@@ -5407,8 +5118,6 @@ exports[`TreeView > should render 1`] = `
                   </div>
                 </li>
                  
-                <!---->
-                
                 <!---->
                 <li
                   class="row svelte-ngcjq5"
@@ -5443,11 +5152,8 @@ exports[`TreeView > should render 1`] = `
                  
                 <!---->
                 
-                
               </ul>
             </li>
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -5491,7 +5197,6 @@ exports[`TreeView > should render 1`] = `
               <ul
                 class="svelte-ngcjq5"
               >
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[3,19,2,0]"
@@ -5510,7 +5215,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    2
+                    number
                     <!---->
                   </div>
                    
@@ -5523,8 +5228,6 @@ exports[`TreeView > should render 1`] = `
                   </div>
                 </li>
                  
-                <!---->
-                
                 <!---->
                 <li
                   class="row svelte-ngcjq5"
@@ -5559,16 +5262,12 @@ exports[`TreeView > should render 1`] = `
                  
                 <!---->
                 
-                
               </ul>
             </li>
             <!---->
             
-            
           </ul>
         </li>
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -5602,8 +5301,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[3,21]"
@@ -5636,7 +5333,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
         
       </ul>
     </li>
@@ -5683,7 +5379,6 @@ exports[`TreeView > should render 1`] = `
       <ul
         class="svelte-ngcjq5"
       >
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[4,0]"
@@ -5716,8 +5411,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[4,1]"
@@ -5736,7 +5429,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            4
+            number
             <!---->
           </div>
            
@@ -5749,8 +5442,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -5784,8 +5475,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[4,3]"
@@ -5817,8 +5506,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -5852,8 +5539,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[4,5]"
@@ -5886,8 +5571,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[4,6]"
@@ -5906,7 +5589,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            26
+            number
             <!---->
           </div>
            
@@ -5919,8 +5602,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -5954,8 +5635,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[4,8]"
@@ -5987,8 +5666,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -6022,8 +5699,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[4,10]"
@@ -6055,8 +5730,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -6090,8 +5763,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[4,12]"
@@ -6124,8 +5795,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[4,13]"
@@ -6157,8 +5826,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -6193,8 +5860,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[4,15]"
@@ -6227,8 +5892,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[4,16]"
@@ -6247,7 +5910,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            14.786267
+            number
             <!---->
           </div>
            
@@ -6260,8 +5923,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -6281,7 +5942,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            -28.163592
+            number
             <!---->
           </div>
            
@@ -6294,8 +5955,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -6339,7 +5998,6 @@ exports[`TreeView > should render 1`] = `
           <ul
             class="svelte-ngcjq5"
           >
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[4,18,0]"
@@ -6371,8 +6029,6 @@ exports[`TreeView > should render 1`] = `
               </div>
             </li>
              
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -6406,8 +6062,6 @@ exports[`TreeView > should render 1`] = `
             </li>
              
             <!---->
-            
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[4,18,2]"
@@ -6439,8 +6093,6 @@ exports[`TreeView > should render 1`] = `
               </div>
             </li>
              
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -6474,8 +6126,6 @@ exports[`TreeView > should render 1`] = `
             </li>
              
             <!---->
-            
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[4,18,4]"
@@ -6508,8 +6158,6 @@ exports[`TreeView > should render 1`] = `
             </li>
              
             <!---->
-            
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[4,18,5]"
@@ -6541,8 +6189,6 @@ exports[`TreeView > should render 1`] = `
               </div>
             </li>
              
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -6577,11 +6223,8 @@ exports[`TreeView > should render 1`] = `
              
             <!---->
             
-            
           </ul>
         </li>
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -6625,7 +6268,6 @@ exports[`TreeView > should render 1`] = `
           <ul
             class="svelte-ngcjq5"
           >
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[4,19,0]"
@@ -6668,7 +6310,6 @@ exports[`TreeView > should render 1`] = `
               <ul
                 class="svelte-ngcjq5"
               >
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[4,19,0,0]"
@@ -6687,7 +6328,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    0
+                    number
                     <!---->
                   </div>
                    
@@ -6700,8 +6341,6 @@ exports[`TreeView > should render 1`] = `
                   </div>
                 </li>
                  
-                <!---->
-                
                 <!---->
                 <li
                   class="row svelte-ngcjq5"
@@ -6736,11 +6375,8 @@ exports[`TreeView > should render 1`] = `
                  
                 <!---->
                 
-                
               </ul>
             </li>
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -6784,7 +6420,6 @@ exports[`TreeView > should render 1`] = `
               <ul
                 class="svelte-ngcjq5"
               >
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[4,19,1,0]"
@@ -6803,7 +6438,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    1
+                    number
                     <!---->
                   </div>
                    
@@ -6816,8 +6451,6 @@ exports[`TreeView > should render 1`] = `
                   </div>
                 </li>
                  
-                <!---->
-                
                 <!---->
                 <li
                   class="row svelte-ngcjq5"
@@ -6852,11 +6485,8 @@ exports[`TreeView > should render 1`] = `
                  
                 <!---->
                 
-                
               </ul>
             </li>
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -6900,7 +6530,6 @@ exports[`TreeView > should render 1`] = `
               <ul
                 class="svelte-ngcjq5"
               >
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[4,19,2,0]"
@@ -6919,7 +6548,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    2
+                    number
                     <!---->
                   </div>
                    
@@ -6932,8 +6561,6 @@ exports[`TreeView > should render 1`] = `
                   </div>
                 </li>
                  
-                <!---->
-                
                 <!---->
                 <li
                   class="row svelte-ngcjq5"
@@ -6968,16 +6595,12 @@ exports[`TreeView > should render 1`] = `
                  
                 <!---->
                 
-                
               </ul>
             </li>
             <!---->
             
-            
           </ul>
         </li>
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -7011,8 +6634,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[4,21]"
@@ -7045,7 +6666,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
         
       </ul>
     </li>
@@ -7092,7 +6712,6 @@ exports[`TreeView > should render 1`] = `
       <ul
         class="svelte-ngcjq5"
       >
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[5,0]"
@@ -7125,8 +6744,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[5,1]"
@@ -7145,7 +6762,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            5
+            number
             <!---->
           </div>
            
@@ -7158,8 +6775,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -7193,8 +6808,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[5,3]"
@@ -7226,8 +6839,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -7261,8 +6872,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[5,5]"
@@ -7295,8 +6904,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[5,6]"
@@ -7315,7 +6922,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            20
+            number
             <!---->
           </div>
            
@@ -7328,8 +6935,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -7363,8 +6968,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[5,8]"
@@ -7396,8 +6999,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -7431,8 +7032,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[5,10]"
@@ -7464,8 +7063,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -7499,8 +7096,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[5,12]"
@@ -7533,8 +7128,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[5,13]"
@@ -7566,8 +7159,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -7602,8 +7193,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[5,15]"
@@ -7636,8 +7225,6 @@ exports[`TreeView > should render 1`] = `
         </li>
          
         <!---->
-        
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[5,16]"
@@ -7656,7 +7243,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            -74.812367
+            number
             <!---->
           </div>
            
@@ -7669,8 +7256,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -7690,7 +7275,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            161.825889
+            number
             <!---->
           </div>
            
@@ -7703,8 +7288,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -7748,7 +7331,6 @@ exports[`TreeView > should render 1`] = `
           <ul
             class="svelte-ngcjq5"
           >
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[5,18,0]"
@@ -7780,8 +7362,6 @@ exports[`TreeView > should render 1`] = `
               </div>
             </li>
              
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -7815,8 +7395,6 @@ exports[`TreeView > should render 1`] = `
             </li>
              
             <!---->
-            
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[5,18,2]"
@@ -7848,8 +7426,6 @@ exports[`TreeView > should render 1`] = `
               </div>
             </li>
              
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -7883,8 +7459,6 @@ exports[`TreeView > should render 1`] = `
             </li>
              
             <!---->
-            
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[5,18,4]"
@@ -7917,8 +7491,6 @@ exports[`TreeView > should render 1`] = `
             </li>
              
             <!---->
-            
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[5,18,5]"
@@ -7950,8 +7522,6 @@ exports[`TreeView > should render 1`] = `
               </div>
             </li>
              
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -7986,11 +7556,8 @@ exports[`TreeView > should render 1`] = `
              
             <!---->
             
-            
           </ul>
         </li>
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -8034,7 +7601,6 @@ exports[`TreeView > should render 1`] = `
           <ul
             class="svelte-ngcjq5"
           >
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[5,19,0]"
@@ -8077,7 +7643,6 @@ exports[`TreeView > should render 1`] = `
               <ul
                 class="svelte-ngcjq5"
               >
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[5,19,0,0]"
@@ -8096,7 +7661,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    0
+                    number
                     <!---->
                   </div>
                    
@@ -8109,8 +7674,6 @@ exports[`TreeView > should render 1`] = `
                   </div>
                 </li>
                  
-                <!---->
-                
                 <!---->
                 <li
                   class="row svelte-ngcjq5"
@@ -8145,11 +7708,8 @@ exports[`TreeView > should render 1`] = `
                  
                 <!---->
                 
-                
               </ul>
             </li>
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -8193,7 +7753,6 @@ exports[`TreeView > should render 1`] = `
               <ul
                 class="svelte-ngcjq5"
               >
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[5,19,1,0]"
@@ -8212,7 +7771,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    1
+                    number
                     <!---->
                   </div>
                    
@@ -8225,8 +7784,6 @@ exports[`TreeView > should render 1`] = `
                   </div>
                 </li>
                  
-                <!---->
-                
                 <!---->
                 <li
                   class="row svelte-ngcjq5"
@@ -8261,11 +7818,8 @@ exports[`TreeView > should render 1`] = `
                  
                 <!---->
                 
-                
               </ul>
             </li>
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -8309,7 +7863,6 @@ exports[`TreeView > should render 1`] = `
               <ul
                 class="svelte-ngcjq5"
               >
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[5,19,2,0]"
@@ -8328,7 +7881,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    2
+                    number
                     <!---->
                   </div>
                    
@@ -8341,8 +7894,6 @@ exports[`TreeView > should render 1`] = `
                   </div>
                 </li>
                  
-                <!---->
-                
                 <!---->
                 <li
                   class="row svelte-ngcjq5"
@@ -8377,16 +7928,12 @@ exports[`TreeView > should render 1`] = `
                  
                 <!---->
                 
-                
               </ul>
             </li>
             <!---->
             
-            
           </ul>
         </li>
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -8419,8 +7966,6 @@ exports[`TreeView > should render 1`] = `
           </div>
         </li>
          
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -8455,7 +8000,6 @@ exports[`TreeView > should render 1`] = `
          
         <!---->
         
-        
       </ul>
     </li>
     <!---->
@@ -8469,7 +8013,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
 <div>
   <ul
     class=" svelte-tree-view svelte-167awo5"
-    style="--tree-view-base00: #16130F; --tree-view-base01: #2C2620; --tree-view-base02: #433B32; --tree-view-base03: #5A5047; --tree-view-base04: #8A8075; --tree-view-base05: #A39A90; --tree-view-base06: #BEB6AE; --tree-view-base07: #DBD6D1; --tree-view-base08: #826D57; --tree-view-base09: #828257; --tree-view-base0A: #6D8257; --tree-view-base0B: #57826D; --tree-view-base0C: #576D82; --tree-view-base0D: #6D5782; --tree-view-base0E: #82576D; --tree-view-base0F: #825757;"
   >
     <li
       class="row svelte-ngcjq5"
@@ -8523,7 +8066,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
       <ul
         class="svelte-ngcjq5"
       >
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[0,0]"
@@ -8576,7 +8118,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
           <ul
             class="svelte-ngcjq5"
           >
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[0,0,0]"
@@ -8618,8 +8159,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
               </div>
             </li>
              
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -8673,7 +8212,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
               <ul
                 class="svelte-ngcjq5"
               >
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[0,0,1,0]"
@@ -8726,7 +8264,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                   <ul
                     class="svelte-ngcjq5"
                   >
-                    <!---->
                     <li
                       class="row svelte-ngcjq5"
                       data-tree-id="[0,0,1,0,0]"
@@ -8745,7 +8282,7 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                         data-type="undefined"
                         role="presentation"
                       >
-                        
+                        undefined
                         <!---->
                       </div>
                        
@@ -8768,8 +8305,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                       </div>
                     </li>
                      
-                    <!---->
-                    
                     <!---->
                     <li
                       class="row svelte-ngcjq5"
@@ -8789,7 +8324,7 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                         data-type="null"
                         role="presentation"
                       >
-                        
+                        null
                         <!---->
                       </div>
                        
@@ -8814,11 +8349,8 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                      
                     <!---->
                     
-                    
                   </ul>
                 </li>
-                <!---->
-                
                 <!---->
                 <li
                   class="row svelte-ngcjq5"
@@ -8872,7 +8404,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                   <ul
                     class="svelte-ngcjq5"
                   >
-                    <!---->
                     <li
                       class="row svelte-ngcjq5"
                       data-tree-id="[0,0,1,1,0]"
@@ -8925,7 +8456,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                       <ul
                         class="svelte-ngcjq5"
                       >
-                        <!---->
                         <li
                           class="row svelte-ngcjq5"
                           data-tree-id="[0,0,1,1,0,0]"
@@ -8944,7 +8474,7 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                             data-type="number"
                             role="presentation"
                           >
-                            0
+                            number
                             <!---->
                           </div>
                            
@@ -8967,8 +8497,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                           </div>
                         </li>
                          
-                        <!---->
-                        
                         <!---->
                         <li
                           class="row svelte-ngcjq5"
@@ -9011,8 +8539,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                           </div>
                         </li>
                          
-                        <!---->
-                        
                         <!---->
                         <li
                           class="row svelte-ngcjq5"
@@ -9057,11 +8583,8 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                          
                         <!---->
                         
-                        
                       </ul>
                     </li>
-                    <!---->
-                    
                     <!---->
                     <li
                       class="row svelte-ngcjq5"
@@ -9108,11 +8631,8 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                      
                     <!---->
                     
-                    
                   </ul>
                 </li>
-                <!---->
-                
                 <!---->
                 <li
                   class="row svelte-ngcjq5"
@@ -9157,16 +8677,12 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                  
                 <!---->
                 
-                
               </ul>
             </li>
             <!---->
             
-            
           </ul>
         </li>
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -9220,7 +8736,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
           <ul
             class="svelte-ngcjq5"
           >
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[0,1,0]"
@@ -9273,7 +8788,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
               <ul
                 class="svelte-ngcjq5"
               >
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[0,1,0,0]"
@@ -9316,8 +8830,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                 </li>
                  
                 <!---->
-                
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[0,1,0,1]"
@@ -9359,8 +8871,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                   </div>
                 </li>
                  
-                <!---->
-                
                 <!---->
                 <li
                   class="row svelte-ngcjq5"
@@ -9405,11 +8915,8 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                  
                 <!---->
                 
-                
               </ul>
             </li>
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -9463,7 +8970,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
               <ul
                 class="svelte-ngcjq5"
               >
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[0,1,1,0]"
@@ -9516,7 +9022,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                   <ul
                     class="svelte-ngcjq5"
                   >
-                    <!---->
                     <li
                       class="row svelte-ngcjq5"
                       data-tree-id="[0,1,1,0,0]"
@@ -9558,8 +9063,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                       </div>
                     </li>
                      
-                    <!---->
-                    
                     <!---->
                     <li
                       class="row svelte-ngcjq5"
@@ -9604,11 +9107,8 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                      
                     <!---->
                     
-                    
                   </ul>
                 </li>
-                <!---->
-                
                 <!---->
                 <li
                   class="row svelte-ngcjq5"
@@ -9662,7 +9162,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                   <ul
                     class="svelte-ngcjq5"
                   >
-                    <!---->
                     <li
                       class="row svelte-ngcjq5"
                       data-tree-id="[0,1,1,1,0]"
@@ -9704,8 +9203,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                       </div>
                     </li>
                      
-                    <!---->
-                    
                     <!---->
                     <li
                       class="row svelte-ngcjq5"
@@ -9750,11 +9247,8 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                      
                     <!---->
                     
-                    
                   </ul>
                 </li>
-                <!---->
-                
                 <!---->
                 <li
                   class="row svelte-ngcjq5"
@@ -9799,16 +9293,12 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                  
                 <!---->
                 
-                
               </ul>
             </li>
             <!---->
             
-            
           </ul>
         </li>
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -9862,7 +9352,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
           <ul
             class="svelte-ngcjq5"
           >
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[0,2,0]"
@@ -9904,8 +9393,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
               </div>
             </li>
              
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -9959,7 +9446,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
               <ul
                 class="svelte-ngcjq5"
               >
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[0,2,1,0]"
@@ -10002,8 +9488,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                 </li>
                  
                 <!---->
-                
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[0,2,1,1]"
@@ -10045,8 +9529,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                   </div>
                 </li>
                  
-                <!---->
-                
                 <!---->
                 <li
                   class="row svelte-ngcjq5"
@@ -10091,16 +9573,13 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                  
                 <!---->
                 
-                
               </ul>
             </li>
             <!---->
             
-            
           </ul>
         </li>
         <!---->
-        
         
       </ul>
     </li>
@@ -10157,7 +9636,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
       <ul
         class="svelte-ngcjq5"
       >
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[1,0]"
@@ -10210,7 +9688,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
           <ul
             class="svelte-ngcjq5"
           >
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[1,0,0]"
@@ -10252,8 +9729,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
               </div>
             </li>
              
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -10307,7 +9782,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
               <ul
                 class="svelte-ngcjq5"
               >
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[1,0,1,0]"
@@ -10360,7 +9834,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                   <ul
                     class="svelte-ngcjq5"
                   >
-                    <!---->
                     <li
                       class="row svelte-ngcjq5"
                       data-tree-id="[1,0,1,0,0]"
@@ -10379,7 +9852,7 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                         data-type="undefined"
                         role="presentation"
                       >
-                        
+                        undefined
                         <!---->
                       </div>
                        
@@ -10402,8 +9875,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                       </div>
                     </li>
                      
-                    <!---->
-                    
                     <!---->
                     <li
                       class="row svelte-ngcjq5"
@@ -10423,7 +9894,7 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                         data-type="null"
                         role="presentation"
                       >
-                        
+                        null
                         <!---->
                       </div>
                        
@@ -10448,11 +9919,8 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                      
                     <!---->
                     
-                    
                   </ul>
                 </li>
-                <!---->
-                
                 <!---->
                 <li
                   class="row svelte-ngcjq5"
@@ -10506,7 +9974,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                   <ul
                     class="svelte-ngcjq5"
                   >
-                    <!---->
                     <li
                       class="row svelte-ngcjq5"
                       data-tree-id="[1,0,1,1,0]"
@@ -10559,7 +10026,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                       <ul
                         class="svelte-ngcjq5"
                       >
-                        <!---->
                         <li
                           class="row svelte-ngcjq5"
                           data-tree-id="[1,0,1,1,0,0]"
@@ -10578,7 +10044,7 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                             data-type="number"
                             role="presentation"
                           >
-                            0
+                            number
                             <!---->
                           </div>
                            
@@ -10601,8 +10067,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                           </div>
                         </li>
                          
-                        <!---->
-                        
                         <!---->
                         <li
                           class="row svelte-ngcjq5"
@@ -10645,8 +10109,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                           </div>
                         </li>
                          
-                        <!---->
-                        
                         <!---->
                         <li
                           class="row svelte-ngcjq5"
@@ -10691,11 +10153,8 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                          
                         <!---->
                         
-                        
                       </ul>
                     </li>
-                    <!---->
-                    
                     <!---->
                     <li
                       class="row svelte-ngcjq5"
@@ -10742,11 +10201,8 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                      
                     <!---->
                     
-                    
                   </ul>
                 </li>
-                <!---->
-                
                 <!---->
                 <li
                   class="row svelte-ngcjq5"
@@ -10791,16 +10247,12 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                  
                 <!---->
                 
-                
               </ul>
             </li>
             <!---->
             
-            
           </ul>
         </li>
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -10854,7 +10306,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
           <ul
             class="svelte-ngcjq5"
           >
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[1,1,0]"
@@ -10907,7 +10358,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
               <ul
                 class="svelte-ngcjq5"
               >
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[1,1,0,0]"
@@ -10950,8 +10400,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                 </li>
                  
                 <!---->
-                
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[1,1,0,1]"
@@ -10993,8 +10441,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                   </div>
                 </li>
                  
-                <!---->
-                
                 <!---->
                 <li
                   class="row svelte-ngcjq5"
@@ -11039,11 +10485,8 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                  
                 <!---->
                 
-                
               </ul>
             </li>
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -11097,7 +10540,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
               <ul
                 class="svelte-ngcjq5"
               >
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[1,1,1,0]"
@@ -11150,7 +10592,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                   <ul
                     class="svelte-ngcjq5"
                   >
-                    <!---->
                     <li
                       class="row svelte-ngcjq5"
                       data-tree-id="[1,1,1,0,0]"
@@ -11192,8 +10633,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                       </div>
                     </li>
                      
-                    <!---->
-                    
                     <!---->
                     <li
                       class="row svelte-ngcjq5"
@@ -11238,11 +10677,8 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                      
                     <!---->
                     
-                    
                   </ul>
                 </li>
-                <!---->
-                
                 <!---->
                 <li
                   class="row svelte-ngcjq5"
@@ -11296,7 +10732,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                   <ul
                     class="svelte-ngcjq5"
                   >
-                    <!---->
                     <li
                       class="row svelte-ngcjq5"
                       data-tree-id="[1,1,1,1,0]"
@@ -11338,8 +10773,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                       </div>
                     </li>
                      
-                    <!---->
-                    
                     <!---->
                     <li
                       class="row svelte-ngcjq5"
@@ -11384,11 +10817,8 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                      
                     <!---->
                     
-                    
                   </ul>
                 </li>
-                <!---->
-                
                 <!---->
                 <li
                   class="row svelte-ngcjq5"
@@ -11433,16 +10863,12 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                  
                 <!---->
                 
-                
               </ul>
             </li>
             <!---->
             
-            
           </ul>
         </li>
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -11496,7 +10922,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
           <ul
             class="svelte-ngcjq5"
           >
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[1,2,0]"
@@ -11538,8 +10963,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
               </div>
             </li>
              
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -11593,7 +11016,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
               <ul
                 class="svelte-ngcjq5"
               >
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[1,2,1,0]"
@@ -11636,8 +11058,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                 </li>
                  
                 <!---->
-                
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[1,2,1,1]"
@@ -11679,8 +11099,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                   </div>
                 </li>
                  
-                <!---->
-                
                 <!---->
                 <li
                   class="row svelte-ngcjq5"
@@ -11725,16 +11143,13 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                  
                 <!---->
                 
-                
               </ul>
             </li>
             <!---->
             
-            
           </ul>
         </li>
         <!---->
-        
         
       </ul>
     </li>
@@ -11791,7 +11206,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
       <ul
         class="svelte-ngcjq5"
       >
-        <!---->
         <li
           class="row svelte-ngcjq5"
           data-tree-id="[2,0]"
@@ -11844,7 +11258,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
           <ul
             class="svelte-ngcjq5"
           >
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[2,0,0]"
@@ -11886,8 +11299,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
               </div>
             </li>
              
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -11941,7 +11352,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
               <ul
                 class="svelte-ngcjq5"
               >
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[2,0,1,0]"
@@ -11984,8 +11394,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                 </li>
                  
                 <!---->
-                
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[2,0,1,1]"
@@ -12027,8 +11435,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                   </div>
                 </li>
                  
-                <!---->
-                
                 <!---->
                 <li
                   class="row svelte-ngcjq5"
@@ -12073,16 +11479,12 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                  
                 <!---->
                 
-                
               </ul>
             </li>
             <!---->
             
-            
           </ul>
         </li>
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -12136,7 +11538,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
           <ul
             class="svelte-ngcjq5"
           >
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[2,1,0]"
@@ -12178,8 +11579,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
               </div>
             </li>
              
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -12233,7 +11632,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
               <ul
                 class="svelte-ngcjq5"
               >
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[2,1,1,0]"
@@ -12276,8 +11674,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                 </li>
                  
                 <!---->
-                
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[2,1,1,1]"
@@ -12319,8 +11715,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                   </div>
                 </li>
                  
-                <!---->
-                
                 <!---->
                 <li
                   class="row svelte-ngcjq5"
@@ -12365,16 +11759,12 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                  
                 <!---->
                 
-                
               </ul>
             </li>
             <!---->
             
-            
           </ul>
         </li>
-        <!---->
-        
         <!---->
         <li
           class="row svelte-ngcjq5"
@@ -12428,7 +11818,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
           <ul
             class="svelte-ngcjq5"
           >
-            <!---->
             <li
               class="row svelte-ngcjq5"
               data-tree-id="[2,2,0]"
@@ -12470,8 +11859,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
               </div>
             </li>
              
-            <!---->
-            
             <!---->
             <li
               class="row svelte-ngcjq5"
@@ -12525,7 +11912,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
               <ul
                 class="svelte-ngcjq5"
               >
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[2,2,1,0]"
@@ -12568,8 +11954,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                 </li>
                  
                 <!---->
-                
-                <!---->
                 <li
                   class="row svelte-ngcjq5"
                   data-tree-id="[2,2,1,1]"
@@ -12611,8 +11995,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                   </div>
                 </li>
                  
-                <!---->
-                
                 <!---->
                 <li
                   class="row svelte-ngcjq5"
@@ -12657,16 +12039,13 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                  
                 <!---->
                 
-                
               </ul>
             </li>
             <!---->
             
-            
           </ul>
         </li>
         <!---->
-        
         
       </ul>
     </li>
