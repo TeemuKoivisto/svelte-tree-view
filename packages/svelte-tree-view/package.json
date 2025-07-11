@@ -9,11 +9,11 @@
   "module": "./dist/index.js",
   "svelte": "./pkg/index.js",
   "type": "module",
-  "types": "./pkg/types.d.ts",
+  "types": "./pkg/index.d.ts",
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "types": "./pkg/types.d.ts",
+      "types": "./pkg/index.d.ts",
       "svelte": "./pkg/index.js",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
@@ -30,7 +30,7 @@
     "postpublish": "rm README.md LICENSE",
     "svelte-check": "svelte-check",
     "test": "pnpm test:unit && pnpm test:e2e",
-    "test:unit": "vitest run src",
+    "test:unit": "vitest run src -u",
     "test:e2e": "cypress run --browser=chrome --config baseUrl=http://localhost:5185",
     "cy": "cypress"
   },

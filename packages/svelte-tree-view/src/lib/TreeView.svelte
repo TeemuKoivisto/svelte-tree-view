@@ -5,11 +5,8 @@
   import TreeViewNode from './TreeViewNode.svelte'
   import { createPropsStore, createRootElementStore, createTreeStore } from './stores'
 
-  import type { HTMLAttributes } from 'svelte/elements'
   import type { Stores } from './stores'
-  import type { TreeViewProps } from './types'
-
-  type Props = TreeViewProps & HTMLAttributes<HTMLElement>
+  import type { Props, TreeViewProps } from './types'
 
   const DEFAULT_RECURSION_OPTS = {
     maxDepth: 16,
@@ -20,22 +17,22 @@
 
   let {
     data,
+    customNode,
     theme,
     showLogButton,
     showCopyButton,
-    valueComponent,
     recursionOpts,
     valueFormatter,
     ...rest
   }: Props = $props()
 
   let propsObj: Omit<TreeViewProps, 'data'> = {
+    customNode,
+    theme,
     showLogButton,
     showCopyButton,
-    valueComponent,
     recursionOpts: { ...DEFAULT_RECURSION_OPTS, ...recursionOpts },
-    valueFormatter,
-    restProps: rest
+    valueFormatter
   }
   let rootElement: HTMLElement
   const propsStore = createPropsStore(propsObj)
@@ -59,12 +56,11 @@
     // which is picked from the old props. This is to allow checking between the old and new recursionOpts
     // in the recomputeTree.
     propsObj = {
+      customNode,
       showLogButton,
       showCopyButton,
-      valueComponent,
       recursionOpts: propsObj.recursionOpts,
-      valueFormatter,
-      restProps: rest
+      valueFormatter
     }
     propsStore.setProps(propsObj)
   })

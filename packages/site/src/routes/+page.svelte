@@ -1,6 +1,6 @@
 <script lang="ts">
   import { base } from '$app/paths'
-  import TreeView, { type Base16Theme } from 'svelte-tree-view'
+  import TreeView, { DefaultNode, type Base16Theme } from 'svelte-tree-view'
   import PropsForm from '../components/PropsForm.svelte'
   import DiffValue from '../components/DiffValue.svelte'
 
@@ -130,11 +130,18 @@
       data={$parsedData}
       showLogButton={$state.showLogButton}
       showCopyButton={$state.showCopyButton}
-      valueComponent={$state.valueComponent}
       recursionOpts={$parsedRecursionOpts}
       valueFormatter={$parsedValueFormatter}
       theme={$parsedTheme}
-    />
+    >
+      {#snippet customNode(props)}
+        {#if $state.valueComponent}
+          <DiffValue {...props} />
+        {:else}
+          <DefaultNode {...props} />
+        {/if}
+      {/snippet}
+    </TreeView>
   </div>
 </section>
 

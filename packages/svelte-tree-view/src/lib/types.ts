@@ -1,6 +1,5 @@
-import { getContext, SvelteComponent, type Component, type Snippet } from 'svelte'
+import { type Component, type Snippet } from 'svelte'
 import type { HTMLAttributes } from 'svelte/elements'
-import type { Writable } from 'svelte/store'
 import type { Stores } from './stores'
 
 export type ValueType =
@@ -118,20 +117,19 @@ export interface Base16Theme {
 
 export interface NodeProps<T = any> {
   node: TreeNode<T>
-  getCtx: () => ReturnType<typeof getContext<Stores>>
-  // propsObj: Writable<Omit<TreeViewProps<T>, 'data' | 'node'>>
-  children: Snippet<[{ id: string }]>
+  TreeViewNode: Component<{ id: string }>
+  getCtx: () => ReturnType<() => Stores>
   handleLogNode(): void
   handleCopyNodeToClipboard(): void
   handleToggleCollapse(): void
 }
 
-export interface TreeViewProps<T = any> extends HTMLAttributes<HTMLUListElement> {
+export interface TreeViewProps<T = any> {
   /**
    * Data can be basically any non-primitive value
    */
   data: unknown
-  node?: Snippet<[]>
+  customNode?: Snippet<[NodeProps<T>]>
   theme?: Base16Theme
   showLogButton?: boolean
   showCopyButton?: boolean
@@ -181,6 +179,7 @@ export interface TreeRecursionOpts<T = any> {
   mapChildren?: (val: any, type: ValueType, parent: TreeNode<T>) => [string, any][] | undefined
 }
 
+export type Props = TreeViewProps & HTMLAttributes<HTMLUListElement>
 // export type TreeView = Component<TreeViewProps>
-export class TreeView extends SvelteComponent<TreeViewProps> {}
-export default TreeView
+// export class TreeView extends SvelteComponent<Props> {}
+// export default TreeView

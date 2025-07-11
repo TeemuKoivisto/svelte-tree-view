@@ -4,5 +4,7 @@ declare global {
   }
 }
 
+export * from './types'
+export { default as DefaultNode } from './DefaultNode.svelte'
 export { default as TreeView } from './TreeView.svelte'
 export { default } from './TreeView.svelte'

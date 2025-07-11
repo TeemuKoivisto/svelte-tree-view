@@ -3,7 +3,7 @@
 
   let {
     node,
-    children,
+    TreeViewNode,
     getCtx,
     handleLogNode,
     handleCopyNodeToClipboard,
@@ -53,7 +53,7 @@
   <li class="row">
     <ul>
       {#each node.children as child}
-        {@render children({ id: child.id })}
+        <TreeViewNode id={child.id} />
       {/each}
     </ul>
   </li>
