@@ -167,7 +167,13 @@ export interface TreeViewProps<T = any> {
    * Data can be basically any non-primitive value
    */
   data: unknown
+  /**
+   * Custom root node. Default <ul> with .svelte-tree-view class
+   */
   rootNode?: Snippet<[Snippet]>
+  /**
+   * Custom tree node. Uses DefaultNode.svelte by default
+   */
   treeNode?: Snippet<[NodeProps<T>]>
   theme?: Base16Theme
   showLogButton?: boolean

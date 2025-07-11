@@ -131,8 +131,8 @@ export function recurseObjectProperties(
   depth: number,
   ensureNotCollapsed: boolean,
   parent: TreeNode | null,
-  treeMap: Map<string, TreeNode>,
-  oldTreeMap: Map<string, TreeNode>,
+  treeMap: Record<string, TreeNode>,
+  oldTreeMap: Record<string, TreeNode>,
   iteratedValues: Map<any, TreeNode>,
   recomputeExpandNode: boolean,
   opts: TreeRecursionOpts
@@ -141,7 +141,7 @@ export function recurseObjectProperties(
     return null
   }
   const node = createNode(index, key, value, depth, parent)
-  const oldNode = oldTreeMap.get(node.id)
+  const oldNode = oldTreeMap[node.id]
   if (ensureNotCollapsed) {
     // Used to ensure that either root node is always uncollapsed or when uncollapsing new nodes
     // with expandNodeChildren the node children are recursed (if applicable) with mapChildren
@@ -154,7 +154,7 @@ export function recurseObjectProperties(
     node.collapsed = !opts.shouldExpandNode(node)
   }
 
-  treeMap.set(node.id, node)
+  treeMap[node.id] = node
 
   if (shouldRecurseChildren(node, parent, iteratedValues, opts)) {
     const mappedChildren = opts.mapChildren && opts.mapChildren(value, getValueType(value), node)
@@ -183,11 +183,11 @@ export function recurseObjectProperties(
 
 export function recomputeTree(
   data: unknown,
-  oldTreeMap: Map<string, TreeNode>,
+  oldTreeMap: Record<string, TreeNode>,
   recursionOpts: TreeRecursionOpts,
   recomputeExpandNode: boolean
 ) {
-  const treeMap = new Map<string, TreeNode>()
+  const treeMap = {}
   const iteratedValues = new Map<any, TreeNode>()
   const newTree = recurseObjectProperties(
     -1,
