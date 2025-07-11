@@ -4,13 +4,14 @@
   let {
     node,
     TreeViewNode,
-    getCtx,
+    getTreeContext,
     handleLogNode,
     handleCopyNodeToClipboard,
     handleToggleCollapse
   }: NodeProps = $props()
-  const { treeStore, propsStore, rootElementStore } = getCtx()
-  const { props: propsObj } = propsStore
+  const {
+    propsStore: { props: propsObj }
+  } = getTreeContext()
   let hasChildren = $derived(node && node.children.length > 0)
   let descend = $derived(!node.collapsed && hasChildren)
 </script>

@@ -151,15 +151,17 @@ export interface TreeRecursionOpts<T = any> {
   mapChildren?: (val: any, type: ValueType, parent: TreeNode<T>) => [string, any][] | undefined
 }
 
+/** Props passed to renderable TreeNodes */
 export interface NodeProps<T = any> {
   node: TreeNode<T>
   TreeViewNode: Component<{ id: string }>
-  getCtx: () => ReturnType<() => Stores>
+  getTreeContext: () => Stores
   handleLogNode(): void
   handleCopyNodeToClipboard(): void
   handleToggleCollapse(): void
 }
 
+/** Props passed to the main component */
 export interface TreeViewProps<T = any> {
   /**
    * Data can be basically any non-primitive value

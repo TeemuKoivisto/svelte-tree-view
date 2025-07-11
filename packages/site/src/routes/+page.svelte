@@ -157,5 +157,11 @@
     background: var(--tree-view-base00);
     font-family: var(--tree-view-font-family);
     font-size: var(--tree-view-font-size);
+
+    --tree-view-font-family: 'Helvetica Neue', 'Calibri Light', Roboto, sans-serif;
+    --tree-view-font-size: 13px;
+    --tree-view-left-indent: 0.875em;
+    --tree-view-line-height: 1.1;
+    --tree-view-key-margin-right: 0.5em;
   }
 </style>

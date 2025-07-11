@@ -20,7 +20,7 @@
   let hasChildren = $derived(node && node.children.length > 0)
   let nodeProps = $derived({
     node,
-    getCtx: () => getContext<Stores>('svelte-tree-view'),
+    getTreeContext: () => getContext<Stores>('svelte-tree-view'),
     TreeViewNode: TreeViewNode,
     handleLogNode() {
       console.info('%c [svelte-tree-view]: Property added to window._node', 'color: #b8e248')

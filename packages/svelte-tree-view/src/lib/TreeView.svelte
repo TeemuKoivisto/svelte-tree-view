@@ -105,13 +105,6 @@
 {/if}
 
 <style>
-  :root {
-    --tree-view-font-family: 'Helvetica Neue', 'Calibri Light', Roboto, sans-serif;
-    --tree-view-font-size: 13px;
-    --tree-view-left-indent: 0.875em;
-    --tree-view-line-height: 1.1;
-    --tree-view-key-margin-right: 0.5em;
-  }
   ul.svelte-tree-view {
     background: var(--tree-view-base00);
     font-family: var(--tree-view-font-family);
@@ -121,5 +114,11 @@
     margin: 0;
     padding: 0;
     width: max-content;
+
+    --tree-view-font-family: 'Helvetica Neue', 'Calibri Light', Roboto, sans-serif;
+    --tree-view-font-size: 13px;
+    --tree-view-left-indent: 0.875em;
+    --tree-view-line-height: 1.1;
+    --tree-view-key-margin-right: 0.5em;
   }
 </style>
