@@ -134,7 +134,12 @@
       valueFormatter={$parsedValueFormatter}
       theme={$parsedTheme}
     >
-      {#snippet customNode(props)}
+      {#snippet rootNode(children)}
+        <ul class="svelte-tree-view w-1/2 px-4">
+          {@render children()}
+        </ul>
+      {/snippet}
+      {#snippet treeNode(props)}
         {#if $state.valueComponent}
           <DiffValue {...props} />
         {:else}
@@ -148,7 +153,9 @@
 <style lang="postcss">
   @reference "#app.css";
 
-  .tree-wrapper > :global(.svelte-tree-view) {
-    @apply w-1/2 px-4;
+  .svelte-tree-view {
+    background: var(--tree-view-base00);
+    font-family: var(--tree-view-font-family);
+    font-size: var(--tree-view-font-size);
   }
 </style>

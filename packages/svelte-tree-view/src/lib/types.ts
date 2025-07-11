@@ -115,34 +115,6 @@ export interface Base16Theme {
   base0F: string
 }
 
-export interface NodeProps<T = any> {
-  node: TreeNode<T>
-  TreeViewNode: Component<{ id: string }>
-  getCtx: () => ReturnType<() => Stores>
-  handleLogNode(): void
-  handleCopyNodeToClipboard(): void
-  handleToggleCollapse(): void
-}
-
-export interface TreeViewProps<T = any> {
-  /**
-   * Data can be basically any non-primitive value
-   */
-  data: unknown
-  customNode?: Snippet<[NodeProps<T>]>
-  theme?: Base16Theme
-  showLogButton?: boolean
-  showCopyButton?: boolean
-  recursionOpts?: TreeRecursionOpts<T>
-  /**
-   * For custom formatting of the value string. Returning undefined will pass the value to the default formatter
-   * @param val
-   * @param n
-   * @returns
-   */
-  valueFormatter?: (val: any, n: TreeNode<T>) => string | undefined
-}
-
 export interface TreeRecursionOpts<T = any> {
   /**
    * Default maxDepth is 16
@@ -179,7 +151,33 @@ export interface TreeRecursionOpts<T = any> {
   mapChildren?: (val: any, type: ValueType, parent: TreeNode<T>) => [string, any][] | undefined
 }
 
+export interface NodeProps<T = any> {
+  node: TreeNode<T>
+  TreeViewNode: Component<{ id: string }>
+  getCtx: () => ReturnType<() => Stores>
+  handleLogNode(): void
+  handleCopyNodeToClipboard(): void
+  handleToggleCollapse(): void
+}
+
+export interface TreeViewProps<T = any> {
+  /**
+   * Data can be basically any non-primitive value
+   */
+  data: unknown
+  rootNode?: Snippet<[Snippet]>
+  treeNode?: Snippet<[NodeProps<T>]>
+  theme?: Base16Theme
+  showLogButton?: boolean
+  showCopyButton?: boolean
+  recursionOpts?: TreeRecursionOpts<T>
+  /**
+   * For custom formatting of the value string. Returning undefined will pass the value to the default formatter
+   * @param val
+   * @param n
+   * @returns
+   */
+  valueFormatter?: (val: any, n: TreeNode<T>) => string | undefined
+}
+
 export type Props = TreeViewProps & HTMLAttributes<HTMLUListElement>
-// export type TreeView = Component<TreeViewProps>
-// export class TreeView extends SvelteComponent<Props> {}
-// export default TreeView

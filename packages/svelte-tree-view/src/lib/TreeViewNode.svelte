@@ -60,8 +60,8 @@
   })
 </script>
 
-{#if $propsObj.customNode}
-  {@render $propsObj.customNode(nodeProps)}
+{#if $propsObj.treeNode}
+  {@render $propsObj.treeNode(nodeProps)}
 {:else}
   <DefaultNode {...nodeProps} />
 {/if}

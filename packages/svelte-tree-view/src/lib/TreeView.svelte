@@ -17,7 +17,8 @@
 
   let {
     data,
-    customNode,
+    rootNode,
+    treeNode,
     theme,
     showLogButton,
     showCopyButton,
@@ -27,7 +28,7 @@
   }: Props = $props()
 
   let propsObj: Omit<TreeViewProps, 'data'> = {
-    customNode,
+    treeNode,
     theme,
     showLogButton,
     showCopyButton,
@@ -39,7 +40,7 @@
   const rootElementStore = createRootElementStore()
   const treeStore = createTreeStore(propsStore)
   const newRecOpts = $derived({ ...DEFAULT_RECURSION_OPTS, ...recursionOpts })
-  const rootNode = treeStore.tree
+  const tree = treeStore.tree
 
   setContext<Stores>('svelte-tree-view', {
     propsStore,
@@ -56,7 +57,7 @@
     // which is picked from the old props. This is to allow checking between the old and new recursionOpts
     // in the recomputeTree.
     propsObj = {
-      customNode,
+      treeNode,
       showLogButton,
       showCopyButton,
       recursionOpts: propsObj.recursionOpts,
@@ -89,11 +90,19 @@
   })
 </script>
 
-<ul {...rest} class={`${rest.class || ''} svelte-tree-view`} bind:this={rootElement}>
-  {#each $rootNode.children as child}
+{#snippet children()}
+  {#each $tree.children as child}
     <TreeViewNode id={child.id} />
   {/each}
-</ul>
+{/snippet}
+
+{#if rootNode}
+  {@render rootNode(children)}
+{:else}
+  <ul {...rest} class={`${rest.class || ''} svelte-tree-view`} bind:this={rootElement}>
+    {@render children()}
+  </ul>
+{/if}
 
 <style>
   :root {
@@ -103,7 +112,7 @@
     --tree-view-line-height: 1.1;
     --tree-view-key-margin-right: 0.5em;
   }
-  ul {
+  ul.svelte-tree-view {
     background: var(--tree-view-base00);
     font-family: var(--tree-view-font-family);
     font-size: var(--tree-view-font-size);

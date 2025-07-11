@@ -12,7 +12,7 @@
   const {
     propsStore: { props: propsObj, formatValue }
   } = getCtx()
-  let hasChildren = $derived(node && node.children.length > 0)
+  let hasChildren = $derived(node.children.length > 0)
   let descend = $derived(!node.collapsed && hasChildren)
   let value = $derived(node.value)
 
