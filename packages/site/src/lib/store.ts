@@ -1,5 +1,8 @@
 import { writable } from 'svelte/store'
+import type { TreeRecursionOpts } from 'svelte-tree-view'
+
 import * as parser from './parser'
+
 import example1 from './example1.json'
 
 export interface FormState {
@@ -11,7 +14,6 @@ export interface FormState {
   keyMarginRight: string
   showLogButton: boolean
   showCopyButton: boolean
-  valueComponent: any
   recursionOpts: string
   valueFormatter: string
   theme: string
@@ -26,7 +28,6 @@ export const DEFAULT_STATE: FormState = {
   keyMarginRight: '0.5em',
   showLogButton: false,
   showCopyButton: false,
-  valueComponent: undefined,
   recursionOpts: `{
   maxDepth: 16,
   omitKeys: [],
@@ -124,7 +125,7 @@ const testNode = {
 
 export const state = writable(DEFAULT_STATE)
 export const parsedData = writable<any>(example1)
-export const parsedRecursionOpts = writable(
+export const parsedRecursionOpts = writable<TreeRecursionOpts>(
   parser.parseRecursionOpts(DEFAULT_STATE.recursionOpts, testNode)
 )
 export const parsedValueFormatter = writable(
@@ -137,13 +138,13 @@ export function update<K extends keyof FormState>(key: K, val: FormState[K]) {
     o[key] = val
     return o
   })
-  if (key === 'data') {
+  if (key === 'data' && typeof val === 'string') {
     parsedData.update(old => parser.parseData(val) ?? old)
-  } else if (key === 'recursionOpts') {
+  } else if (key === 'recursionOpts' && typeof val === 'string') {
     parsedRecursionOpts.update(old => parser.parseRecursionOpts(val, testNode) ?? old)
-  } else if (key === 'valueFormatter') {
+  } else if (key === 'valueFormatter' && typeof val === 'string') {
     parsedValueFormatter.update(old => parser.parseValueFormatter(val, testNode) ?? old)
-  } else if (key === 'theme') {
+  } else if (key === 'theme' && typeof val === 'string') {
     parsedTheme.update(old => parser.parseTheme(val) ?? old)
   }
 }

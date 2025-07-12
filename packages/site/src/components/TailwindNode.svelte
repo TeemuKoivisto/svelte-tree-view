@@ -129,7 +129,7 @@
     {/if}
 
     <!-- Node content -->
-    <div
+    <button
       class="node-content"
       class:clickable={hasChildren}
       onclick={hasChildren ? handleToggleCollapse : undefined}
@@ -141,18 +141,24 @@
 
       <!-- Value section -->
       <div class="node-value-section">
-        <div class="node-value" class:clickable={hasChildren} data-type={node.type}>
-          <span class={getTypeClasses()}>
-            {getDisplayValue()}
-          </span>
+        <div
+          class={`node-value ${getTypeClasses()}`}
+          class:clickable={hasChildren}
+          data-type={node.type}
+        >
+          {getDisplayValue()}
         </div>
       </div>
-    </div>
+    </button>
 
     <!-- Action buttons -->
     <div class="action-buttons">
       {#if $propsObj.showLogButton}
-        <button class="action-button log-button" onclick={handleLogNode} title="Log to console">
+        <button
+          class="action-button log-button"
+          onclick={handleLogNode}
+          aria-label="Log to console"
+        >
           <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               stroke-linecap="round"
@@ -167,7 +173,7 @@
         <button
           class="action-button copy-button"
           onclick={handleCopyNodeToClipboard}
-          title="Copy to clipboard"
+          aria-label="Copy to clipboard"
         >
           <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
@@ -182,7 +188,6 @@
     </div>
   </div>
 
-  <!-- Children container -->
   {#if descend}
     <div class="children-container">
       {#each node.children as child}
@@ -228,7 +233,7 @@
   }
 
   .node-content {
-    @apply min-w-0 flex-1;
+    @apply flex min-w-0 flex-1 gap-2;
   }
 
   .node-content.clickable {
@@ -248,7 +253,7 @@
   }
 
   .node-value {
-    @apply break-words;
+    @apply flex break-words;
   }
 
   .node-value.clickable {

@@ -149,10 +149,22 @@ a:hover {
   color: var(--tree-view-base0F);
 }
 
+.btn-sm {
+  background-color: var(--tree-view-base01);
+  color: var(--tree-view-base0A);
+  @apply rounded px-1 py-0.5 text-sm tracking-wide transition-colors duration-100;
+
+  &:hover {
+    background-color: var(--tree-view-base02);
+  }
+  &:focus {
+    @apply shadow outline-none;
+  }
+}
+
 .btn {
   background-color: var(--tree-view-base01);
   color: var(--tree-view-base0A);
-
   @apply rounded px-4 py-2 text-base tracking-wide transition-colors duration-100;
 }
 .btn:hover {

@@ -1,10 +1,25 @@
 <script lang="ts">
+  import { onMount } from 'svelte'
   import { TreeView } from 'svelte-tree-view'
   import TailwindNode from '$components/TailwindNode.svelte'
 
+  import {
+    state,
+    parsedData,
+    parsedRecursionOpts,
+    parsedTheme,
+    parsedValueFormatter,
+    update
+  } from '$lib/store'
+
+  onMount(() => {
+    // parsedData.set(example2)
+    parsedRecursionOpts.set({
+      shouldExpandNode: () => true
+    })
+  })
+
   let selectedExample = 'example1'
-  let showLogButton = true
-  let showCopyButton = true
 
   // Create custom examples that better showcase the truncated preview
   const customExamples = {
@@ -83,19 +98,7 @@
   $: currentData = examples[selectedExample as keyof typeof examples]
 </script>
 
-<div class="tailwind-demo">
-  <div class="demo-header">
-    <h2 class="mb-4 text-2xl font-bold text-gray-800 dark:text-gray-200">
-      Tailwind CSS Tree Node Demo
-    </h2>
-    <p class="mb-6 text-gray-600 dark:text-gray-400">
-      A modern, card-based tree view component using Tailwind CSS with truncated preview
-      functionality.
-      <br />
-      <strong>Try expanding/collapsing nodes to see the truncated preview in action!</strong>
-    </p>
-  </div>
-
+<div class="flex flex-col">
   <div class="demo-controls">
     <div class="control-group">
       <label class="control-label">Example Data:</label>
@@ -105,30 +108,21 @@
         <option value="example3">Mixed Data - Various data types</option>
       </select>
     </div>
-
-    <div class="control-group">
-      <label class="control-label">Features:</label>
-      <div class="checkbox-group">
-        <label class="checkbox-item">
-          <input type="checkbox" bind:checked={showLogButton} />
-          <span>Show Log Button</span>
-        </label>
-        <label class="checkbox-item">
-          <input type="checkbox" bind:checked={showCopyButton} />
-          <span>Show Copy Button</span>
-        </label>
-      </div>
-    </div>
   </div>
 
-  <div class="demo-content">
-    <div class="tree-container">
-      <TreeView data={currentData} {showLogButton} {showCopyButton} class="tailwind-tree-view">
-        {#snippet treeNode(props)}
-          <TailwindNode {...props} />
-        {/snippet}
-      </TreeView>
-    </div>
+  <div class="p-4">
+    <TreeView
+      data={currentData}
+      showLogButton={$state.showLogButton}
+      showCopyButton={$state.showCopyButton}
+      recursionOpts={$parsedRecursionOpts}
+      valueFormatter={$parsedValueFormatter}
+      theme={$parsedTheme}
+    >
+      {#snippet treeNode(props)}
+        <TailwindNode {...props} />
+      {/snippet}
+    </TreeView>
   </div>
 
   <div class="demo-info">
@@ -154,14 +148,6 @@
 <style lang="postcss">
   @reference "#app.css";
 
-  .tailwind-demo {
-    @apply mx-auto max-w-4xl p-6;
-  }
-
-  .demo-header {
-    @apply mb-8;
-  }
-
   .demo-controls {
     @apply mb-6 rounded-lg border border-gray-200 bg-gray-100 p-4 dark:border-gray-700 dark:bg-gray-800;
   }
@@ -178,48 +164,7 @@
     @apply w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 dark:focus:border-blue-400 dark:focus:ring-blue-400;
   }
 
-  .checkbox-group {
-    @apply flex flex-wrap gap-4;
-  }
-
-  .checkbox-item {
-    @apply flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300;
-  }
-
-  .checkbox-item input[type='checkbox'] {
-    @apply h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600;
-  }
-
-  .demo-content {
-    @apply overflow-hidden rounded-lg border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900;
-  }
-
-  .tree-container {
-    @apply p-4;
-  }
-
-  .tailwind-tree-view {
-    @apply space-y-1;
-  }
-
   .demo-info {
     @apply mt-6 rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800;
-  }
-
-  /* Custom scrollbar for the tree container */
-  .tree-container::-webkit-scrollbar {
-    @apply w-2;
-  }
-
-  .tree-container::-webkit-scrollbar-track {
-    @apply bg-gray-100 dark:bg-gray-800;
-  }
-
-  .tree-container::-webkit-scrollbar-thumb {
-    @apply rounded bg-gray-300 dark:bg-gray-600;
-  }
-
-  .tree-container::-webkit-scrollbar-thumb:hover {
-    @apply bg-gray-400 dark:bg-gray-500;
   }
 </style>
