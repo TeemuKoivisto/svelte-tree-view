@@ -3,8 +3,8 @@
   import TreeView, { DefaultNode } from 'svelte-tree-view'
   import DiffValue from '$components/DiffValue.svelte'
 
-  import example1 from '$lib/example1.json'
   import { mapDocDeltaChildren } from '$lib/mapDocDeltaChildren'
+  import { generateObj } from '$lib/generateObj'
   import {
     state,
     parsedData,
@@ -15,11 +15,14 @@
   } from '$lib/store'
 
   onMount(() => {
-    parsedData.set(example1)
+    parsedData.set(generateObj(0, 4))
     update('valueComponent', undefined)
     parsedRecursionOpts.update(v => {
-      if (v?.mapChildren === mapDocDeltaChildren) {
+      if (v && v.mapChildren === mapDocDeltaChildren) {
         v.mapChildren = undefined
+      }
+      if (v) {
+        v.stopCircularRecursion = true
       }
       return v
     })

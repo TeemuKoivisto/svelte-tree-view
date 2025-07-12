@@ -1,5 +1,5 @@
 <script lang="ts">
-  import TailwindNodeDemo from '../../components/TailwindNodeDemo.svelte'
+  import TailwindNodeDemo from '$components/TailwindNodeDemo.svelte'
 </script>
 
 <svelte:head>

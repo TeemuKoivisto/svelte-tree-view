@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { state, update } from '../utils/store'
+  import { state, update } from '$lib/store'
 </script>
 
 <fieldset class="container-sm flex flex-col border-2 p-2 text-sm">
