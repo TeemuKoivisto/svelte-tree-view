@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { base } from '$app/paths'
   import type { Base16Theme } from 'svelte-tree-view'
 
   import DataSelector from '$components/DataSelector.svelte'
@@ -55,27 +56,31 @@
     <PropsForm />
     <DataSelector />
     <div class="my-4">
-      <a class="btn" data-test-id="btn-1" href="/" data-sveltekit-keepfocus data-sveltekit-noscroll
-        >(1) Basic</a
+      <a
+        class="btn"
+        data-test-id="btn-1"
+        href="{base}/"
+        data-sveltekit-keepfocus
+        data-sveltekit-noscroll>(1) Basic</a
       >
       <a
         class="btn ml-2"
         data-test-id="btn-2"
-        href="/diff"
+        href="{base}/diff"
         data-sveltekit-keepfocus
         data-sveltekit-noscroll>(2) Diff</a
       >
       <a
         class="btn ml-2"
         data-test-id="btn-3"
-        href="/circular"
+        href="{base}/circular"
         data-sveltekit-keepfocus
         data-sveltekit-noscroll>(3) Circular</a
       >
       <a
         class="btn ml-2"
         data-test-id="btn-3"
-        href="/tailwind"
+        href="{base}/tailwind"
         data-sveltekit-keepfocus
         data-sveltekit-noscroll>(4) Tailwind</a
       >
