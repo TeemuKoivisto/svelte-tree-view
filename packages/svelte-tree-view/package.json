@@ -9,11 +9,11 @@
   "module": "./dist/index.js",
   "svelte": "./pkg/index.js",
   "type": "module",
-  "types": "./pkg/types.d.ts",
+  "types": "./pkg/index.d.ts",
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "types": "./pkg/types.d.ts",
+      "types": "./pkg/index.d.ts",
       "svelte": "./pkg/index.js",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
@@ -30,34 +30,30 @@
     "postpublish": "rm README.md LICENSE",
     "svelte-check": "svelte-check",
     "test": "pnpm test:unit && pnpm test:e2e",
-    "test:unit": "vitest run src",
+    "test:unit": "vitest run src -u",
     "test:e2e": "cypress run --browser=chrome --config baseUrl=http://localhost:5185",
     "cy": "cypress"
   },
   "devDependencies": {
-    "@sveltejs/kit": "^1.22.3",
-    "@sveltejs/package": "^2.2.0",
-    "@sveltejs/vite-plugin-svelte": "^2.4.2",
-    "@testing-library/cypress": "^9.0.0",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/svelte": "^4.0.3",
-    "@types/testing-library__jest-dom": "^5.14.8",
-    "cypress": "12.17.1",
-    "jsdom": "^22.1.0",
-    "postcss": "^8.4.26",
-    "sass": "^1.64.0",
-    "svelte": "^4.1.0",
-    "svelte-check": "^3.4.6",
-    "svelte-preprocess": "^5.0.4",
-    "svelte2tsx": "^0.6.19",
-    "tslib": "^2.6.0",
-    "typescript": "^5.1.6",
-    "vite": "^4.4.4",
-    "vitest": "^0.33.0"
+    "@sveltejs/kit": "^2.22.2",
+    "@sveltejs/package": "^2.3.12",
+    "@sveltejs/vite-plugin-svelte": "^5.1.0",
+    "@testing-library/cypress": "^10.0.3",
+    "@testing-library/svelte": "^5.2.8",
+    "@types/testing-library__jest-dom": "^5.14.9",
+    "cypress": "14.5.1",
+    "jsdom": "^26.1.0",
+    "postcss": "^8.5.6",
+    "sass": "^1.89.2",
+    "svelte": "^5.35.4",
+    "svelte-check": "^4.2.2",
+    "svelte-preprocess": "^6.0.3",
+    "svelte2tsx": "^0.7.40",
+    "vitest": "^3.2.4"
   },
   "dependencies": {},
   "peerDependencies": {
-    "svelte": ">=3"
+    "svelte": ">=5"
   },
   "files": [
     "pkg",

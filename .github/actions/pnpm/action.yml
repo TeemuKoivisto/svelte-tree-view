@@ -6,7 +6,7 @@ runs:
   steps:
     - name: Install pnpm
       shell: bash
-      run: npm i pnpm -g
+      run: npm i pnpm@9 -g
 
     - name: Setup pnpm config
       shell: bash

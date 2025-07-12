@@ -61,13 +61,13 @@ To override default styles I suggest using child or element selector to get enou
   <TreeView />
 </div>
 
-<style>
+<style lang="postcss">
   .wrapper > :global(.svelte-tree-view) {
-    ...;
+    /* ... */
   }
   /* OR */
   :global(ul.svelte-tree-view) {
-    ...;
+    /* ... */
   }
 </style>
 ```

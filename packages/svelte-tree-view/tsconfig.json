@@ -2,33 +2,24 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "./.svelte-kit/tsconfig.json",
   "compilerOptions": {
-    "moduleResolution": "node",
-    "module": "es2020",
-    "lib": ["es2020", "dom", "dom.iterable"],
-    "target": "es2019",
-    "types": ["svelte", "@testing-library/jest-dom", "cypress"],
-    /**
-			svelte-preprocess cannot figure out whether you have a value or a type, so tell TypeScript
-			to enforce using \`import type\` instead of \`import\` for Types.
-			*/
-    "importsNotUsedAsValues": "error",
     "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    "declaration": false,
+    "checkJs": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true,
-    "noEmit": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "strict": true,
-    /**
-			To have warnings/errors of the Svelte compiler at the correct position,
-			enable source maps by default.
-			*/
     "sourceMap": true,
-    "baseUrl": "."
+    "strict": true,
+    "moduleResolution": "bundler",
+    "lib": ["es2020", "dom", "dom.iterable"],
+    "target": "es2019",
+    "types": ["svelte", "cypress", "vitest/globals"]
   },
   "include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.svelte"],
   "exclude": ["**/__tests__"]
+  // Path aliases are handled by https://svelte.dev/docs/kit/configuration#alias
+  // except $lib which is handled by https://svelte.dev/docs/kit/configuration#files
+  //
+  // If you want to overwrite includes/excludes, make sure to copy over the relevant includes/excludes
+  // from the referenced tsconfig.json - TypeScript does not merge them in
 }

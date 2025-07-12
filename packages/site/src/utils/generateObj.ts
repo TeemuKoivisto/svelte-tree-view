@@ -38,10 +38,11 @@ function* valueGenerator() {
 const generator = valueGenerator()
 
 export function generateObj(depth: number, toDepth: number) {
-  let obj
   if (depth === toDepth) {
     return generator.next().value
-  } else if (depth === 0 || depth > 2) {
+  }
+  let obj: Record<any, any> | Map<string, any> | Set<any> | undefined
+  if (depth === 0 || depth > 2) {
     obj = {}
     obj[`${depth}-${keys[0]}`] = generateObj(depth + 1, toDepth)
     obj[`${depth}-${keys[1]}`] = generateObj(depth + 1, toDepth)
