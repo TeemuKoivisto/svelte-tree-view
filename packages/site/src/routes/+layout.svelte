@@ -58,10 +58,30 @@
     </div>
     <PropsForm />
     <div class="my-4">
-      <a class="btn" data-test-id="btn-1" href="/">(1) Basic</a>
-      <a class="btn ml-2" data-test-id="btn-2" href="/diff">(2) Diff</a>
-      <a class="btn ml-2" data-test-id="btn-3" href="/circular">(3) Circular</a>
-      <a class="btn ml-2" data-test-id="btn-3" href="/tailwind">(4) Custom Node</a>
+      <a class="btn" data-test-id="btn-1" href="/" data-sveltekit-keepfocus data-sveltekit-noscroll
+        >(1) Basic</a
+      >
+      <a
+        class="btn ml-2"
+        data-test-id="btn-2"
+        href="/diff"
+        data-sveltekit-keepfocus
+        data-sveltekit-noscroll>(2) Diff</a
+      >
+      <a
+        class="btn ml-2"
+        data-test-id="btn-3"
+        href="/circular"
+        data-sveltekit-keepfocus
+        data-sveltekit-noscroll>(3) Circular</a
+      >
+      <a
+        class="btn ml-2"
+        data-test-id="btn-3"
+        href="/tailwind"
+        data-sveltekit-keepfocus
+        data-sveltekit-noscroll>(4) Custom Node</a
+      >
     </div>
     <div class="tree-wrapper flex">
       <textarea
