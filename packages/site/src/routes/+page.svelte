@@ -107,6 +107,11 @@
     >
   </h1>
   <p class="my-2">Copy-paste JSON objects to view them.</p>
+  <div class="my-4">
+    <a href="/tailwind" class="btn bg-blue-600 text-white hover:bg-blue-700">
+      View Tailwind Demo
+    </a>
+  </div>
   <PropsForm />
   <div class="my-4">
     <button class="btn" data-test-id="btn-1" onclick={() => handleExampleClick(1)}>Example 1</button
