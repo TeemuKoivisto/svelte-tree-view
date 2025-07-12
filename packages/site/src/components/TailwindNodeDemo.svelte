@@ -1,17 +1,83 @@
 <script lang="ts">
   import { TreeView } from 'svelte-tree-view'
   import TailwindNode from './TailwindNode.svelte'
-  import example1Data from '../utils/example1.json'
-  import example2Data from '../utils/example2.json'
 
   let selectedExample = 'example1'
   let showLogButton = true
   let showCopyButton = true
 
+  // Create custom examples that better showcase the truncated preview
+  const customExamples = {
+    complexObject: {
+      user: {
+        id: 12345,
+        name: 'John Doe',
+        email: 'john.doe@example.com',
+        profile: {
+          avatar: 'https://example.com/avatar.jpg',
+          bio: 'Software developer with 10+ years of experience',
+          preferences: {
+            theme: 'dark',
+            notifications: true,
+            language: 'en'
+          }
+        },
+        settings: {
+          privacy: 'public',
+          notifications: {
+            email: true,
+            push: false,
+            sms: true
+          }
+        },
+        metadata: {
+          createdAt: '2023-01-15T10:30:00Z',
+          lastLogin: '2024-01-20T14:45:00Z',
+          loginCount: 156
+        }
+      }
+    },
+    nestedArrays: {
+      matrix: [
+        [1, 2, 3, 4, 5],
+        [6, 7, 8, 9, 10],
+        [11, 12, 13, 14, 15],
+        [16, 17, 18, 19, 20],
+        [21, 22, 23, 24, 25]
+      ],
+      users: [
+        { id: 1, name: 'Alice', role: 'admin' },
+        { id: 2, name: 'Bob', role: 'user' },
+        { id: 3, name: 'Charlie', role: 'moderator' },
+        { id: 4, name: 'Diana', role: 'user' },
+        { id: 5, name: 'Eve', role: 'admin' }
+      ],
+      config: {
+        features: ['auth', 'api', 'websockets', 'caching', 'logging'],
+        limits: {
+          requests: 1000,
+          storage: '1GB',
+          users: 10000
+        }
+      }
+    },
+    mixedData: {
+      strings: ['hello', 'world', 'this', 'is', 'a', 'long', 'string', 'array'],
+      numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      booleans: [true, false, true, false, true],
+      nulls: [null, null, null],
+      objects: [
+        { type: 'user', data: { name: 'John' } },
+        { type: 'post', data: { title: 'Hello World' } },
+        { type: 'comment', data: { text: 'Great post!' } }
+      ]
+    }
+  }
+
   const examples = {
-    example1: example1Data[0], // Use first item from the array
-    example2: example1Data, // Use the full array
-    example3: example2Data // Use the diff object
+    example1: customExamples.complexObject,
+    example2: customExamples.nestedArrays,
+    example3: customExamples.mixedData
   }
 
   $: currentData = examples[selectedExample as keyof typeof examples]
@@ -23,8 +89,10 @@
       Tailwind CSS Tree Node Demo
     </h2>
     <p class="mb-6 text-gray-600 dark:text-gray-400">
-      A modern, card-based tree view component using Tailwind CSS with hover effects, smooth
-      transitions, and improved visual hierarchy.
+      A modern, card-based tree view component using Tailwind CSS with truncated preview
+      functionality.
+      <br />
+      <strong>Try expanding/collapsing nodes to see the truncated preview in action!</strong>
     </p>
   </div>
 
@@ -32,9 +100,9 @@
     <div class="control-group">
       <label class="control-label">Example Data:</label>
       <select bind:value={selectedExample} class="control-select">
-        <option value="example1">Example 1 - Complex Object</option>
-        <option value="example2">Example 2 - Array with Objects</option>
-        <option value="example3">Example 3 - Mixed Types</option>
+        <option value="example1">Complex Object - Nested user data</option>
+        <option value="example2">Nested Arrays - Matrix and user lists</option>
+        <option value="example3">Mixed Data - Various data types</option>
       </select>
     </div>
 
@@ -62,10 +130,30 @@
       </TreeView>
     </div>
   </div>
+
+  <div class="demo-info">
+    <h3 class="mb-2 text-lg font-semibold text-gray-800 dark:text-gray-200">How it works:</h3>
+    <ul class="list-inside list-disc space-y-1 text-sm text-gray-600 dark:text-gray-400">
+      <li>
+        When collapsed, objects show a preview like: <code
+          class="rounded bg-gray-100 px-1 dark:bg-gray-700">object with keys</code
+        >
+      </li>
+      <li>
+        When collapsed, arrays show a preview like: <code
+          class="rounded bg-gray-100 px-1 dark:bg-gray-700">[ 1, 2, 3, ... ]</code
+        >
+      </li>
+      <li>When expanded, full details are displayed as normal</li>
+      <li>Strings longer than 10 characters are truncated with "..."</li>
+      <li>Nested objects are shown as "object" in previews</li>
+    </ul>
+  </div>
 </div>
 
 <style lang="postcss">
   @reference "#app.css";
+
   .tailwind-demo {
     @apply mx-auto max-w-4xl p-6;
   }
@@ -114,6 +202,10 @@
     @apply space-y-1;
   }
 
+  .demo-info {
+    @apply mt-6 rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800;
+  }
+
   /* Custom scrollbar for the tree container */
   .tree-container::-webkit-scrollbar {
     @apply w-2;
@@ -128,6 +220,6 @@
   }
 
   .tree-container::-webkit-scrollbar-thumb:hover {
-    @apply dark:bg-gray-1000 bg-gray-400;
+    @apply bg-gray-400 dark:bg-gray-500;
   }
 </style>

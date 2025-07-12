@@ -11,42 +11,67 @@
   }: NodeProps = $props()
 
   const {
-    propsStore: { props: propsObj, formatValue }
+    propsStore: { props: propsObj }
   } = getTreeContext()
 
-  let hasChildren = $derived(node.children.length > 0)
+  let hasChildren = $derived(node && node.children.length > 0)
   let descend = $derived(!node.collapsed && hasChildren)
-  let value = $derived(node.value)
 
-  // Helper functions for diff value handling (from DiffValue.svelte)
-  function replaceSpacesWithNonBreakingSpace(value: string) {
-    return value.replace(/\s/gm, ' ')
+  // Function to create truncated preview of objects and arrays
+  function createTruncatedPreview(value: any, type: string): string {
+    if (type === 'object' && value && typeof value === 'object' && !Array.isArray(value)) {
+      const keys = Object.keys(value)
+      if (keys.length === 0) return '{}'
+
+      const preview = keys
+        .slice(0, 3)
+        .map(key => {
+          const val = value[key]
+          if (val === null) return `${key}: null`
+          if (typeof val === 'object') return `${key}: {…}`
+          if (typeof val === 'string') {
+            return `${key}: "${val.length > 10 ? val.substring(0, 10) + '…' : val}"`
+          }
+          return `${key}: ${val}`
+        })
+        .join(', ')
+
+      const suffix = keys.length > 3 ? `, …` : ''
+      return `{ ${preview}${suffix} }`
+    }
+
+    if (type === 'array' && Array.isArray(value)) {
+      if (value.length === 0) return '[]'
+
+      const preview = value
+        .slice(0, 3)
+        .map(item => {
+          if (item === null) return 'null'
+          if (typeof item === 'object') return '{…}'
+          if (typeof item === 'string') {
+            return `"${item.length > 10 ? item.substring(0, 10) + '…' : item}"`
+          }
+          return String(item)
+        })
+        .join(', ')
+
+      const suffix = value.length > 3 ? ', …' : ''
+      return `[ ${preview}${suffix} ]`
+    }
+
+    // For other types, use the default formatter or string representation
+    return $propsObj.valueFormatter?.(value, node) ?? String(value)
   }
 
-  function parseTextDiff(textDiff: string) {
-    const diffByLines = textDiff.split(/\n/gm).slice(1)
-    return diffByLines.map(line => {
-      const type = line.startsWith('-') ? 'delete' : line.startsWith('+') ? 'add' : 'raw'
-      return { [type]: replaceSpacesWithNonBreakingSpace(line.substr(1)) }
-    })
-  }
-
-  function stringifyAndShrink(v: any) {
-    if (v === null) {
-      return 'null'
+  // Get the appropriate value to display
+  function getDisplayValue(): string {
+    if (hasChildren && node.collapsed) {
+      // Show truncated preview when collapsed
+      return createTruncatedPreview(node.value, node.type)
+    } else {
+      // Show full value when expanded or for leaf nodes
+      return $propsObj.valueFormatter?.(node.value, node) ?? String(node.value)
     }
-    const str = JSON.stringify(v)
-    if (typeof str === 'undefined') {
-      return 'undefined'
-    }
-    return str.length > 22 ? `${str.substr(0, 15)}…${str.substr(-5)}` : str
-  }
-
-  function getValueString(raw: any) {
-    if (typeof raw === 'string') {
-      return raw
-    }
-    return stringifyAndShrink(raw)
   }
 
   // Get type-specific styling classes
@@ -117,38 +142,9 @@
       <!-- Value section -->
       <div class="node-value-section">
         <div class="node-value" class:clickable={hasChildren} data-type={node.type}>
-          {#if Array.isArray(value)}
-            <!-- Handle diff values (from DiffValue.svelte) -->
-            {#if value.length === 1}
-              <span class="diff-added">{getValueString(value[0])}</span>
-            {:else if value.length === 2}
-              <span class="diff-updated">
-                <span class="diff-deleted">{getValueString(value[0])}</span>
-                <span class="diff-arrow"> → </span>
-                <span class="diff-added">{getValueString(value[1])}</span>
-              </span>
-            {:else if value.length === 3 && value[1] === 0 && value[2] === 0}
-              <span class="diff-deleted">{getValueString(value[0])}</span>
-            {:else if value.length === 3 && value[2] === 2}
-              <span class="diff-updated">
-                {#each parseTextDiff(value[0]) as item}
-                  {#if item.delete}
-                    <span class="diff-deleted">{item.delete}</span>
-                  {:else if item.add}
-                    <span class="diff-added">{item.add}</span>
-                  {:else}
-                    <span>{item.raw}</span>
-                  {/if}
-                {/each}
-              </span>
-            {/if}
-          {:else}
-            <span class={getTypeClasses()}>
-              {$propsObj.valueFormatter?.(value, node) ??
-                formatValue?.(value, node) ??
-                String(value)}
-            </span>
-          {/if}
+          <span class={getTypeClasses()}>
+            {getDisplayValue()}
+          </span>
         </div>
       </div>
     </div>
@@ -198,6 +194,7 @@
 
 <style lang="postcss">
   @reference "#app.css";
+
   .tree-node-container {
     @apply w-full;
   }
@@ -268,23 +265,6 @@
 
   .children-container {
     @apply ml-6 mt-2 space-y-1;
-  }
-
-  /* Diff styling */
-  .diff-added {
-    @apply inline-block rounded bg-green-100 px-1.5 py-0.5 font-mono text-sm text-green-800 dark:bg-green-900 dark:text-green-200;
-  }
-
-  .diff-deleted {
-    @apply inline-block rounded bg-red-100 px-1.5 py-0.5 font-mono text-sm text-red-800 line-through dark:bg-red-900 dark:text-red-200;
-  }
-
-  .diff-updated {
-    @apply inline-flex flex-wrap items-center gap-1;
-  }
-
-  .diff-arrow {
-    @apply font-mono text-gray-500 dark:text-gray-400;
   }
 
   /* Responsive design */

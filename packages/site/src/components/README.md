@@ -14,18 +14,29 @@ A specialized tree node component for displaying diff data with color-coded addi
 
 ### TailwindNode.svelte
 
-A modern, card-based tree node component using Tailwind CSS with the following features:
+A modern, card-based tree node component using Tailwind CSS with truncated preview functionality similar to svelte-json-tree.
 
 #### Features
 
 - **Modern Card Design**: Each node is displayed as a card with rounded corners and subtle borders
+- **Truncated Preview**: Shows compact preview when collapsed, full details when expanded
 - **Hover Effects**: Smooth transitions and hover states for better user interaction
 - **Type-based Color Coding**: Different data types are color-coded for better readability
 - **Responsive Design**: Adapts to different screen sizes with mobile-optimized controls
 - **Dark Mode Support**: Full dark mode compatibility with appropriate color schemes
 - **Accessibility**: Proper ARIA labels and keyboard navigation support
 - **Action Buttons**: Log and copy buttons with hover effects that appear on interaction
-- **Diff Support**: Handles diff data with color-coded additions and deletions
+
+#### Truncated Preview Functionality
+
+When nodes are collapsed, the component shows a compact preview:
+
+- **Objects**: `{ a: 1, b: 2, c: {…}, … }`
+- **Arrays**: `[ 1, 2, 3, … ]`
+- **Strings**: Truncated if longer than 10 characters
+- **Nested Objects**: Shown as `{…}` in previews
+
+When expanded, full details are displayed as normal.
 
 #### Styling Approach
 
@@ -64,4 +75,5 @@ Visit `/tailwind` to see the TailwindNode component in action with various data 
 | Dark Mode         | Limited       | Limited       | Full Support |
 | Mobile Responsive | No            | No            | Yes          |
 | Type Color Coding | Basic         | Basic         | Advanced     |
-| Diff Support      | No            | Yes           | Yes          |
+| Truncated Preview | No            | No            | Yes          |
+| Diff Support      | No            | Yes           | No           |
