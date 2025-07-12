@@ -29,9 +29,9 @@
   theme={$parsedTheme}
 >
   {#snippet rootNode(children)}
-    <ul class="w-1/2 px-4 text-sm">
+    <div class="svelte-tree-view w-1/2 px-4 text-sm">
       {@render children()}
-    </ul>
+    </div>
   {/snippet}
   {#snippet treeNode(props)}
     <TailwindNode {...props} />
