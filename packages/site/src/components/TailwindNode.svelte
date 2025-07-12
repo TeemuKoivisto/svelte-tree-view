@@ -142,7 +142,7 @@
       <!-- Value section -->
       <div class="node-value-section">
         <div
-          class={`node-value ${getTypeClasses()}`}
+          class={`node-value truncate ${getTypeClasses()}`}
           class:clickable={hasChildren}
           data-type={node.type}
         >

@@ -155,6 +155,9 @@ export function setExampleData(str: string) {
 export function update<K extends keyof FormState>(key: K, val: FormState[K]) {
   state.update(o => {
     o[key] = val
+    if (key === 'data') {
+      o.selectedData = null
+    }
     return o
   })
   if (key === 'data' && typeof val === 'string') {

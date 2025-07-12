@@ -77,7 +77,7 @@
         data-test-id="btn-3"
         href="/tailwind"
         data-sveltekit-keepfocus
-        data-sveltekit-noscroll>(4) Custom Node</a
+        data-sveltekit-noscroll>(4) Tailwind</a
       >
     </div>
     <div class="tree-wrapper flex">
