@@ -13,15 +13,7 @@ const config = {
     },
     adapter: adapter(),
     alias: {
-      $components: 'src/components',
-      $config: 'src/config',
-      $elements: 'src/elements',
-      $hooks: 'src/hooks',
       $lib: 'src/lib',
-      $modals: 'src/modals',
-      $parser: 'src/parser',
-      $shadcn: 'src/shadcn',
-      $stores: 'src/stores'
     }
   }
 }
