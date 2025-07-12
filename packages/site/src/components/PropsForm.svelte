@@ -38,7 +38,7 @@
       <input id="showCopyButton" type="checkbox" bind:checked={$state.showCopyButton} />
     </div>
     <div class="field">
-      <label>valueComponent</label>
+      <label>treeNode</label>
       <div
         class="text-0B rounded-sm px-1 py-0.5 text-xs tracking-wide transition-colors duration-100"
       >
