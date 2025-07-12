@@ -1,9 +1,24 @@
 import { writable } from 'svelte/store'
+import type { TreeRecursionOpts } from 'svelte-tree-view'
+
 import * as parser from './parser'
-import example1 from './example1.json'
+
+import example1 from '$lib/example_basic.json'
+import example2 from '$lib/example_diff.json'
+import tailwind from '$lib/example_tailwind.json'
+import { generateObj } from '$lib/generateObj'
+
+export type DataOption = keyof typeof DATA
+export const DATA = {
+  basic: example1,
+  diff: example2,
+  circular: generateObj(0, 4),
+  tailwind: tailwind
+}
 
 export interface FormState {
   data: string
+  selectedData: DataOption | null
   leftIndent: string
   lineHeight: string
   fontFamily: string
@@ -11,7 +26,6 @@ export interface FormState {
   keyMarginRight: string
   showLogButton: boolean
   showCopyButton: boolean
-  valueComponent: any
   recursionOpts: string
   valueFormatter: string
   theme: string
@@ -19,6 +33,7 @@ export interface FormState {
 
 export const DEFAULT_STATE: FormState = {
   data: '',
+  selectedData: null,
   leftIndent: '0.875em',
   lineHeight: '1.1',
   fontFamily: 'Helvetica Neue',
@@ -26,7 +41,6 @@ export const DEFAULT_STATE: FormState = {
   keyMarginRight: '0.5em',
   showLogButton: false,
   showCopyButton: false,
-  valueComponent: undefined,
   recursionOpts: `{
   maxDepth: 16,
   omitKeys: [],
@@ -124,7 +138,7 @@ const testNode = {
 
 export const state = writable(DEFAULT_STATE)
 export const parsedData = writable<any>(example1)
-export const parsedRecursionOpts = writable(
+export const parsedRecursionOpts = writable<TreeRecursionOpts>(
   parser.parseRecursionOpts(DEFAULT_STATE.recursionOpts, testNode)
 )
 export const parsedValueFormatter = writable(
@@ -132,18 +146,27 @@ export const parsedValueFormatter = writable(
 )
 export const parsedTheme = writable(parser.parseTheme(DEFAULT_STATE.theme))
 
+export function setExampleData(str: string) {
+  const opt = str as DataOption
+  parsedData.set(DATA[opt])
+  state.update(s => ({ ...s, selectedData: opt }))
+}
+
 export function update<K extends keyof FormState>(key: K, val: FormState[K]) {
   state.update(o => {
     o[key] = val
+    if (key === 'data') {
+      o.selectedData = null
+    }
     return o
   })
-  if (key === 'data') {
+  if (key === 'data' && typeof val === 'string') {
     parsedData.update(old => parser.parseData(val) ?? old)
-  } else if (key === 'recursionOpts') {
+  } else if (key === 'recursionOpts' && typeof val === 'string') {
     parsedRecursionOpts.update(old => parser.parseRecursionOpts(val, testNode) ?? old)
-  } else if (key === 'valueFormatter') {
+  } else if (key === 'valueFormatter' && typeof val === 'string') {
     parsedValueFormatter.update(old => parser.parseValueFormatter(val, testNode) ?? old)
-  } else if (key === 'theme') {
+  } else if (key === 'theme' && typeof val === 'string') {
     parsedTheme.update(old => parser.parseTheme(val) ?? old)
   }
 }

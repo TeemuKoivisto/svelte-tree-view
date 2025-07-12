@@ -13,10 +13,13 @@
   } from '$lib/store'
 
   onMount(() => {
-    setExampleData('basic')
+    setExampleData('circular')
     parsedRecursionOpts.update(v => {
-      if (v?.mapChildren === mapDocDeltaChildren) {
+      if (v && v.mapChildren === mapDocDeltaChildren) {
         v.mapChildren = undefined
+      }
+      if (v) {
+        v.stopCircularRecursion = true
       }
       return v
     })

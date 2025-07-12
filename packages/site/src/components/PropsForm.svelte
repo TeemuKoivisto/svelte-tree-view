@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { state, update } from '../utils/store'
+  import { state, update } from '$lib/store'
 </script>
 
 <fieldset class="container-sm flex flex-col border-2 p-2 text-sm">
@@ -42,7 +42,7 @@
       <div
         class="text-0B rounded-sm px-1 py-0.5 text-xs tracking-wide transition-colors duration-100"
       >
-        See Example 2
+        See Diff and Tailwind
       </div>
     </div>
   </div>
