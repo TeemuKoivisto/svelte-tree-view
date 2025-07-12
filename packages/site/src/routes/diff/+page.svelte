@@ -3,19 +3,18 @@
   import TreeView from 'svelte-tree-view'
   import DiffValue from '$components/DiffValue.svelte'
 
-  import example2 from '$lib/example2.json'
   import { mapDocDeltaChildren } from '$lib/mapDocDeltaChildren'
   import {
+    setExampleData,
     state,
     parsedData,
     parsedRecursionOpts,
     parsedTheme,
-    parsedValueFormatter,
-    update
+    parsedValueFormatter
   } from '$lib/store'
 
   onMount(() => {
-    parsedData.set(example2)
+    setExampleData('diff')
     if ($parsedRecursionOpts) {
       parsedRecursionOpts.update(v => {
         v.mapChildren = mapDocDeltaChildren

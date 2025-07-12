@@ -1,9 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import TreeView, { DefaultNode } from 'svelte-tree-view'
-  import DiffValue from '$components/DiffValue.svelte'
+  import TreeView from 'svelte-tree-view'
 
-  import example1 from '$lib/example1.json'
   import { mapDocDeltaChildren } from '$lib/mapDocDeltaChildren'
   import {
     state,
@@ -11,12 +9,11 @@
     parsedRecursionOpts,
     parsedTheme,
     parsedValueFormatter,
-    update
+    setExampleData
   } from '$lib/store'
 
   onMount(() => {
-    parsedData.set(example1)
-    update('valueComponent', undefined)
+    setExampleData('basic')
     parsedRecursionOpts.update(v => {
       if (v?.mapChildren === mapDocDeltaChildren) {
         v.mapChildren = undefined
@@ -38,13 +35,6 @@
     <ul class="svelte-tree-view w-1/2 px-4">
       {@render children()}
     </ul>
-  {/snippet}
-  {#snippet treeNode(props)}
-    {#if $state.valueComponent}
-      <DiffValue {...props} />
-    {:else}
-      <DefaultNode {...props} />
-    {/if}
   {/snippet}
 </TreeView>
 

@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Base16Theme } from 'svelte-tree-view'
 
+  import DataSelector from '$components/DataSelector.svelte'
   import PropsForm from '$components/PropsForm.svelte'
   import { state, parsedTheme, update } from '$lib/store'
 
@@ -52,6 +53,7 @@
     </h1>
     <p class="my-2">Copy-paste JSON objects to view them.</p>
     <PropsForm />
+    <DataSelector />
     <div class="my-4">
       <a class="btn" data-test-id="btn-1" href="/" data-sveltekit-keepfocus data-sveltekit-noscroll
         >(1) Basic</a
