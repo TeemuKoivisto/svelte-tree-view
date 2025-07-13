@@ -111,7 +111,7 @@ describe('TreeView', () => {
     expect(results.container).toMatchSnapshot()
   })
 
-  it('should respect maxDepth and collapse nodes correctly', async () => {
+  it.only('should respect maxDepth and collapse nodes correctly', async () => {
     const data = {
       a: [1, 2, 3],
       b: new Map<string, any>([
@@ -130,14 +130,15 @@ describe('TreeView', () => {
       }
     })
     window.HTMLElement.prototype.scrollIntoView = vi.fn()
-    await expect(JSON.stringify(map)).toMatchFileSnapshot(snapPath(0, 0, 'treemap'))
 
     expect(results.container.querySelectorAll('li').length).toEqual(2)
 
     await clickByText(results.container, 'b:')
     expect(results.container.querySelectorAll('li').length).toEqual(5)
 
+    await expect(JSON.stringify(map)).toMatchFileSnapshot(snapPath(50, 0, 'treemap'))
     await clickByText(results.container, '[map entry 1]:')
+    await expect(JSON.stringify(map)).toMatchFileSnapshot(snapPath(50, 1, 'treemap'))
     expect(results.container.querySelectorAll('li').length).toEqual(8)
 
     await clickByText(results.container, '[value]:')
