@@ -65,12 +65,13 @@
 
   // Get the appropriate value to display
   function getDisplayValue(): string {
+    const val = node.getValue()
     if (hasChildren && node.collapsed) {
       // Show truncated preview when collapsed
-      return createTruncatedPreview(node.value, node.type)
+      return createTruncatedPreview(val, node.type)
     } else {
       // Show full value when expanded or for leaf nodes
-      return $propsObj.valueFormatter?.(node.value, node) ?? String(node.value)
+      return $propsObj.valueFormatter?.(val, node) ?? String(val)
     }
   }
 

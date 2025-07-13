@@ -12,7 +12,7 @@ export function createNode(
     id: `[${path.join(',')}]`,
     index,
     key,
-    value,
+    getValue: () => value,
     depth,
     collapsed: true,
     type: getValueType(value),
@@ -114,12 +114,12 @@ function shouldRecurseChildren(
   } else if (opts.isCircularNode) {
     return opts.isCircularNode(node, iteratedValues)
   } else if (node.type === 'object' || node.type === 'array') {
-    const existingNodeWithValue = iteratedValues.get(node.value)
+    const existingNodeWithValue = iteratedValues.get(node.getValue())
     if (existingNodeWithValue && node.id !== existingNodeWithValue.id) {
       node.circularOfId = existingNodeWithValue.id
       return false
     }
-    iteratedValues.set(node.value, node)
+    iteratedValues.set(node.getValue(), node)
   }
   return true
 }

@@ -16,6 +16,7 @@
 
   const { treeStore, propsStore, rootElementStore } = getContext<Stores>('svelte-tree-view')
   let { props: propsObj } = propsStore
+  // let node = $state(treeStore.treeMap[id] as TreeNode<any>)
   let node = $state(get(treeStore.treeMap)[id] as TreeNode<any>)
   let hasChildren = $derived(node && node.children.length > 0)
   let nodeProps = $derived({
@@ -24,16 +25,16 @@
     TreeViewNode: TreeViewNode,
     handleLogNode() {
       console.info('%c [svelte-tree-view]: Property added to window._node', 'color: #b8e248')
-      console.log(node.value)
+      console.log(node.getValue())
       try {
-        if (typeof window !== 'undefined') window._node = node.value
+        if (typeof window !== 'undefined') window._node = node.getValue()
       } catch (err) {
         console.error('Failed to set _node, window was undefined')
       }
     },
     handleCopyNodeToClipboard() {
       try {
-        navigator.clipboard.writeText(JSON.stringify(node.value))
+        navigator.clipboard.writeText(JSON.stringify(node.getValue()))
       } catch (err) {
         console.error('Copying node to clipboard failed: ', err)
       }

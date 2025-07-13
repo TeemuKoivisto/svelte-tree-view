@@ -12,8 +12,9 @@
   const {
     propsStore: { props: propsObj }
   } = getTreeContext()
-  let hasChildren = $derived(node && node.children.length > 0)
+  let hasChildren = $derived(node.children.length > 0)
   let descend = $derived(!node.collapsed && hasChildren)
+  let valueStr = $derived($propsObj.valueFormatter?.(node.getValue(), node))
 </script>
 
 <li class="row" class:collapsed={node.collapsed && hasChildren} data-tree-id={node.id}>
@@ -39,7 +40,7 @@
     onclick={handleToggleCollapse}
     role="presentation"
   >
-    {$propsObj.valueFormatter?.(node.value, node)}
+    {valueStr}
   </div>
   <div class="buttons">
     {#if $propsObj.showLogButton}
