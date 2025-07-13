@@ -29,7 +29,6 @@ export const createTreeStore = (propsStore: PropsStore) => {
       iteratedValues.set(recomputed.iteratedValues)
       get(propsStore.props).onUpdate?.(recomputed.treeMap)
       // console.log('recomputed', recomputed.treeMap)
-      // treeStore.init(tree, treeMap, iteratedValues)
     },
 
     toggleCollapse(id: string) {

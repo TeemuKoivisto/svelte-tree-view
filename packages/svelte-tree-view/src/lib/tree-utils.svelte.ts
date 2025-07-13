@@ -33,7 +33,7 @@ export function createNode(
     circularOfId: null,
     children: []
   }
-  return [node, undefined]
+  return [node, oldNode]
 }
 
 export function getValueType(value: any): ValueType {
@@ -167,6 +167,9 @@ export function recurseObjectProperties(
   }
 
   treeMap[node.id] = node
+  // if (!oldNode) {
+  //   oldTreeMap[node.id] = node
+  // }
 
   if (shouldRecurseChildren(node, parent, iteratedValues, opts)) {
     const mappedChildren = opts.mapChildren && opts.mapChildren(value, getValueType(value), node)
