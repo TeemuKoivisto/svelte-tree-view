@@ -4,7 +4,7 @@
   import TailwindNode from '$components/TailwindNode.svelte'
 
   import {
-    state,
+    treeOpts,
     parsedData,
     parsedRecursionOpts,
     parsedTheme,
@@ -22,8 +22,8 @@
 
 <TreeView
   data={$parsedData}
-  showLogButton={$state.showLogButton}
-  showCopyButton={$state.showCopyButton}
+  showLogButton={$treeOpts.showLogButton}
+  showCopyButton={$treeOpts.showCopyButton}
   recursionOpts={$parsedRecursionOpts}
   valueFormatter={$parsedValueFormatter}
   theme={$parsedTheme}

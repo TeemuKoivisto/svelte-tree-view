@@ -136,7 +136,7 @@ const testNode = {
   children: []
 }
 
-export const state = writable(DEFAULT_STATE)
+export const treeOpts = writable(DEFAULT_STATE)
 export const parsedData = writable<any>(example1)
 export const parsedRecursionOpts = writable<TreeRecursionOpts>(
   parser.parseRecursionOpts(DEFAULT_STATE.recursionOpts, testNode)
@@ -149,11 +149,11 @@ export const parsedTheme = writable(parser.parseTheme(DEFAULT_STATE.theme))
 export function setExampleData(str: string) {
   const opt = str as DataOption
   parsedData.set(DATA[opt])
-  state.update(s => ({ ...s, selectedData: opt }))
+  treeOpts.update(s => ({ ...s, selectedData: opt }))
 }
 
 export function update<K extends keyof FormState>(key: K, val: FormState[K]) {
-  state.update(o => {
+  treeOpts.update(o => {
     o[key] = val
     if (key === 'data') {
       o.selectedData = null
