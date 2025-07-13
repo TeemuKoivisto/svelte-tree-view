@@ -7,7 +7,7 @@ import type { PropsStore } from './props'
 export type TreeStore = ReturnType<typeof createTreeStore>
 
 export const createTreeStore = (propsStore: PropsStore) => {
-  const defaultRootNode = createNode(0, 'root', [], 0, null)
+  const [defaultRootNode] = createNode(0, 'root', [], 0, null, {})
   const tree = writable<TreeNode>(defaultRootNode)
   const treeMap = writable<Record<string, TreeNode>>({})
   const iteratedValues = writable<Map<any, TreeNode>>(new Map())
@@ -50,13 +50,13 @@ export const createTreeStore = (propsStore: PropsStore) => {
     },
 
     expandNodeChildren(node: TreeNode, recursionOpts: TreeRecursionOpts) {
-      const parent = get(treeMap)[node?.parentId || ''] || null
+      const oldTreeMap = get(treeMap)
+      const parent = oldTreeMap[node?.parentId || ''] || null
       if (!parent) {
         // Only root node has no parent and it should not be expandable
         throw Error('No parent in expandNodeChildren for node: ' + node)
       }
-      const newTreeMap: Record<string, TreeNode> = { ...get(treeMap) }
-      const oldTreeMap = get(treeMap)
+      const newTreeMap = { ...oldTreeMap }
       const previouslyIterated = get(iteratedValues)
       const nodeWithUpdatedChildren = recurseObjectProperties(
         node.index,

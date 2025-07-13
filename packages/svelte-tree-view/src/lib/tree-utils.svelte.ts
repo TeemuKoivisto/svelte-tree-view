@@ -5,11 +5,23 @@ export function createNode(
   key: string,
   value: any,
   depth: number,
-  parent: TreeNode | null
-): TreeNode {
+  parent: TreeNode | null,
+  treeMap: Record<string, TreeNode>
+): [TreeNode, TreeNode | undefined] {
   const path = parent ? [...parent.path, index] : []
-  return {
-    id: `[${path.join(',')}]`,
+  const id = `[${path.join(',')}]`
+  const oldNode = treeMap[id]
+  if (oldNode) {
+    oldNode.key = key
+    oldNode.getValue = () => value
+    oldNode.depth = depth
+    oldNode.type = getValueType(value)
+    oldNode.circularOfId = null
+    oldNode.children = []
+    return [oldNode, oldNode]
+  }
+  const node = {
+    id,
     index,
     key,
     getValue: () => value,
@@ -21,6 +33,7 @@ export function createNode(
     circularOfId: null,
     children: []
   }
+  return [node, undefined]
 }
 
 export function getValueType(value: any): ValueType {
@@ -140,8 +153,7 @@ export function recurseObjectProperties(
   if (opts.omitKeys?.includes(key) || (opts.maxDepth && depth > opts.maxDepth)) {
     return null
   }
-  const node = createNode(index, key, value, depth, parent)
-  const oldNode = oldTreeMap[node.id]
+  const [node, oldNode] = createNode(index, key, value, depth, parent, oldTreeMap)
   if (ensureNotCollapsed) {
     // Used to ensure that either root node is always uncollapsed or when uncollapsing new nodes
     // with expandNodeChildren the node children are recursed (if applicable) with mapChildren
