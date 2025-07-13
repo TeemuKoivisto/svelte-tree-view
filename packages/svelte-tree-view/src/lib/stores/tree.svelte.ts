@@ -1,6 +1,6 @@
 import { get, writable } from 'svelte/store'
 
-import { createNode, recomputeTree, recurseObjectProperties } from '../tree-utils'
+import { createNode, recomputeTree, recurseObjectProperties } from '../tree-utils.svelte'
 import type { TreeNode, TreeRecursionOpts } from '../types'
 import type { PropsStore } from './props'
 
