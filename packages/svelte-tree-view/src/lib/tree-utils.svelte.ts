@@ -188,10 +188,9 @@ export function recurseObjectProperties(
         recomputeExpandNode,
         opts
       )
+      // Child is null if maxDepth reached or it's filtered
       if (child) {
         ids.push(child.id)
-      } else {
-        console.error(`recurseObjectProperties produced unexpected null TreeNode for parent`, node)
       }
     }
     node.children = ids
