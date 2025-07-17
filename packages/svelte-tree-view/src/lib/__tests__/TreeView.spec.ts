@@ -111,7 +111,7 @@ describe('TreeView', () => {
     expect(results.container).toMatchSnapshot()
   })
 
-  it.only('should respect maxDepth and collapse nodes correctly', async () => {
+  it('should respect maxDepth and collapse nodes correctly', async () => {
     const data = {
       a: [1, 2, 3],
       b: new Map<string, any>([
