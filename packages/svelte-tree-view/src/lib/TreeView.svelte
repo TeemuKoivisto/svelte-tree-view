@@ -43,7 +43,6 @@
   const treeStore = createTreeStore(propsStore)
   const newRecOpts = $derived({ ...DEFAULT_RECURSION_OPTS, ...recursionOpts })
   const treeChildren = $derived(treeStore.treeMap['[]']?.children)
-  // const tree = treeStore.tree
 
   setContext<Stores>('svelte-tree-view', {
     propsStore,
