@@ -42,7 +42,7 @@
   const rootElementStore = createRootElementStore()
   const treeStore = createTreeStore(propsStore)
   const newRecOpts = $derived({ ...DEFAULT_RECURSION_OPTS, ...recursionOpts })
-  const treeChildren = $derived(treeStore.treeMap['[]']?.children)
+  const treeChildren = $derived(treeStore.rootNode.children)
 
   setContext<Stores>('svelte-tree-view', {
     propsStore,
@@ -77,7 +77,7 @@
     const shouldRecompute = oldRecOptions?.shouldExpandNode !== opts.shouldExpandNode
     // Use untrack to prevent triggering this effect again
     untrack(() => {
-      treeStore.update(newData, opts, shouldRecompute)
+      treeStore.recompute(newData, opts, shouldRecompute)
       propsStore.setProps(propsObj)
       propsObj.recursionOpts = opts
     })

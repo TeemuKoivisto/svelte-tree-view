@@ -4,7 +4,7 @@
   import type { NodeProps } from 'svelte-tree-view'
 
   let props: NodeProps = $props()
-
+  let value = $derived(props.node.getValue())
   const {
     propsStore: { formatValue }
   } = props.getTreeContext()
@@ -40,7 +40,7 @@
 </script>
 
 <DefaultNode {...props}>
-  {#snippet value(node)}
+  {#snippet valueSnippet(node)}
     {#if Array.isArray(value)}
       <!-- The why https://github.com/benjamine/jsondiffpatch/blob/master/docs/deltas.md -->
       {#if value.length === 1}

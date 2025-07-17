@@ -3,14 +3,14 @@
   import type { NodeProps, TreeNode } from './types'
 
   type DefaultNodeProps = NodeProps & {
-    key?: Snippet<[TreeNode]>
-    value?: Snippet<[TreeNode]>
+    keySnippet?: Snippet<[TreeNode]>
+    valueSnippet?: Snippet<[TreeNode]>
   }
 
   let {
     node,
-    key,
-    value,
+    keySnippet,
+    valueSnippet,
     TreeViewNode,
     getTreeContext,
     handleLogNode,
@@ -38,8 +38,8 @@
     onclick={handleToggleCollapse}
     role="presentation"
   >
-    {#if key}
-      {@render key(node)}
+    {#if keySnippet}
+      {@render keySnippet(node)}
     {:else}
       {node.key}:
     {/if}
@@ -52,8 +52,8 @@
     onclick={handleToggleCollapse}
     role="presentation"
   >
-    {#if value}
-      {@render value(node)}
+    {#if valueSnippet}
+      {@render valueSnippet(node)}
     {:else}
       {valueStr}
     {/if}

@@ -16,7 +16,6 @@ export function createNode(
     oldNode.getValue = () => value
     oldNode.depth = depth
     oldNode.type = getValueType(value)
-    oldNode.circularOfId = null
     oldNode.children = []
     return [oldNode, oldNode]
   }
@@ -197,31 +196,4 @@ export function recurseObjectProperties(
   }
 
   return node
-}
-
-export function recomputeTree(
-  data: unknown,
-  oldTreeMap: Record<string, TreeNode>,
-  recursionOpts: TreeRecursionOpts,
-  recomputeExpandNode: boolean
-) {
-  const oldIds = new Set(Object.keys(oldTreeMap))
-  const iteratedValues = new Map<any, TreeNode>()
-  const newTree = recurseObjectProperties(
-    -1,
-    'root',
-    data,
-    0,
-    true,
-    null,
-    oldTreeMap,
-    oldIds,
-    iteratedValues,
-    recomputeExpandNode,
-    recursionOpts
-  )
-  for (const id of oldIds) {
-    delete oldTreeMap[id]
-  }
-  return { tree: newTree, iteratedValues }
 }
