@@ -10,23 +10,23 @@
     />
     <title>svelte-tree-view</title>
     
-		<link href="./_app/immutable/assets/0.DsBA5vk1.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/0.BBCE7g9n.css" rel="stylesheet">
 		<link href="./_app/immutable/assets/TreeView.CMOejg83.css" rel="stylesheet">
-		<link href="./_app/immutable/assets/5.Bnm9d4D_.css" rel="stylesheet">
-		<link rel="modulepreload" href="./_app/immutable/entry/start.xmE4hXa_.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/CAcnbP57.js">
+		<link href="./_app/immutable/assets/5.CwjkymSO.css" rel="stylesheet">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.Bc-E6t-b.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/BorY37Hc.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/Ba2SDbxX.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/C5ZeV78G.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/gyA5krk3.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/app.B5UiKbjd.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/BwAZy4vZ.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.9_HK5B9D.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/NZTpNUN0.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/D4jLHckW.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/4YIckaYW.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/0.rYfbHEuG.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/D6Cqd9ze.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/0.CCWEWQnl.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/DwW8aOf1.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/BjSywOor.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/5.CP0xoNmH.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/D6nPANxA.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/5.BHkohE2b.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/CyriNSyA.js">
   </head>
   <body data-sveltekit-preload-data="hover">
     <div style="display: contents"><!--[--><!--[--><!----><main><section class="xs:p-8 m-auto rounded-2xl p-4 lg:container md:p-16 md:pt-8"><h1 class="my-3 flex items-center text-5xl font-bold"><a target="_blank" rel="noopener noreferrer" href="https://github.com/teemukoivisto/svelte-tree-view">svelte-tree-view</a></h1> <p class="my-2">Copy-paste JSON objects to view them.</p> <fieldset class="container-sm flex flex-col border-2 p-2 text-sm"><legend class="text-0A px-2 text-base">Available props</legend> <div class="m-2 mt-0"><div class="field svelte-1k67vxh"><label for="leftIndent" class="svelte-1k67vxh">--tree-view-left-indent</label> <input id="leftIndent" class="bg-01 text-0B w-20 pl-1 svelte-1k67vxh" value="0.875em"/></div> <div class="field svelte-1k67vxh"><label for="lineHeight" class="svelte-1k67vxh">--tree-view-li-line-height</label> <input id="lineHeight" class="bg-01 text-0B w-20 pl-1 svelte-1k67vxh" value="1.1"/></div> <div class="field svelte-1k67vxh"><label for="fontFamily" class="svelte-1k67vxh">--tree-view-font-family</label> <input id="fontFamily" class="bg-01 text-0B w-48 pl-1 svelte-1k67vxh" value="Helvetica Neue"/></div> <div class="field svelte-1k67vxh"><label for="fontSize" class="svelte-1k67vxh">--tree-view-font-size</label> <input id="fontSize" class="bg-01 text-0B w-20 pl-1 svelte-1k67vxh" value="13px"/></div> <div class="field svelte-1k67vxh"><label for="keyMarginRight" class="svelte-1k67vxh">--tree-view-key-margin-right</label> <input id="keyMarginRight" class="bg-01 text-0B w-20 pl-1 svelte-1k67vxh" value="0.5em"/></div> <div class="field svelte-1k67vxh"><label for="showLogButton" class="svelte-1k67vxh">showLogButton</label> <input id="showLogButton" type="checkbox" class="svelte-1k67vxh"/></div> <div class="field svelte-1k67vxh"><label for="showCopyButton" class="svelte-1k67vxh">showCopyButton</label> <input id="showCopyButton" type="checkbox" class="svelte-1k67vxh"/></div> <div class="field svelte-1k67vxh"><label class="svelte-1k67vxh">treeNode</label> <div class="text-0B rounded-sm px-1 py-0.5 text-xs tracking-wide transition-colors duration-100">See Diff and Tailwind</div></div></div> <div class="m-2 mt-0 flex flex-col"><div class="col-field svelte-1k67vxh"><label for="recursionOpts" class="svelte-1k67vxh">recursionOpts</label> <textarea id="recursionOpts" class="bg-01 text-0B h-44 svelte-1k67vxh">{
@@ -34,59 +34,61 @@
   omitKeys: [],
   stopCircularRecursion: false,
   isCircularNode(node, iteratedValues) {
-    if (node.type === 'object' || node.type === 'array') {
-      const existingNodeWithValue = iteratedValues.get(node.value)
+    if (node.type === "object" || node.type === "array") {
+      const existingNodeWithValue = iteratedValues.get(node.getValue());
       if (existingNodeWithValue &amp;&amp; node.id !== existingNodeWithValue.id) {
-        node.circularOfId = existingNodeWithValue.id
-        return false
+        node.circularOfId = existingNodeWithValue.id;
+        return false;
       }
-      iteratedValues.set(node.value, node)
+      iteratedValues.set(node.getValue(), node);
     }
-    return true
+    return true;
   },
-  shouldExpandNode: (node) => {
-    return true
+  shouldExpandNode(node) {
+    return true;
   },
   mapChildren(value, type, parent) {
     switch (type) {
-      case 'array':
-        return value.map((v, i) => [i.toString(), v])
-      case 'map':
-        const entries = Array.from(value.entries())
-        return entries.map(([key, value], i) => [
+      case "array":
+        return value.map((v, i) => [i.toString(), v]);
+      case "map":
+        const entries = Array.from(value.entries());
+        return entries.map(([key, value2], i) => [
           `[map entry ${i}]`,
           {
-            '[key]': key,
-            '[value]': value
+            "[key]": key,
+            "[value]": value2
           }
-        ])
-      case 'set':
-        return Array.from(value.values()).map((v, i) => [`[set entry ${i}]`, v])
-      case 'object':
-        return Object.entries(value)
+        ]);
+      case "set":
+        return Array.from(value.values()).map((v, i) => [`[set entry ${i}]`, v]);
+      case "object":
+        return Object.entries(value);
       default:
-        return []
+        return [];
     }
-  }
+  },
 }</textarea></div> <div class="col-field svelte-1k67vxh"><label for="valueFormatter" class="svelte-1k67vxh">valueFormatter</label> <textarea id="valueFormatter" class="bg-01 text-0B h-44 svelte-1k67vxh">(val, node) => {
   switch (node.type) {
-    case 'array':
-      return `${node.circularOfId ? 'circular' : ''} [] ${val.length} items`
-    case 'object':
-      return `${node.circularOfId ? 'circular' : ''} {} ${Object.keys(val).length} keys`
-    case 'map':
-    case 'set':
-      return `${node.circularOfId ? 'circular' : ''} () ${val.size} entries`
-    case 'date':
-      return `${val.toISOString()}`
-    case 'string':
-      return `"${val}"`
-    case 'boolean':
-      return val ? 'true' : 'false'
-    case 'symbol':
-      return String(val)
+    case "array":
+      return `${node.circularOfId ? "circular" : ""} [] ${val.length} items`;
+    case "object":
+      return `${node.circularOfId ? "circular" : ""} {} ${Object.keys(val).length} keys`;
+    case "map":
+    case "set":
+      return `${node.circularOfId ? "circular" : ""} () ${val.size} entries`;
+    case "date":
+      return `${val.toISOString()}`;
+    case "string":
+      return `"${val}"`;
+    case "number":
+      return val;
+    case "boolean":
+      return val ? "true" : "false";
+    case "symbol":
+      return String(val);
     default:
-      return val
+      return node.type;
   }
 }</textarea></div> <div class="col-field svelte-1k67vxh"><label for="theme" class="svelte-1k67vxh">theme <a target="_blank" rel="noopener noreferrer" href="https://github.com/reduxjs/redux-devtools/tree/75322b15ee7ba03fddf10ac3399881e302848874/src/react/themes">examples</a></label> <textarea id="theme" class="bg-01 text-0B h-44 w-full svelte-1k67vxh">{
   scheme: 'monokai',
@@ -110,7 +112,7 @@
 			
 			<script>
 				{
-					__sveltekit_jses6q = {
+					__sveltekit_1phdqt4 = {
 						base: new URL(".", location).pathname.slice(0, -1),
 						assets: "/svelte-tree-view"
 					};
@@ -118,8 +120,8 @@
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("./_app/immutable/entry/start.xmE4hXa_.js"),
-						import("./_app/immutable/entry/app.B5UiKbjd.js")
+						import("./_app/immutable/entry/start.Bc-E6t-b.js"),
+						import("./_app/immutable/entry/app.9_HK5B9D.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 5],
