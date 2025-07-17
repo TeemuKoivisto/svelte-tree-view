@@ -4,17 +4,17 @@
 
   import DataSelector from '$components/DataSelector.svelte'
   import PropsForm from '$components/PropsForm.svelte'
-  import { state, parsedTheme, update } from '$lib/store'
+  import { treeOpts, parsedTheme, update } from '$lib/store'
 
   import '../app.css'
 
   let { children } = $props()
 
-  let leftIndent = $derived($state.leftIndent)
-  let lineHeight = $derived($state.lineHeight)
-  let fontFamily = $derived($state.fontFamily)
-  let fontSize = $derived($state.fontSize)
-  let keyMarginRight = $derived($state.keyMarginRight)
+  let leftIndent = $derived($treeOpts.leftIndent)
+  let lineHeight = $derived($treeOpts.lineHeight)
+  let fontFamily = $derived($treeOpts.fontFamily)
+  let fontSize = $derived($treeOpts.fontSize)
+  let keyMarginRight = $derived($treeOpts.keyMarginRight)
 
   $effect(() => {
     leftIndent && document.documentElement.style.setProperty(`--tree-view-left-indent`, leftIndent)
@@ -89,7 +89,7 @@
       <textarea
         class="bg-06 text-00 w-1/2 border p-2 placeholder-gray-500"
         data-test-id="input-textarea"
-        value={$state.data}
+        value={$treeOpts.data}
         placeholder={`Eg. {"a": 1, "b": [1,2,3]}`}
         oninput={e => update('data', e.currentTarget.value)}
       ></textarea>

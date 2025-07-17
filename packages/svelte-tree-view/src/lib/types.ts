@@ -33,7 +33,7 @@ export interface TreeNode<T = any> {
   /**
    * The value mapped to this key
    */
-  value: T
+  getValue: () => T
   depth: number
   collapsed: boolean
   type: ValueType
@@ -43,7 +43,7 @@ export interface TreeNode<T = any> {
    * Circularity is checked by object identity to prevent recursing the same values again
    */
   circularOfId: string | null
-  children: TreeNode<T>[]
+  children: string[]
 }
 
 export interface Base16Theme {
@@ -179,6 +179,7 @@ export interface TreeViewProps<T = any> {
   showLogButton?: boolean
   showCopyButton?: boolean
   recursionOpts?: TreeRecursionOpts<T>
+  onUpdate?: (newMap: Record<string, TreeNode>) => void
   /**
    * For custom formatting of the value string. Returning undefined will pass the value to the default formatter
    * @param val

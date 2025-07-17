@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { DATA, state, setExampleData } from '$lib/store'
+  import { DATA, treeOpts, setExampleData } from '$lib/store'
 </script>
 
 <div class="mt-2 flex items-center gap-2">
@@ -7,7 +7,7 @@
   <div>
     <select
       id="data-selector"
-      value={$state.selectedData}
+      value={$treeOpts.selectedData}
       oninput={e => setExampleData(e.currentTarget.value)}
       class="control-select"
     >

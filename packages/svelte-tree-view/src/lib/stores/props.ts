@@ -34,6 +34,8 @@ export const createPropsStore = (initialProps: Omit<TreeViewProps, 'data'>) => {
           return `${val.toISOString()}`
         case 'string':
           return `"${val}"`
+        case 'number':
+          return val
         case 'boolean':
           return val ? 'true' : 'false'
         case 'symbol':

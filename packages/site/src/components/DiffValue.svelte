@@ -14,7 +14,7 @@
   } = getTreeContext()
   let hasChildren = $derived(node.children.length > 0)
   let descend = $derived(!node.collapsed && hasChildren)
-  let value = $derived(node.value)
+  let value = $derived(node.getValue())
 
   function replaceSpacesWithNonBreakingSpace(value: string) {
     return value.replace(/\s/gm, ' ')
@@ -110,8 +110,8 @@
 {#if descend}
   <li class="row">
     <ul>
-      {#each node.children as child}
-        <TreeViewNode id={child.id} />
+      {#each node.children as id}
+        <TreeViewNode {id} />
       {/each}
     </ul>
   </li>

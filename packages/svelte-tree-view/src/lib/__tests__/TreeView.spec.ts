@@ -8,8 +8,10 @@ import { generateObj } from './generateObj'
 
 import type { TreeNode } from '../types'
 
-// https://sveltesociety.dev/recipes/testing-and-debugging/unit-testing-svelte-component/
+const snapPath = (i: number, j: number, name?: string) =>
+  `./__snapshots__/${i}-${j}${name ? '-' + name : ''}.json`
 
+// https://sveltesociety.dev/recipes/testing-and-debugging/unit-testing-svelte-component/
 async function clickByText(container: HTMLElement, text: string, index = 0) {
   const el = (await findAllByText(container, text))[index]
   if (el) {
@@ -48,12 +50,13 @@ describe('TreeView', () => {
         stopCircularRecursion: true,
         isCircularNode(node: TreeNode, iteratedValues: Map<any, TreeNode>) {
           if (node.type === 'object' || node.type === 'array') {
-            const existingNodeWithValue = iteratedValues.get(node.value)
+            const val = node.getValue()
+            const existingNodeWithValue = iteratedValues.get(val)
             if (existingNodeWithValue) {
               node.circularOfId = existingNodeWithValue.id
               return false
             }
-            iteratedValues.set(node.value, node)
+            iteratedValues.set(val, node)
           }
           return true
         },
@@ -115,10 +118,14 @@ describe('TreeView', () => {
         ['e', { f: [9, 8, 7] }]
       ])
     }
+    let map: any
     const results = render(TreeView, {
       data,
       recursionOpts: {
         maxDepth: 4
+      },
+      onUpdate: v => {
+        map = v
       }
     })
     window.HTMLElement.prototype.scrollIntoView = vi.fn()
@@ -155,16 +162,23 @@ describe('TreeView', () => {
         maxDepth: 5,
         stopCircularRecursion: true,
         shouldExpandNode: () => false
+      },
+      onUpdate: v => {
+        map = v
       }
     })
 
+    await expect(JSON.stringify(map)).toMatchFileSnapshot(snapPath(0, 0, 'treemap'))
     // Rerendering should collapse again everything
     expect(results.container.querySelectorAll('li').length).toEqual(2)
 
     await clickByText(results.container, 'b:')
     expect(results.container.querySelectorAll('li').length).toEqual(6)
 
+    await expect(JSON.stringify(map)).toMatchFileSnapshot(snapPath(0, 1, 'treemap'))
     await clickByText(results.container, '[map entry 1]:')
+    await expect(JSON.stringify(map)).toMatchFileSnapshot(snapPath(0, 2, 'treemap'))
+
     expect(results.container.querySelectorAll('li').length).toEqual(9)
 
     await clickByText(results.container, '[value]:')

@@ -6,7 +6,7 @@
   import { mapDocDeltaChildren } from '$lib/mapDocDeltaChildren'
   import {
     setExampleData,
-    state,
+    treeOpts,
     parsedData,
     parsedRecursionOpts,
     parsedTheme,
@@ -32,8 +32,8 @@
 
 <TreeView
   data={$parsedData}
-  showLogButton={$state.showLogButton}
-  showCopyButton={$state.showCopyButton}
+  showLogButton={$treeOpts.showLogButton}
+  showCopyButton={$treeOpts.showCopyButton}
   recursionOpts={$parsedRecursionOpts}
   valueFormatter={$parsedValueFormatter}
   theme={$parsedTheme}

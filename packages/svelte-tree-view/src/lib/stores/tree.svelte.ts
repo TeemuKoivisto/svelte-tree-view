@@ -1,15 +1,15 @@
 import { get, writable } from 'svelte/store'
 
-import { createNode, recomputeTree, recurseObjectProperties } from '../tree-utils'
+import { createNode, recomputeTree, recurseObjectProperties } from '../tree-utils.svelte'
 import type { TreeNode, TreeRecursionOpts } from '../types'
 import type { PropsStore } from './props'
 
 export type TreeStore = ReturnType<typeof createTreeStore>
 
 export const createTreeStore = (propsStore: PropsStore) => {
-  const defaultRootNode = createNode(0, 'root', [], 0, null)
+  const [defaultRootNode] = createNode(0, 'root', [], 0, null, {})
   const tree = writable<TreeNode>(defaultRootNode)
-  const treeMap = writable<Record<string, TreeNode>>({})
+  const treeMap = $state<Record<string, TreeNode>>({})
   const iteratedValues = writable<Map<any, TreeNode>>(new Map())
 
   return {
@@ -17,82 +17,58 @@ export const createTreeStore = (propsStore: PropsStore) => {
     treeMap,
     defaultRootNode,
 
-    init(
-      newTree: TreeNode | null,
-      newTreeMap: Record<string, TreeNode>,
-      iterated: Map<any, TreeNode>
-    ) {
-      if (newTree) {
-        tree.set(newTree)
-      } else {
-        tree.set(defaultRootNode)
-      }
-      treeMap.set(newTreeMap)
-      iteratedValues.set(iterated)
-    },
-
     update(data: unknown, recursionOpts: TreeRecursionOpts<any>, recomputeExpandNode: boolean) {
-      const oldTreeMap = get(treeMap)
-      const recomputed = recomputeTree(data, oldTreeMap, recursionOpts, recomputeExpandNode)
+      const recomputed = recomputeTree(data, treeMap, recursionOpts, recomputeExpandNode)
       if (recomputed.tree) {
         tree.set(recomputed.tree)
       } else {
         tree.set(defaultRootNode)
       }
-      treeMap.set(recomputed.treeMap)
       iteratedValues.set(recomputed.iteratedValues)
-      // console.log('recomputed', recomputed.treeMap)
-      // treeStore.init(tree, treeMap, iteratedValues)
-    },
-
-    getNode(id: string) {
-      return get(treeMap)[id]
+      get(propsStore.props).onUpdate?.(treeMap)
     },
 
     toggleCollapse(id: string) {
-      const node = get(treeMap)[id]
+      const node = treeMap[id]
       if (!node) {
         console.warn(`Attempted to collapse non-existent node: ${id}`)
         return
       }
-      const updatedNode = { ...node, collapsed: !node.collapsed }
-      treeMap.update(m => ({ ...m, [node.id]: updatedNode }))
+      node.collapsed = !node.collapsed
       const recursionOpts = get(propsStore.recursionOpts)
       if (recursionOpts) {
-        this.expandNodeChildren(updatedNode, recursionOpts)
+        this.expandNodeChildren(node, recursionOpts)
+      } else {
+        get(propsStore.props).onUpdate?.(treeMap)
       }
     },
 
     expandNodeChildren(node: TreeNode, recursionOpts: TreeRecursionOpts) {
-      const parent = this.getNode(node?.parentId || '') || null
+      const oldTreeMap = treeMap
+      const parent = oldTreeMap[node?.parentId || ''] || null
       if (!parent) {
         // Only root node has no parent and it should not be expandable
         throw Error('No parent in expandNodeChildren for node: ' + node)
       }
-      const newTreeMap: Record<string, TreeNode> = { ...get(treeMap) }
-      const oldTreeMap = get(treeMap)
       const previouslyIterated = get(iteratedValues)
       const nodeWithUpdatedChildren = recurseObjectProperties(
         node.index,
         node.key,
-        node.value,
+        node.getValue(),
         node.depth,
         !node.collapsed, // Ensure that when uncollapsed the node's children are always recursed
         parent,
-        newTreeMap,
-        oldTreeMap,
+        treeMap,
+        new Set(),
         previouslyIterated,
         false, // Never recompute shouldExpandNode since it may override the collapsing of this node
         recursionOpts
       )
       if (!nodeWithUpdatedChildren) return
-      parent.children = parent.children.map(c =>
-        c.id === nodeWithUpdatedChildren.id ? nodeWithUpdatedChildren : c
-      )
-      newTreeMap[nodeWithUpdatedChildren.id] = nodeWithUpdatedChildren
-      newTreeMap[parent.id] = parent
-      treeMap.set(newTreeMap)
+      treeMap[nodeWithUpdatedChildren.id] = nodeWithUpdatedChildren
+      treeMap[parent.id] = parent
       iteratedValues.set(previouslyIterated)
+      get(propsStore.props).onUpdate?.(treeMap)
     },
 
     expandAllNodesToNode(id: string) {
@@ -101,14 +77,14 @@ export const createTreeStore = (propsStore: PropsStore) => {
         node?: TreeNode | null
       ) {
         if (!node) return
-        updated[node.id] = { ...node, collapsed: false }
+        updated[node.id]!.collapsed = false
         if (node.parentId) {
           recurseNodeUpwards(updated, updated[node.parentId])
         }
       }
-      const updated = { ...get(treeMap) }
+      const updated = treeMap
       recurseNodeUpwards(updated, updated[id])
-      treeMap.set(updated)
+      get(propsStore.props).onUpdate?.(updated)
     }
   }
 }

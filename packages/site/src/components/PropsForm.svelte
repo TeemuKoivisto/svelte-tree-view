@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { state, update } from '$lib/store'
+  import { treeOpts, update } from '$lib/store'
 </script>
 
 <fieldset class="container-sm flex flex-col border-2 p-2 text-sm">
@@ -7,35 +7,35 @@
   <div class="m-2 mt-0">
     <div class="field">
       <label for="leftIndent">--tree-view-left-indent</label>
-      <input id="leftIndent" class="bg-01 text-0B w-20 pl-1" bind:value={$state.leftIndent} />
+      <input id="leftIndent" class="bg-01 text-0B w-20 pl-1" bind:value={$treeOpts.leftIndent} />
     </div>
     <div class="field">
       <label for="lineHeight">--tree-view-li-line-height</label>
-      <input id="lineHeight" class="bg-01 text-0B w-20 pl-1" bind:value={$state.lineHeight} />
+      <input id="lineHeight" class="bg-01 text-0B w-20 pl-1" bind:value={$treeOpts.lineHeight} />
     </div>
     <div class="field">
       <label for="fontFamily">--tree-view-font-family</label>
-      <input id="fontFamily" class="bg-01 text-0B w-48 pl-1" bind:value={$state.fontFamily} />
+      <input id="fontFamily" class="bg-01 text-0B w-48 pl-1" bind:value={$treeOpts.fontFamily} />
     </div>
     <div class="field">
       <label for="fontSize">--tree-view-font-size</label>
-      <input id="fontSize" class="bg-01 text-0B w-20 pl-1" bind:value={$state.fontSize} />
+      <input id="fontSize" class="bg-01 text-0B w-20 pl-1" bind:value={$treeOpts.fontSize} />
     </div>
     <div class="field">
       <label for="keyMarginRight">--tree-view-key-margin-right</label>
       <input
         id="keyMarginRight"
         class="bg-01 text-0B w-20 pl-1"
-        bind:value={$state.keyMarginRight}
+        bind:value={$treeOpts.keyMarginRight}
       />
     </div>
     <div class="field">
       <label for="showLogButton">showLogButton</label>
-      <input id="showLogButton" type="checkbox" bind:checked={$state.showLogButton} />
+      <input id="showLogButton" type="checkbox" bind:checked={$treeOpts.showLogButton} />
     </div>
     <div class="field">
       <label for="showCopyButton">showCopyButton</label>
-      <input id="showCopyButton" type="checkbox" bind:checked={$state.showCopyButton} />
+      <input id="showCopyButton" type="checkbox" bind:checked={$treeOpts.showCopyButton} />
     </div>
     <div class="field">
       <label>treeNode</label>
@@ -52,7 +52,7 @@
       <textarea
         id="recursionOpts"
         class="bg-01 text-0B h-44"
-        value={$state.recursionOpts}
+        value={$treeOpts.recursionOpts}
         oninput={e => update('recursionOpts', e.currentTarget.value)}
       ></textarea>
     </div>
@@ -61,7 +61,7 @@
       <textarea
         id="valueFormatter"
         class="bg-01 text-0B h-44"
-        value={$state.valueFormatter}
+        value={$treeOpts.valueFormatter}
         oninput={e => update('valueFormatter', e.currentTarget.value)}
       ></textarea>
     </div>
@@ -78,7 +78,7 @@
       <textarea
         id="theme"
         class="bg-01 text-0B h-44 w-full"
-        value={$state.theme}
+        value={$treeOpts.theme}
         oninput={e => update('theme', e.currentTarget.value)}
       ></textarea>
     </div>

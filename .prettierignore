@@ -1,8 +1,9 @@
 package.json
 pnpm-lock.yaml
 node_modules
-package
+pkg
 .svelte-kit
+**/__snapshots__/*.json
 build
 dist
 tmp

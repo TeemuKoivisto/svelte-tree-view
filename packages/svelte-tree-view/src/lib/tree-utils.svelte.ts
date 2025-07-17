@@ -5,14 +5,26 @@ export function createNode(
   key: string,
   value: any,
   depth: number,
-  parent: TreeNode | null
-): TreeNode {
+  parent: TreeNode | null,
+  treeMap: Record<string, TreeNode>
+): [TreeNode, TreeNode | undefined] {
   const path = parent ? [...parent.path, index] : []
-  return {
-    id: `[${path.join(',')}]`,
+  const id = `[${path.join(',')}]`
+  const oldNode = treeMap[id]
+  if (oldNode) {
+    oldNode.key = key
+    oldNode.getValue = () => value
+    oldNode.depth = depth
+    oldNode.type = getValueType(value)
+    oldNode.circularOfId = null
+    oldNode.children = []
+    return [oldNode, oldNode]
+  }
+  const node = $state({
+    id,
     index,
     key,
-    value,
+    getValue: () => value,
     depth,
     collapsed: true,
     type: getValueType(value),
@@ -20,7 +32,8 @@ export function createNode(
     parentId: parent ? parent.id : null,
     circularOfId: null,
     children: []
-  }
+  })
+  return [node, oldNode]
 }
 
 export function getValueType(value: any): ValueType {
@@ -114,12 +127,12 @@ function shouldRecurseChildren(
   } else if (opts.isCircularNode) {
     return opts.isCircularNode(node, iteratedValues)
   } else if (node.type === 'object' || node.type === 'array') {
-    const existingNodeWithValue = iteratedValues.get(node.value)
+    const existingNodeWithValue = iteratedValues.get(node.getValue())
     if (existingNodeWithValue && node.id !== existingNodeWithValue.id) {
       node.circularOfId = existingNodeWithValue.id
       return false
     }
-    iteratedValues.set(node.value, node)
+    iteratedValues.set(node.getValue(), node)
   }
   return true
 }
@@ -132,7 +145,7 @@ export function recurseObjectProperties(
   ensureNotCollapsed: boolean,
   parent: TreeNode | null,
   treeMap: Record<string, TreeNode>,
-  oldTreeMap: Record<string, TreeNode>,
+  oldIds: Set<string>,
   iteratedValues: Map<any, TreeNode>,
   recomputeExpandNode: boolean,
   opts: TreeRecursionOpts
@@ -140,8 +153,7 @@ export function recurseObjectProperties(
   if (opts.omitKeys?.includes(key) || (opts.maxDepth && depth > opts.maxDepth)) {
     return null
   }
-  const node = createNode(index, key, value, depth, parent)
-  const oldNode = oldTreeMap[node.id]
+  const [node, oldNode] = createNode(index, key, value, depth, parent, treeMap)
   if (ensureNotCollapsed) {
     // Used to ensure that either root node is always uncollapsed or when uncollapsing new nodes
     // with expandNodeChildren the node children are recursed (if applicable) with mapChildren
@@ -155,27 +167,34 @@ export function recurseObjectProperties(
   }
 
   treeMap[node.id] = node
+  oldIds.delete(node.id)
 
   if (shouldRecurseChildren(node, parent, iteratedValues, opts)) {
     const mappedChildren = opts.mapChildren && opts.mapChildren(value, getValueType(value), node)
     const children = mappedChildren ?? getChildren(value, getValueType(value))
-    node.children = children
-      .map(([key, val], idx) =>
-        recurseObjectProperties(
-          idx,
-          key,
-          val,
-          depth + 1,
-          false,
-          node,
-          treeMap,
-          oldTreeMap,
-          iteratedValues,
-          recomputeExpandNode,
-          opts
-        )
+    const ids: string[] = []
+    for (let i = 0; i < children.length; i += 1) {
+      const [key, val] = children[i]
+      const child = recurseObjectProperties(
+        i,
+        key,
+        val,
+        depth + 1,
+        false,
+        node,
+        treeMap,
+        oldIds,
+        iteratedValues,
+        recomputeExpandNode,
+        opts
       )
-      .filter(n => n !== null) as TreeNode[]
+      if (child) {
+        ids.push(child.id)
+      } else {
+        console.error(`recurseObjectProperties produced unexpected null TreeNode for parent`, node)
+      }
+    }
+    node.children = ids
   }
 
   return node
@@ -187,7 +206,7 @@ export function recomputeTree(
   recursionOpts: TreeRecursionOpts,
   recomputeExpandNode: boolean
 ) {
-  const treeMap = {}
+  const oldIds = new Set(Object.keys(oldTreeMap))
   const iteratedValues = new Map<any, TreeNode>()
   const newTree = recurseObjectProperties(
     -1,
@@ -196,11 +215,14 @@ export function recomputeTree(
     0,
     true,
     null,
-    treeMap,
     oldTreeMap,
+    oldIds,
     iteratedValues,
     recomputeExpandNode,
     recursionOpts
   )
-  return { treeMap, tree: newTree, iteratedValues }
+  for (const id of oldIds) {
+    delete oldTreeMap[id]
+  }
+  return { tree: newTree, iteratedValues }
 }

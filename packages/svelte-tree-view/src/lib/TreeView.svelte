@@ -24,6 +24,7 @@
     showCopyButton,
     recursionOpts,
     valueFormatter,
+    onUpdate,
     ...rest
   }: Props = $props()
 
@@ -33,14 +34,15 @@
     showLogButton,
     showCopyButton,
     recursionOpts: { ...DEFAULT_RECURSION_OPTS, ...recursionOpts },
-    valueFormatter
+    valueFormatter,
+    onUpdate
   }
   let rootElement: HTMLElement
   const propsStore = createPropsStore(propsObj)
   const rootElementStore = createRootElementStore()
   const treeStore = createTreeStore(propsStore)
   const newRecOpts = $derived({ ...DEFAULT_RECURSION_OPTS, ...recursionOpts })
-  const tree = treeStore.tree
+  const treeChildren = $derived(treeStore.treeMap['[]']?.children)
 
   setContext<Stores>('svelte-tree-view', {
     propsStore,
@@ -61,7 +63,8 @@
       showLogButton,
       showCopyButton,
       recursionOpts: propsObj.recursionOpts,
-      valueFormatter
+      valueFormatter,
+      onUpdate
     }
     propsStore.setProps(propsObj)
   })
@@ -91,8 +94,8 @@
 </script>
 
 {#snippet children()}
-  {#each $tree.children as child}
-    <TreeViewNode id={child.id} />
+  {#each treeChildren as id}
+    <TreeViewNode {id} />
   {/each}
 {/snippet}
 
