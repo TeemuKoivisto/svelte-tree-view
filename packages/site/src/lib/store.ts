@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store'
-import type { TreeRecursionOpts } from 'svelte-tree-view'
+import type { TreeNode, TreeRecursionOpts } from 'svelte-tree-view'
 
 import * as parser from './parser'
 
@@ -31,6 +31,69 @@ export interface FormState {
   theme: string
 }
 
+const DEFAULT_RECUR_OPTS: TreeRecursionOpts = {
+  maxDepth: 16,
+  omitKeys: [],
+  stopCircularRecursion: false,
+  isCircularNode(node, iteratedValues) {
+    if (node.type === 'object' || node.type === 'array') {
+      const existingNodeWithValue = iteratedValues.get(node.getValue())
+      if (existingNodeWithValue && node.id !== existingNodeWithValue.id) {
+        node.circularOfId = existingNodeWithValue.id
+        return false
+      }
+      iteratedValues.set(node.getValue(), node)
+    }
+    return true
+  },
+  shouldExpandNode(node) {
+    return true
+  },
+  mapChildren(value, type, parent) {
+    switch (type) {
+      case 'array':
+        return (value as Array<any>).map((v, i) => [i.toString(), v])
+      case 'map':
+        const entries = Array.from((value as Map<string, any>).entries())
+        return entries.map(([key, value], i) => [
+          `[map entry ${i}]`,
+          {
+            '[key]': key,
+            '[value]': value
+          }
+        ])
+      case 'set':
+        return Array.from(value.values()).map((v, i) => [`[set entry ${i}]`, v])
+      case 'object':
+        return Object.entries(value)
+      default:
+        return []
+    }
+  }
+}
+
+const recurOptsToString = () =>
+  Object.entries(DEFAULT_RECUR_OPTS)
+    .reduce<string[]>((acc, [key, val], idx) => {
+      if (idx === 0) {
+        acc.push('{')
+      }
+      let str
+      if (Array.isArray(val)) {
+        str = `  ${key}: [${val}],`
+      } else if (typeof val === 'function') {
+        str = `  ${val},`
+      } else {
+        str = `  ${key}: ${val},`
+      }
+      acc.push(str)
+      if (key === 'mapChildren') {
+        acc.push('}')
+      }
+      return acc
+    }, [])
+    .join('\n')
+
 export const DEFAULT_STATE: FormState = {
   data: '',
   selectedData: null,
@@ -41,46 +104,7 @@ export const DEFAULT_STATE: FormState = {
   keyMarginRight: '0.5em',
   showLogButton: false,
   showCopyButton: false,
-  recursionOpts: `{
-  maxDepth: 16,
-  omitKeys: [],
-  stopCircularRecursion: false,
-  isCircularNode(node, iteratedValues) {
-    if (node.type === 'object' || node.type === 'array') {
-      const existingNodeWithValue = iteratedValues.get(node.value)
-      if (existingNodeWithValue && node.id !== existingNodeWithValue.id) {
-        node.circularOfId = existingNodeWithValue.id
-        return false
-      }
-      iteratedValues.set(node.value, node)
-    }
-    return true
-  },
-  shouldExpandNode: (node) => {
-    return true
-  },
-  mapChildren(value, type, parent) {
-    switch (type) {
-      case 'array':
-        return value.map((v, i) => [i.toString(), v])
-      case 'map':
-        const entries = Array.from(value.entries())
-        return entries.map(([key, value], i) => [
-          \`[map entry \${i}]\`,
-          {
-            '[key]': key,
-            '[value]': value
-          }
-        ])
-      case 'set':
-        return Array.from(value.values()).map((v, i) => [\`[set entry \${i}]\`, v])
-      case 'object':
-        return Object.entries(value)
-      default:
-        return []
-    }
-  }
-}`,
+  recursionOpts: recurOptsToString(),
   valueFormatter: `(val, node) => {
   switch (node.type) {
     case 'array':
@@ -122,11 +146,11 @@ export const DEFAULT_STATE: FormState = {
   base0F: '#D6724C'
 }`
 }
-const testNode = {
+const testNode: TreeNode = {
   id: '[1]',
   index: 0,
   key: `test`,
-  value: [1, 2, 3],
+  getValue: () => [1, 2, 3],
   depth: 0,
   collapsed: false,
   type: 'array',

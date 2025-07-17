@@ -174,23 +174,29 @@ export function recurseObjectProperties(
   if (shouldRecurseChildren(node, parent, iteratedValues, opts)) {
     const mappedChildren = opts.mapChildren && opts.mapChildren(value, getValueType(value), node)
     const children = mappedChildren ?? getChildren(value, getValueType(value))
-    node.children = children
-      .map(([key, val], idx) =>
-        recurseObjectProperties(
-          idx,
-          key,
-          val,
-          depth + 1,
-          false,
-          node,
-          treeMap,
-          oldTreeMap,
-          iteratedValues,
-          recomputeExpandNode,
-          opts
-        )
+    const ids: string[] = []
+    for (let i = 0; i < children.length; i += 1) {
+      const [key, val] = children[i]
+      const child = recurseObjectProperties(
+        i,
+        key,
+        val,
+        depth + 1,
+        false,
+        node,
+        treeMap,
+        oldTreeMap,
+        iteratedValues,
+        recomputeExpandNode,
+        opts
       )
-      .filter(n => n !== null) as TreeNode[]
+      if (child) {
+        ids.push(child.id)
+      } else {
+        console.error(`recurseObjectProperties produced unexpected null TreeNode for parent`, node)
+      }
+    }
+    node.children = ids
   }
 
   return node

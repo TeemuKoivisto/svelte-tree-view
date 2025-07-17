@@ -110,8 +110,8 @@
 {#if descend}
   <li class="row">
     <ul>
-      {#each node.children as child}
-        <TreeViewNode id={child.id} />
+      {#each node.children as id}
+        <TreeViewNode {id} />
       {/each}
     </ul>
   </li>

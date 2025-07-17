@@ -43,7 +43,7 @@ export interface TreeNode<T = any> {
    * Circularity is checked by object identity to prevent recursing the same values again
    */
   circularOfId: string | null
-  children: TreeNode<T>[]
+  children: string[]
 }
 
 export interface Base16Theme {

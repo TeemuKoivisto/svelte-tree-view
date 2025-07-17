@@ -13,13 +13,16 @@ export const parseRecursionOpts = (
 ): Record<string, unknown> | undefined => {
   try {
     const parsed = new Function(`return ${str}`)()
+    console.log('parsed', parsed)
     if (parsed && typeof parsed === 'object') {
       parsed.isCircularNode(testNode, new Map())
       parsed.shouldExpandNode(testNode)
       parsed.mapChildren([], 'array', testNode)
       return parsed
     }
-  } catch (e) {}
+  } catch (e) {
+    console.log('e', e)
+  }
   return undefined
 }
 

@@ -191,8 +191,8 @@
 
   {#if descend}
     <div class="children-container">
-      {#each node.children as child}
-        <TreeViewNode id={child.id} />
+      {#each node.children as id}
+        <TreeViewNode {id} />
       {/each}
     </div>
   {/if}

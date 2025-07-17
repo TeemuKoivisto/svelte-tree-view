@@ -10,11 +10,11 @@
     handleToggleCollapse
   }: NodeProps = $props()
   const {
-    propsStore: { props: propsObj }
+    propsStore: { props: propsObj, formatValue }
   } = getTreeContext()
   let hasChildren = $derived(node.children.length > 0)
   let descend = $derived(!node.collapsed && hasChildren)
-  let valueStr = $derived($propsObj.valueFormatter?.(node.getValue(), node))
+  let valueStr = $derived(formatValue(node.getValue(), node))
 </script>
 
 <li class="row" class:collapsed={node.collapsed && hasChildren} data-tree-id={node.id}>
@@ -54,8 +54,8 @@
 {#if descend}
   <li class="row">
     <ul>
-      {#each node.children as child}
-        <TreeViewNode id={child.id} />
+      {#each node.children as id}
+        <TreeViewNode {id} />
       {/each}
     </ul>
   </li>

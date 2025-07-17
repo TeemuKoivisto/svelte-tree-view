@@ -71,9 +71,6 @@ export const createTreeStore = (propsStore: PropsStore) => {
         recursionOpts
       )
       if (!nodeWithUpdatedChildren) return
-      parent.children = parent.children.map(c =>
-        c.id === nodeWithUpdatedChildren.id ? nodeWithUpdatedChildren : c
-      )
       newTreeMap[nodeWithUpdatedChildren.id] = nodeWithUpdatedChildren
       newTreeMap[parent.id] = parent
       treeMap.set(newTreeMap)

@@ -95,8 +95,8 @@
 </script>
 
 {#snippet children()}
-  {#each $tree.children as child}
-    <TreeViewNode id={child.id} />
+  {#each $tree.children as id}
+    <TreeViewNode {id} />
   {/each}
 {/snippet}
 
