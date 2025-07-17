@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store'
-import type { TreeNode, TreeRecursionOpts } from 'svelte-tree-view'
+import type { TreeNode, TreeRecursionOpts, TreeViewProps } from 'svelte-tree-view'
 
 import * as parser from './parser'
 
@@ -94,6 +94,28 @@ const recurOptsToString = () =>
     }, [])
     .join('\n')
 
+const valueFormatter: TreeViewProps['valueFormatter'] = (val, node) => {
+  switch (node.type) {
+    case 'array':
+      return `${node.circularOfId ? 'circular' : ''} [] ${val.length} items`
+    case 'object':
+      return `${node.circularOfId ? 'circular' : ''} {} ${Object.keys(val).length} keys`
+    case 'map':
+    case 'set':
+      return `${node.circularOfId ? 'circular' : ''} () ${val.size} entries`
+    case 'date':
+      return `${val.toISOString()}`
+    case 'string':
+      return `"${val}"`
+    case 'boolean':
+      return val ? 'true' : 'false'
+    case 'symbol':
+      return String(val)
+    default:
+      return node.type
+  }
+}
+
 export const DEFAULT_STATE: FormState = {
   data: '',
   selectedData: null,
@@ -105,27 +127,7 @@ export const DEFAULT_STATE: FormState = {
   showLogButton: false,
   showCopyButton: false,
   recursionOpts: recurOptsToString(),
-  valueFormatter: `(val, node) => {
-  switch (node.type) {
-    case 'array':
-      return \u0060\${node.circularOfId ? 'circular' : ''} [] \${val.length} items\u0060
-    case 'object':
-      return \u0060\${node.circularOfId ? 'circular' : ''} {} \${Object.keys(val).length} keys\u0060
-    case 'map':
-    case 'set':
-      return \u0060\${node.circularOfId ? 'circular' : ''} () \${val.size} entries\u0060
-    case 'date':
-      return \u0060\${val.toISOString()}\u0060
-    case 'string':
-      return \u0060"\${val}"\u0060
-    case 'boolean':
-      return val ? 'true' : 'false'
-    case 'symbol':
-      return String(val)
-    default:
-      return val
-  }
-}`,
+  valueFormatter: valueFormatter.toString(),
   theme: `{
   scheme: 'monokai',
   base00: '#363755', // main blue bg

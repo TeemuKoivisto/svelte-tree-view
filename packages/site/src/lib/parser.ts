@@ -33,10 +33,12 @@ export const parseValueFormatter = (
   try {
     const parsed = new Function(`return ${str}`)()
     if (typeof parsed === 'function') {
-      parsed(testNode.value, testNode)
+      parsed(testNode.getValue(), testNode)
       return parsed
     }
-  } catch (e) {}
+  } catch (e) {
+    console.log('e', e)
+  }
   return undefined
 }
 
