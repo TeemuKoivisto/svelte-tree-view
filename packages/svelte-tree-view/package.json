@@ -30,7 +30,7 @@
     "postpublish": "rm README.md LICENSE",
     "svelte-check": "svelte-check",
     "test": "pnpm test:unit && pnpm test:e2e",
-    "test:unit": "vitest run src -u",
+    "test:unit": "vitest run src",
     "test:e2e": "cypress run --browser=chrome --config baseUrl=http://localhost:5185",
     "cy": "cypress"
   },

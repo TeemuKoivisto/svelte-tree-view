@@ -12,7 +12,6 @@ const snapPath = (i: number, j: number, name?: string) =>
   `./__snapshots__/${i}-${j}${name ? '-' + name : ''}.json`
 
 // https://sveltesociety.dev/recipes/testing-and-debugging/unit-testing-svelte-component/
-
 async function clickByText(container: HTMLElement, text: string, index = 0) {
   const el = (await findAllByText(container, text))[index]
   if (el) {
@@ -136,9 +135,7 @@ describe('TreeView', () => {
     await clickByText(results.container, 'b:')
     expect(results.container.querySelectorAll('li').length).toEqual(5)
 
-    await expect(JSON.stringify(map)).toMatchFileSnapshot(snapPath(50, 0, 'treemap'))
     await clickByText(results.container, '[map entry 1]:')
-    await expect(JSON.stringify(map)).toMatchFileSnapshot(snapPath(50, 1, 'treemap'))
     expect(results.container.querySelectorAll('li').length).toEqual(8)
 
     await clickByText(results.container, '[value]:')
@@ -171,6 +168,7 @@ describe('TreeView', () => {
       }
     })
 
+    await expect(JSON.stringify(map)).toMatchFileSnapshot(snapPath(0, 0, 'treemap'))
     // Rerendering should collapse again everything
     expect(results.container.querySelectorAll('li').length).toEqual(2)
 

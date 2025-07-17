@@ -104,7 +104,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            number
+            0
           </div>
            
           <div
@@ -279,7 +279,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            number
+            22
           </div>
            
           <div
@@ -630,7 +630,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            number
+            -39.97877
           </div>
            
           <div
@@ -665,7 +665,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            number
+            -61.667911
           </div>
            
           <div
@@ -1080,7 +1080,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    number
+                    0
                   </div>
                    
                   <div
@@ -1199,7 +1199,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    number
+                    1
                   </div>
                    
                   <div
@@ -1318,7 +1318,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    number
+                    2
                   </div>
                    
                   <div
@@ -1552,7 +1552,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            number
+            1
           </div>
            
           <div
@@ -1727,7 +1727,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            number
+            29
           </div>
            
           <div
@@ -2078,7 +2078,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            number
+            -73.399929
           </div>
            
           <div
@@ -2113,7 +2113,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            number
+            55.693187
           </div>
            
           <div
@@ -2528,7 +2528,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    number
+                    0
                   </div>
                    
                   <div
@@ -2647,7 +2647,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    number
+                    1
                   </div>
                    
                   <div
@@ -2766,7 +2766,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    number
+                    2
                   </div>
                    
                   <div
@@ -3000,7 +3000,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            number
+            2
           </div>
            
           <div
@@ -3175,7 +3175,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            number
+            27
           </div>
            
           <div
@@ -3526,7 +3526,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            number
+            -60.824874
           </div>
            
           <div
@@ -3561,7 +3561,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            number
+            -22.249243
           </div>
            
           <div
@@ -3976,7 +3976,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    number
+                    0
                   </div>
                    
                   <div
@@ -4095,7 +4095,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    number
+                    1
                   </div>
                    
                   <div
@@ -4214,7 +4214,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    number
+                    2
                   </div>
                    
                   <div
@@ -4448,7 +4448,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            number
+            3
           </div>
            
           <div
@@ -4623,7 +4623,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            number
+            20
           </div>
            
           <div
@@ -4974,7 +4974,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            number
+            -60.058287
           </div>
            
           <div
@@ -5009,7 +5009,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            number
+            88.480295
           </div>
            
           <div
@@ -5424,7 +5424,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    number
+                    0
                   </div>
                    
                   <div
@@ -5543,7 +5543,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    number
+                    1
                   </div>
                    
                   <div
@@ -5662,7 +5662,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    number
+                    2
                   </div>
                    
                   <div
@@ -5896,7 +5896,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            number
+            4
           </div>
            
           <div
@@ -6071,7 +6071,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            number
+            26
           </div>
            
           <div
@@ -6422,7 +6422,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            number
+            14.786267
           </div>
            
           <div
@@ -6457,7 +6457,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            number
+            -28.163592
           </div>
            
           <div
@@ -6872,7 +6872,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    number
+                    0
                   </div>
                    
                   <div
@@ -6991,7 +6991,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    number
+                    1
                   </div>
                    
                   <div
@@ -7110,7 +7110,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    number
+                    2
                   </div>
                    
                   <div
@@ -7344,7 +7344,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            number
+            5
           </div>
            
           <div
@@ -7519,7 +7519,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            number
+            20
           </div>
            
           <div
@@ -7870,7 +7870,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            number
+            -74.812367
           </div>
            
           <div
@@ -7905,7 +7905,7 @@ exports[`TreeView > should render 1`] = `
             data-type="number"
             role="presentation"
           >
-            number
+            161.825889
           </div>
            
           <div
@@ -8320,7 +8320,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    number
+                    0
                   </div>
                    
                   <div
@@ -8439,7 +8439,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    number
+                    1
                   </div>
                    
                   <div
@@ -8558,7 +8558,7 @@ exports[`TreeView > should render 1`] = `
                     data-type="number"
                     role="presentation"
                   >
-                    number
+                    2
                   </div>
                    
                   <div
@@ -9189,7 +9189,7 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                             data-type="number"
                             role="presentation"
                           >
-                            number
+                            0
                           </div>
                            
                           <div
@@ -10856,7 +10856,7 @@ exports[`TreeView > should render with almost all props defined 1`] = `
                             data-type="number"
                             role="presentation"
                           >
-                            number
+                            0
                           </div>
                            
                           <div
