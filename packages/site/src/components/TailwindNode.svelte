@@ -14,7 +14,7 @@
     propsStore: { props: propsObj }
   } = getTreeContext()
 
-  let hasChildren = $derived(node && node.children.length > 0)
+  let hasChildren = $derived(node.children.length > 0)
   let descend = $derived(!node.collapsed && hasChildren)
 
   // Function to create truncated preview of objects and arrays
@@ -130,11 +130,7 @@
     {/if}
 
     <!-- Node content -->
-    <button
-      class="node-content"
-      class:clickable={hasChildren}
-      onclick={hasChildren ? handleToggleCollapse : undefined}
-    >
+    <button class="node-content" class:cursor-pointer={hasChildren} onclick={handleToggleCollapse}>
       <!-- Key section -->
       <div class="node-key-section">
         <span class="node-key">{node.key}:</span>
@@ -142,11 +138,7 @@
 
       <!-- Value section -->
       <div class="node-value-section">
-        <div
-          class={`node-value truncate ${getTypeClasses()}`}
-          class:clickable={hasChildren}
-          data-type={node.type}
-        >
+        <div class={`node-value truncate ${getTypeClasses()}`} data-type={node.type}>
           {getDisplayValue()}
         </div>
       </div>
@@ -206,7 +198,7 @@
   }
 
   .tree-node-card {
-    @apply flex items-center gap-2 rounded-lg border border-gray-200 bg-white p-2 transition-all duration-200 ease-in-out hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700;
+    @apply flex items-center gap-2 rounded-lg border border-gray-200 bg-white transition-all duration-200 ease-in-out hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700;
   }
 
   .tree-node-card.has-children {
@@ -270,7 +262,7 @@
   }
 
   .children-container {
-    @apply ml-6 mt-2 space-y-1;
+    @apply ml-6 mt-0.5 space-y-0.5;
   }
 
   /* Responsive design */

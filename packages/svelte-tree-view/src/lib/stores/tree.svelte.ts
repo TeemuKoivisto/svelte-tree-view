@@ -9,7 +9,7 @@ export type TreeStore = ReturnType<typeof createTreeStore>
 export const createTreeStore = (propsStore: PropsStore) => {
   const [defaultRootNode] = createNode(0, 'root', [], 0, null, {})
   const tree = writable<TreeNode>(defaultRootNode)
-  const treeMap = writable<Record<string, TreeNode>>({})
+  const treeMap = $state<Record<string, TreeNode>>({})
   const iteratedValues = writable<Map<any, TreeNode>>(new Map())
 
   return {
@@ -18,44 +18,38 @@ export const createTreeStore = (propsStore: PropsStore) => {
     defaultRootNode,
 
     update(data: unknown, recursionOpts: TreeRecursionOpts<any>, recomputeExpandNode: boolean) {
-      const oldTreeMap = get(treeMap)
-      const recomputed = recomputeTree(data, oldTreeMap, recursionOpts, recomputeExpandNode)
+      const recomputed = recomputeTree(data, treeMap, recursionOpts, recomputeExpandNode)
       if (recomputed.tree) {
         tree.set(recomputed.tree)
       } else {
         tree.set(defaultRootNode)
       }
-      treeMap.set(recomputed.treeMap)
       iteratedValues.set(recomputed.iteratedValues)
-      get(propsStore.props).onUpdate?.(recomputed.treeMap)
-      // console.log('recomputed', recomputed.treeMap)
+      get(propsStore.props).onUpdate?.(treeMap)
     },
 
     toggleCollapse(id: string) {
-      const node = get(treeMap)[id]
+      const node = treeMap[id]
       if (!node) {
         console.warn(`Attempted to collapse non-existent node: ${id}`)
         return
       }
-      const updatedNode = { ...node, collapsed: !node.collapsed }
-      const newMap = { ...get(treeMap), [node.id]: updatedNode }
-      treeMap.set(newMap)
+      node.collapsed = !node.collapsed
       const recursionOpts = get(propsStore.recursionOpts)
       if (recursionOpts) {
-        this.expandNodeChildren(updatedNode, recursionOpts)
+        this.expandNodeChildren(node, recursionOpts)
       } else {
-        get(propsStore.props).onUpdate?.(newMap)
+        get(propsStore.props).onUpdate?.(treeMap)
       }
     },
 
     expandNodeChildren(node: TreeNode, recursionOpts: TreeRecursionOpts) {
-      const oldTreeMap = get(treeMap)
+      const oldTreeMap = treeMap
       const parent = oldTreeMap[node?.parentId || ''] || null
       if (!parent) {
         // Only root node has no parent and it should not be expandable
         throw Error('No parent in expandNodeChildren for node: ' + node)
       }
-      const newTreeMap = { ...oldTreeMap }
       const previouslyIterated = get(iteratedValues)
       const nodeWithUpdatedChildren = recurseObjectProperties(
         node.index,
@@ -64,18 +58,17 @@ export const createTreeStore = (propsStore: PropsStore) => {
         node.depth,
         !node.collapsed, // Ensure that when uncollapsed the node's children are always recursed
         parent,
-        newTreeMap,
-        oldTreeMap,
+        treeMap,
+        new Set(),
         previouslyIterated,
         false, // Never recompute shouldExpandNode since it may override the collapsing of this node
         recursionOpts
       )
       if (!nodeWithUpdatedChildren) return
-      newTreeMap[nodeWithUpdatedChildren.id] = nodeWithUpdatedChildren
-      newTreeMap[parent.id] = parent
-      treeMap.set(newTreeMap)
+      treeMap[nodeWithUpdatedChildren.id] = nodeWithUpdatedChildren
+      treeMap[parent.id] = parent
       iteratedValues.set(previouslyIterated)
-      get(propsStore.props).onUpdate?.(newTreeMap)
+      get(propsStore.props).onUpdate?.(treeMap)
     },
 
     expandAllNodesToNode(id: string) {
@@ -84,14 +77,13 @@ export const createTreeStore = (propsStore: PropsStore) => {
         node?: TreeNode | null
       ) {
         if (!node) return
-        updated[node.id] = { ...node, collapsed: false }
+        updated[node.id]!.collapsed = false
         if (node.parentId) {
           recurseNodeUpwards(updated, updated[node.parentId])
         }
       }
-      const updated = { ...get(treeMap) }
+      const updated = treeMap
       recurseNodeUpwards(updated, updated[id])
-      treeMap.set(updated)
       get(propsStore.props).onUpdate?.(updated)
     }
   }

@@ -16,8 +16,8 @@
 
   const { treeStore, propsStore, rootElementStore } = getContext<Stores>('svelte-tree-view')
   let { props: propsObj } = propsStore
-  // let node = $state(treeStore.treeMap[id] as TreeNode<any>)
-  let node = $state(get(treeStore.treeMap)[id] as TreeNode<any>)
+  let node = $state(treeStore.treeMap[id] as TreeNode<any>)
+  // let node = $state(get(treeStore.treeMap)[id] as TreeNode<any>)
   let hasChildren = $derived(node && node.children.length > 0)
   let nodeProps = $derived({
     node,
@@ -51,14 +51,14 @@
     }
   })
 
-  onMount(() => {
-    treeStore.treeMap.subscribe(value => {
-      const val = value[id]
-      if (val) {
-        node = val
-      }
-    })
-  })
+  // onMount(() => {
+  //   treeStore.treeMap.subscribe(value => {
+  //     const val = value[id]
+  //     if (val) {
+  //       node = val
+  //     }
+  //   })
+  // })
 </script>
 
 {#if $propsObj.treeNode}
