@@ -1,14 +1,22 @@
 <script lang="ts">
-  import type { NodeProps } from './types'
+  import type { Snippet } from 'svelte'
+  import type { NodeProps, TreeNode } from './types'
+
+  type DefaultNodeProps = NodeProps & {
+    key?: Snippet<[TreeNode]>
+    value?: Snippet<[TreeNode]>
+  }
 
   let {
     node,
+    key,
+    value,
     TreeViewNode,
     getTreeContext,
     handleLogNode,
     handleCopyNodeToClipboard,
     handleToggleCollapse
-  }: NodeProps = $props()
+  }: DefaultNodeProps = $props()
   const {
     propsStore: { props: propsObj, formatValue }
   } = getTreeContext()
@@ -30,7 +38,11 @@
     onclick={handleToggleCollapse}
     role="presentation"
   >
-    {node.key}:
+    {#if key}
+      {@render key(node)}
+    {:else}
+      {node.key}:
+    {/if}
   </div>
   <div
     class="node-value"
@@ -40,7 +52,11 @@
     onclick={handleToggleCollapse}
     role="presentation"
   >
-    {valueStr}
+    {#if value}
+      {@render value(node)}
+    {:else}
+      {valueStr}
+    {/if}
   </div>
   <div class="buttons">
     {#if $propsObj.showLogButton}

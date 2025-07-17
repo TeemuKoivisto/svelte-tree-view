@@ -1,7 +1,6 @@
 <script lang="ts">
   import { getContext } from 'svelte'
 
-  import DefaultNode from './DefaultNode.svelte'
   import TreeViewNode from './TreeViewNode.svelte'
 
   import type { Stores } from './stores'
@@ -50,8 +49,4 @@
   })
 </script>
 
-{#if $propsObj.treeNode}
-  {@render $propsObj.treeNode(nodeProps)}
-{:else}
-  <DefaultNode {...nodeProps} />
-{/if}
+{@render $propsObj.treeNode(nodeProps)}

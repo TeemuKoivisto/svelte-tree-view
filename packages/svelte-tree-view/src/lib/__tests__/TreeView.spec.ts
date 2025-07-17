@@ -1,7 +1,7 @@
 import { render, fireEvent, findAllByText } from '@testing-library/svelte'
 import { describe, expect, it, vi } from 'vitest'
 
-import TreeView from '../TreeView.svelte'
+import DefaultTree from './DefaultTree.svelte'
 
 import example1 from './__fixtures__/example1.json'
 import { generateObj } from './generateObj'
@@ -27,7 +27,7 @@ async function clickByText(container: HTMLElement, text: string, index = 0) {
 
 describe('TreeView', () => {
   it('should render', async () => {
-    const results = render(TreeView, {
+    const results = render(DefaultTree, {
       data: example1,
       recursionOpts: {
         shouldExpandNode: () => true
@@ -40,7 +40,7 @@ describe('TreeView', () => {
   })
 
   it('should render with almost all props defined', async () => {
-    const results = render(TreeView, {
+    const results = render(DefaultTree, {
       data: generateObj(0, 4),
       showLogButton: true,
       showCopyButton: true,
@@ -119,7 +119,7 @@ describe('TreeView', () => {
       ])
     }
     let map: any
-    const results = render(TreeView, {
+    const results = render(DefaultTree, {
       data,
       recursionOpts: {
         maxDepth: 4
@@ -198,7 +198,7 @@ describe('TreeView', () => {
   })
 
   it('should not map primitive values and renders them correctly in list', async () => {
-    const results = render(TreeView, {
+    const results = render(DefaultTree, {
       data: undefined
     })
     window.HTMLElement.prototype.scrollIntoView = vi.fn()

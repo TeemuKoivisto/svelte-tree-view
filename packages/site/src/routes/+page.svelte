@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import TreeView from 'svelte-tree-view'
+  import TreeView, { DefaultNode } from 'svelte-tree-view'
 
   import { mapDocDeltaChildren } from '$lib/mapDocDeltaChildren'
   import {
@@ -35,6 +35,9 @@
     <ul class="svelte-tree-view w-1/2 px-4">
       {@render children()}
     </ul>
+  {/snippet}
+  {#snippet treeNode(props)}
+    <DefaultNode {...props} />
   {/snippet}
 </TreeView>
 

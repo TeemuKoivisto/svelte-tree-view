@@ -1,4 +1,4 @@
-import { type Component, type Snippet } from 'svelte'
+import type { Component, Snippet } from 'svelte'
 import type { HTMLAttributes } from 'svelte/elements'
 import type { Stores } from './stores'
 
@@ -174,7 +174,7 @@ export interface TreeViewProps<T = any> {
   /**
    * Custom tree node. Uses DefaultNode.svelte by default
    */
-  treeNode?: Snippet<[NodeProps<T>]>
+  treeNode: Snippet<[NodeProps<T>]>
   theme?: Base16Theme
   showLogButton?: boolean
   showCopyButton?: boolean
