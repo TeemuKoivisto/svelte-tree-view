@@ -4,7 +4,6 @@
   import TreeViewNode from './TreeViewNode.svelte'
 
   import type { TreeStore } from './store.svelte'
-  import type { TreeNode } from './types'
 
   interface Props {
     id: string
@@ -13,8 +12,8 @@
   let { id }: Props = $props()
 
   const { rootElement, treeMap, viewProps, ...rest } = getContext<TreeStore>('svelte-tree-view')
-  let node = $state(treeMap[id] as TreeNode<any>)
-  let hasChildren = $derived(node && node.children.length > 0)
+  let node = $derived(treeMap[id])
+  let hasChildren = $derived(node.children.length > 0)
   let nodeProps = $derived({
     node,
     getTreeContext: () => getContext<TreeStore>('svelte-tree-view'),
