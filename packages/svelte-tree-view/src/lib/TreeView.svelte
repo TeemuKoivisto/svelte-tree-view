@@ -67,10 +67,10 @@
     // Destruct recursionOpts to unwrap from proxy
     const opts = { ...newRecOpts }
     const newData = data
-    const shouldRecompute = oldRecOptions?.shouldExpandNode !== opts.shouldExpandNode
+    const recomputeExpandNode = oldRecOptions?.shouldExpandNode !== opts.shouldExpandNode
     // Use untrack to prevent triggering this effect again
     untrack(() => {
-      store.recompute(newData, opts, shouldRecompute)
+      store.createTree(newData, opts, recomputeExpandNode)
       store.setProps(propsObj)
       propsObj.recursionOpts = opts
     })

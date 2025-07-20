@@ -12,10 +12,12 @@ export function createNode(
   const id = `[${path.join(',')}]`
   const oldNode = treeMap[id]
   if (oldNode) {
+    const sameValue = oldNode.getValue() === value
     oldNode.key = key
     oldNode.getValue = () => value
     oldNode.depth = depth
     oldNode.type = getValueType(value)
+    oldNode.circularOfId = sameValue ? oldNode.circularOfId : null
     oldNode.children = []
     return [oldNode, oldNode]
   }
@@ -124,7 +126,7 @@ function shouldRecurseChildren(
   } else if (!opts.stopCircularRecursion) {
     return true
   } else if (opts.isCircularNode) {
-    return opts.isCircularNode(node, iteratedValues)
+    return !opts.isCircularNode(node, iteratedValues)
   } else if (node.type === 'object' || node.type === 'array') {
     const existingNodeWithValue = iteratedValues.get(node.getValue())
     if (existingNodeWithValue && node.id !== existingNodeWithValue.id) {

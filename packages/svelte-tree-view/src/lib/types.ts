@@ -132,7 +132,7 @@ export interface TreeRecursionOpts<T = any> {
    * For custom circularity detection magic
    * @param n Iterated node
    * @param iteratedValues Map of all iterated values
-   * @returns
+   * @returns `true` if circular to skip iterating this value
    */
   isCircularNode?: (n: TreeNode<T>, iteratedValues: Map<any, TreeNode<T>>) => boolean
   /**

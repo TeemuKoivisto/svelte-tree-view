@@ -40,11 +40,11 @@ const DEFAULT_RECUR_OPTS: TreeRecursionOpts = {
       const existingNodeWithValue = iteratedValues.get(node.getValue())
       if (existingNodeWithValue && node.id !== existingNodeWithValue.id) {
         node.circularOfId = existingNodeWithValue.id
-        return false
+        return true 
       }
       iteratedValues.set(node.getValue(), node)
     }
-    return true
+    return false
   },
   shouldExpandNode(node) {
     return true

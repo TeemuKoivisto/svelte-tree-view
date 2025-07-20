@@ -53,7 +53,7 @@ export const createStore = (initialProps: Omit<TreeViewProps, 'data'>) => {
     }
   }
 
-  function recompute(
+  function createTree(
     data: unknown,
     recursionOpts: TreeRecursionOpts<any>,
     recomputeExpandNode: boolean
@@ -94,13 +94,12 @@ export const createStore = (initialProps: Omit<TreeViewProps, 'data'>) => {
   }
 
   function expandNodeChildren(node: TreeNode, recursionOpts: TreeRecursionOpts) {
-    const oldTreeMap = treeMap
-    const parent = oldTreeMap[node?.parentId || ''] || null
+    const parent = treeMap[node.parentId || ''] || null
     if (!parent) {
       // Only root node has no parent and it should not be expandable
       throw Error('No parent in expandNodeChildren for node: ' + node)
     }
-    const nodeWithUpdatedChildren = recurseObjectProperties(
+    recurseObjectProperties(
       node.index,
       node.key,
       node.getValue(),
@@ -113,23 +112,19 @@ export const createStore = (initialProps: Omit<TreeViewProps, 'data'>) => {
       false, // Never recompute shouldExpandNode since it may override the collapsing of this node
       recursionOpts
     )
-    if (!nodeWithUpdatedChildren) return
-    treeMap[nodeWithUpdatedChildren.id] = nodeWithUpdatedChildren
-    treeMap[parent.id] = parent
     get(viewProps).onUpdate?.(treeMap)
   }
 
   function expandAllNodesToNode(id: string) {
-    function recurseNodeUpwards(updated: Record<string, TreeNode | null>, node?: TreeNode | null) {
+    function recurseNodeUpwards(node?: TreeNode | null) {
       if (!node) return
-      updated[node.id]!.collapsed = false
+      treeMap[node.id]!.collapsed = false
       if (node.parentId) {
-        recurseNodeUpwards(updated, updated[node.parentId])
+        recurseNodeUpwards(treeMap[node.parentId])
       }
     }
-    const updated = treeMap
-    recurseNodeUpwards(updated, updated[id])
-    get(viewProps).onUpdate?.(updated)
+    recurseNodeUpwards(treeMap[id])
+    get(viewProps).onUpdate?.(treeMap)
   }
 
   return {
@@ -142,7 +137,7 @@ export const createStore = (initialProps: Omit<TreeViewProps, 'data'>) => {
     setProps,
     setRootElement,
     formatValue,
-    recompute,
+    createTree,
     toggleCollapse,
     expandNodeChildren,
     expandAllNodesToNode
