@@ -10,9 +10,7 @@
     handleToggleCollapse
   }: NodeProps = $props()
 
-  const {
-    propsStore: { props: propsObj }
-  } = getTreeContext()
+  const { props: propsObj } = getTreeContext()
 
   let hasChildren = $derived(node.children.length > 0)
   let descend = $derived(!node.collapsed && hasChildren)

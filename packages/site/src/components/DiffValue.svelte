@@ -5,9 +5,7 @@
 
   let props: NodeProps = $props()
   let value = $derived(props.node.getValue())
-  const {
-    propsStore: { formatValue }
-  } = props.getTreeContext()
+  const { formatValue } = props.getTreeContext()
 
   function replaceSpacesWithNonBreakingSpace(value: string) {
     return value.replace(/\s/gm, ' ')

@@ -3,7 +3,7 @@
 
   import TreeViewNode from './TreeViewNode.svelte'
 
-  import type { Stores } from './stores'
+  import type { TreeStore } from './store.svelte'
   import type { TreeNode } from './types'
 
   interface Props {
@@ -12,13 +12,17 @@
 
   let { id }: Props = $props()
 
-  const { treeStore, propsStore, rootElementStore } = getContext<Stores>('svelte-tree-view')
-  let { props: propsObj } = propsStore
-  let node = $state(treeStore.treeMap[id] as TreeNode<any>)
+  const {
+    rootElementStore,
+    treeMap,
+    props: propsObj,
+    ...rest
+  } = getContext<TreeStore>('svelte-tree-view')
+  let node = $state(treeMap[id] as TreeNode<any>)
   let hasChildren = $derived(node && node.children.length > 0)
   let nodeProps = $derived({
     node,
-    getTreeContext: () => getContext<Stores>('svelte-tree-view'),
+    getTreeContext: () => getContext<TreeStore>('svelte-tree-view'),
     TreeViewNode: TreeViewNode,
     handleLogNode() {
       console.info('%c [svelte-tree-view]: Property added to window._node', 'color: #b8e248')
@@ -38,9 +42,9 @@
     },
     handleToggleCollapse() {
       if (hasChildren) {
-        treeStore.toggleCollapse(node.id)
+        rest.toggleCollapse(node.id)
       } else if (node.circularOfId) {
-        treeStore.expandAllNodesToNode(node.circularOfId)
+        rest.expandAllNodesToNode(node.circularOfId)
         $rootElementStore
           ?.querySelector(`li[data-tree-id="${node.circularOfId}"]`)
           ?.scrollIntoView()

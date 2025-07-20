@@ -17,9 +17,7 @@
     handleCopyNodeToClipboard,
     handleToggleCollapse
   }: DefaultNodeProps = $props()
-  const {
-    propsStore: { props: propsObj, formatValue }
-  } = getTreeContext()
+  const { props: propsObj, formatValue } = getTreeContext()
   let hasChildren = $derived(node.children.length > 0)
   let descend = $derived(!node.collapsed && hasChildren)
   let valueStr = $derived(formatValue(node.getValue(), node))

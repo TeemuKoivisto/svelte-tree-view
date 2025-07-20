@@ -1,6 +1,6 @@
 import type { Component, Snippet } from 'svelte'
 import type { HTMLAttributes } from 'svelte/elements'
-import type { Stores } from './stores'
+import type { TreeStore } from './store.svelte'
 
 export type ValueType =
   | 'array'
@@ -155,7 +155,7 @@ export interface TreeRecursionOpts<T = any> {
 export interface NodeProps<T = any> {
   node: TreeNode<T>
   TreeViewNode: Component<{ id: string }>
-  getTreeContext: () => Stores
+  getTreeContext: () => TreeStore
   handleLogNode(): void
   handleCopyNodeToClipboard(): void
   handleToggleCollapse(): void

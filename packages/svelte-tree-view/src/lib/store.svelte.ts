@@ -1,22 +1,64 @@
-import { get } from 'svelte/store'
+import { derived, get, writable } from 'svelte/store'
 
-import { createNode, recurseObjectProperties } from '../tree-utils.svelte'
-import type { TreeNode, TreeRecursionOpts } from '../types'
-import type { PropsStore } from './props'
+import { createNode, recurseObjectProperties } from './tree-utils.svelte'
+import type { TreeNode, TreeRecursionOpts, TreeViewProps } from './types'
 
-export type TreeStore = ReturnType<typeof createTreeStore>
+export type TreeStore = ReturnType<typeof createStore>
 
-export const createTreeStore = (propsStore: PropsStore) => {
+export const createStore = (initialProps: Omit<TreeViewProps, 'data'>) => {
   const [defaultRootNode] = createNode(-1, 'root', [], 0, null, {})
   const treeMap = $state<Record<string, TreeNode>>({
     [defaultRootNode.id]: defaultRootNode
   })
   const rootNode = $derived(treeMap[defaultRootNode.id])
+  const rootElementStore = writable<HTMLElement | null>(null)
+  const props = writable<Omit<TreeViewProps, 'data'>>(initialProps)
+  const recursionOpts = derived(props, p => p.recursionOpts)
   const iteratedValues = new Map<any, TreeNode>()
 
   return {
-    treeMap,
+    props,
+    recursionOpts,
+    rootElementStore,
     rootNode,
+    treeMap,
+
+    setProps(newProps: Omit<TreeViewProps, 'data'>) {
+      props.set(newProps)
+    },
+
+    setRootElement(el: HTMLElement | null) {
+      rootElementStore.set(el)
+    },
+
+    formatValue(val: any, node: TreeNode): string {
+      const { valueFormatter } = get(props)
+      const customFormat = valueFormatter ? valueFormatter(val, node) : undefined
+      if (customFormat) {
+        return customFormat
+      }
+      switch (node.type) {
+        case 'array':
+          return `${node.circularOfId ? 'circular' : ''} [] ${val.length} items`
+        case 'object':
+          return `${node.circularOfId ? 'circular' : ''} {} ${Object.keys(val).length} keys`
+        case 'map':
+        case 'set':
+          return `${node.circularOfId ? 'circular' : ''} () ${val.size} entries`
+        case 'date':
+          return `${val.toISOString()}`
+        case 'string':
+          return `"${val}"`
+        case 'number':
+          return val
+        case 'boolean':
+          return val ? 'true' : 'false'
+        case 'symbol':
+          return String(val)
+        default:
+          return node.type
+      }
+    },
 
     recompute(data: unknown, recursionOpts: TreeRecursionOpts<any>, recomputeExpandNode: boolean) {
       const oldIds = new Set(Object.keys(treeMap))
@@ -37,7 +79,7 @@ export const createTreeStore = (propsStore: PropsStore) => {
       for (const id of oldIds) {
         delete treeMap[id]
       }
-      get(propsStore.props).onUpdate?.(treeMap)
+      get(props).onUpdate?.(treeMap)
     },
 
     toggleCollapse(id: string) {
@@ -46,11 +88,11 @@ export const createTreeStore = (propsStore: PropsStore) => {
         return console.warn(`Attempted to collapse non-existent node: ${id}`)
       }
       node.collapsed = !node.collapsed
-      const recursionOpts = get(propsStore.recursionOpts)
-      if (recursionOpts) {
-        this.expandNodeChildren(node, recursionOpts)
+      const recurOpts = get(recursionOpts)
+      if (recurOpts) {
+        this.expandNodeChildren(node, recurOpts)
       } else {
-        get(propsStore.props).onUpdate?.(treeMap)
+        get(props).onUpdate?.(treeMap)
       }
     },
 
@@ -77,7 +119,7 @@ export const createTreeStore = (propsStore: PropsStore) => {
       if (!nodeWithUpdatedChildren) return
       treeMap[nodeWithUpdatedChildren.id] = nodeWithUpdatedChildren
       treeMap[parent.id] = parent
-      get(propsStore.props).onUpdate?.(treeMap)
+      get(props).onUpdate?.(treeMap)
     },
 
     expandAllNodesToNode(id: string) {
@@ -93,7 +135,7 @@ export const createTreeStore = (propsStore: PropsStore) => {
       }
       const updated = treeMap
       recurseNodeUpwards(updated, updated[id])
-      get(propsStore.props).onUpdate?.(updated)
+      get(props).onUpdate?.(updated)
     }
   }
 }
