@@ -10,7 +10,7 @@
     handleToggleCollapse
   }: NodeProps = $props()
 
-  const { props: propsObj } = getTreeContext()
+  const { viewProps } = getTreeContext()
 
   let hasChildren = $derived(node.children.length > 0)
   let descend = $derived(!node.collapsed && hasChildren)
@@ -58,7 +58,7 @@
     }
 
     // For other types, use the default formatter or string representation
-    return $propsObj.valueFormatter?.(value, node) ?? String(value)
+    return $viewProps.valueFormatter?.(value, node) ?? String(value)
   }
 
   // Get the appropriate value to display
@@ -69,7 +69,7 @@
       return createTruncatedPreview(val, node.type)
     } else {
       // Show full value when expanded or for leaf nodes
-      return $propsObj.valueFormatter?.(val, node) ?? String(val)
+      return $viewProps.valueFormatter?.(val, node) ?? String(val)
     }
   }
 
@@ -144,7 +144,7 @@
 
     <!-- Action buttons -->
     <div class="action-buttons">
-      {#if $propsObj.showLogButton}
+      {#if $viewProps.showLogButton}
         <button
           class="action-button log-button"
           onclick={handleLogNode}
@@ -160,7 +160,7 @@
           </svg>
         </button>
       {/if}
-      {#if $propsObj.showCopyButton}
+      {#if $viewProps.showCopyButton}
         <button
           class="action-button copy-button"
           onclick={handleCopyNodeToClipboard}

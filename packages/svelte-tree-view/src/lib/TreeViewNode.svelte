@@ -12,12 +12,7 @@
 
   let { id }: Props = $props()
 
-  const {
-    rootElementStore,
-    treeMap,
-    props: propsObj,
-    ...rest
-  } = getContext<TreeStore>('svelte-tree-view')
+  const { rootElement, treeMap, viewProps, ...rest } = getContext<TreeStore>('svelte-tree-view')
   let node = $state(treeMap[id] as TreeNode<any>)
   let hasChildren = $derived(node && node.children.length > 0)
   let nodeProps = $derived({
@@ -45,12 +40,10 @@
         rest.toggleCollapse(node.id)
       } else if (node.circularOfId) {
         rest.expandAllNodesToNode(node.circularOfId)
-        $rootElementStore
-          ?.querySelector(`li[data-tree-id="${node.circularOfId}"]`)
-          ?.scrollIntoView()
+        $rootElement?.querySelector(`li[data-tree-id="${node.circularOfId}"]`)?.scrollIntoView()
       }
     }
   })
 </script>
 
-{@render $propsObj.treeNode(nodeProps)}
+{@render $viewProps.treeNode(nodeProps)}

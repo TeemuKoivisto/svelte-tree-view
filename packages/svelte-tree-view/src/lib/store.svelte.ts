@@ -11,28 +11,28 @@ export const createStore = (initialProps: Omit<TreeViewProps, 'data'>) => {
     [defaultRootNode.id]: defaultRootNode
   })
   const rootNode = $derived(treeMap[defaultRootNode.id])
-  const rootElementStore = writable<HTMLElement | null>(null)
-  const props = writable<Omit<TreeViewProps, 'data'>>(initialProps)
-  const recursionOpts = derived(props, p => p.recursionOpts)
+  const rootElement = writable<HTMLElement | null>(null)
+  const viewProps = writable<Omit<TreeViewProps, 'data'>>(initialProps)
+  const recursionOpts = derived(viewProps, p => p.recursionOpts)
   const iteratedValues = new Map<any, TreeNode>()
 
   return {
-    props,
     recursionOpts,
-    rootElementStore,
+    rootElement,
     rootNode,
     treeMap,
+    viewProps,
 
     setProps(newProps: Omit<TreeViewProps, 'data'>) {
-      props.set(newProps)
+      viewProps.set(newProps)
     },
 
     setRootElement(el: HTMLElement | null) {
-      rootElementStore.set(el)
+      rootElement.set(el)
     },
 
     formatValue(val: any, node: TreeNode): string {
-      const { valueFormatter } = get(props)
+      const { valueFormatter } = get(viewProps)
       const customFormat = valueFormatter ? valueFormatter(val, node) : undefined
       if (customFormat) {
         return customFormat
@@ -79,7 +79,7 @@ export const createStore = (initialProps: Omit<TreeViewProps, 'data'>) => {
       for (const id of oldIds) {
         delete treeMap[id]
       }
-      get(props).onUpdate?.(treeMap)
+      get(viewProps).onUpdate?.(treeMap)
     },
 
     toggleCollapse(id: string) {
@@ -92,7 +92,7 @@ export const createStore = (initialProps: Omit<TreeViewProps, 'data'>) => {
       if (recurOpts) {
         this.expandNodeChildren(node, recurOpts)
       } else {
-        get(props).onUpdate?.(treeMap)
+        get(viewProps).onUpdate?.(treeMap)
       }
     },
 
@@ -119,7 +119,7 @@ export const createStore = (initialProps: Omit<TreeViewProps, 'data'>) => {
       if (!nodeWithUpdatedChildren) return
       treeMap[nodeWithUpdatedChildren.id] = nodeWithUpdatedChildren
       treeMap[parent.id] = parent
-      get(props).onUpdate?.(treeMap)
+      get(viewProps).onUpdate?.(treeMap)
     },
 
     expandAllNodesToNode(id: string) {
@@ -135,7 +135,7 @@ export const createStore = (initialProps: Omit<TreeViewProps, 'data'>) => {
       }
       const updated = treeMap
       recurseNodeUpwards(updated, updated[id])
-      get(props).onUpdate?.(updated)
+      get(viewProps).onUpdate?.(updated)
     }
   }
 }
