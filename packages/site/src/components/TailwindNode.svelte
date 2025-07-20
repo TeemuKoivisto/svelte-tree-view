@@ -101,7 +101,7 @@
   }
 </script>
 
-<div class="tree-node-container" data-tree-id={node.id}>
+<div class="tree-node-container" data-tree-node-id={node.id}>
   <div
     class="tree-node-card group"
     class:collapsed={node.collapsed && hasChildren}

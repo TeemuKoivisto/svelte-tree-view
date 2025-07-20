@@ -17,7 +17,7 @@ describe('# UI', () => {
     cy.get('a').contains('(3) Circular').click()
     cy.get('.svelte-tree-view').find('li').should('have.length', 126)
     cy.get('a').contains('(4) Tailwind').click()
-    cy.get('.svelte-tree-view').find('div[data-tree-id]').should('have.length', 130)
+    cy.get('.svelte-tree-view').find('div[data-tree-node-id]').should('have.length', 130)
     cy.get('a').contains('(1) Basic').click()
     cy.get('[data-test-id="input-textarea"]').focus().type(TEST_DATA)
     cy.get('.svelte-tree-view').find('li').should('have.length', 19)

@@ -23,7 +23,7 @@
   let valueStr = $derived(formatValue(node.getValue(), node))
 </script>
 
-<li class="row" class:collapsed={node.collapsed && hasChildren} data-tree-id={node.id}>
+<li class="row" class:collapsed={node.collapsed && hasChildren} data-tree-node-id={node.id}>
   {#if hasChildren}
     <button class={`arrow-btn ${node.collapsed ? 'collapsed' : ''}`} onclick={handleToggleCollapse}>
       ▶

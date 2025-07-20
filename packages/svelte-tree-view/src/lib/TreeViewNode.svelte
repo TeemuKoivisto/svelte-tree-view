@@ -19,19 +19,19 @@
     getTreeContext: () => getContext<TreeStore>('svelte-tree-view'),
     TreeViewNode: TreeViewNode,
     handleLogNode() {
-      console.info('%c [svelte-tree-view]: Property added to window._node', 'color: #b8e248')
       console.log(node.getValue())
       try {
-        if (typeof window !== 'undefined') window._node = node.getValue()
+        window._node = node.getValue()
+        console.info('%c [svelte-tree-view]: Property added to window._node', 'color: #b8e248')
       } catch (err) {
-        console.error('Failed to set _node, window was undefined')
+        console.error('[svelte-tree-view]: handleLogNode() errored', err)
       }
     },
     handleCopyNodeToClipboard() {
       try {
         navigator.clipboard.writeText(JSON.stringify(node.getValue()))
       } catch (err) {
-        console.error('Copying node to clipboard failed: ', err)
+        console.error('[svelte-tree-view]: handleCopyNodeToClipboard() errored', err)
       }
     },
     handleToggleCollapse() {
@@ -39,7 +39,7 @@
         rest.toggleCollapse(node.id)
       } else if (node.circularOfId) {
         rest.expandAllNodesToNode(node.circularOfId)
-        $rootElement?.querySelector(`li[data-tree-id="${node.circularOfId}"]`)?.scrollIntoView()
+        $rootElement?.querySelector(`[data-tree-node-id="${node.circularOfId}"]`)?.scrollIntoView()
       }
     }
   })
