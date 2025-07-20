@@ -17,7 +17,15 @@
       "svelte": "./pkg/index.js",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
-    }
+    },
+    "./TreeView.svelte": {
+			"types": "./pkg/TreeView.svelte.d.ts",
+			"svelte": "./pkg/TreeView.svelte"
+		},
+    "./DefaultNode.svelte": {
+			"types": "./pkg/DefaultNode.svelte.d.ts",
+			"svelte": "./pkg/DefaultNode.svelte"
+		}
   },
   "scripts": {
     "build": "pnpm build:pkg && pnpm build:dist",

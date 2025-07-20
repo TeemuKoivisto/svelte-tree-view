@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { DefaultNode } from 'svelte-tree-view'
+  import DefaultNode from 'svelte-tree-view/DefaultNode.svelte'
 
   import type { NodeProps } from 'svelte-tree-view'
 
