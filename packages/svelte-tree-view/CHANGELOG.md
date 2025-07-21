@@ -1,5 +1,23 @@
 # svelte-tree-view
 
+## 2.0.0
+
+### Major Changes
+
+- ef98d90: migrate to Svelte 5, update all deps, switch valueComponent to snippet
+
+  BREAKING:
+  - incompatible with Svelte < 5
+  - `valueComponent` is now `treeNode` snippet
+  - `rootNode` snippet added
+  - default styles not applied to `:root` anymore but `ul.svelte-tree-view`
+  - changed `treeMap` from `Map` to `Record` to allow use of proxies
+
+### Minor Changes
+
+- 2571374: make treeNode required, update site to use new API
+- f1a0f8c: invert isCircularNode return value for node collapsing, make DefaultNode ESM export, refactor stores into one
+
 ## 1.4.2
 
 ### Patch Changes
