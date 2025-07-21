@@ -1,1 +1,0 @@
-function f(r,o){if(o==="array"&&r[1]===0&&r[2]===0)return[];if(o==="array"&&typeof r[0]=="string"&&r[1]===0&&r[2]===2)return[];if(o==="array"&&r.length===1&&typeof r[0]=="object")return[];if(o!=="object"||r._t!=="a")return;const s=[];for(const n in r)n!=="_t"&&(n.charAt(0)==="_"?s.push([n.substr(1),r[n]]):s.push([n,r[n]]));return s}export{f as m};
