@@ -17,6 +17,14 @@
       "svelte": "./pkg/index.js",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
+    },
+    "./TreeView.svelte": {
+      "types": "./pkg/TreeView.svelte.d.ts",
+      "svelte": "./pkg/TreeView.svelte"
+    },
+    "./DefaultNode.svelte": {
+      "types": "./pkg/DefaultNode.svelte.d.ts",
+      "svelte": "./pkg/DefaultNode.svelte"
     }
   },
   "scripts": {
@@ -35,9 +43,9 @@
     "cy": "cypress"
   },
   "devDependencies": {
-    "@sveltejs/kit": "^2.22.2",
-    "@sveltejs/package": "^2.3.12",
-    "@sveltejs/vite-plugin-svelte": "^5.1.0",
+    "@sveltejs/kit": "^2.25.1",
+    "@sveltejs/package": "^2.4.0",
+    "@sveltejs/vite-plugin-svelte": "^6.1.0",
     "@testing-library/cypress": "^10.0.3",
     "@testing-library/svelte": "^5.2.8",
     "@types/testing-library__jest-dom": "^5.14.9",
@@ -45,10 +53,10 @@
     "jsdom": "^26.1.0",
     "postcss": "^8.5.6",
     "sass": "^1.89.2",
-    "svelte": "^5.35.4",
-    "svelte-check": "^4.2.2",
+    "svelte": "^5.36.10",
+    "svelte-check": "^4.3.0",
     "svelte-preprocess": "^6.0.3",
-    "svelte2tsx": "^0.7.40",
+    "svelte2tsx": "^0.7.41",
     "vitest": "^3.2.4"
   },
   "dependencies": {},

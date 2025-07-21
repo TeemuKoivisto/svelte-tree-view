@@ -3,8 +3,7 @@
 
   import TreeViewNode from './TreeViewNode.svelte'
 
-  import type { Stores } from './stores'
-  import type { TreeNode } from './types'
+  import type { TreeStore } from './store.svelte'
 
   interface Props {
     id: string
@@ -12,41 +11,38 @@
 
   let { id }: Props = $props()
 
-  const { treeStore, propsStore, rootElementStore } = getContext<Stores>('svelte-tree-view')
-  let { props: propsObj } = propsStore
-  let node = $state(treeStore.treeMap[id] as TreeNode<any>)
-  let hasChildren = $derived(node && node.children.length > 0)
+  const { rootElement, treeMap, viewProps, ...rest } = getContext<TreeStore>('svelte-tree-view')
+  let node = $derived(treeMap[id])
+  let hasChildren = $derived(node.children.length > 0)
   let nodeProps = $derived({
     node,
-    getTreeContext: () => getContext<Stores>('svelte-tree-view'),
+    getTreeContext: () => getContext<TreeStore>('svelte-tree-view'),
     TreeViewNode: TreeViewNode,
     handleLogNode() {
-      console.info('%c [svelte-tree-view]: Property added to window._node', 'color: #b8e248')
       console.log(node.getValue())
       try {
-        if (typeof window !== 'undefined') window._node = node.getValue()
+        window._node = node.getValue()
+        console.info('%c [svelte-tree-view]: Property added to window._node', 'color: #b8e248')
       } catch (err) {
-        console.error('Failed to set _node, window was undefined')
+        console.error('[svelte-tree-view]: handleLogNode() errored', err)
       }
     },
     handleCopyNodeToClipboard() {
       try {
         navigator.clipboard.writeText(JSON.stringify(node.getValue()))
       } catch (err) {
-        console.error('Copying node to clipboard failed: ', err)
+        console.error('[svelte-tree-view]: handleCopyNodeToClipboard() errored', err)
       }
     },
     handleToggleCollapse() {
       if (hasChildren) {
-        treeStore.toggleCollapse(node.id)
+        rest.toggleCollapse(node.id)
       } else if (node.circularOfId) {
-        treeStore.expandAllNodesToNode(node.circularOfId)
-        $rootElementStore
-          ?.querySelector(`li[data-tree-id="${node.circularOfId}"]`)
-          ?.scrollIntoView()
+        rest.expandAllNodesToNode(node.circularOfId)
+        $rootElement?.querySelector(`[data-tree-node-id="${node.circularOfId}"]`)?.scrollIntoView()
       }
     }
   })
 </script>
 
-{@render $propsObj.treeNode(nodeProps)}
+{@render $viewProps.treeNode(nodeProps)}

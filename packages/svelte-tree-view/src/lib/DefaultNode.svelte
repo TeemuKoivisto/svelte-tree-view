@@ -17,15 +17,13 @@
     handleCopyNodeToClipboard,
     handleToggleCollapse
   }: DefaultNodeProps = $props()
-  const {
-    propsStore: { props: propsObj, formatValue }
-  } = getTreeContext()
+  const { viewProps, formatValue } = getTreeContext()
   let hasChildren = $derived(node.children.length > 0)
   let descend = $derived(!node.collapsed && hasChildren)
   let valueStr = $derived(formatValue(node.getValue(), node))
 </script>
 
-<li class="row" class:collapsed={node.collapsed && hasChildren} data-tree-id={node.id}>
+<li class="row" class:collapsed={node.collapsed && hasChildren} data-tree-node-id={node.id}>
   {#if hasChildren}
     <button class={`arrow-btn ${node.collapsed ? 'collapsed' : ''}`} onclick={handleToggleCollapse}>
       ▶
@@ -59,10 +57,10 @@
     {/if}
   </div>
   <div class="buttons">
-    {#if $propsObj.showLogButton}
+    {#if $viewProps.showLogButton}
       <button class="log-copy-button" onclick={handleLogNode}>log</button>
     {/if}
-    {#if $propsObj.showCopyButton}
+    {#if $viewProps.showCopyButton}
       <button class="log-copy-button" onclick={handleCopyNodeToClipboard}>copy</button>
     {/if}
   </div>

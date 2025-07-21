@@ -12,7 +12,7 @@
     "strict": true,
     "moduleResolution": "bundler",
     "lib": ["es2020", "dom", "dom.iterable"],
-    "target": "es2019",
+    "target": "es2020",
     "types": ["svelte", "cypress", "vitest/globals"]
   },
   "include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.svelte"],

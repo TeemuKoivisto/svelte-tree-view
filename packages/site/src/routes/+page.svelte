@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import TreeView, { DefaultNode } from 'svelte-tree-view'
+  import TreeView from 'svelte-tree-view'
+  import DefaultNode from 'svelte-tree-view/DefaultNode.svelte'
 
   import { mapDocDeltaChildren } from '$lib/mapDocDeltaChildren'
   import {

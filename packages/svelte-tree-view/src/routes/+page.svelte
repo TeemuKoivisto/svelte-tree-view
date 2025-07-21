@@ -1,5 +1,6 @@
 <script lang="ts">
   import TreeView from '../lib'
+  import DefaultNode from '../lib/DefaultNode.svelte'
 </script>
 
 <div>
@@ -16,6 +17,10 @@
       recursionOpts={{
         maxDepth: 4
       }}
-    />
+    >
+      {#snippet treeNode(props)}
+        <DefaultNode {...props} />
+      {/snippet}
+    </TreeView>
   </main>
 </div>

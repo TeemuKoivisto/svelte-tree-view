@@ -1,13 +1,11 @@
 <script lang="ts">
-  import { DefaultNode } from 'svelte-tree-view'
+  import DefaultNode from 'svelte-tree-view/DefaultNode.svelte'
 
   import type { NodeProps } from 'svelte-tree-view'
 
   let props: NodeProps = $props()
   let value = $derived(props.node.getValue())
-  const {
-    propsStore: { formatValue }
-  } = props.getTreeContext()
+  const { formatValue } = props.getTreeContext()
 
   function replaceSpacesWithNonBreakingSpace(value: string) {
     return value.replace(/\s/gm, ' ')

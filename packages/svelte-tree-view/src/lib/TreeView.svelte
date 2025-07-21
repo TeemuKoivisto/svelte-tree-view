@@ -3,9 +3,8 @@
   import { get } from 'svelte/store'
 
   import TreeViewNode from './TreeViewNode.svelte'
-  import { createPropsStore, createRootElementStore, createTreeStore } from './stores'
+  import { createStore, type TreeStore } from './store.svelte'
 
-  import type { Stores } from './stores'
   import type { Props, TreeViewProps } from './types'
 
   const DEFAULT_RECURSION_OPTS = {
@@ -38,20 +37,14 @@
     onUpdate
   }
   let rootElement: HTMLElement
-  const propsStore = createPropsStore(propsObj)
-  const rootElementStore = createRootElementStore()
-  const treeStore = createTreeStore(propsStore)
+  const store = createStore(propsObj)
   const newRecOpts = $derived({ ...DEFAULT_RECURSION_OPTS, ...recursionOpts })
-  const treeChildren = $derived(treeStore.rootNode.children)
+  const treeChildren = $derived(store.rootNode.children)
 
-  setContext<Stores>('svelte-tree-view', {
-    propsStore,
-    rootElementStore,
-    treeStore
-  })
+  setContext<TreeStore>('svelte-tree-view', store)
 
   onMount(() => {
-    rootElementStore.set(rootElement)
+    store.setRootElement(rootElement)
   })
 
   $effect(() => {
@@ -66,19 +59,19 @@
       valueFormatter,
       onUpdate
     }
-    propsStore.setProps(propsObj)
+    store.setProps(propsObj)
   })
 
   $effect(() => {
-    const oldRecOptions = get(propsStore.recursionOpts)
+    const oldRecOptions = get(store.recursionOpts)
     // Destruct recursionOpts to unwrap from proxy
     const opts = { ...newRecOpts }
     const newData = data
-    const shouldRecompute = oldRecOptions?.shouldExpandNode !== opts.shouldExpandNode
+    const recomputeExpandNode = oldRecOptions?.shouldExpandNode !== opts.shouldExpandNode
     // Use untrack to prevent triggering this effect again
     untrack(() => {
-      treeStore.recompute(newData, opts, shouldRecompute)
-      propsStore.setProps(propsObj)
+      store.createTree(newData, opts, recomputeExpandNode)
+      store.setProps(propsObj)
       propsObj.recursionOpts = opts
     })
   })

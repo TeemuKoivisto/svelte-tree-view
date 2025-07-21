@@ -1,6 +1,6 @@
 import type { Component, Snippet } from 'svelte'
 import type { HTMLAttributes } from 'svelte/elements'
-import type { Stores } from './stores'
+import type { TreeStore } from './store.svelte'
 
 export type ValueType =
   | 'array'
@@ -132,7 +132,7 @@ export interface TreeRecursionOpts<T = any> {
    * For custom circularity detection magic
    * @param n Iterated node
    * @param iteratedValues Map of all iterated values
-   * @returns
+   * @returns `true` if circular to skip iterating this value
    */
   isCircularNode?: (n: TreeNode<T>, iteratedValues: Map<any, TreeNode<T>>) => boolean
   /**
@@ -155,7 +155,7 @@ export interface TreeRecursionOpts<T = any> {
 export interface NodeProps<T = any> {
   node: TreeNode<T>
   TreeViewNode: Component<{ id: string }>
-  getTreeContext: () => Stores
+  getTreeContext: () => TreeStore
   handleLogNode(): void
   handleCopyNodeToClipboard(): void
   handleToggleCollapse(): void

@@ -54,11 +54,11 @@ describe('TreeView', () => {
             const existingNodeWithValue = iteratedValues.get(val)
             if (existingNodeWithValue) {
               node.circularOfId = existingNodeWithValue.id
-              return false
+              return true
             }
             iteratedValues.set(val, node)
           }
-          return true
+          return false
         },
         shouldExpandNode: () => true
       },
