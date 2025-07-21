@@ -82,7 +82,7 @@ export const createStore = (initialProps: Omit<TreeViewProps, 'data'>) => {
   function toggleCollapse(id: string) {
     const node = treeMap[id]
     if (!node) {
-      return console.warn(`Attempted to collapse non-existent node: ${id}`)
+      throw Error(`Attempted to collapse non-existent node: ` + JSON.stringify(node))
     }
     node.collapsed = !node.collapsed
     const recurOpts = get(recursionOpts)
@@ -94,10 +94,10 @@ export const createStore = (initialProps: Omit<TreeViewProps, 'data'>) => {
   }
 
   function expandNodeChildren(node: TreeNode, recursionOpts: TreeRecursionOpts) {
-    const parent = treeMap[node.parentId || ''] || null
+    const parent = treeMap[node.parentId || '']
     if (!parent) {
       // Only root node has no parent and it should not be expandable
-      throw Error('No parent in expandNodeChildren for node: ' + node)
+      throw Error('No parent in expandNodeChildren for node: ' + JSON.stringify(node))
     }
     recurseObjectProperties(
       node.index,
