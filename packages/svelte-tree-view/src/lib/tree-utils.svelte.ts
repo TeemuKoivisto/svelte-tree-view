@@ -6,7 +6,8 @@ export function createNode(
   value: any,
   depth: number,
   parent: TreeNode | null,
-  treeMap: Record<string, TreeNode>
+  treeMap: Record<string, TreeNode>,
+  updateNodeValue: (id: string) => void
 ): [TreeNode, TreeNode | undefined] {
   const path = parent ? [...parent.path, index] : []
   const id = `[${path.join(',')}]`
@@ -26,6 +27,7 @@ export function createNode(
     index,
     key,
     getValue: () => value,
+    updateValue: () => updateNodeValue(id),
     depth,
     collapsed: true,
     type: getValueType(value),
@@ -149,12 +151,13 @@ export function recurseObjectProperties(
   oldIds: Set<string>,
   iteratedValues: Map<any, TreeNode>,
   recomputeExpandNode: boolean,
-  opts: TreeRecursionOpts
+  opts: TreeRecursionOpts,
+  updateNodeValue: (id: string) => void
 ): TreeNode | null {
   if (opts.omitKeys?.includes(key) || (opts.maxDepth && depth > opts.maxDepth)) {
     return null
   }
-  const [node, oldNode] = createNode(index, key, value, depth, parent, treeMap)
+  const [node, oldNode] = createNode(index, key, value, depth, parent, treeMap, updateNodeValue)
   if (ensureNotCollapsed) {
     // Used to ensure that either root node is always uncollapsed or when uncollapsing new nodes
     // with expandNodeChildren the node children are recursed (if applicable) with mapChildren
@@ -187,7 +190,8 @@ export function recurseObjectProperties(
         oldIds,
         iteratedValues,
         recomputeExpandNode,
-        opts
+        opts,
+        updateNodeValue
       )
       // Child is null if maxDepth reached or it's filtered
       if (child) {

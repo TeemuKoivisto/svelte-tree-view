@@ -6,7 +6,7 @@ import type { TreeNode, TreeRecursionOpts, TreeViewProps } from './types'
 export type TreeStore = ReturnType<typeof createStore>
 
 export const createStore = (initialProps: Omit<TreeViewProps, 'data'>) => {
-  const [defaultRootNode] = createNode(-1, 'root', [], 0, null, {})
+  const [defaultRootNode] = createNode(-1, 'root', [], 0, null, {}, updateNodeValue)
   const treeMap = $state<Record<string, TreeNode>>({
     [defaultRootNode.id]: defaultRootNode
   })
@@ -24,10 +24,37 @@ export const createStore = (initialProps: Omit<TreeViewProps, 'data'>) => {
     rootElement.set(el)
   }
 
+  function updateNodeValue(id: string) {
+    const node = treeMap[id]
+    const newValue = node.getValue()
+    node.getValue = () => newValue
+    const recurOpts = get(recursionOpts)
+    if (recurOpts) {
+      const parent = treeMap[node.parentId || '']
+      recurseObjectProperties(
+        node.index,
+        node.key,
+        newValue,
+        node.depth,
+        !node.collapsed, // Ensure that when uncollapsed the node's children are always recursed
+        parent,
+        treeMap,
+        new Set(),
+        iteratedValues,
+        false, // Never recompute shouldExpandNode since it may override the collapsing of this node
+        recurOpts,
+        updateNodeValue
+      )
+    } else {
+      // get(viewProps).onUpdate?.(treeMap)
+    }
+    console.log('updateNodeValue', id)
+  }
+
   function formatValue(val: any, node: TreeNode): string {
     const { valueFormatter } = get(viewProps)
     const customFormat = valueFormatter ? valueFormatter(val, node) : undefined
-    if (customFormat) {
+    if (customFormat !== undefined) {
       return customFormat
     }
     switch (node.type) {
@@ -43,9 +70,7 @@ export const createStore = (initialProps: Omit<TreeViewProps, 'data'>) => {
       case 'string':
         return `"${val}"`
       case 'number':
-        return val
       case 'boolean':
-        return val ? 'true' : 'false'
       case 'symbol':
         return String(val)
       default:
@@ -71,7 +96,8 @@ export const createStore = (initialProps: Omit<TreeViewProps, 'data'>) => {
       oldIds,
       iteratedValues,
       recomputeExpandNode,
-      recursionOpts
+      recursionOpts,
+      updateNodeValue
     )
     for (const id of oldIds) {
       delete treeMap[id]
@@ -110,7 +136,8 @@ export const createStore = (initialProps: Omit<TreeViewProps, 'data'>) => {
       new Set(),
       iteratedValues,
       false, // Never recompute shouldExpandNode since it may override the collapsing of this node
-      recursionOpts
+      recursionOpts,
+      updateNodeValue
     )
     get(viewProps).onUpdate?.(treeMap)
   }

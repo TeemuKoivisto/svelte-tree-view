@@ -1,5 +1,5 @@
 import { getContext, setContext } from 'svelte'
-import { writable } from 'svelte/store'
+import { writable, type Writable } from 'svelte/store'
 import type {
   BaseEventPayload,
   ElementDragType
@@ -11,9 +11,9 @@ import {
 
 import { treeUtils, type TreeItem } from './dnd-tree-utils'
 
-import dndData from '$lib/example_dnd.json'
+import type { TreeNode } from 'svelte-tree-view'
 
-export type DndTreeItem = { id: string; type: 'tree-item' }
+export type DndTreeItem = { id: string; node: TreeNode; type: 'tree-item' }
 export type DndTreeGroup = { type: 'group' }
 export type Draggable = DndTreeItem
 export type Droppable = DndTreeItem | DndTreeGroup
@@ -47,15 +47,75 @@ function moveItem(itemId: string, targetId: string, instruction: Instruction, da
   }
 }
 
-export function createDndContext() {
-  const data = writable<TreeItem[]>(dndData)
-  const registry = new Map<string, HTMLElement>()
+function moveNode(
+  dragged: TreeNode,
+  droppedTo: TreeNode,
+  instruction: Instruction,
+  treeMap: Record<string, TreeNode>
+) {
+  const draggedVal = dragged.getValue()
+  const droppedVal = droppedTo.getValue()
+  // So this dragn'drop implementation is fixed to allow only dragging of objects into arrays or another objects
+  // Incase of an array, both 'reorder-after/before' and 'combine' instructions are allowed
+  // Incase of an object, only 'combine' should be allowed which is implemented as creating/reusing 'children' property
+  // It's turned into a list where the dragged object is inserted as the first element
+  if (Array.isArray(droppedVal)) {
+    // JUST UNSHIFT HERE TO DROPPED VAL
+    droppedVal.unshift(draggedVal)
+    // droppedTo.getValue = () => draggedVal
+    // treeMap[droppedTo.id] = droppedTo
+    droppedTo.updateValue()
+  } else if (droppedVal && typeof droppedVal === 'object') {
+    // here get parent node, find this object's index, insert at before/after
+    // incase of combine instruction, insert as property to droppedTo
+    if (instruction.operation === 'combine') {
+      if (!('children' in droppedVal) || !Array.isArray(droppedVal.children)) {
+        droppedVal.children = []
+      }
+      droppedVal.children.unshift(draggedVal)
+      // droppedTo.getValue = () => draggedVal
+      // treeMap[droppedTo.id] = droppedTo
+      droppedTo.updateValue()
+    } else {
+      const parent = treeMap[droppedTo.parentId || '']
+      const parentVal = parent?.getValue()
+      if (!parent) {
+        console.error(`No parent found in treeMap for node`, droppedTo)
+      } else if (!Array.isArray(parentVal)) {
+        console.error(`Can't insert objets to non-array parents`, parentVal)
+      } else {
+        const index = parentVal.findIndex(v => v === droppedVal)
+        if (instruction.operation === 'reorder-after') {
+          // Insert after the object (or end of the list incase this bugged somehow)
+          parentVal.splice(index === -1 ? parentVal.length : index + 1, 0, droppedVal)
+        } else {
+          // Insert at the index of the droppedTo object
+          parentVal.splice(index === -1 ? 0 : index, 0, droppedVal)
+        }
+        // @TODO remove value from old parent
+        // parent.getValue = () => parentVal
+        // treeMap[parent.id] = parent
+        parent.updateValue()
+        console.log('>> update parent!', parentVal)
+      }
+    }
+  } else {
+    console.warn(`Unknown dropped value ${typeof droppedVal}`, droppedVal)
+  }
+}
 
-  function setData() {}
+export function createDndContext(data: Writable<any>) {
+  // const data = writable<TreeItem[]>(dndData)
+  const registry = new Map<string, HTMLElement>()
+  let treeMap: Record<string, TreeNode> = {}
 
   function registerElement(nodeId: string, el: HTMLElement) {
     registry.set(nodeId, el)
     return () => registry.delete(nodeId)
+  }
+
+  function setTreeMap(map: Record<string, TreeNode>) {
+    treeMap = map
   }
 
   function handleDrag() {}
@@ -65,39 +125,40 @@ export function createDndContext() {
     // console.log('>> DROPPED location', location)
     // console.log('>> DROPPED source', source)
     const target = location.current.dropTargets.at(0)
-    const itemId = source.data.id as string | undefined
-    const targetId = target?.data.id as string | undefined
+    const dragged = source.data as Draggable | undefined
+    const droppedTo = target?.data as Droppable | undefined
     if (target === undefined) {
       // Item was dropped somewhere without any handlers -> no-op / cancel
-    } else if (itemId === undefined) {
+    } else if (dragged === undefined) {
       // draggable was registered with invalid getInitialData()
       console.log(args)
       console.error(`Undefined itemId!`, source)
-    } else if (targetId === undefined) {
+    } else if (droppedTo === undefined) {
       // Item was dropped most likely into a group
       console.log(args)
       console.error(`Undefined targetId!`, target)
+    } else if (dragged.type !== 'tree-item') {
+      console.error(`Unknown dragged object type ${dragged.type}`, dragged)
+    } else if (droppedTo.type !== 'tree-item') {
+      // Probably group
+      droppedTo.type !== 'group' &&
+        console.error(`Unknown target object type ${droppedTo}`, droppedTo)
     } else {
       const instruction = extractInstruction(target.data)
-      console.log('>> target', target)
+      console.log('>> dragged', dragged)
+      console.log('>> target', droppedTo)
+      console.log('dragged val', dragged.node.getValue())
+      console.log('target val', droppedTo.node.getValue())
       console.log('>> instruction', instruction)
-      if (instruction !== null && itemId !== targetId && instruction.blocked) {
+      if (instruction !== null && dragged.id !== droppedTo.id && !instruction.blocked) {
+        moveNode(dragged.node, droppedTo.node, instruction, treeMap)
         // Shouldn't be able to drop on itself or if 'blocked' instruction was added
         // Idk are null instructions bugs
-        console.log('dropped', {
-          type: 'instruction',
-          instruction,
-          itemId,
-          targetId
-        })
-        // debugger
-        // const old = get(data)
-        // const moved = moveItem(itemId, targetId, instruction, old)
-        data.update(items => {
-          const moved = moveItem(itemId, targetId, instruction, items)
-          console.log('moved', moved)
-          return moved
-        })
+        // data.update(items => {
+        //   const moved = moveItem(itemId, targetNode, instruction, items)
+        //   console.log('moved', moved)
+        //   return moved
+        // })
       }
     }
   }
@@ -106,6 +167,7 @@ export function createDndContext() {
     data,
     registerElement,
     handleDrag,
-    handleDrop
+    handleDrop,
+    setTreeMap
   }
 }

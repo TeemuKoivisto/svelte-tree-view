@@ -34,7 +34,8 @@
   let hasChildren = $derived(node.children.length > 0)
   let descend = $derived(!node.collapsed && hasChildren)
   let dndData = $derived<DndTreeItem>({
-    id: value.id,
+    id: node.id,
+    node,
     type: 'tree-item'
   })
   // Allow dragging only for the TreeItem objects, not the individual properties
@@ -46,12 +47,12 @@
   let instruction = $state<ReturnType<typeof extractInstruction>>(null)
 
   onMount(() => {
-    return dnd.registerElement(value.id, element)
+    return dnd.registerElement(node.id, element)
   })
 
-  $effect(() => {
-    console.log('instruction', { ...instruction })
-  })
+  // $effect(() => {
+  //   console.log('instruction', { ...instruction })
+  // })
 
   $effect(() => {
     if (!canDrag) return
@@ -87,18 +88,22 @@
       element,
       getData: ({ input, element }) => {
         return attachInstruction(
-          { id: dndData.id },
+          { ...dndData },
           {
             input,
             element,
             operations: false
               ? { combine: 'blocked' }
               : {
+                  // Allow combine (the border (focus ring) drop indicator) for both TreeItems and children properties
                   combine: 'available',
-                  'reorder-before': 'available',
+                  // Allow reorder (the line drop indicator) only on objects (TreeItem) which appear as "> 0: {} 3 keys" in
+                  // the children lists
+                  'reorder-before': canDrag ? 'available' : 'not-available',
+                  'reorder-after': canDrag ? 'available' : 'not-available'
                   // Don't allow 'reorder-after' on expanded items
-                  'reorder-after':
-                    !node.collapsed && node.children.length > 0 ? 'not-available' : 'available'
+                  // 'reorder-after':
+                  //   !node.collapsed && node.children.length > 0 ? 'not-available' : 'available'
                 }
           }
         )
@@ -344,7 +349,7 @@
   .tree-node-card {
     @apply flex items-center gap-2 rounded-lg border border-gray-200 bg-white transition-all duration-200 ease-in-out dark:border-gray-700 dark:bg-gray-800;
     &.hoverable:hover {
-      @apply cursor-pointer border-gray-300 bg-gray-100 shadow-md dark:border-gray-600 dark:bg-gray-700;
+      @apply !cursor-grab border-gray-300 bg-gray-100 shadow-md dark:border-gray-600 dark:bg-gray-700;
     }
   }
 

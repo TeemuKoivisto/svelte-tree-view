@@ -34,6 +34,10 @@ export interface TreeNode<T = any> {
    * The value mapped to this key
    */
   getValue: () => T
+  /**
+   * Run recursion for this node
+   */
+  updateValue: () => void
   depth: number
   collapsed: boolean
   type: ValueType
@@ -172,7 +176,7 @@ export interface TreeViewProps<T = any> {
    */
   rootNode?: Snippet<[Snippet]>
   /**
-   * Custom tree node. Uses DefaultNode.svelte by default
+   * The rendered treeNode. DefaultNode.svelte can be used as the default
    */
   treeNode: Snippet<[NodeProps<T>]>
   theme?: Base16Theme

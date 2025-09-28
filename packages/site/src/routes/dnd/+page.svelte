@@ -23,7 +23,7 @@
 
   let element: HTMLDivElement
   let groupState = $state<'idle' | 'is-innermost-over'>('idle')
-  const dnd = createDndContext()
+  const dnd = createDndContext(parsedData)
   setDndContext(dnd)
   const data = dnd.data
 
@@ -70,12 +70,13 @@
 </script>
 
 <TreeView
-  data={$data}
+  data={$parsedData}
   showLogButton={$treeOpts.showLogButton}
   showCopyButton={$treeOpts.showCopyButton}
   recursionOpts={$parsedRecursionOpts}
   valueFormatter={$parsedValueFormatter}
   theme={$parsedTheme}
+  onUpdate={treeMap => dnd.setTreeMap(treeMap)}
 >
   {#snippet rootNode(children)}
     <div
