@@ -1,0 +1,124 @@
+<script lang="ts">
+  import { onMount } from 'svelte'
+  import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine'
+  import { extractClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge'
+  import {
+    dropTargetForElements,
+    type ElementDropTargetEventBasePayload,
+    monitorForElements
+  } from '@atlaskit/pragmatic-drag-and-drop/element/adapter'
+
+  import DndNode from '$components/DndNode.svelte'
+  import { TreeView } from 'svelte-tree-view'
+
+  import {
+    treeOpts,
+    parsedData,
+    parsedRecursionOpts,
+    parsedTheme,
+    parsedValueFormatter,
+    setExampleData
+  } from '$lib/store'
+  import { setDndContext, createDndContext } from '$lib/dnd-context'
+
+  let element: HTMLDivElement
+  let dropTargetState: 'is-innermost-over' | 'idle' = $state('idle')
+  const dnd = createDndContext()
+  setDndContext(dnd)
+
+  function onDropTargetChange({ location, self }: ElementDropTargetEventBasePayload) {
+    const [innerMost] = location.current.dropTargets.filter(
+      dropTarget => dropTarget.data.type === 'group'
+    )
+    dropTargetState = innerMost?.element === self.element ? 'is-innermost-over' : 'idle'
+  }
+
+  onMount(() => {
+    setExampleData('dnd')
+    parsedRecursionOpts.set({
+      shouldExpandNode: () => true
+    })
+    return combine(
+      monitorForElements({
+        canMonitor({ source }) {
+          // This is a global handler
+          // const draggable = DRAGGABLE.safeParse(source.data)
+          // if (!draggable.success) {
+          //   console.error(draggable.error)
+          // }
+          console.log('monitor', source.data)
+          return true
+        },
+        onDrop({ location, source }) {
+          console.log('>> DROPPED location', location)
+          console.log('>> DROPPED source', source)
+          const target = location.current.dropTargets.at(0)
+          // Item was dropped somewhere without any handlers
+          // if (!target) {
+          //   dndStore.setTargetedHeadingId()
+          //   return
+          // }
+          // const original = DRAGGABLE.safeParse(source.data)
+          // const droppedTo = DROPPABLE.safeParse(target.data)
+          // if (!original.success) {
+          //   console.log('original', source.data)
+          //   console.error(original.error)
+          //   return
+          // } else if (!droppedTo.success) {
+          //   console.log('droppedTo', target)
+          //   console.error(droppedTo?.error)
+          //   return
+          // }
+          // const edge = extractClosestEdge(target.data)
+          // const res = await dndStore.handlePragmaticDrop(original.data, droppedTo.data, edge)
+          // if ('err' in res) {
+          //   toast({
+          //     title: 'Failed to dragn drop',
+          //     description: res.err,
+          //     variant: 'destructive'
+          //   })
+          // } else {
+          //   res.data && typeof res.data === 'object' && toast(res.data)
+          // }
+        }
+      }),
+      dropTargetForElements({
+        element,
+        canDrop: ({ source }) => source.data.type === 'tree-item',
+        getData: () => ({ type: 'group' }),
+        onDragStart: onDropTargetChange,
+        onDropTargetChange: onDropTargetChange,
+        onDragLeave: () => {
+          dropTargetState = 'idle'
+        },
+        onDrop: () => {
+          dropTargetState = 'idle'
+        }
+      })
+    )
+  })
+</script>
+
+<TreeView
+  data={$parsedData}
+  showLogButton={$treeOpts.showLogButton}
+  showCopyButton={$treeOpts.showCopyButton}
+  recursionOpts={$parsedRecursionOpts}
+  valueFormatter={$parsedValueFormatter}
+  theme={$parsedTheme}
+>
+  {#snippet rootNode(children)}
+    <div
+      class={`svelte-tree-view w-1/2 px-4 text-sm ${dropTargetState === 'is-innermost-over' ? 'group-drop-indicator' : ''}`}
+      bind:this={element}
+    >
+      {@render children()}
+    </div>
+  {/snippet}
+  {#snippet treeNode(props)}
+    <DndNode {...props} />
+  {/snippet}
+</TreeView>
+
+<style lang="postcss">
+</style>

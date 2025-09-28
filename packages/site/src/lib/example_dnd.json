@@ -1,0 +1,47 @@
+[
+  {
+    "id": "1",
+    "isOpen": true,
+    "children": [
+      {
+        "id": "1.1",
+        "isOpen": true,
+        "children": [
+          {
+            "id": "1.1.1",
+            "children": []
+          },
+          {
+            "id": "1.1.2",
+            "isDraft": true,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "1.2",
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "isOpen": true,
+    "children": [
+      {
+        "id": "2.1",
+        "isOpen": true,
+        "children": [
+          {
+            "id": "2.1.1",
+            "children": []
+          },
+          {
+            "id": "2.1.2",
+            "children": []
+          }
+        ]
+      }
+    ]
+  }
+]

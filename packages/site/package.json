@@ -26,5 +26,9 @@
     "svelte-preprocess": "^6.0.3",
     "svelte-tree-view": "workspace:*",
     "tailwindcss": "^4.1.18"
+  },
+  "dependencies": {
+    "@atlaskit/pragmatic-drag-and-drop": "1.7.7",
+    "@atlaskit/pragmatic-drag-and-drop-hitbox": "1.1.0"
   }
 }
