@@ -30,6 +30,7 @@
   const dnd = getDndContext()
 
   let element: HTMLDivElement
+  let groupElement: HTMLDivElement | null = $state(null)
   let hasChildren = $derived(node.children.length > 0)
   let descend = $derived(!node.collapsed && hasChildren)
   let dndData = $derived({
@@ -105,8 +106,26 @@
     )
   })
 
-  function onDragChange({ self }: ElementDropTargetEventBasePayload) {
-    const extracted = extractInstruction(self.data)
+  $effect(() => {
+    if (!groupElement) return
+    return dropTargetForElements({
+      element: groupElement,
+      getData: () => ({ type: 'group' }),
+      getIsSticky: () => false,
+      canDrop: ({ source }) => source.data.type === 'tree-item' && source.data.id !== dndData.id,
+      onDragStart: onGroupDragChange,
+      onDropTargetChange: onGroupDragChange,
+      onDragLeave: () => {
+        groupState = 'idle'
+      },
+      onDrop: () => {
+        groupState = 'idle'
+      }
+    })
+  })
+
+  function onDragChange(payload: ElementDropTargetEventBasePayload) {
+    const extracted = extractInstruction(payload.self.data)
     // expand after 500ms if still merging
     if (extracted?.operation === 'combine' && node.children.length && node.collapsed) {
       // send({ type: 'START_EXPAND_TIMER' })
@@ -116,6 +135,13 @@
     // }
     // send({ type: 'SET_INSTRUCTION', instruction })
     instruction = extracted
+  }
+
+  function onGroupDragChange({ location, self }: ElementDropTargetEventBasePayload) {
+    const [innerMost] = location.current.dropTargets.filter(
+      dropTarget => dropTarget.data.type === 'group'
+    )
+    groupState = innerMost?.element === self.element ? 'is-innermost-over' : 'idle'
   }
 
   // Function to create truncated preview of objects and arrays
@@ -287,7 +313,11 @@
   </div>
 
   {#if descend}
-    <div class="children-container">
+    <div
+      class="children-container"
+      class:group-drop-indicator={groupState === 'is-innermost-over'}
+      bind:this={groupElement}
+    >
       {#each node.children as id}
         <TreeViewNode {id} />
       {/each}

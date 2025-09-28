@@ -47,7 +47,7 @@
   }
   const styleString = $derived(
     Object.entries(styles)
-      .map(([key, value]) => `--${key}:${value}`)
+      .map(([key, value]) => `${key}:${value}`)
       .join(';')
   )
 </script>
