@@ -22,9 +22,10 @@
   import { setDndContext, createDndContext } from '$lib/dnd-context'
 
   let element: HTMLDivElement
-  let dropTargetState: 'is-innermost-over' | 'idle' = $state('idle')
+  let dropTargetState = $state<'idle' | 'is-innermost-over'>('idle')
   const dnd = createDndContext()
   setDndContext(dnd)
+  const data = $derived(dnd.data)
 
   function onDropTargetChange({ location, self }: ElementDropTargetEventBasePayload) {
     const [innerMost] = location.current.dropTargets.filter(
@@ -49,38 +50,7 @@
           console.log('monitor', source.data)
           return true
         },
-        onDrop({ location, source }) {
-          console.log('>> DROPPED location', location)
-          console.log('>> DROPPED source', source)
-          const target = location.current.dropTargets.at(0)
-          // Item was dropped somewhere without any handlers
-          // if (!target) {
-          //   dndStore.setTargetedHeadingId()
-          //   return
-          // }
-          // const original = DRAGGABLE.safeParse(source.data)
-          // const droppedTo = DROPPABLE.safeParse(target.data)
-          // if (!original.success) {
-          //   console.log('original', source.data)
-          //   console.error(original.error)
-          //   return
-          // } else if (!droppedTo.success) {
-          //   console.log('droppedTo', target)
-          //   console.error(droppedTo?.error)
-          //   return
-          // }
-          // const edge = extractClosestEdge(target.data)
-          // const res = await dndStore.handlePragmaticDrop(original.data, droppedTo.data, edge)
-          // if ('err' in res) {
-          //   toast({
-          //     title: 'Failed to dragn drop',
-          //     description: res.err,
-          //     variant: 'destructive'
-          //   })
-          // } else {
-          //   res.data && typeof res.data === 'object' && toast(res.data)
-          // }
-        }
+        onDrop: dnd.handleDrop
       }),
       dropTargetForElements({
         element,
@@ -100,7 +70,7 @@
 </script>
 
 <TreeView
-  data={$parsedData}
+  data={$data}
   showLogButton={$treeOpts.showLogButton}
   showCopyButton={$treeOpts.showCopyButton}
   recursionOpts={$parsedRecursionOpts}

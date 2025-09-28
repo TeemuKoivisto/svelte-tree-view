@@ -16,6 +16,7 @@
   import { onMount } from 'svelte'
 
   import type { NodeProps } from 'svelte-tree-view'
+  import type { TreeItem } from '$lib/dnd-tree-utils'
 
   let {
     node,
@@ -31,10 +32,11 @@
 
   let element: HTMLDivElement
   let groupElement: HTMLDivElement | null = $state(null)
+  let value = $derived<TreeItem>(node.getValue())
   let hasChildren = $derived(node.children.length > 0)
   let descend = $derived(!node.collapsed && hasChildren)
   let dndData = $derived({
-    id: node.id,
+    id: value.id,
     type: 'tree-item'
   })
   let dragState = $state<'idle' | 'dragging' | 'preview'>('idle')
@@ -42,7 +44,7 @@
   let instruction = $state<ReturnType<typeof extractInstruction>>(null)
 
   onMount(() => {
-    return dnd.registerElement(node.id, element)
+    return dnd.registerElement(value.id, element)
   })
 
   $effect(() => {
