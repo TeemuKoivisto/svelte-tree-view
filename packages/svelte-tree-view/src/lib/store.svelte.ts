@@ -28,26 +28,30 @@ export const createStore = (initialProps: Omit<TreeViewProps, 'data'>) => {
     const node = treeMap[id]
     const newValue = node.getValue()
     node.getValue = () => newValue
+    iteratedValues.delete(newValue)
     const recurOpts = get(recursionOpts)
     if (recurOpts) {
-      const parent = treeMap[node.parentId || '']
-      recurseObjectProperties(
-        node.index,
-        node.key,
-        newValue,
-        node.depth,
-        !node.collapsed, // Ensure that when uncollapsed the node's children are always recursed
-        parent,
-        treeMap,
-        new Set(),
-        iteratedValues,
-        false, // Never recompute shouldExpandNode since it may override the collapsing of this node
-        recurOpts,
-        updateNodeValue
-      )
-    } else {
-      // get(viewProps).onUpdate?.(treeMap)
+      expandNodeChildren(node, recurOpts)
     }
+    // if (recurOpts) {
+    //   const parent = treeMap[node.parentId || '']
+    //   recurseObjectProperties(
+    //     node.index,
+    //     node.key,
+    //     newValue,
+    //     node.depth,
+    //     !node.collapsed, // Ensure that when uncollapsed the node's children are always recursed
+    //     parent,
+    //     treeMap,
+    //     new Set(Object.keys(treeMap)),
+    //     iteratedValues,
+    //     true, // Never recompute shouldExpandNode since it may override the collapsing of this node
+    //     recurOpts,
+    //     updateNodeValue
+    //   )
+    // } else {
+    //   // get(viewProps).onUpdate?.(treeMap)
+    // }
     console.log('updateNodeValue', id)
   }
 

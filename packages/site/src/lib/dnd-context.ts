@@ -49,48 +49,48 @@ function moveItem(itemId: string, targetId: string, instruction: Instruction, da
 
 function moveNode(
   dragged: TreeNode,
-  droppedTo: TreeNode,
+  target: TreeNode,
   instruction: Instruction,
   treeMap: Record<string, TreeNode>
 ) {
   const draggedVal = dragged.getValue()
-  const droppedVal = droppedTo.getValue()
+  const targetVal = target.getValue()
   // So this dragn'drop implementation is fixed to allow only dragging of objects into arrays or another objects
   // Incase of an array, both 'reorder-after/before' and 'combine' instructions are allowed
   // Incase of an object, only 'combine' should be allowed which is implemented as creating/reusing 'children' property
   // It's turned into a list where the dragged object is inserted as the first element
-  if (Array.isArray(droppedVal)) {
+  if (Array.isArray(targetVal)) {
     // JUST UNSHIFT HERE TO DROPPED VAL
-    droppedVal.unshift(draggedVal)
+    targetVal.unshift(draggedVal)
     // droppedTo.getValue = () => draggedVal
     // treeMap[droppedTo.id] = droppedTo
-    droppedTo.updateValue()
-  } else if (droppedVal && typeof droppedVal === 'object') {
+    target.updateValue()
+  } else if (targetVal && typeof targetVal === 'object') {
     // here get parent node, find this object's index, insert at before/after
     // incase of combine instruction, insert as property to droppedTo
     if (instruction.operation === 'combine') {
-      if (!('children' in droppedVal) || !Array.isArray(droppedVal.children)) {
-        droppedVal.children = []
+      if (!('children' in targetVal) || !Array.isArray(targetVal.children)) {
+        targetVal.children = []
       }
-      droppedVal.children.unshift(draggedVal)
+      targetVal.children.unshift(draggedVal)
       // droppedTo.getValue = () => draggedVal
       // treeMap[droppedTo.id] = droppedTo
-      droppedTo.updateValue()
+      target.updateValue()
     } else {
-      const parent = treeMap[droppedTo.parentId || '']
+      const parent = treeMap[target.parentId || '']
       const parentVal = parent?.getValue()
       if (!parent) {
-        console.error(`No parent found in treeMap for node`, droppedTo)
+        console.error(`No parent found in treeMap for node`, target)
       } else if (!Array.isArray(parentVal)) {
         console.error(`Can't insert objets to non-array parents`, parentVal)
       } else {
-        const index = parentVal.findIndex(v => v === droppedVal)
+        const index = parentVal.findIndex(v => v === targetVal)
         if (instruction.operation === 'reorder-after') {
           // Insert after the object (or end of the list incase this bugged somehow)
-          parentVal.splice(index === -1 ? parentVal.length : index + 1, 0, droppedVal)
+          parentVal.splice(index === -1 ? parentVal.length : index + 1, 0, draggedVal)
         } else {
           // Insert at the index of the droppedTo object
-          parentVal.splice(index === -1 ? 0 : index, 0, droppedVal)
+          parentVal.splice(index === -1 ? 0 : index, 0, draggedVal)
         }
         // @TODO remove value from old parent
         // parent.getValue = () => parentVal
@@ -100,7 +100,18 @@ function moveNode(
       }
     }
   } else {
-    console.warn(`Unknown dropped value ${typeof droppedVal}`, droppedVal)
+    console.warn(`Unknown dropped value ${typeof targetVal}`, targetVal)
+  }
+  const oldParent = treeMap[dragged.parentId || '']
+  const parentVal = oldParent?.getValue()
+  if (Array.isArray(parentVal)) {
+    const idx = parentVal.findIndex(v => v === draggedVal)
+    if (idx !== -1) {
+      parentVal.splice(idx, 1)
+    }
+    oldParent.updateValue()
+  } else {
+    console.error(`Unable to remove dragged node from parent`, parentVal)
   }
 }
 
