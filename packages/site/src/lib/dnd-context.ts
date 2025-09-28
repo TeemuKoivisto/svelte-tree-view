@@ -14,6 +14,11 @@ import { treeUtils, type TreeItem } from './dnd-tree-utils'
 import dndData from '$lib/example_dnd.json'
 import { get, writable } from 'svelte/store'
 
+export type DndTreeItem = { id: string; type: 'tree-item' }
+export type DndTreeGroup = { type: 'group' }
+export type Draggable = DndTreeItem
+export type Droppable = DndTreeItem | DndTreeGroup
+
 export type DndContext = ReturnType<typeof createDndContext>
 export const DND_CTX = 'dnd'
 
@@ -61,13 +66,18 @@ export function createDndContext() {
     const { location, source } = args
     console.log('>> DROPPED location', location)
     console.log('>> DROPPED source', source)
-    // didn't drop on anything
-    if (location.current.dropTargets.length === 0) {
+    const target = location.current.dropTargets.at(0)
+    const itemId = source.data.id as string | undefined
+    const targetId = target?.data.id as string | undefined
+    if (target === undefined) {
+      // Item was dropped somewhere without any handlers
       return
+    } else if (itemId === undefined) {
+      return console.error(`Undefined itemId!`, source)
+    } else if (targetId === undefined) {
+      return console.error(`Undefined targetId!`, target)
     }
-    const itemId = source.data.id as string
-    const target = location.current.dropTargets[0]
-    const targetId = target.data.id as string
+    console.log('target', target)
     const instruction = extractInstruction(target.data)
     if (instruction !== null) {
       console.log('dropped', {

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from 'svelte'
   import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine'
   import {
     draggable,
@@ -11,9 +12,7 @@
   } from '@atlaskit/pragmatic-drag-and-drop-hitbox/list-item'
 
   import DropIndicator from './dnd/DropIndicator.svelte'
-
-  import { getDndContext } from '$lib/dnd-context'
-  import { onMount } from 'svelte'
+  import { type DndTreeItem, type Draggable, type Droppable, getDndContext } from '$lib/dnd-context'
 
   import type { NodeProps } from 'svelte-tree-view'
   import type { TreeItem } from '$lib/dnd-tree-utils'
@@ -35,10 +34,14 @@
   let value = $derived<TreeItem>(node.getValue())
   let hasChildren = $derived(node.children.length > 0)
   let descend = $derived(!node.collapsed && hasChildren)
-  let dndData = $derived({
+  let dndData = $derived<DndTreeItem>({
     id: value.id,
     type: 'tree-item'
   })
+  // Allow dragging only for the TreeItem objects, not the individual properties
+  let canDrag = $derived(node.children.length > 0 && !Array.isArray(value))
+  // Allow dropping into TreeItem objects OR generic lists (like children)
+  let canDrop = $derived(node.children.length > 0)
   let dragState = $state<'idle' | 'dragging' | 'preview'>('idle')
   let groupState = $state<'idle' | 'is-innermost-over'>('idle')
   let instruction = $state<ReturnType<typeof extractInstruction>>(null)
@@ -48,71 +51,72 @@
   })
 
   $effect(() => {
-    return combine(
-      draggable({
-        element,
-        getInitialData: () => dndData,
-        // onGenerateDragPreview: ({ nativeSetDragImage }) => {
-        //   setCustomNativeDragPreview({
-        //     getOffset: pointerOutsideOfPreview({ x: '16px', y: '8px' }),
-        //     render: ({ container }) => {
-        //       const root = createRoot(container)
-        //       root.render(<Preview item={item} />)
-        //       return () => root.unmount()
-        //     },
-        //     nativeSetDragImage
-        //   })
-        // },
-        onDragStart: ({ source }) => {
-          // dnd.handleDrag()
-          dragState = 'dragging'
-          instruction = null
-        },
-        onDrop: ({ source }) => {
-          // dnd.handleDrop()
-          dragState = 'idle'
-          groupState = 'idle'
-          instruction = null
-        }
-      }),
-      dropTargetForElements({
-        element,
-        getData: ({ input, element }) => {
-          return attachInstruction(
-            { id: dndData.id },
-            {
-              input,
-              element,
-              operations: false
-                ? { combine: 'blocked' }
-                : {
-                    combine: 'available',
-                    'reorder-before': 'available',
-                    // Don't allow 'reorder-after' on expanded items
-                    'reorder-after':
-                      !node.collapsed && node.children.length > 0 ? 'not-available' : 'available'
-                  }
-            }
-          )
-        },
-        canDrop: ({ source }) => source.data.type === 'tree-item' && source.data.id !== dndData.id,
-        onDragEnter: onDragChange,
-        onDrag: onDragChange,
-        onDragLeave: () => {
-          instruction = null
-        },
-        onDrop: () => {
-          instruction = null
-        }
-      })
-    )
+    if (!canDrag) return
+    return draggable({
+      element,
+      getInitialData: (): Draggable => dndData,
+      // onGenerateDragPreview: ({ nativeSetDragImage }) => {
+      //   setCustomNativeDragPreview({
+      //     getOffset: pointerOutsideOfPreview({ x: '16px', y: '8px' }),
+      //     render: ({ container }) => {
+      //       const root = createRoot(container)
+      //       root.render(<Preview item={item} />)
+      //       return () => root.unmount()
+      //     },
+      //     nativeSetDragImage
+      //   })
+      // },
+      onDragStart: ({ source }) => {
+        dragState = 'dragging'
+        instruction = null
+      },
+      onDrop: ({ source }) => {
+        dragState = 'idle'
+        groupState = 'idle'
+        instruction = null
+      }
+    })
   })
 
   $effect(() => {
-    if (!groupElement) return
+    if (!canDrop) return
+    return dropTargetForElements({
+      element,
+      getData: ({ input, element }) => {
+        return attachInstruction(
+          { id: dndData.id },
+          {
+            input,
+            element,
+            operations: false
+              ? { combine: 'blocked' }
+              : {
+                  combine: 'available',
+                  'reorder-before': 'available',
+                  // Don't allow 'reorder-after' on expanded items
+                  'reorder-after':
+                    !node.collapsed && node.children.length > 0 ? 'not-available' : 'available'
+                }
+          }
+        )
+      },
+      canDrop: ({ source }) => source.data.type === 'tree-item' && source.data.id !== dndData.id,
+      onDragEnter: onDragChange,
+      onDrag: onDragChange,
+      onDragLeave: () => {
+        instruction = null
+      },
+      onDrop: () => {
+        instruction = null
+      }
+    })
+  })
+
+  $effect(() => {
+    if (!groupElement || !canDrag) return
     return dropTargetForElements({
       element: groupElement,
-      getData: () => ({ type: 'group' }),
+      getData: (): Droppable => ({ type: 'group' }),
       getIsSticky: () => false,
       canDrop: ({ source }) => source.data.type === 'tree-item' && source.data.id !== dndData.id,
       onDragStart: onGroupDragChange,
@@ -236,7 +240,7 @@
   <div
     class="tree-node-card group relative"
     class:collapsed={node.collapsed && hasChildren}
-    class:has-children={hasChildren}
+    class:hoverable={canDrag}
     bind:this={element}
   >
     <!-- Arrow button for expandable nodes -->
@@ -335,15 +339,10 @@
   }
 
   .tree-node-card {
-    @apply flex items-center gap-2 rounded-lg border border-gray-200 bg-white transition-all duration-200 ease-in-out hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700;
-  }
-
-  .tree-node-card.has-children {
-    @apply cursor-pointer;
-  }
-
-  .tree-node-card.has-children:hover {
-    @apply border-gray-300 shadow-md dark:border-gray-600;
+    @apply flex items-center gap-2 rounded-lg border border-gray-200 bg-white transition-all duration-200 ease-in-out dark:border-gray-700 dark:bg-gray-800;
+    &.hoverable:hover {
+      @apply cursor-pointer border-gray-300 bg-gray-100 shadow-md dark:border-gray-600 dark:bg-gray-700;
+    }
   }
 
   .arrow-button {
@@ -366,10 +365,6 @@
     @apply flex min-w-0 flex-1 gap-2;
   }
 
-  .node-content.clickable {
-    @apply cursor-pointer;
-  }
-
   .node-key-section {
     @apply flex-shrink-0;
   }
@@ -384,10 +379,6 @@
 
   .node-value {
     @apply flex break-words;
-  }
-
-  .node-value.clickable {
-    @apply cursor-pointer;
   }
 
   .action-buttons {

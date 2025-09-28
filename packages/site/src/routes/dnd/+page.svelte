@@ -19,19 +19,23 @@
     parsedValueFormatter,
     setExampleData
   } from '$lib/store'
-  import { setDndContext, createDndContext } from '$lib/dnd-context'
+  import { setDndContext, createDndContext, type Droppable } from '$lib/dnd-context'
 
   let element: HTMLDivElement
-  let dropTargetState = $state<'idle' | 'is-innermost-over'>('idle')
+  let groupState = $state<'idle' | 'is-innermost-over'>('idle')
   const dnd = createDndContext()
   setDndContext(dnd)
-  const data = $derived(dnd.data)
+  const data = dnd.data
+
+  data.subscribe(v => {
+    console.log('data changed ', v)
+  })
 
   function onDropTargetChange({ location, self }: ElementDropTargetEventBasePayload) {
     const [innerMost] = location.current.dropTargets.filter(
       dropTarget => dropTarget.data.type === 'group'
     )
-    dropTargetState = innerMost?.element === self.element ? 'is-innermost-over' : 'idle'
+    groupState = innerMost?.element === self.element ? 'is-innermost-over' : 'idle'
   }
 
   onMount(() => {
@@ -43,26 +47,22 @@
       monitorForElements({
         canMonitor({ source }) {
           // This is a global handler
-          // const draggable = DRAGGABLE.safeParse(source.data)
-          // if (!draggable.success) {
-          //   console.error(draggable.error)
-          // }
           console.log('monitor', source.data)
-          return true
+          return source.data.type === 'tree-item'
         },
         onDrop: dnd.handleDrop
       }),
       dropTargetForElements({
         element,
         canDrop: ({ source }) => source.data.type === 'tree-item',
-        getData: () => ({ type: 'group' }),
+        getData: (): Droppable => ({ type: 'group' }),
         onDragStart: onDropTargetChange,
         onDropTargetChange: onDropTargetChange,
         onDragLeave: () => {
-          dropTargetState = 'idle'
+          groupState = 'idle'
         },
         onDrop: () => {
-          dropTargetState = 'idle'
+          groupState = 'idle'
         }
       })
     )
@@ -79,7 +79,8 @@
 >
   {#snippet rootNode(children)}
     <div
-      class={`svelte-tree-view w-1/2 px-4 text-sm ${dropTargetState === 'is-innermost-over' ? 'group-drop-indicator' : ''}`}
+      class="svelte-tree-view w-1/2 px-4 text-sm"
+      class:group-drop-indicator={groupState === 'is-innermost-over'}
       bind:this={element}
     >
       {@render children()}

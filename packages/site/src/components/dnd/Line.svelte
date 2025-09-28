@@ -53,7 +53,7 @@
 </script>
 
 <div
-  class={`line-root ${rest.class || ''} `}
+  class={`line-root line-${edge} ${rest.class || ''}`}
   class:line-horizontal={edge === 'top' || edge === 'bottom'}
   class:line-vertical={edge === 'left' || edge === 'right'}
   style={styleString}
