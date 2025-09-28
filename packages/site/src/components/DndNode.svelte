@@ -1,6 +1,5 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine'
   import {
     draggable,
     dropTargetForElements,
@@ -48,6 +47,10 @@
 
   onMount(() => {
     return dnd.registerElement(value.id, element)
+  })
+
+  $effect(() => {
+    console.log('instruction', { ...instruction })
   })
 
   $effect(() => {

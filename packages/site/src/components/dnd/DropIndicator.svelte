@@ -44,7 +44,8 @@
   }
 
   const { instruction, lineGap, lineType, ...rest }: Props = $props()
-  const { operation, axis } = instruction
+  const operation = $derived(instruction.operation)
+  const axis = $derived(instruction.axis)
 </script>
 
 {#if operation === 'combine'}
