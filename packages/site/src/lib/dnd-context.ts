@@ -62,7 +62,6 @@ function moveNode(
           // Insert at the index of the droppedTo object
           parentVal.splice(index === -1 ? 0 : index, 0, draggedVal)
         }
-        // @TODO remove value from old parent
         parent.updateValue(parentVal)
         console.log('>> update parent!', parentVal)
       }

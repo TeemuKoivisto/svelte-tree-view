@@ -35,7 +35,7 @@ export interface TreeNode<T = any> {
    */
   getValue: () => T
   /**
-   * Run recursion for this node
+   * Set getValue() and recurse this node and its children
    */
   updateValue: (newVal: T) => void
   depth: number
@@ -155,7 +155,7 @@ export interface TreeRecursionOpts<T = any> {
   mapChildren?: (val: any, type: ValueType, parent: TreeNode<T>) => [string, any][] | undefined
 }
 
-/** Props passed to renderable TreeNodes */
+/** Props passed to rendered TreeNodes */
 export interface NodeProps<T = any> {
   node: TreeNode<T>
   TreeViewNode: Component<{ id: string }>
