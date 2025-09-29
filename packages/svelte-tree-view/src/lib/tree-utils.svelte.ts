@@ -7,7 +7,7 @@ export function createNode(
   depth: number,
   parent: TreeNode | null,
   treeMap: Record<string, TreeNode>,
-  updateNodeValue: (id: string) => void
+  updateNodeValue: (id: string, val: any) => void
 ): [TreeNode, TreeNode | undefined] {
   const path = parent ? [...parent.path, index] : []
   const id = `[${path.join(',')}]`
@@ -27,7 +27,7 @@ export function createNode(
     index,
     key,
     getValue: () => value,
-    updateValue: () => updateNodeValue(id),
+    updateValue: (val: any) => updateNodeValue(id, val),
     depth,
     collapsed: true,
     type: getValueType(value),
@@ -152,7 +152,7 @@ export function recurseObjectProperties(
   iteratedValues: Map<any, TreeNode>,
   recomputeExpandNode: boolean,
   opts: TreeRecursionOpts,
-  updateNodeValue: (id: string) => void
+  updateNodeValue: (id: string, val: any) => void
 ): TreeNode | null {
   if (opts.omitKeys?.includes(key) || (opts.maxDepth && depth > opts.maxDepth)) {
     return null

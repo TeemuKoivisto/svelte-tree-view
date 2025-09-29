@@ -37,7 +37,7 @@ export interface TreeNode<T = any> {
   /**
    * Run recursion for this node
    */
-  updateValue: () => void
+  updateValue: (newVal: T) => void
   depth: number
   collapsed: boolean
   type: ValueType

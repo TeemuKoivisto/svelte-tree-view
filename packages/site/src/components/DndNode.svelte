@@ -14,7 +14,6 @@
   import { type DndTreeItem, type Draggable, type Droppable, getDndContext } from '$lib/dnd-context'
 
   import type { NodeProps } from 'svelte-tree-view'
-  import type { TreeItem } from '$lib/dnd-tree-utils'
 
   let {
     node,
@@ -30,7 +29,7 @@
 
   let element: HTMLDivElement
   let groupElement: HTMLDivElement | null = $state(null)
-  let value = $derived<TreeItem>(node.getValue())
+  // let value = $derived<TreeItem>(node.getValue())
   let hasChildren = $derived(node.children.length > 0)
   let descend = $derived(!node.collapsed && hasChildren)
   let dndData = $derived<DndTreeItem>({
@@ -38,10 +37,10 @@
     node,
     type: 'tree-item'
   })
-  // Allow dragging only for the TreeItem objects, not the individual properties
-  let canDrag = $derived(node.children.length > 0 && !Array.isArray(value))
-  // Allow dropping into TreeItem objects OR generic lists (like children)
-  let canDrop = $derived(node.children.length > 0)
+  // Allow dragging only for {} objects
+  let canDrag = $derived(node.children.length > 0 && node.type === 'object')
+  // Allow dropping into objects with children or arrays that can be also empty
+  let canDrop = $derived(node.children.length > 0 || node.type === 'array')
   let dragState = $state<'idle' | 'dragging' | 'preview'>('idle')
   let groupState = $state<'idle' | 'is-innermost-over'>('idle')
   let instruction = $state<ReturnType<typeof extractInstruction>>(null)
@@ -59,17 +58,6 @@
     return draggable({
       element,
       getInitialData: (): Draggable => dndData,
-      // onGenerateDragPreview: ({ nativeSetDragImage }) => {
-      //   setCustomNativeDragPreview({
-      //     getOffset: pointerOutsideOfPreview({ x: '16px', y: '8px' }),
-      //     render: ({ container }) => {
-      //       const root = createRoot(container)
-      //       root.render(<Preview item={item} />)
-      //       return () => root.unmount()
-      //     },
-      //     nativeSetDragImage
-      //   })
-      // },
       onDragStart: ({ source }) => {
         dragState = 'dragging'
         instruction = null
@@ -92,19 +80,17 @@
           {
             input,
             element,
-            operations: false
-              ? { combine: 'blocked' }
-              : {
-                  // Allow combine (the border (focus ring) drop indicator) for both TreeItems and children properties
-                  combine: 'available',
-                  // Allow reorder (the line drop indicator) only on objects (TreeItem) which appear as "> 0: {} 3 keys" in
-                  // the children lists
-                  'reorder-before': canDrag ? 'available' : 'not-available',
-                  'reorder-after': canDrag ? 'available' : 'not-available'
-                  // Don't allow 'reorder-after' on expanded items
-                  // 'reorder-after':
-                  //   !node.collapsed && node.children.length > 0 ? 'not-available' : 'available'
-                }
+            operations: {
+              // Allow combine (the focus ring drop indicator) for both objects and ararys
+              combine: 'available',
+              // Allow reorder (the line drop indicator) only for objects
+              'reorder-before': canDrag ? 'available' : 'not-available',
+              // Hide the line drop indicator on expanded nodes
+              'reorder-after':
+                canDrag && node.collapsed && node.children.length > 0
+                  ? 'available'
+                  : 'not-available'
+            }
           }
         )
       },
@@ -140,14 +126,6 @@
 
   function onDragChange(payload: ElementDropTargetEventBasePayload) {
     const extracted = extractInstruction(payload.self.data)
-    // expand after 500ms if still merging
-    if (extracted?.operation === 'combine' && node.children.length && node.collapsed) {
-      // send({ type: 'START_EXPAND_TIMER' })
-    }
-    // if (instruction?.operation !== 'combine' && state.matches('expandTimerActive')) {
-    //   send({ type: 'CANCEL_EXPAND_TIMER' })
-    // }
-    // send({ type: 'SET_INSTRUCTION', instruction })
     instruction = extracted
   }
 

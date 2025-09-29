@@ -9,8 +9,6 @@ import {
   type Instruction
 } from '@atlaskit/pragmatic-drag-and-drop-hitbox/list-item'
 
-import { treeUtils, type TreeItem } from './dnd-tree-utils'
-
 import type { TreeNode } from 'svelte-tree-view'
 
 export type DndTreeItem = { id: string; node: TreeNode; type: 'tree-item' }
@@ -23,29 +21,6 @@ export const DND_CTX = 'dnd'
 
 export const getDndContext = () => getContext<DndContext>(DND_CTX)
 export const setDndContext = (val: DndContext) => setContext(DND_CTX, val)
-
-function moveItem(itemId: string, targetId: string, instruction: Instruction, data: TreeItem[]) {
-  const item = treeUtils.findItem(data, itemId)
-  if (!item) {
-    console.error(`Tried to move item (itemId ${itemId}) which didn't exist in data`, data)
-    return data
-  }
-  let result: TreeItem[]
-  switch (instruction.operation) {
-    case 'reorder-before':
-      result = treeUtils.remove(data, itemId)
-      result = treeUtils.insertBefore(result, targetId, item)
-      return result
-    case 'reorder-after':
-      result = treeUtils.remove(data, itemId)
-      result = treeUtils.insertAfter(result, targetId, item)
-      return result
-    case 'combine':
-      result = treeUtils.remove(data, itemId)
-      result = treeUtils.insertChild(result, targetId, item)
-      return result
-  }
-}
 
 function moveNode(
   dragged: TreeNode,
@@ -60,11 +35,8 @@ function moveNode(
   // Incase of an object, only 'combine' should be allowed which is implemented as creating/reusing 'children' property
   // It's turned into a list where the dragged object is inserted as the first element
   if (Array.isArray(targetVal)) {
-    // JUST UNSHIFT HERE TO DROPPED VAL
     targetVal.unshift(draggedVal)
-    // droppedTo.getValue = () => draggedVal
-    // treeMap[droppedTo.id] = droppedTo
-    target.updateValue()
+    target.updateValue(targetVal)
   } else if (targetVal && typeof targetVal === 'object') {
     // here get parent node, find this object's index, insert at before/after
     // incase of combine instruction, insert as property to droppedTo
@@ -73,9 +45,7 @@ function moveNode(
         targetVal.children = []
       }
       targetVal.children.unshift(draggedVal)
-      // droppedTo.getValue = () => draggedVal
-      // treeMap[droppedTo.id] = droppedTo
-      target.updateValue()
+      target.updateValue(targetVal)
     } else {
       const parent = treeMap[target.parentId || '']
       const parentVal = parent?.getValue()
@@ -93,9 +63,7 @@ function moveNode(
           parentVal.splice(index === -1 ? 0 : index, 0, draggedVal)
         }
         // @TODO remove value from old parent
-        // parent.getValue = () => parentVal
-        // treeMap[parent.id] = parent
-        parent.updateValue()
+        parent.updateValue(parentVal)
         console.log('>> update parent!', parentVal)
       }
     }
@@ -103,15 +71,15 @@ function moveNode(
     console.warn(`Unknown dropped value ${typeof targetVal}`, targetVal)
   }
   const oldParent = treeMap[dragged.parentId || '']
-  const parentVal = oldParent?.getValue()
-  if (Array.isArray(parentVal)) {
-    const idx = parentVal.findIndex(v => v === draggedVal)
+  const oldParentVal = oldParent?.getValue()
+  if (Array.isArray(oldParentVal)) {
+    const idx = oldParentVal.findIndex(v => v === draggedVal)
     if (idx !== -1) {
-      parentVal.splice(idx, 1)
+      oldParentVal.splice(idx, 1)
     }
-    oldParent.updateValue()
+    oldParent.updateValue(oldParentVal)
   } else {
-    console.error(`Unable to remove dragged node from parent`, parentVal)
+    console.error(`Unable to remove dragged node from parent`, oldParentVal)
   }
 }
 
@@ -162,9 +130,9 @@ export function createDndContext(data: Writable<any>) {
       console.log('target val', droppedTo.node.getValue())
       console.log('>> instruction', instruction)
       if (instruction !== null && dragged.id !== droppedTo.id && !instruction.blocked) {
-        moveNode(dragged.node, droppedTo.node, instruction, treeMap)
         // Shouldn't be able to drop on itself or if 'blocked' instruction was added
         // Idk are null instructions bugs
+        moveNode(dragged.node, droppedTo.node, instruction, treeMap)
         // data.update(items => {
         //   const moved = moveItem(itemId, targetNode, instruction, items)
         //   console.log('moved', moved)

@@ -24,11 +24,11 @@ export const createStore = (initialProps: Omit<TreeViewProps, 'data'>) => {
     rootElement.set(el)
   }
 
-  function updateNodeValue(id: string) {
+  function updateNodeValue(id: string, newValue: any) {
     const node = treeMap[id]
-    const newValue = node.getValue()
+    const oldValue = node.getValue()
     node.getValue = () => newValue
-    iteratedValues.delete(newValue)
+    iteratedValues.delete(oldValue)
     const recurOpts = get(recursionOpts)
     if (recurOpts) {
       expandNodeChildren(node, recurOpts)
