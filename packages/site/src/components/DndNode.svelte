@@ -10,10 +10,10 @@
     extractInstruction
   } from '@atlaskit/pragmatic-drag-and-drop-hitbox/list-item'
 
-  import DropIndicator from './dnd/DropIndicator.svelte'
+  import DropIndicator from './dnd-drop-indicator/DropIndicator.svelte'
   import { type DndTreeItem, type Draggable, type Droppable, getDndContext } from '$lib/dnd-context'
 
-  import type { NodeProps } from 'svelte-tree-view'
+  import type { NodeProps, TreeNode } from 'svelte-tree-view'
 
   let {
     node,
@@ -86,15 +86,23 @@
               // Allow reorder (the line drop indicator) only for objects
               'reorder-before': canDrag ? 'available' : 'not-available',
               // Hide the line drop indicator on expanded nodes
-              'reorder-after':
-                canDrag && node.collapsed && node.children.length > 0
-                  ? 'available'
-                  : 'not-available'
+              'reorder-after': canDrag ? 'available' : 'not-available'
             }
           }
         )
       },
-      canDrop: ({ source }) => source.data.type === 'tree-item' && source.data.id !== dndData.id,
+      canDrop: ({ source }) => {
+        if ('node' in source.data && 'type' in source.data) {
+          // Prevent dropping node unto itself or its children. This is done by comparing the dragged's node path,
+          // if equal ensures it must be a descendant, not an ancestor (node with smaller path)
+          const draggedNode = source.data.node as TreeNode
+          return (
+            draggedNode.path.some((pathIndex, i) => pathIndex !== node.path[i]) ||
+            draggedNode.path.length > node.path.length
+          )
+        }
+        return false
+      },
       onDragEnter: onDragChange,
       onDrag: onDragChange,
       onDragLeave: () => {

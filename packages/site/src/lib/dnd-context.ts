@@ -83,7 +83,7 @@ function moveNode(
 }
 
 export function createDndContext(data: Writable<any>) {
-  // const data = writable<TreeItem[]>(dndData)
+  // This registry is used to maintain focus between drops. Not working for now
   const registry = new Map<string, HTMLElement>()
   let treeMap: Record<string, TreeNode> = {}
 

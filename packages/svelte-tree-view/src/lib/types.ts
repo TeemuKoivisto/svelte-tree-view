@@ -35,7 +35,7 @@ export interface TreeNode<T = any> {
    */
   getValue: () => T
   /**
-   * Set getValue() and recurse this node and its children
+   * Sets getValue() and recurses this node as defined with the TreeRecursionOpts
    */
   updateValue: (newVal: T) => void
   depth: number
