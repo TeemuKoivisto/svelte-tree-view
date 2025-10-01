@@ -2,6 +2,8 @@
 
 Library to show Javascript objects in a nice tree layout. It's written in Svelte but since it compiles to pure JS it can be used anywhere (although to customize the rendered nodes you must Svelte).
 
+Version 1 was for Svelte 3 & 4, version 2 for Svelte >= 5 with proxies and snippets.
+
 `npm i svelte-tree-view`
 
 ### [Demo site](https://teemukoivisto.github.io/svelte-tree-view/)

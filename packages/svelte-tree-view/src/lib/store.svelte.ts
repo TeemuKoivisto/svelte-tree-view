@@ -5,14 +5,16 @@ import type { TreeNode, TreeRecursionOpts, TreeViewProps } from './types'
 
 export type TreeStore = ReturnType<typeof createStore>
 
-export const createStore = (initialProps: Omit<TreeViewProps, 'data'>) => {
+type StoreOptions = Omit<TreeViewProps, 'data' | 'rootNode' | 'treeNode'>
+
+export const createStore = (initialProps: StoreOptions) => {
   const [defaultRootNode] = createNode(-1, 'root', [], 0, null, {}, updateNodeValue)
   const treeMap = $state<Record<string, TreeNode>>({
     [defaultRootNode.id]: defaultRootNode
   })
   const rootNode = $derived(treeMap[defaultRootNode.id])
   const rootElement = writable<HTMLElement | null>(null)
-  const viewProps = writable<Omit<TreeViewProps, 'data'>>(initialProps)
+  const viewProps = writable<StoreOptions>(initialProps)
   const recursionOpts = derived(viewProps, p => p.recursionOpts)
   const iteratedValues = new Map<any, TreeNode>()
 
