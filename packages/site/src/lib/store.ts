@@ -3,17 +3,17 @@ import type { TreeNode, TreeRecursionOpts, TreeViewProps } from 'svelte-tree-vie
 
 import * as parser from './parser'
 
-import example1 from '$lib/example_basic.json'
-import example2 from '$lib/example_diff.json'
-import tailwind from '$lib/example_tailwind.json'
+import basicData from '$lib/example_basic.json'
+import diffData from '$lib/example_diff.json'
 import { generateObj } from '$lib/generateObj'
+import tailwindData from '$lib/example_tailwind.json'
 
 export type DataOption = keyof typeof DATA
 export const DATA = {
-  basic: example1,
-  diff: example2,
+  basic: basicData,
+  diff: diffData,
   circular: generateObj(0, 4),
-  tailwind: tailwind
+  tailwind: tailwindData
 }
 
 export interface FormState {
@@ -165,7 +165,7 @@ const testNode: TreeNode = {
 }
 
 export const treeOpts = writable(DEFAULT_STATE)
-export const parsedData = writable<any>(example1)
+export const parsedData = writable<any>(basicData)
 export const parsedRecursionOpts = writable<TreeRecursionOpts>(
   parser.parseRecursionOpts(DEFAULT_STATE.recursionOpts, testNode)
 )
@@ -174,8 +174,7 @@ export const parsedValueFormatter = writable(
 )
 export const parsedTheme = writable(parser.parseTheme(DEFAULT_STATE.theme))
 
-export function setExampleData(str: string) {
-  const opt = str as DataOption
+export function setExampleData(opt: DataOption) {
   parsedData.set(DATA[opt])
   treeOpts.update(s => ({ ...s, selectedData: opt }))
 }
