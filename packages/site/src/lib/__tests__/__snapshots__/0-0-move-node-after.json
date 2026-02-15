@@ -13,7 +13,7 @@
       0,
     ],
     "type": "string",
-    "value": "1",
+    "value": "n1",
   },
   "[0,1]": {
     "children": [],
@@ -47,7 +47,7 @@
       0,
     ],
     "type": "string",
-    "value": "1.1",
+    "value": "n1-c1",
   },
   "[0,2,0,1]": {
     "children": [],
@@ -85,7 +85,7 @@
       0,
     ],
     "type": "string",
-    "value": "1.1.1",
+    "value": "n1-c2",
   },
   "[0,2,0,2,0,1]": {
     "children": [],
@@ -129,7 +129,7 @@
     "type": "object",
     "value": {
       "children": [],
-      "id": "1.1.1",
+      "id": "n1-c2",
     },
   },
   "[0,2,0,2,1,0]": {
@@ -150,7 +150,7 @@
       0,
     ],
     "type": "string",
-    "value": "1.1.2",
+    "value": "n1-c1-gc1",
   },
   "[0,2,0,2,1,1]": {
     "children": [],
@@ -159,7 +159,7 @@
     "depth": 6,
     "id": "[0,2,0,2,1,1]",
     "index": 1,
-    "key": "isDraft",
+    "key": "children",
     "parentId": "[0,2,0,2,1]",
     "path": [
       0,
@@ -169,8 +169,8 @@
       1,
       1,
     ],
-    "type": "boolean",
-    "value": true,
+    "type": "array",
+    "value": [],
   },
   "[0,2,0,2,1,2]": {
     "children": [],
@@ -196,7 +196,6 @@
     "children": [
       "[0,2,0,2,1,0]",
       "[0,2,0,2,1,1]",
-      "[0,2,0,2,1,2]",
     ],
     "circularOfId": null,
     "collapsed": false,
@@ -215,7 +214,93 @@
     "type": "object",
     "value": {
       "children": [],
-      "id": "1.1.2",
+      "id": "n1-c1-gc1",
+    },
+  },
+  "[0,2,0,2,2,0]": {
+    "children": [],
+    "circularOfId": null,
+    "collapsed": false,
+    "depth": 6,
+    "id": "[0,2,0,2,2,0]",
+    "index": 0,
+    "key": "id",
+    "parentId": "[0,2,0,2,2]",
+    "path": [
+      0,
+      2,
+      0,
+      2,
+      2,
+      0,
+    ],
+    "type": "string",
+    "value": "n1-c1-gc2",
+  },
+  "[0,2,0,2,2,1]": {
+    "children": [],
+    "circularOfId": null,
+    "collapsed": false,
+    "depth": 6,
+    "id": "[0,2,0,2,2,1]",
+    "index": 1,
+    "key": "isDraft",
+    "parentId": "[0,2,0,2,2]",
+    "path": [
+      0,
+      2,
+      0,
+      2,
+      2,
+      1,
+    ],
+    "type": "boolean",
+    "value": true,
+  },
+  "[0,2,0,2,2,2]": {
+    "children": [],
+    "circularOfId": null,
+    "collapsed": false,
+    "depth": 6,
+    "id": "[0,2,0,2,2,2]",
+    "index": 2,
+    "key": "children",
+    "parentId": "[0,2,0,2,2]",
+    "path": [
+      0,
+      2,
+      0,
+      2,
+      2,
+      2,
+    ],
+    "type": "array",
+    "value": [],
+  },
+  "[0,2,0,2,2]": {
+    "children": [
+      "[0,2,0,2,2,0]",
+      "[0,2,0,2,2,1]",
+      "[0,2,0,2,2,2]",
+    ],
+    "circularOfId": null,
+    "collapsed": false,
+    "depth": 5,
+    "id": "[0,2,0,2,2]",
+    "index": 2,
+    "key": "2",
+    "parentId": "[0,2,0,2]",
+    "path": [
+      0,
+      2,
+      0,
+      2,
+      2,
+    ],
+    "type": "object",
+    "value": {
+      "children": [],
+      "id": "n1-c1-gc2",
       "isDraft": true,
     },
   },
@@ -223,6 +308,7 @@
     "children": [
       "[0,2,0,2,0]",
       "[0,2,0,2,1]",
+      "[0,2,0,2,2]",
     ],
     "circularOfId": null,
     "collapsed": false,
@@ -241,11 +327,15 @@
     "value": [
       {
         "children": [],
-        "id": "1.1.1",
+        "id": "n1-c2",
       },
       {
         "children": [],
-        "id": "1.1.2",
+        "id": "n1-c1-gc1",
+      },
+      {
+        "children": [],
+        "id": "n1-c1-gc2",
         "isDraft": true,
       },
     ],
@@ -273,15 +363,19 @@
       "children": [
         {
           "children": [],
-          "id": "1.1.1",
+          "id": "n1-c2",
         },
         {
           "children": [],
-          "id": "1.1.2",
+          "id": "n1-c1-gc1",
+        },
+        {
+          "children": [],
+          "id": "n1-c1-gc2",
           "isDraft": true,
         },
       ],
-      "id": "1.1",
+      "id": "n1-c1",
       "isOpen": true,
     },
   },
@@ -301,7 +395,7 @@
       0,
     ],
     "type": "string",
-    "value": "1.2",
+    "value": "n1-c2",
   },
   "[0,2,1,1]": {
     "children": [],
@@ -341,13 +435,12 @@
     "type": "object",
     "value": {
       "children": [],
-      "id": "1.2",
+      "id": "n1-c2",
     },
   },
   "[0,2]": {
     "children": [
       "[0,2,0]",
-      "[0,2,1]",
     ],
     "circularOfId": null,
     "collapsed": false,
@@ -366,20 +459,20 @@
         "children": [
           {
             "children": [],
-            "id": "1.1.1",
+            "id": "n1-c2",
           },
           {
             "children": [],
-            "id": "1.1.2",
+            "id": "n1-c1-gc1",
+          },
+          {
+            "children": [],
+            "id": "n1-c1-gc2",
             "isDraft": true,
           },
         ],
-        "id": "1.1",
+        "id": "n1-c1",
         "isOpen": true,
-      },
-      {
-        "children": [],
-        "id": "1.2",
       },
     ],
   },
@@ -406,23 +499,23 @@
           "children": [
             {
               "children": [],
-              "id": "1.1.1",
+              "id": "n1-c2",
             },
             {
               "children": [],
-              "id": "1.1.2",
+              "id": "n1-c1-gc1",
+            },
+            {
+              "children": [],
+              "id": "n1-c1-gc2",
               "isDraft": true,
             },
           ],
-          "id": "1.1",
+          "id": "n1-c1",
           "isOpen": true,
         },
-        {
-          "children": [],
-          "id": "1.2",
-        },
       ],
-      "id": "1",
+      "id": "n1",
       "isOpen": true,
     },
   },
@@ -440,7 +533,7 @@
       0,
     ],
     "type": "string",
-    "value": "2",
+    "value": "n2",
   },
   "[1,1]": {
     "children": [],
@@ -474,7 +567,7 @@
       0,
     ],
     "type": "string",
-    "value": "2.1",
+    "value": "n2-c1",
   },
   "[1,2,0,1]": {
     "children": [],
@@ -512,7 +605,7 @@
       0,
     ],
     "type": "string",
-    "value": "2.1.2",
+    "value": "n2-c1-gc1",
   },
   "[1,2,0,2,0,1]": {
     "children": [],
@@ -556,7 +649,7 @@
     "type": "object",
     "value": {
       "children": [],
-      "id": "2.1.2",
+      "id": "n2-c1-gc1",
     },
   },
   "[1,2,0,2,1,0]": {
@@ -577,7 +670,7 @@
       0,
     ],
     "type": "string",
-    "value": "2.1.1",
+    "value": "n2-c1-gc2",
   },
   "[1,2,0,2,1,1]": {
     "children": [],
@@ -621,7 +714,7 @@
     "type": "object",
     "value": {
       "children": [],
-      "id": "2.1.1",
+      "id": "n2-c1-gc2",
     },
   },
   "[1,2,0,2]": {
@@ -646,11 +739,11 @@
     "value": [
       {
         "children": [],
-        "id": "2.1.2",
+        "id": "n2-c1-gc1",
       },
       {
         "children": [],
-        "id": "2.1.1",
+        "id": "n2-c1-gc2",
       },
     ],
   },
@@ -677,14 +770,14 @@
       "children": [
         {
           "children": [],
-          "id": "2.1.2",
+          "id": "n2-c1-gc1",
         },
         {
           "children": [],
-          "id": "2.1.1",
+          "id": "n2-c1-gc2",
         },
       ],
-      "id": "2.1",
+      "id": "n2-c1",
       "isOpen": true,
     },
   },
@@ -709,14 +802,14 @@
         "children": [
           {
             "children": [],
-            "id": "2.1.2",
+            "id": "n2-c1-gc1",
           },
           {
             "children": [],
-            "id": "2.1.1",
+            "id": "n2-c1-gc2",
           },
         ],
-        "id": "2.1",
+        "id": "n2-c1",
         "isOpen": true,
       },
     ],
@@ -744,18 +837,18 @@
           "children": [
             {
               "children": [],
-              "id": "2.1.2",
+              "id": "n2-c1-gc1",
             },
             {
               "children": [],
-              "id": "2.1.1",
+              "id": "n2-c1-gc2",
             },
           ],
-          "id": "2.1",
+          "id": "n2-c1",
           "isOpen": true,
         },
       ],
-      "id": "2",
+      "id": "n2",
       "isOpen": true,
     },
   },
@@ -780,23 +873,23 @@
             "children": [
               {
                 "children": [],
-                "id": "1.1.1",
+                "id": "n1-c2",
               },
               {
                 "children": [],
-                "id": "1.1.2",
+                "id": "n1-c1-gc1",
+              },
+              {
+                "children": [],
+                "id": "n1-c1-gc2",
                 "isDraft": true,
               },
             ],
-            "id": "1.1",
+            "id": "n1-c1",
             "isOpen": true,
           },
-          {
-            "children": [],
-            "id": "1.2",
-          },
         ],
-        "id": "1",
+        "id": "n1",
         "isOpen": true,
       },
       {
@@ -805,18 +898,18 @@
             "children": [
               {
                 "children": [],
-                "id": "2.1.2",
+                "id": "n2-c1-gc1",
               },
               {
                 "children": [],
-                "id": "2.1.1",
+                "id": "n2-c1-gc2",
               },
             ],
-            "id": "2.1",
+            "id": "n2-c1",
             "isOpen": true,
           },
         ],
-        "id": "2",
+        "id": "n2",
         "isOpen": true,
       },
     ],

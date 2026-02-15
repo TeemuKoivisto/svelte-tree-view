@@ -5,7 +5,7 @@ import type { TreeNode, TreeRecursionOpts, TreeViewProps } from './types'
 
 export type TreeStore = ReturnType<typeof createStore>
 
-type StoreOptions = Omit<TreeViewProps, 'data' | 'rootNode' | 'treeNode'>
+type StoreOptions = Omit<TreeViewProps, 'data' | 'rootNode'>
 
 export const createStore = (initialProps: StoreOptions) => {
   const [defaultRootNode] = createNode(-1, 'root', [], 0, null, {}, updateNodeValue)
@@ -24,6 +24,16 @@ export const createStore = (initialProps: StoreOptions) => {
 
   function setRootElement(el: HTMLElement | null) {
     rootElement.set(el)
+  }
+
+  function deleteFromTree(nodeId: string) {
+    const node = treeMap[nodeId]
+    if (node) {
+      for (const childId in node.children) {
+        deleteFromTree(childId)
+      }
+      delete treeMap[nodeId]
+    }
   }
 
   function updateNodeValue(id: string, newValue: any) {

@@ -69,10 +69,10 @@ export function createDndContext(data: Writable<any>) {
       if (instruction !== null && dragged.id !== droppedTo.id && !instruction.blocked) {
         // Shouldn't be able to drop on itself or if 'blocked' instruction was added
         // Idk are null instructions bugs
-        // console.log(JSON.stringify(dragged.node))
-        // console.log(JSON.stringify(droppedTo.node))
-        // console.log(JSON.stringify(instruction))
-        // console.log(JSON.stringify(treeMap))
+        console.log(JSON.stringify(dragged.node))
+        console.log(JSON.stringify(droppedTo.node))
+        console.log(JSON.stringify(instruction))
+        console.log(JSON.stringify(treeMap))
         moveNode(dragged.node, droppedTo.node, instruction, treeMap)
         // data.update(items => {
         //   const moved = moveItem(itemId, targetNode, instruction, items)

@@ -13,7 +13,7 @@
       0,
     ],
     "type": "string",
-    "value": "1",
+    "value": "n1",
   },
   "[0,1]": {
     "children": [],
@@ -47,7 +47,7 @@
       0,
     ],
     "type": "string",
-    "value": "1.1",
+    "value": "n1-c1",
   },
   "[0,2,0,1]": {
     "children": [],
@@ -85,7 +85,7 @@
       0,
     ],
     "type": "string",
-    "value": "1.1.1",
+    "value": "n1-c1-gc1",
   },
   "[0,2,0,2,0,1]": {
     "children": [],
@@ -129,7 +129,7 @@
     "type": "object",
     "value": {
       "children": [],
-      "id": "1.1.1",
+      "id": "n1-c1-gc1",
     },
   },
   "[0,2,0,2,1,0]": {
@@ -150,7 +150,7 @@
       0,
     ],
     "type": "string",
-    "value": "1.1.2",
+    "value": "n1-c1-gc2",
   },
   "[0,2,0,2,1,1]": {
     "children": [],
@@ -215,7 +215,7 @@
     "type": "object",
     "value": {
       "children": [],
-      "id": "1.1.2",
+      "id": "n1-c1-gc2",
       "isDraft": true,
     },
   },
@@ -241,11 +241,11 @@
     "value": [
       {
         "children": [],
-        "id": "1.1.1",
+        "id": "n1-c1-gc1",
       },
       {
         "children": [],
-        "id": "1.1.2",
+        "id": "n1-c1-gc2",
         "isDraft": true,
       },
     ],
@@ -273,15 +273,15 @@
       "children": [
         {
           "children": [],
-          "id": "1.1.1",
+          "id": "n1-c1-gc1",
         },
         {
           "children": [],
-          "id": "1.1.2",
+          "id": "n1-c1-gc2",
           "isDraft": true,
         },
       ],
-      "id": "1.1",
+      "id": "n1-c1",
       "isOpen": true,
     },
   },
@@ -301,7 +301,7 @@
       0,
     ],
     "type": "string",
-    "value": "1.2",
+    "value": "n1-c2",
   },
   "[0,2,1,1]": {
     "children": [],
@@ -341,7 +341,7 @@
     "type": "object",
     "value": {
       "children": [],
-      "id": "1.2",
+      "id": "n1-c2",
     },
   },
   "[0,2]": {
@@ -366,20 +366,20 @@
         "children": [
           {
             "children": [],
-            "id": "1.1.1",
+            "id": "n1-c1-gc1",
           },
           {
             "children": [],
-            "id": "1.1.2",
+            "id": "n1-c1-gc2",
             "isDraft": true,
           },
         ],
-        "id": "1.1",
+        "id": "n1-c1",
         "isOpen": true,
       },
       {
         "children": [],
-        "id": "1.2",
+        "id": "n1-c2",
       },
     ],
   },
@@ -406,23 +406,23 @@
           "children": [
             {
               "children": [],
-              "id": "1.1.1",
+              "id": "n1-c1-gc1",
             },
             {
               "children": [],
-              "id": "1.1.2",
+              "id": "n1-c1-gc2",
               "isDraft": true,
             },
           ],
-          "id": "1.1",
+          "id": "n1-c1",
           "isOpen": true,
         },
         {
           "children": [],
-          "id": "1.2",
+          "id": "n1-c2",
         },
       ],
-      "id": "1",
+      "id": "n1",
       "isOpen": true,
     },
   },
@@ -440,7 +440,7 @@
       0,
     ],
     "type": "string",
-    "value": "2",
+    "value": "n2",
   },
   "[1,1]": {
     "children": [],
@@ -474,7 +474,7 @@
       0,
     ],
     "type": "string",
-    "value": "2.1",
+    "value": "n2-c1",
   },
   "[1,2,0,1]": {
     "children": [],
@@ -512,7 +512,7 @@
       0,
     ],
     "type": "string",
-    "value": "2.1.1",
+    "value": "n2-c1-gc1",
   },
   "[1,2,0,2,0,1]": {
     "children": [],
@@ -556,7 +556,7 @@
     "type": "object",
     "value": {
       "children": [],
-      "id": "2.1.1",
+      "id": "n2-c1-gc1",
     },
   },
   "[1,2,0,2,1,0]": {
@@ -577,7 +577,7 @@
       0,
     ],
     "type": "string",
-    "value": "2.1.2",
+    "value": "n2-c1-gc2",
   },
   "[1,2,0,2,1,1]": {
     "children": [],
@@ -621,7 +621,7 @@
     "type": "object",
     "value": {
       "children": [],
-      "id": "2.1.2",
+      "id": "n2-c1-gc2",
     },
   },
   "[1,2,0,2]": {
@@ -646,11 +646,11 @@
     "value": [
       {
         "children": [],
-        "id": "2.1.1",
+        "id": "n2-c1-gc1",
       },
       {
         "children": [],
-        "id": "2.1.2",
+        "id": "n2-c1-gc2",
       },
     ],
   },
@@ -677,14 +677,14 @@
       "children": [
         {
           "children": [],
-          "id": "2.1.1",
+          "id": "n2-c1-gc1",
         },
         {
           "children": [],
-          "id": "2.1.2",
+          "id": "n2-c1-gc2",
         },
       ],
-      "id": "2.1",
+      "id": "n2-c1",
       "isOpen": true,
     },
   },
@@ -709,14 +709,14 @@
         "children": [
           {
             "children": [],
-            "id": "2.1.1",
+            "id": "n2-c1-gc1",
           },
           {
             "children": [],
-            "id": "2.1.2",
+            "id": "n2-c1-gc2",
           },
         ],
-        "id": "2.1",
+        "id": "n2-c1",
         "isOpen": true,
       },
     ],
@@ -744,18 +744,18 @@
           "children": [
             {
               "children": [],
-              "id": "2.1.1",
+              "id": "n2-c1-gc1",
             },
             {
               "children": [],
-              "id": "2.1.2",
+              "id": "n2-c1-gc2",
             },
           ],
-          "id": "2.1",
+          "id": "n2-c1",
           "isOpen": true,
         },
       ],
-      "id": "2",
+      "id": "n2",
       "isOpen": true,
     },
   },
@@ -780,23 +780,23 @@
             "children": [
               {
                 "children": [],
-                "id": "1.1.1",
+                "id": "n1-c1-gc1",
               },
               {
                 "children": [],
-                "id": "1.1.2",
+                "id": "n1-c1-gc2",
                 "isDraft": true,
               },
             ],
-            "id": "1.1",
+            "id": "n1-c1",
             "isOpen": true,
           },
           {
             "children": [],
-            "id": "1.2",
+            "id": "n1-c2",
           },
         ],
-        "id": "1",
+        "id": "n1",
         "isOpen": true,
       },
       {
@@ -805,18 +805,18 @@
             "children": [
               {
                 "children": [],
-                "id": "2.1.1",
+                "id": "n2-c1-gc1",
               },
               {
                 "children": [],
-                "id": "2.1.2",
+                "id": "n2-c1-gc2",
               },
             ],
-            "id": "2.1",
+            "id": "n2-c1",
             "isOpen": true,
           },
         ],
-        "id": "2",
+        "id": "n2",
         "isOpen": true,
       },
     ],

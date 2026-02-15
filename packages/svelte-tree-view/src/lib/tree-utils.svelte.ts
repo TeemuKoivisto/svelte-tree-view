@@ -19,6 +19,7 @@ export function createNode(
     oldNode.depth = depth
     oldNode.type = getValueType(value)
     oldNode.circularOfId = sameValue ? oldNode.circularOfId : null
+    // @TODO must somehow mark these children AND their descendants to be deleted
     oldNode.children = []
     return [oldNode, oldNode]
   }
@@ -36,7 +37,8 @@ export function createNode(
     circularOfId: null,
     children: []
   })
-  return [node, oldNode]
+  console.log('inserted node', { ...node, value })
+  return [node, undefined]
 }
 
 export function getValueType(value: any): ValueType {
@@ -138,6 +140,16 @@ function shouldRecurseChildren(
     iteratedValues.set(node.getValue(), node)
   }
   return true
+}
+
+type RecurseContext = {
+  treeMap: Record<string, TreeNode>
+  oldIds: Set<string>
+  iteratedValues: Map<any, TreeNode>
+  deletedLeafs: Set<string>
+  recomputeExpandNode: boolean
+  opts: TreeRecursionOpts
+  updateNodeValue: (id: string, val: any) => void
 }
 
 export function recurseObjectProperties(
