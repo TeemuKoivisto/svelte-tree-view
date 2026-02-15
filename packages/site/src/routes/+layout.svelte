@@ -44,7 +44,7 @@
 </script>
 
 <main>
-  <section class="xs:p-8 m-auto rounded-2xl p-4 lg:container md:p-16 md:pt-8">
+  <section class="xs:p-8 m-auto rounded-2xl p-4 md:p-16 md:pt-8 lg:container">
     <h1 class="my-3 flex items-center text-5xl font-bold">
       <a
         target="_blank"

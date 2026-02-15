@@ -40,7 +40,7 @@ const DEFAULT_RECUR_OPTS: TreeRecursionOpts = {
       const existingNodeWithValue = iteratedValues.get(node.getValue())
       if (existingNodeWithValue && node.id !== existingNodeWithValue.id) {
         node.circularOfId = existingNodeWithValue.id
-        return true 
+        return true
       }
       iteratedValues.set(node.getValue(), node)
     }
