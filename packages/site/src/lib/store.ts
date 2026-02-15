@@ -7,13 +7,15 @@ import basicData from '$lib/example_basic.json'
 import diffData from '$lib/example_diff.json'
 import { generateObj } from '$lib/generateObj'
 import tailwindData from '$lib/example_tailwind.json'
+import dndData from '$lib/example_dnd.json'
 
 export type DataOption = keyof typeof DATA
 export const DATA = {
   basic: basicData,
   diff: diffData,
   circular: generateObj(0, 4),
-  tailwind: tailwindData
+  tailwind: tailwindData,
+  dnd: dndData
 }
 
 export interface FormState {

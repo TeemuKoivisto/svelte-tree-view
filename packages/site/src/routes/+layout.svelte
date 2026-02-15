@@ -84,6 +84,13 @@
         data-sveltekit-keepfocus
         data-sveltekit-noscroll>(4) Tailwind</a
       >
+      <a
+        class="btn ml-2"
+        data-test-id="btn-3"
+        href="{base}/dnd"
+        data-sveltekit-keepfocus
+        data-sveltekit-noscroll>(5) Drag'n drop</a
+      >
     </div>
     <div class="tree-wrapper flex">
       <textarea

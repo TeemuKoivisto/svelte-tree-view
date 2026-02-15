@@ -1,0 +1,47 @@
+[
+  {
+    "id": "n1",
+    "isOpen": true,
+    "children": [
+      {
+        "id": "n1-c1",
+        "isOpen": true,
+        "children": [
+          {
+            "id": "n1-c1-gc1",
+            "children": []
+          },
+          {
+            "id": "n1-c1-gc2",
+            "isDraft": true,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "n1-c2",
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "n2",
+    "isOpen": true,
+    "children": [
+      {
+        "id": "n2-c1",
+        "isOpen": true,
+        "children": [
+          {
+            "id": "n2-c1-gc1",
+            "children": []
+          },
+          {
+            "id": "n2-c1-gc2",
+            "children": []
+          }
+        ]
+      }
+    ]
+  }
+]
