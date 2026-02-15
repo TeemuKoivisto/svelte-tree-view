@@ -19,7 +19,7 @@ runs:
       uses: cypress-io/github-action@v6
       with:
         browser: chrome
-        cache-key: ${{ runner.os }}-node-${{ matrix.node-version }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+        cache-key: ${{ runner.os }}-node-${{ matrix.node_version }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
         command: pnpm --filter svelte-tree-view cy run --config baseUrl=http://localhost:5185
         install: false
         quiet: false

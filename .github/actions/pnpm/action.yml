@@ -6,20 +6,20 @@ runs:
   steps:
     - name: Install pnpm
       shell: bash
-      run: npm i pnpm@9 -g
+      run: npm i pnpm@10 -g
 
     - name: Setup pnpm config
       shell: bash
       run: pnpm config set store-dir ~/.pnpm-store
 
     - name: Setup caching
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: |
           ~/.pnpm-store
           ~/.cache/Cypress
-        key: ${{ runner.os }}-node-${{ matrix.node-version }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-        restore-keys: ${{ runner.os }}-node-${{ matrix.node-version }}-pnpm-
+        key: ${{ runner.os }}-node-${{ matrix.node_version }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: ${{ runner.os }}-node-${{ matrix.node_version }}-pnpm-
 
     - name: Install dependencies
       shell: bash
