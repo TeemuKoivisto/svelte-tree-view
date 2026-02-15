@@ -1,3 +1,5 @@
+/// <reference types="vitest" />
+
 import tailwindcss from '@tailwindcss/vite'
 import { sveltekit } from '@sveltejs/kit/vite'
 import { defineConfig } from 'vite'
@@ -14,5 +16,12 @@ export default defineConfig({
   },
   server: {
     port: 5185
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    include: ['src/**/*.{test,spec}.?(c|m)[jt]s?(x)'],
+    // snapshotSerializers: ['src/lib/tests/json-serializer.ts'],
+    cache: false
   }
 })

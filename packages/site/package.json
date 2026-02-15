@@ -12,8 +12,9 @@
     "dev": "vite dev --host",
     "build": "vite build",
     "preview": "vite preview",
-    "prepare": "svelte-kit sync || echo ''"
-	},
+    "prepare": "svelte-kit sync || echo ''",
+    "test": "TZ=UTC-3 vitest run"
+  },
   "devDependencies": {
     "@sveltejs/adapter-static": "^3.0.10",
     "@sveltejs/kit": "2.52.0",
@@ -23,6 +24,11 @@
     "svelte-check": "^4.4.0",
     "svelte-preprocess": "^6.0.3",
     "svelte-tree-view": "workspace:*",
-    "tailwindcss": "^4.1.18"
+    "tailwindcss": "^4.1.18",
+    "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "@atlaskit/pragmatic-drag-and-drop": "1.7.7",
+    "@atlaskit/pragmatic-drag-and-drop-hitbox": "1.1.0"
   }
 }
