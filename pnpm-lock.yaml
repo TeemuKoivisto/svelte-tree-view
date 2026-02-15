@@ -144,12 +144,6 @@ importers:
         specifier: ^4.0.18
         version: 4.0.18(jiti@2.6.1)(jsdom@28.1.0)(lightningcss@1.30.2)(sass@1.97.3)
 
-  packages/vite-site:
-    dependencies:
-      svelte-tree-view:
-        specifier: workspace:*
-        version: link:../svelte-tree-view
-
 packages:
 
   '@acemir/cssom@0.9.31':
