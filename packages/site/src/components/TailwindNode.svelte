@@ -260,7 +260,7 @@
   }
 
   .children-container {
-    @apply ml-6 mt-0.5 space-y-0.5;
+    @apply mt-0.5 ml-6 space-y-0.5;
   }
 
   /* Responsive design */
