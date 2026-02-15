@@ -6,6 +6,7 @@
     "pretty": "prettier --write \"**/*.+(js|jsx|json|html|css|less|scss|ts|tsx|svelte|yml|yaml|md|graphql|mdx)\" .",
     "lint": "prettier --check . && eslint --fix .",
     "start": "pnpm --filter svelte-tree-view build && pnpm --filter site dev",
+    "build": "pnpm --filter svelte-tree-view build",
     "site": "pnpm --filter site dev",
     "test": "pnpm --filter svelte-tree-view build && concurrently --kill-others 'pnpm --filter site dev' 'pnpm --filter svelte-tree-view test'",
     "cs": "changeset && git add .changeset",

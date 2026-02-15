@@ -12,16 +12,14 @@
   let { id }: Props = $props()
 
   const { rootElement, treeMap, viewProps, ...rest } = getContext<TreeStore>('svelte-tree-view')
-  let node = $derived(treeMap[id])
-  let hasChildren = $derived(node.children.length > 0)
   let nodeProps = $derived({
-    node,
+    node: treeMap[id],
     getTreeContext: () => getContext<TreeStore>('svelte-tree-view'),
     TreeViewNode: TreeViewNode,
     handleLogNode() {
-      console.log(node.getValue())
+      console.log(treeMap[id].getValue())
       try {
-        window._node = node.getValue()
+        window._node = treeMap[id].getValue()
         console.info('%c [svelte-tree-view]: Property added to window._node', 'color: #b8e248')
       } catch (err) {
         console.error('[svelte-tree-view]: handleLogNode() errored', err)
@@ -29,17 +27,19 @@
     },
     handleCopyNodeToClipboard() {
       try {
-        navigator.clipboard.writeText(JSON.stringify(node.getValue()))
+        navigator.clipboard.writeText(JSON.stringify(treeMap[id].getValue()))
       } catch (err) {
         console.error('[svelte-tree-view]: handleCopyNodeToClipboard() errored', err)
       }
     },
     handleToggleCollapse() {
-      if (hasChildren) {
-        rest.toggleCollapse(node.id)
-      } else if (node.circularOfId) {
-        rest.expandAllNodesToNode(node.circularOfId)
-        $rootElement?.querySelector(`[data-tree-node-id="${node.circularOfId}"]`)?.scrollIntoView()
+      if (treeMap[id].children.length > 0) {
+        rest.toggleCollapse(treeMap[id].id)
+      } else if (treeMap[id].circularOfId) {
+        rest.expandAllNodesToNode(treeMap[id].circularOfId)
+        $rootElement
+          ?.querySelector(`[data-tree-node-id="${treeMap[id].circularOfId}"]`)
+          ?.scrollIntoView()
       }
     }
   })

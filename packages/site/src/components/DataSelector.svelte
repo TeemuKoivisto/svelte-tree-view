@@ -8,7 +8,7 @@
     <select
       id="data-selector"
       value={$treeOpts.selectedData}
-      oninput={e => setExampleData(e.currentTarget.value)}
+      oninput={e => setExampleData(e.currentTarget.value as keyof typeof DATA)}
       class="control-select"
     >
       {#each Object.keys(DATA) as opt}
