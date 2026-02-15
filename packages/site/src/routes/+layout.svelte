@@ -89,7 +89,7 @@
         data-test-id="btn-3"
         href="{base}/dnd"
         data-sveltekit-keepfocus
-        data-sveltekit-noscroll>(4) Drag'n drop</a
+        data-sveltekit-noscroll>(5) Drag'n drop</a
       >
     </div>
     <div class="tree-wrapper flex">

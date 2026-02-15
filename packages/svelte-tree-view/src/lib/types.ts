@@ -19,25 +19,30 @@ export type ValueType =
 
 export interface TreeNode<T = any> {
   /**
-   * ID generated from the path to this node eg "[0,1,2]"
+   * ID generated from the index path of this node eg "[0,1,2]"
    */
   id: string
   /**
-   * Index of this node in the parent object as its values are iterated
+   * Index of this node in the parent object as returned by mapChildren()
    */
   index: number
   /**
-   * Key of this node eg "1" for an array key or "foo" for an object
+   * Key of this node eg "1" for an array ['foo', 'bar'] key or "foo" for { foo: 'bar' } object
    */
   key: string
   /**
-   * The value mapped to this key
+   * Since we use proxies, to avoid the node.value being proxied we wrap it in a getter.
+   * This also makes controlling updates easier as only changes to this function trigger
+   * new recursions (through updateValue).
    */
   getValue: () => T
   /**
    * Sets getValue() and recurses this node as defined with the TreeRecursionOpts
    */
   updateValue: (newVal: T) => void
+  /**
+   * Node depth in the tree. Root node is 0 so all 'normal' nodes start at 1
+   */
   depth: number
   collapsed: boolean
   type: ValueType

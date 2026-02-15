@@ -178,6 +178,6 @@ a:hover {
   }
 
   .group-drop-indicator {
-    @apply ring-offset-[var(--tree-view-base00)]/60 relative z-10 rounded-sm ring-2 ring-blue-800 ring-offset-2;
+    @apply relative z-10 rounded-sm ring-2 ring-blue-800 ring-offset-2 ring-offset-[var(--tree-view-base00)]/60;
   }
 }

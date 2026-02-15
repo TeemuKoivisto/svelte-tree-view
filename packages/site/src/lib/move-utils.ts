@@ -60,6 +60,7 @@ export function moveNode(
     console.error(`Unable to remove dragged node from parent`, oldParentVal)
     return
   }
+  // Instructions are basically fancy edges where 'combine' is the 'inside edge'
   const edge =
     instruction.operation === 'combine'
       ? null
