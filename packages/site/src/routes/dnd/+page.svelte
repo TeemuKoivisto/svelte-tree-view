@@ -19,7 +19,7 @@
     parsedValueFormatter,
     setExampleData
   } from '$lib/store'
-  import { setDndContext, createDndContext, type Droppable } from '$lib/dnd-context'
+  import { setDndContext, createDndContext, type Droppable } from '$lib/dnd/dnd-context'
 
   let element: HTMLDivElement
   let groupState = $state<'idle' | 'is-innermost-over'>('idle')
