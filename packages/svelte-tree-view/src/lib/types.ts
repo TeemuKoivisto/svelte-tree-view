@@ -19,21 +19,26 @@ export type ValueType =
 
 export interface TreeNode<T = any> {
   /**
-   * ID generated from the path to this node eg "[0,1,2]"
+   * ID generated from the index path to this node eg "[0,1,2]"
    */
   id: string
   /**
-   * Index of this node in the parent object as its values are iterated
+   * Index of this node in the parent object as returned by mapChildren()
    */
   index: number
   /**
-   * Key of this node eg "1" for an array key or "foo" for an object
+   * Key of this node eg "1" for an array or "foo" for { foo: 'bar' } object
    */
   key: string
   /**
-   * The value mapped to this key
+   * Since we use proxies, to avoid the node.value being proxied we wrap it in a getter.
+   * This also makes controlling updates easier as only changes to this function trigger
+   * new recursions.
    */
   getValue: () => T
+  /**
+   * Node depth in the tree. Root node is 0 so all 'normal' nodes start at 1
+   */
   depth: number
   collapsed: boolean
   type: ValueType
@@ -151,7 +156,7 @@ export interface TreeRecursionOpts<T = any> {
   mapChildren?: (val: any, type: ValueType, parent: TreeNode<T>) => [string, any][] | undefined
 }
 
-/** Props passed to renderable TreeNodes */
+/** Props passed to rendered TreeNodes */
 export interface NodeProps<T = any> {
   node: TreeNode<T>
   TreeViewNode: Component<{ id: string }>
@@ -172,7 +177,7 @@ export interface TreeViewProps<T = any> {
    */
   rootNode?: Snippet<[Snippet]>
   /**
-   * Custom tree node. Uses DefaultNode.svelte by default
+   * The rendered treeNode. DefaultNode.svelte can be used as the default
    */
   treeNode: Snippet<[NodeProps<T>]>
   theme?: Base16Theme
