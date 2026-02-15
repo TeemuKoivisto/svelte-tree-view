@@ -18,13 +18,13 @@
     "cy": "cypress"
 	},
   "devDependencies": {
-    "@sveltejs/adapter-static": "^3.0.8",
-    "@sveltejs/kit": "2.25.1",
-    "@sveltejs/vite-plugin-svelte": "^6.1.0",
-    "@tailwindcss/vite": "^4.1.11",
-    "svelte": "^5.36.10",
+    "@sveltejs/adapter-static": "^3.0.10",
+    "@sveltejs/kit": "2.52.0",
+    "@sveltejs/vite-plugin-svelte": "^6.2.4",
+    "@tailwindcss/vite": "^4.1.18",
+    "svelte": "^5.51.2",
     "svelte-preprocess": "^6.0.3",
     "svelte-tree-view": "workspace:*",
-    "tailwindcss": "^4.1.11"
+    "tailwindcss": "^4.1.18"
   }
 }
