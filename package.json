@@ -10,8 +10,7 @@
     "test": "pnpm --filter svelte-tree-view build && concurrently --kill-others 'pnpm --filter site dev' 'pnpm --filter svelte-tree-view test'",
     "cs": "changeset && git add .changeset",
     "ci:version": "changeset version",
-    "ci:publish": "changeset publish && git push --follow-tags",
-    "prepare": "husky install"
+    "ci:publish": "changeset publish && git push --follow-tags"
   },
   "engines": {
     "node": ">=20",
@@ -30,7 +29,6 @@
     "eslint-plugin-promise": "^7.2.1",
     "eslint-plugin-svelte": "^3.15.0",
     "globals": "^17.3.0",
-    "husky": "^9.1.7",
     "prettier": "^3.8.1",
     "prettier-plugin-svelte": "^3.4.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
