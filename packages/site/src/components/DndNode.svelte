@@ -11,7 +11,7 @@
   } from '@atlaskit/pragmatic-drag-and-drop-hitbox/list-item'
 
   import DropIndicator from './dnd-drop-indicator/DropIndicator.svelte'
-  import { type DndTreeItem, type Draggable, type Droppable, getDndContext } from '$lib/dnd-context'
+  import { type DndTreeItem, type Draggable, type Droppable, getDndContext } from '$lib/dnd/dnd-context'
 
   import type { NodeProps, TreeNode } from 'svelte-tree-view'
 
