@@ -1,4 +1,4 @@
-import { recurseObjectProperties } from './tree-utils.svelte'
+import { recurseObjectProperties } from './tree-recursion'
 import type { TreeNode, TreeRecursionOpts, TreeViewProps } from './types'
 
 export function formatValue(
@@ -39,23 +39,16 @@ export function buildTree(
   recursionOpts: TreeRecursionOpts<any>,
   recomputeExpandNode: boolean
 ) {
-  const oldIds = new Set(Object.keys(treeMap))
-  const usedIds = new Set<string>()
   iteratedValues.clear()
-  recurseObjectProperties(
-    rootNode.index,
-    rootNode.key,
-    data,
-    rootNode.depth,
-    true,
-    null,
+  const oldIds = new Set(Object.keys(treeMap))
+  recurseObjectProperties(rootNode.index, rootNode.key, data, rootNode.depth, true, null, {
     treeMap,
     oldIds,
     iteratedValues,
     recomputeExpandNode,
-    recursionOpts,
-    usedIds
-  )
+    opts: recursionOpts,
+    usedIds: new Set<string>()
+  })
   for (const id of oldIds) {
     delete treeMap[id]
   }
@@ -79,12 +72,14 @@ export function expandNodeChildren(
     node.depth,
     !node.collapsed, // Ensure that when uncollapsed the node's children are always recursed
     parent,
-    treeMap,
-    new Set(),
-    iteratedValues,
-    false, // Never recompute shouldExpandNode since it may override the collapsing of this node
-    recursionOpts,
-    new Set<string>()
+    {
+      treeMap,
+      oldIds: new Set(),
+      iteratedValues,
+      recomputeExpandNode: false, // Never recompute shouldExpandNode since it may override the collapsing of this node
+      opts: recursionOpts,
+      usedIds: new Set<string>()
+    }
   )
 }
 

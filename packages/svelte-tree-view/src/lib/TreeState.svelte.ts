@@ -1,6 +1,6 @@
 import { derived, writable } from 'svelte/store'
 
-import { createNode } from './tree-utils.svelte'
+import { createNode } from './tree-node.svelte'
 import type { TreeNode, TreeRecursionOpts, TreeViewProps } from './types'
 
 export type StoreOptions = Omit<TreeViewProps, 'data' | 'rootNode'>
