@@ -72,8 +72,7 @@ export function moveFromOldArray<T>(
   // If passed itself in the newList, adjust the index as the items just shifted by 1
   if (!sameList && passedItselfIdx !== -1) {
     // This is rather akward edge case, but sometimes the active item is in BOTH old and new list...
-    // mainly only when dragging from eg inflow-history to a doc inflow items but in those cases we
-    // should delete the duplicate before doing anything and then proceed as it didn't exist in the first place
+    // We should delete the duplicate before doing anything and then proceed as it didn't exist in the first place
     newList.splice(passedItselfIdx, 1)
   }
   const adjustedIdx = passedItselfIdx !== -1 && edge === null ? Math.max(newIndex - 1, 0) : newIndex

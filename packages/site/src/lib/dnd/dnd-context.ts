@@ -64,7 +64,7 @@ export function createDndContext() {
     if (droppedTo.type !== 'tree-item') {
       // Dropped onto a group container, not a specific tree item - ignore
       if (droppedTo.type !== 'group') {
-        console.error(`Unknown target object type ${droppedTo.type}`, droppedTo)
+        console.error(`Unknown target object type`, droppedTo)
       }
       return
     }
