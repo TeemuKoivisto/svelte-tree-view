@@ -74,11 +74,11 @@ export function createDndContext(data: Writable<any>) {
         console.log(JSON.stringify(instruction))
         console.log(JSON.stringify(treeMap))
         moveNode(dragged.node, droppedTo.node, instruction, treeMap)
-        // data.update(items => {
-        //   const moved = moveItem(itemId, targetNode, instruction, items)
-        //   console.log('moved', moved)
-        //   return moved
-        // })
+        // Trigger store update to re-render the tree with new structure
+        data.update(currentData => {
+          // Return a new array/object reference to trigger reactivity
+          return Array.isArray(currentData) ? [...currentData] : { ...currentData }
+        })
       }
     }
   }

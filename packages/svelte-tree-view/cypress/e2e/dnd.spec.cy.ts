@@ -2,7 +2,7 @@ it('DnD: drag n1-c1 into n2-c1 (demonstrates broken UI)', () => {
   cy.visit('/dnd')
   // Wait for tree to render
   cy.get('[data-tree-node-id]', { timeout: 10000 }).should('exist')
-  cy.wait(100) // Allow SvelteKit/dnd setup
+  cy.wait(500) // Allow SvelteKit/dnd setup
 
   // n1-c1 has data-dnd-id="[0,2,0]", n2-c1 has data-dnd-id="[1,2,0]"
   const sourceSelector = '[data-dnd-id="[0,2,0]"]'
@@ -10,6 +10,12 @@ it('DnD: drag n1-c1 into n2-c1 (demonstrates broken UI)', () => {
 
   cy.get(sourceSelector).should('exist')
   cy.get(targetSelector).should('exist')
+
+  // Verify initial state: n2-c1 should have 2 children (n2-c1-gc1, n2-c1-gc2)
+  cy.get(targetSelector)
+    .closest('.tree-node-container')
+    .find('> .children-container > .tree-node-container')
+    .should('have.length', 2)
 
   // Get source element (n1-c1)
   cy.get(sourceSelector).as('source')
@@ -62,11 +68,10 @@ it('DnD: drag n1-c1 into n2-c1 (demonstrates broken UI)', () => {
     })
   })
 
-  // After drop, n1-c1 should now be inside n2-c1's children
-  // This assertion will FAIL if the UI/dnd is broken
+  // After drop, n2-c1 should now have 3 children (n1-c1 was moved in)
+  // Note: node IDs change after move (they're path-based), so we check child count
   cy.get(targetSelector)
     .closest('.tree-node-container')
-    .find('.children-container')
-    .find(sourceSelector)
-    .should('exist')
+    .find('> .children-container > .tree-node-container')
+    .should('have.length', 3)
 })
