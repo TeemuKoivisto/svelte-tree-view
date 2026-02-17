@@ -1,0 +1,824 @@
+{
+  "[]": {
+    "id": "[]",
+    "index": -1,
+    "key": "root",
+    "depth": 0,
+    "collapsed": false,
+    "type": "array",
+    "path": [],
+    "parentId": null,
+    "circularOfId": null,
+    "children": [
+      "[0]",
+      "[1]"
+    ],
+    "value": [
+      {
+        "id": "n1",
+        "isOpen": true,
+        "children": [
+          {
+            "id": "n1-c1",
+            "isOpen": true,
+            "children": [
+              {
+                "id": "n1-c1-gc1",
+                "children": []
+              },
+              {
+                "id": "n1-c1-gc2",
+                "isDraft": true,
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "n1-c2",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "n2",
+        "isOpen": true,
+        "children": [
+          {
+            "id": "n2-c1",
+            "isOpen": true,
+            "children": [
+              {
+                "id": "n2-c1-gc1",
+                "children": []
+              },
+              {
+                "id": "n2-c1-gc2",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "[0]": {
+    "id": "[0]",
+    "index": 0,
+    "key": "0",
+    "depth": 1,
+    "collapsed": false,
+    "type": "object",
+    "path": [
+      0
+    ],
+    "parentId": "[]",
+    "circularOfId": null,
+    "children": [
+      "[0,0]",
+      "[0,1]",
+      "[0,2]"
+    ],
+    "value": {
+      "id": "n1",
+      "isOpen": true,
+      "children": [
+        {
+          "id": "n1-c1",
+          "isOpen": true,
+          "children": [
+            {
+              "id": "n1-c1-gc1",
+              "children": []
+            },
+            {
+              "id": "n1-c1-gc2",
+              "isDraft": true,
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "n1-c2",
+          "children": []
+        }
+      ]
+    }
+  },
+  "[0,0]": {
+    "id": "[0,0]",
+    "index": 0,
+    "key": "id",
+    "depth": 2,
+    "collapsed": false,
+    "type": "string",
+    "path": [
+      0,
+      0
+    ],
+    "parentId": "[0]",
+    "circularOfId": null,
+    "children": [],
+    "value": "n1"
+  },
+  "[0,1]": {
+    "id": "[0,1]",
+    "index": 1,
+    "key": "isOpen",
+    "depth": 2,
+    "collapsed": false,
+    "type": "boolean",
+    "path": [
+      0,
+      1
+    ],
+    "parentId": "[0]",
+    "circularOfId": null,
+    "children": [],
+    "value": true
+  },
+  "[0,2]": {
+    "id": "[0,2]",
+    "index": 2,
+    "key": "children",
+    "depth": 2,
+    "collapsed": false,
+    "type": "array",
+    "path": [
+      0,
+      2
+    ],
+    "parentId": "[0]",
+    "circularOfId": null,
+    "children": [
+      "[0,2,0]",
+      "[0,2,1]"
+    ],
+    "value": [
+      {
+        "id": "n1-c1",
+        "isOpen": true,
+        "children": [
+          {
+            "id": "n1-c1-gc1",
+            "children": []
+          },
+          {
+            "id": "n1-c1-gc2",
+            "isDraft": true,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "n1-c2",
+        "children": []
+      }
+    ]
+  },
+  "[0,2,0]": {
+    "id": "[0,2,0]",
+    "index": 0,
+    "key": "0",
+    "depth": 3,
+    "collapsed": false,
+    "type": "object",
+    "path": [
+      0,
+      2,
+      0
+    ],
+    "parentId": "[0,2]",
+    "circularOfId": null,
+    "children": [
+      "[0,2,0,0]",
+      "[0,2,0,1]",
+      "[0,2,0,2]"
+    ],
+    "value": {
+      "id": "n1-c1",
+      "isOpen": true,
+      "children": [
+        {
+          "id": "n1-c1-gc1",
+          "children": []
+        },
+        {
+          "id": "n1-c1-gc2",
+          "isDraft": true,
+          "children": []
+        }
+      ]
+    }
+  },
+  "[0,2,0,0]": {
+    "id": "[0,2,0,0]",
+    "index": 0,
+    "key": "id",
+    "depth": 4,
+    "collapsed": false,
+    "type": "string",
+    "path": [
+      0,
+      2,
+      0,
+      0
+    ],
+    "parentId": "[0,2,0]",
+    "circularOfId": null,
+    "children": [],
+    "value": "n1-c1"
+  },
+  "[0,2,0,1]": {
+    "id": "[0,2,0,1]",
+    "index": 1,
+    "key": "isOpen",
+    "depth": 4,
+    "collapsed": false,
+    "type": "boolean",
+    "path": [
+      0,
+      2,
+      0,
+      1
+    ],
+    "parentId": "[0,2,0]",
+    "circularOfId": null,
+    "children": [],
+    "value": true
+  },
+  "[0,2,0,2]": {
+    "id": "[0,2,0,2]",
+    "index": 2,
+    "key": "children",
+    "depth": 4,
+    "collapsed": false,
+    "type": "array",
+    "path": [
+      0,
+      2,
+      0,
+      2
+    ],
+    "parentId": "[0,2,0]",
+    "circularOfId": null,
+    "children": [
+      "[0,2,0,2,0]",
+      "[0,2,0,2,1]"
+    ],
+    "value": [
+      {
+        "id": "n1-c1-gc1",
+        "children": []
+      },
+      {
+        "id": "n1-c1-gc2",
+        "isDraft": true,
+        "children": []
+      }
+    ]
+  },
+  "[0,2,0,2,0]": {
+    "id": "[0,2,0,2,0]",
+    "index": 0,
+    "key": "0",
+    "depth": 5,
+    "collapsed": false,
+    "type": "object",
+    "path": [
+      0,
+      2,
+      0,
+      2,
+      0
+    ],
+    "parentId": "[0,2,0,2]",
+    "circularOfId": null,
+    "children": [
+      "[0,2,0,2,0,0]",
+      "[0,2,0,2,0,1]"
+    ],
+    "value": {
+      "id": "n1-c1-gc1",
+      "children": []
+    }
+  },
+  "[0,2,0,2,0,0]": {
+    "id": "[0,2,0,2,0,0]",
+    "index": 0,
+    "key": "id",
+    "depth": 6,
+    "collapsed": false,
+    "type": "string",
+    "path": [
+      0,
+      2,
+      0,
+      2,
+      0,
+      0
+    ],
+    "parentId": "[0,2,0,2,0]",
+    "circularOfId": null,
+    "children": [],
+    "value": "n1-c1-gc1"
+  },
+  "[0,2,0,2,0,1]": {
+    "id": "[0,2,0,2,0,1]",
+    "index": 1,
+    "key": "children",
+    "depth": 6,
+    "collapsed": false,
+    "type": "array",
+    "path": [
+      0,
+      2,
+      0,
+      2,
+      0,
+      1
+    ],
+    "parentId": "[0,2,0,2,0]",
+    "circularOfId": null,
+    "children": [],
+    "value": []
+  },
+  "[0,2,0,2,1]": {
+    "id": "[0,2,0,2,1]",
+    "index": 1,
+    "key": "1",
+    "depth": 5,
+    "collapsed": false,
+    "type": "object",
+    "path": [
+      0,
+      2,
+      0,
+      2,
+      1
+    ],
+    "parentId": "[0,2,0,2]",
+    "circularOfId": null,
+    "children": [
+      "[0,2,0,2,1,0]",
+      "[0,2,0,2,1,1]",
+      "[0,2,0,2,1,2]"
+    ],
+    "value": {
+      "id": "n1-c1-gc2",
+      "isDraft": true,
+      "children": []
+    }
+  },
+  "[0,2,0,2,1,0]": {
+    "id": "[0,2,0,2,1,0]",
+    "index": 0,
+    "key": "id",
+    "depth": 6,
+    "collapsed": false,
+    "type": "string",
+    "path": [
+      0,
+      2,
+      0,
+      2,
+      1,
+      0
+    ],
+    "parentId": "[0,2,0,2,1]",
+    "circularOfId": null,
+    "children": [],
+    "value": "n1-c1-gc2"
+  },
+  "[0,2,0,2,1,1]": {
+    "id": "[0,2,0,2,1,1]",
+    "index": 1,
+    "key": "isDraft",
+    "depth": 6,
+    "collapsed": false,
+    "type": "boolean",
+    "path": [
+      0,
+      2,
+      0,
+      2,
+      1,
+      1
+    ],
+    "parentId": "[0,2,0,2,1]",
+    "circularOfId": null,
+    "children": [],
+    "value": true
+  },
+  "[0,2,0,2,1,2]": {
+    "id": "[0,2,0,2,1,2]",
+    "index": 2,
+    "key": "children",
+    "depth": 6,
+    "collapsed": false,
+    "type": "array",
+    "path": [
+      0,
+      2,
+      0,
+      2,
+      1,
+      2
+    ],
+    "parentId": "[0,2,0,2,1]",
+    "circularOfId": null,
+    "children": [],
+    "value": []
+  },
+  "[0,2,1]": {
+    "id": "[0,2,1]",
+    "index": 1,
+    "key": "1",
+    "depth": 3,
+    "collapsed": false,
+    "type": "object",
+    "path": [
+      0,
+      2,
+      1
+    ],
+    "parentId": "[0,2]",
+    "circularOfId": null,
+    "children": [
+      "[0,2,1,0]",
+      "[0,2,1,1]"
+    ],
+    "value": {
+      "id": "n1-c2",
+      "children": []
+    }
+  },
+  "[0,2,1,0]": {
+    "id": "[0,2,1,0]",
+    "index": 0,
+    "key": "id",
+    "depth": 4,
+    "collapsed": false,
+    "type": "string",
+    "path": [
+      0,
+      2,
+      1,
+      0
+    ],
+    "parentId": "[0,2,1]",
+    "circularOfId": null,
+    "children": [],
+    "value": "n1-c2"
+  },
+  "[0,2,1,1]": {
+    "id": "[0,2,1,1]",
+    "index": 1,
+    "key": "children",
+    "depth": 4,
+    "collapsed": false,
+    "type": "array",
+    "path": [
+      0,
+      2,
+      1,
+      1
+    ],
+    "parentId": "[0,2,1]",
+    "circularOfId": null,
+    "children": [],
+    "value": []
+  },
+  "[1]": {
+    "id": "[1]",
+    "index": 1,
+    "key": "1",
+    "depth": 1,
+    "collapsed": false,
+    "type": "object",
+    "path": [
+      1
+    ],
+    "parentId": "[]",
+    "circularOfId": null,
+    "children": [
+      "[1,0]",
+      "[1,1]",
+      "[1,2]"
+    ],
+    "value": {
+      "id": "n2",
+      "isOpen": true,
+      "children": [
+        {
+          "id": "n2-c1",
+          "isOpen": true,
+          "children": [
+            {
+              "id": "n2-c1-gc1",
+              "children": []
+            },
+            {
+              "id": "n2-c1-gc2",
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "[1,0]": {
+    "id": "[1,0]",
+    "index": 0,
+    "key": "id",
+    "depth": 2,
+    "collapsed": false,
+    "type": "string",
+    "path": [
+      1,
+      0
+    ],
+    "parentId": "[1]",
+    "circularOfId": null,
+    "children": [],
+    "value": "n2"
+  },
+  "[1,1]": {
+    "id": "[1,1]",
+    "index": 1,
+    "key": "isOpen",
+    "depth": 2,
+    "collapsed": false,
+    "type": "boolean",
+    "path": [
+      1,
+      1
+    ],
+    "parentId": "[1]",
+    "circularOfId": null,
+    "children": [],
+    "value": true
+  },
+  "[1,2]": {
+    "id": "[1,2]",
+    "index": 2,
+    "key": "children",
+    "depth": 2,
+    "collapsed": false,
+    "type": "array",
+    "path": [
+      1,
+      2
+    ],
+    "parentId": "[1]",
+    "circularOfId": null,
+    "children": [
+      "[1,2,0]"
+    ],
+    "value": [
+      {
+        "id": "n2-c1",
+        "isOpen": true,
+        "children": [
+          {
+            "id": "n2-c1-gc1",
+            "children": []
+          },
+          {
+            "id": "n2-c1-gc2",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  "[1,2,0]": {
+    "id": "[1,2,0]",
+    "index": 0,
+    "key": "0",
+    "depth": 3,
+    "collapsed": false,
+    "type": "object",
+    "path": [
+      1,
+      2,
+      0
+    ],
+    "parentId": "[1,2]",
+    "circularOfId": null,
+    "children": [
+      "[1,2,0,0]",
+      "[1,2,0,1]",
+      "[1,2,0,2]"
+    ],
+    "value": {
+      "id": "n2-c1",
+      "isOpen": true,
+      "children": [
+        {
+          "id": "n2-c1-gc1",
+          "children": []
+        },
+        {
+          "id": "n2-c1-gc2",
+          "children": []
+        }
+      ]
+    }
+  },
+  "[1,2,0,0]": {
+    "id": "[1,2,0,0]",
+    "index": 0,
+    "key": "id",
+    "depth": 4,
+    "collapsed": false,
+    "type": "string",
+    "path": [
+      1,
+      2,
+      0,
+      0
+    ],
+    "parentId": "[1,2,0]",
+    "circularOfId": null,
+    "children": [],
+    "value": "n2-c1"
+  },
+  "[1,2,0,1]": {
+    "id": "[1,2,0,1]",
+    "index": 1,
+    "key": "isOpen",
+    "depth": 4,
+    "collapsed": false,
+    "type": "boolean",
+    "path": [
+      1,
+      2,
+      0,
+      1
+    ],
+    "parentId": "[1,2,0]",
+    "circularOfId": null,
+    "children": [],
+    "value": true
+  },
+  "[1,2,0,2]": {
+    "id": "[1,2,0,2]",
+    "index": 2,
+    "key": "children",
+    "depth": 4,
+    "collapsed": false,
+    "type": "array",
+    "path": [
+      1,
+      2,
+      0,
+      2
+    ],
+    "parentId": "[1,2,0]",
+    "circularOfId": null,
+    "children": [
+      "[1,2,0,2,0]",
+      "[1,2,0,2,1]"
+    ],
+    "value": [
+      {
+        "id": "n2-c1-gc1",
+        "children": []
+      },
+      {
+        "id": "n2-c1-gc2",
+        "children": []
+      }
+    ]
+  },
+  "[1,2,0,2,0]": {
+    "id": "[1,2,0,2,0]",
+    "index": 0,
+    "key": "0",
+    "depth": 5,
+    "collapsed": false,
+    "type": "object",
+    "path": [
+      1,
+      2,
+      0,
+      2,
+      0
+    ],
+    "parentId": "[1,2,0,2]",
+    "circularOfId": null,
+    "children": [
+      "[1,2,0,2,0,0]",
+      "[1,2,0,2,0,1]"
+    ],
+    "value": {
+      "id": "n2-c1-gc1",
+      "children": []
+    }
+  },
+  "[1,2,0,2,0,0]": {
+    "id": "[1,2,0,2,0,0]",
+    "index": 0,
+    "key": "id",
+    "depth": 6,
+    "collapsed": false,
+    "type": "string",
+    "path": [
+      1,
+      2,
+      0,
+      2,
+      0,
+      0
+    ],
+    "parentId": "[1,2,0,2,0]",
+    "circularOfId": null,
+    "children": [],
+    "value": "n2-c1-gc1"
+  },
+  "[1,2,0,2,0,1]": {
+    "id": "[1,2,0,2,0,1]",
+    "index": 1,
+    "key": "children",
+    "depth": 6,
+    "collapsed": false,
+    "type": "array",
+    "path": [
+      1,
+      2,
+      0,
+      2,
+      0,
+      1
+    ],
+    "parentId": "[1,2,0,2,0]",
+    "circularOfId": null,
+    "children": [],
+    "value": []
+  },
+  "[1,2,0,2,1]": {
+    "id": "[1,2,0,2,1]",
+    "index": 1,
+    "key": "1",
+    "depth": 5,
+    "collapsed": false,
+    "type": "object",
+    "path": [
+      1,
+      2,
+      0,
+      2,
+      1
+    ],
+    "parentId": "[1,2,0,2]",
+    "circularOfId": null,
+    "children": [
+      "[1,2,0,2,1,0]",
+      "[1,2,0,2,1,1]"
+    ],
+    "value": {
+      "id": "n2-c1-gc2",
+      "children": []
+    }
+  },
+  "[1,2,0,2,1,0]": {
+    "id": "[1,2,0,2,1,0]",
+    "index": 0,
+    "key": "id",
+    "depth": 6,
+    "collapsed": false,
+    "type": "string",
+    "path": [
+      1,
+      2,
+      0,
+      2,
+      1,
+      0
+    ],
+    "parentId": "[1,2,0,2,1]",
+    "circularOfId": null,
+    "children": [],
+    "value": "n2-c1-gc2"
+  },
+  "[1,2,0,2,1,1]": {
+    "id": "[1,2,0,2,1,1]",
+    "index": 1,
+    "key": "children",
+    "depth": 6,
+    "collapsed": false,
+    "type": "array",
+    "path": [
+      1,
+      2,
+      0,
+      2,
+      1,
+      1
+    ],
+    "parentId": "[1,2,0,2,1]",
+    "circularOfId": null,
+    "children": [],
+    "value": []
+  }
+}

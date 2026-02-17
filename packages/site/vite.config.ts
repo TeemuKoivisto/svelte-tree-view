@@ -21,7 +21,7 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     include: ['src/**/*.{test,spec}.?(c|m)[jt]s?(x)'],
-    // snapshotSerializers: ['src/lib/tests/json-serializer.ts'],
+    snapshotSerializers: ['src/test-utils/json-serializer.ts'],
     cache: false
   }
 })
