@@ -1,6 +1,12 @@
 <script module lang="ts">
   import type { TreeNode } from './types'
 
+  declare global {
+    interface Window {
+      _node?: any
+    }
+  }
+
   export interface Base16Theme {
     scheme?: string
     author?: string
