@@ -69,16 +69,3 @@ export function createNode(
   })
   return [node, oldNode]
 }
-
-// /** Optional hook called by updateValue after the node value is set. Registered by the store. */
-// let _onNodeValueUpdated: ((node: TreeNode) => void) | null = null
-
-// export function setOnNodeValueUpdated(fn: (node: TreeNode) => void) {
-//   _onNodeValueUpdated = fn
-// }
-
-// function updateNodeValue(node: TreeNode, newValue: any) {
-//   node.getValue = () => newValue
-//   node.type = getValueType(newValue)
-//   _onNodeValueUpdated?.(node)
-// }

@@ -37,7 +37,8 @@ export interface TreeNode<T = any> {
    */
   getValue: () => T
   /**
-   * Sets getValue() and recurses this node as defined with the TreeRecursionOpts
+   * Updates node's getValue() and type but does _NOT_ recurse its children. You should it
+   * call yourself manually afterwards.
    */
   updateValue: (newVal: T) => void
   /**
