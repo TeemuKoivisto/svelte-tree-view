@@ -1,4 +1,4 @@
-import type { Edge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/dist/types/types'
+type Edge = "top" | "right" | "bottom" | "left"
 
 export function moveFromOldArray<T>(
   active: T,
@@ -71,7 +71,7 @@ export function moveFromOldArray<T>(
   oldList.splice(oldIndex, 1)
   // If passed itself in the newList, adjust the index as the items just shifted by 1
   if (!sameList && passedItselfIdx !== -1) {
-    // This is rather akward edge case, but sometimes the active item is in BOTH old and new list...
+    // This is a rather awkward edge case, but sometimes the active item is in BOTH old and new list...
     // We should delete the duplicate before doing anything and then proceed as it didn't exist in the first place
     newList.splice(passedItselfIdx, 1)
   }

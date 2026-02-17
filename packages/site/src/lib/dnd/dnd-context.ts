@@ -5,7 +5,7 @@ import type {
 } from '@atlaskit/pragmatic-drag-and-drop/dist/types/internal-types'
 import { extractInstruction } from '@atlaskit/pragmatic-drag-and-drop-hitbox/list-item'
 
-import type { TreeNode } from 'svelte-tree-view'
+import type { TreeNode, TreeRecursionOpts } from 'svelte-tree-view'
 import { moveNode } from './move-utils'
 
 export type DndTreeItem = { id: string; node: TreeNode; type: 'tree-item' }
@@ -19,10 +19,15 @@ export const DND_CTX = 'dnd'
 export const getDndContext = () => getContext<DndContext>(DND_CTX)
 export const setDndContext = (val: DndContext) => setContext(DND_CTX, val)
 
+type ExpandNodeChildren = (node: TreeNode, recursionOpts: TreeRecursionOpts) => void
+type GetRecursionOpts = () => TreeRecursionOpts | undefined
+
 export function createDndContext() {
   // This registry is used to maintain focus between drops. Not working for now
   const registry = new Map<string, HTMLElement>()
   let treeMap: Record<string, TreeNode> = {}
+  let expandNodeChildren: ExpandNodeChildren | null = null
+  let getRecursionOpts: GetRecursionOpts | null = null
 
   function registerElement(nodeId: string, el: HTMLElement) {
     registry.set(nodeId, el)
@@ -31,6 +36,12 @@ export function createDndContext() {
 
   function setTreeMap(map: Record<string, TreeNode>) {
     treeMap = map
+  }
+
+  /** Called by DndNode to provide the store's expandNodeChildren function */
+  function setTreeStore(expand: ExpandNodeChildren, getOpts: GetRecursionOpts) {
+    expandNodeChildren = expand
+    getRecursionOpts = getOpts
   }
 
   function handleDrop(args: BaseEventPayload<ElementDragType>) {
@@ -75,17 +86,26 @@ export function createDndContext() {
       return
     }
 
-    moveNode(dragged.node, droppedTo.node, instruction, treeMap)
-    // Trigger store update to re-render the tree with new structure
-    data.update(currentData => {
-      // Return a new array/object reference to trigger reactivity
-      return Array.isArray(currentData) ? [...currentData] : { ...currentData }
-    })
+    const result = moveNode(dragged.node, droppedTo.node, instruction, treeMap)
+    if (result && expandNodeChildren && getRecursionOpts) {
+      // Re-expand only the affected parent nodes to rebuild their children
+      // Look up nodes fresh from treeMap by ID since refs may become stale after expansion
+      const recursionOpts = getRecursionOpts()
+      if (recursionOpts) {
+        for (const parentId of result.affectedParentIds) {
+          const parent = treeMap[parentId]
+          if (parent) {
+            expandNodeChildren(parent, recursionOpts)
+          }
+        }
+      }
+    }
   }
 
   return {
     registerElement,
     handleDrop,
-    setTreeMap
+    setTreeMap,
+    setTreeStore
   }
 }

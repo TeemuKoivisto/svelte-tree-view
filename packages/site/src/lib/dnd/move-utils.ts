@@ -1,8 +1,12 @@
 import type { Instruction } from '@atlaskit/pragmatic-drag-and-drop-hitbox/dist/types/list-item'
-import type { Edge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/dist/types/types'
 import type { TreeNode } from 'svelte-tree-view'
 
 import { moveFromOldArray } from './moveFromOldArray'
+
+export type MoveResult = {
+  /** Parent node IDs that need re-expansion to rebuild their children (in order) */
+  affectedParentIds: string[]
+}
 
 function getTargetList(
   target: TreeNode,
@@ -37,12 +41,16 @@ function getTargetList(
   return []
 }
 
+/**
+ * Moves a dragged node to a new position based on the drop instruction.
+ * Returns the affected parent node IDs that need re-expansion.
+ */
 export function moveNode(
   dragged: TreeNode,
   target: TreeNode,
   instruction: Instruction,
   treeMap: Record<string, TreeNode>
-) {
+): MoveResult | null {
   const draggedVal = dragged.getValue()
   const targetVal = target.getValue()
   // So this dragn'drop implementation is fixed to allow only dragging of objects into arrays or another objects
@@ -51,13 +59,13 @@ export function moveNode(
   // It's turned into a list where the dragged object is inserted as the first element
   const [newList, targetNode] = getTargetList(target, instruction, treeMap)
   if (!newList || !targetNode) {
-    return
+    return null
   }
   const oldParent = treeMap[dragged.parentId || '']
   const oldParentVal = oldParent?.getValue()
   if (!Array.isArray(oldParentVal)) {
     console.error(`Unable to remove dragged node from parent`, oldParentVal)
-    return
+    return null
   }
   // Instructions are basically fancy edges where 'combine' is the 'inside edge'
   const edge =
@@ -76,4 +84,12 @@ export function moveNode(
   )
   targetNode.updateValue(newList)
   oldParent.updateValue(oldParentVal)
+
+  // Return affected parent IDs for re-expansion (IDs are stable, node refs may become stale)
+  // Order matters: expand old parent first to clean up removed node, then target parent
+  const affectedParentIds: string[] = [oldParent.id]
+  if (targetNode.id !== oldParent.id) {
+    affectedParentIds.push(targetNode.id)
+  }
+  return { affectedParentIds }
 }

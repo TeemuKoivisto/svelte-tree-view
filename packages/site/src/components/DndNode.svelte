@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { get } from 'svelte/store'
   import { onMount } from 'svelte'
   import {
     draggable,
@@ -23,8 +24,15 @@
 
   let { node, TreeViewNode, getTreeContext }: NodeProps = $props()
 
-  const { viewProps, collapseOrScrollIntoCircularNode } = getTreeContext()
+  const store = getTreeContext()
+  const { viewProps, collapseOrScrollIntoCircularNode } = store
   const dnd = getDndContext()
+
+  // Provide the store's expandNodeChildren to the dnd context (only needs to happen once)
+  dnd.setTreeStore(
+    (n, opts) => store.expandNodeChildren(n, opts),
+    () => get(store.recursionOpts)
+  )
 
   let element: HTMLDivElement
   let groupElement: HTMLDivElement | null = $state(null)
