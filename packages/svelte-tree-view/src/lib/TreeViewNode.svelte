@@ -3,7 +3,7 @@
 
   import TreeViewNode from './TreeViewNode.svelte'
 
-  import type { TreeStore } from './store.svelte'
+  import type { TreeStore } from './store'
 
   interface Props {
     id: string

@@ -7,4 +7,4 @@ declare global {
 export * from './types'
 export { default as TreeView } from './TreeView.svelte'
 export { default } from './TreeView.svelte'
-export { createStore } from './store.svelte'
+export { createStore } from './store'

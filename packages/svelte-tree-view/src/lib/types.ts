@@ -1,6 +1,6 @@
 import type { Component, Snippet } from 'svelte'
 import type { HTMLAttributes } from 'svelte/elements'
-import type { TreeStore } from './store.svelte'
+import type { TreeStore } from './store'
 
 export type ValueType =
   | 'array'
