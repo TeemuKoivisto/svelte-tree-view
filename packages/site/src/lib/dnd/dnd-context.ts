@@ -34,59 +34,59 @@ export function createDndContext(data: Writable<any>) {
     treeMap = map
   }
 
-  function handleDrag() {}
-
   function handleDrop(args: BaseEventPayload<ElementDragType>) {
     const { location, source } = args
-    // console.log('>> DROPPED location', location)
-    // console.log('>> DROPPED source', source)
     const target = location.current.dropTargets.at(0)
     const dragged = source.data as Draggable | undefined
     const droppedTo = target?.data as Droppable | undefined
+
     if (target === undefined) {
       // Item was dropped somewhere without any handlers -> no-op / cancel
-    } else if (dragged === undefined) {
-      // draggable was registered with invalid getInitialData()
-      console.log(args)
-      console.error(`Undefined itemId!`, source)
-    } else if (droppedTo === undefined) {
-      // Item was dropped most likely into a group
-      console.log(args)
-      console.error(`Undefined targetId!`, target)
-    } else if (dragged.type !== 'tree-item') {
-      console.error(`Unknown dragged object type ${dragged.type}`, dragged)
-    } else if (droppedTo.type !== 'tree-item') {
-      // Probably group
-      droppedTo.type !== 'group' &&
-        console.error(`Unknown target object type ${droppedTo}`, droppedTo)
-    } else {
-      const instruction = extractInstruction(target.data)
-      console.log('>> dragged', dragged)
-      console.log('>> target', droppedTo)
-      console.log('dragged val', dragged.node.getValue())
-      console.log('target val', droppedTo.node.getValue())
-      console.log('>> instruction', instruction)
-      if (instruction !== null && dragged.id !== droppedTo.id && !instruction.blocked) {
-        // Shouldn't be able to drop on itself or if 'blocked' instruction was added
-        // Idk are null instructions bugs
-        console.log(JSON.stringify(dragged.node))
-        console.log(JSON.stringify(droppedTo.node))
-        console.log(JSON.stringify(instruction))
-        console.log(JSON.stringify(treeMap))
-        moveNode(dragged.node, droppedTo.node, instruction, treeMap)
-        // Trigger store update to re-render the tree with new structure
-        data.update(currentData => {
-          // Return a new array/object reference to trigger reactivity
-          return Array.isArray(currentData) ? [...currentData] : { ...currentData }
-        })
-      }
+      return
     }
+
+    if (dragged === undefined) {
+      // draggable was registered with invalid getInitialData()
+      console.error(`Undefined dragged item!`, source)
+      return
+    }
+
+    if (droppedTo === undefined) {
+      // Item was dropped most likely into a group
+      console.error(`Undefined drop target!`, target)
+      return
+    }
+
+    if (dragged.type !== 'tree-item') {
+      console.error(`Unknown dragged object type ${dragged.type}`, dragged)
+      return
+    }
+
+    if (droppedTo.type !== 'tree-item') {
+      // Dropped onto a group container, not a specific tree item - ignore
+      if (droppedTo.type !== 'group') {
+        console.error(`Unknown target object type ${droppedTo.type}`, droppedTo)
+      }
+      return
+    }
+
+    const instruction = extractInstruction(target.data)
+    if (instruction === null || dragged.id === droppedTo.id || instruction.blocked) {
+      // Can't drop on itself, null instruction, or blocked instruction
+      return
+    }
+
+    moveNode(dragged.node, droppedTo.node, instruction, treeMap)
+    // Trigger store update to re-render the tree with new structure
+    data.update(currentData => {
+      // Return a new array/object reference to trigger reactivity
+      return Array.isArray(currentData) ? [...currentData] : { ...currentData }
+    })
   }
 
   return {
     data,
     registerElement,
-    handleDrag,
     handleDrop,
     setTreeMap
   }
