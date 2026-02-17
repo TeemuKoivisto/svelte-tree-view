@@ -230,6 +230,7 @@
     class="tree-node-card group relative"
     class:collapsed={node.collapsed && hasChildren}
     class:hoverable={canDrag}
+    data-dnd-id={node.id}
     bind:this={element}
   >
     <!-- Arrow button for expandable nodes -->
