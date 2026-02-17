@@ -37,6 +37,10 @@ export interface TreeNode<T = any> {
    */
   getValue: () => T
   /**
+   * Sets getValue() and recurses this node as defined with the TreeRecursionOpts
+   */
+  updateValue: (newVal: T) => void
+  /**
    * Node depth in the tree. Root node is 0 so all 'normal' nodes start at 1
    */
   depth: number

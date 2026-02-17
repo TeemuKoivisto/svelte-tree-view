@@ -6,7 +6,7 @@ import type { TreeNode, TreeRecursionOpts, TreeViewProps } from './types'
 export type StoreOptions = Omit<TreeViewProps, 'data' | 'rootNode'>
 
 export class TreeState {
-  defaultRootNode = createNode(-1, 'root', [], 0, null, {})[0]
+  defaultRootNode = createNode(-1, 'root', [], 0, null, {}, () => {})[0]
   treeMap = $state<Record<string, TreeNode>>({
     [this.defaultRootNode.id]: this.defaultRootNode
   })

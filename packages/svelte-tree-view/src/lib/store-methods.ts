@@ -1,3 +1,4 @@
+import { getValueType } from './tree-node.svelte'
 import { recurseObjectProperties } from './tree-recursion'
 import type { TreeNode, TreeRecursionOpts, TreeViewProps } from './types'
 
@@ -46,6 +47,7 @@ export function buildTree(
     oldIds,
     iteratedValues,
     recomputeExpandNode,
+    updateNodeValue: (id, newValue) => updateNodeValue(id, newValue, treeMap, iteratedValues),
     opts: recursionOpts,
     usedIds: new Set<string>()
   })
@@ -76,7 +78,9 @@ export function expandNodeChildren(
       treeMap,
       oldIds: new Set(),
       iteratedValues,
-      recomputeExpandNode: false, // Never recompute shouldExpandNode since it may override the collapsing of this node
+      // Never recompute shouldExpandNode since it may override the collapsing of this node
+      recomputeExpandNode: false,
+      updateNodeValue: (id, newValue) => updateNodeValue(id, newValue, treeMap, iteratedValues),
       opts: recursionOpts,
       usedIds: new Set<string>()
     }
@@ -92,4 +96,17 @@ export function expandAllNodesToNode(id: string, treeMap: Record<string, TreeNod
     }
   }
   recurseNodeUpwards(treeMap[id])
+}
+
+export function updateNodeValue(
+  id: string,
+  newValue: any,
+  treeMap: Record<string, TreeNode>,
+  iteratedValues: Map<any, TreeNode>
+) {
+  const node = treeMap[id]
+  const oldValue = node.getValue()
+  node.getValue = () => newValue
+  node.type = getValueType(newValue)
+  iteratedValues.delete(oldValue)
 }

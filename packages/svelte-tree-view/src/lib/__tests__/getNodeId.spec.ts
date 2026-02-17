@@ -7,15 +7,18 @@ import { recurseObjectProperties } from '../tree-recursion'
 import DefaultTree from './DefaultTree.svelte'
 
 import type { TreeNode, TreeRecursionOpts } from '../types'
+import { updateNodeValue } from '../store-methods'
 
 function buildTree(data: unknown, opts: TreeRecursionOpts = {}) {
   const treeMap: Record<string, TreeNode> = {}
   const usedIds = new Set<string>()
+  const iteratedValues = new Map<any, TreeNode<any>>()
   const root = recurseObjectProperties(-1, 'root', data, 0, true, null, {
     treeMap,
     oldIds: new Set(),
-    iteratedValues: new Map(),
+    iteratedValues,
     recomputeExpandNode: false,
+    updateNodeValue: (id, newValue) => updateNodeValue(id, newValue, treeMap, iteratedValues),
     opts,
     usedIds
   })
@@ -24,7 +27,7 @@ function buildTree(data: unknown, opts: TreeRecursionOpts = {}) {
 
 /** Create a minimal parent node for use in createNode tests */
 function makeParent(): TreeNode {
-  const [parent] = createNode(0, 'parent', {}, 0, null, {})
+  const [parent] = createNode(0, 'parent', {}, 0, null, {}, () => {})
   return parent
 }
 
@@ -45,7 +48,7 @@ describe('getNodeId', () => {
   describe('createNode', () => {
     it('uses path-based id when getNodeId is not provided', () => {
       const treeMap: Record<string, TreeNode> = {}
-      const [node] = createNode(0, 'foo', 'bar', 1, null, treeMap)
+      const [node] = createNode(0, 'foo', 'bar', 1, null, treeMap, () => {})
       expect(node.id).toBe('[]')
     })
 
@@ -53,7 +56,7 @@ describe('getNodeId', () => {
       const treeMap: Record<string, TreeNode> = {}
       const usedIds = new Set<string>()
       const getNodeId = vi.fn(() => 'custom-id')
-      const [node] = createNode(0, 'foo', 'bar', 1, null, treeMap, getNodeId, usedIds)
+      const [node] = createNode(0, 'foo', 'bar', 1, null, treeMap, () => {}, getNodeId, usedIds)
       // Root always gets path-based ID
       expect(node.id).toBe('[]')
       expect(getNodeId).not.toHaveBeenCalled()
@@ -64,7 +67,7 @@ describe('getNodeId', () => {
       const treeMap: Record<string, TreeNode> = { [parent.id]: parent }
       const usedIds = new Set<string>()
       const getNodeId = () => 'custom-id'
-      const [node] = createNode(0, 'foo', 'bar', 1, parent, treeMap, getNodeId, usedIds)
+      const [node] = createNode(0, 'foo', 'bar', 1, parent, treeMap, () => {}, getNodeId, usedIds)
       expect(node.id).toBe('custom-id')
     })
 
@@ -74,7 +77,7 @@ describe('getNodeId', () => {
       const usedIds = new Set<string>()
       const getNodeId = vi.fn(() => 'id-1')
 
-      createNode(0, 'child', 'val', 1, parent, treeMap, getNodeId, usedIds)
+      createNode(0, 'child', 'val', 1, parent, treeMap, () => {}, getNodeId, usedIds)
 
       expect(getNodeId).toHaveBeenCalledWith('val', 'child', parent)
     })
@@ -84,7 +87,7 @@ describe('getNodeId', () => {
       const treeMap: Record<string, TreeNode> = { [parent.id]: parent }
       const usedIds = new Set<string>()
       const getNodeId = () => 'my-id'
-      createNode(0, 'foo', 'bar', 1, parent, treeMap, getNodeId, usedIds)
+      createNode(0, 'foo', 'bar', 1, parent, treeMap, () => {}, getNodeId, usedIds)
       expect(usedIds.has('my-id')).toBe(true)
     })
 
@@ -95,10 +98,10 @@ describe('getNodeId', () => {
       const getNodeId = () => 'duplicate-id'
       const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
 
-      const [node1] = createNode(0, 'foo', 'bar', 1, parent, treeMap, getNodeId, usedIds)
+      const [node1] = createNode(0, 'foo', 'bar', 1, parent, treeMap, () => {}, getNodeId, usedIds)
       expect(node1.id).toBe('duplicate-id')
 
-      const [node2] = createNode(1, 'baz', 'qux', 1, parent, treeMap, getNodeId, usedIds)
+      const [node2] = createNode(1, 'baz', 'qux', 1, parent, treeMap, () => {}, getNodeId, usedIds)
       expect(node2.id).not.toBe('duplicate-id')
       expect(errorSpy).toHaveBeenCalledWith(
         expect.stringContaining('Duplicate node id "duplicate-id"')
@@ -115,12 +118,22 @@ describe('getNodeId', () => {
       const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
 
       // First walk
-      const [node1] = createNode(0, 'foo', 'bar', 1, parent, treeMap, getNodeId, usedIds)
+      const [node1] = createNode(0, 'foo', 'bar', 1, parent, treeMap, () => {}, getNodeId, usedIds)
       treeMap[node1.id] = node1
 
       // Second walk with fresh usedIds — same id in treeMap is fine (node reuse)
       const usedIds2 = new Set<string>()
-      const [node2, oldNode] = createNode(0, 'foo', 'baz', 1, parent, treeMap, getNodeId, usedIds2)
+      const [node2, oldNode] = createNode(
+        0,
+        'foo',
+        'baz',
+        1,
+        parent,
+        treeMap,
+        () => {},
+        getNodeId,
+        usedIds2
+      )
       expect(node2.id).toBe('stable-id')
       expect(oldNode).toBeDefined()
       expect(errorSpy).not.toHaveBeenCalled()
@@ -153,6 +166,7 @@ describe('getNodeId', () => {
 
       // First build
       const { treeMap } = buildTree(data, { getNodeId, shouldExpandNode: () => false })
+      const iteratedValues = new Map<any, TreeNode<any>>()
 
       // Manually uncollapse 'a'
       treeMap['[]/a'].collapsed = false
@@ -161,8 +175,9 @@ describe('getNodeId', () => {
       recurseObjectProperties(-1, 'root', data, 0, true, null, {
         treeMap,
         oldIds: new Set(Object.keys(treeMap)),
-        iteratedValues: new Map(),
+        iteratedValues,
         recomputeExpandNode: false,
+        updateNodeValue: (id, newValue) => updateNodeValue(id, newValue, treeMap, iteratedValues),
         opts: { getNodeId, shouldExpandNode: () => false },
         usedIds: new Set<string>()
       })
@@ -204,6 +219,7 @@ describe('getNodeId', () => {
 
       const data = { a: { x: 1 }, b: { y: 2 }, c: { z: 3 } }
       const { treeMap } = buildTree(data, { getNodeId, shouldExpandNode: () => false })
+      const iteratedValues = new Map<any, TreeNode<any>>()
 
       // Manually uncollapse 'a' and 'c'
       treeMap['[]/a'].collapsed = false
@@ -214,8 +230,9 @@ describe('getNodeId', () => {
       recurseObjectProperties(-1, 'root', reordered, 0, true, null, {
         treeMap,
         oldIds: new Set(Object.keys(treeMap)),
-        iteratedValues: new Map(),
+        iteratedValues,
         recomputeExpandNode: false,
+        updateNodeValue: (id, newValue) => updateNodeValue(id, newValue, treeMap, iteratedValues),
         opts: { getNodeId, shouldExpandNode: () => false },
         usedIds: new Set<string>()
       })

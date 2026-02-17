@@ -23,6 +23,7 @@ export function createNode(
   depth: number,
   parent: TreeNode | null,
   treeMap: Record<string, TreeNode>,
+  updateNodeValue: (id: string, val: any) => void,
   getNodeId?: (value: any, key: string, parent: TreeNode) => string,
   usedIds?: Set<string>
 ): [TreeNode, TreeNode | undefined] {
@@ -57,6 +58,9 @@ export function createNode(
     index,
     key,
     getValue: () => value,
+    updateValue: function (val: any) {
+      return updateNodeValue(this.id, val)
+    },
     depth,
     collapsed: true,
     type: getValueType(value),
@@ -67,3 +71,16 @@ export function createNode(
   })
   return [node, oldNode]
 }
+
+// /** Optional hook called by updateValue after the node value is set. Registered by the store. */
+// let _onNodeValueUpdated: ((node: TreeNode) => void) | null = null
+
+// export function setOnNodeValueUpdated(fn: (node: TreeNode) => void) {
+//   _onNodeValueUpdated = fn
+// }
+
+// function updateNodeValue(node: TreeNode, newValue: any) {
+//   node.getValue = () => newValue
+//   node.type = getValueType(newValue)
+//   _onNodeValueUpdated?.(node)
+// }

@@ -7,6 +7,7 @@ export interface RecursionContext {
   iteratedValues: Map<any, TreeNode>
   recomputeExpandNode: boolean
   opts: TreeRecursionOpts
+  updateNodeValue: (id: string, newValue: any) => void
   usedIds: Set<string>
 }
 
@@ -81,6 +82,7 @@ export function recurseObjectProperties(
     depth,
     parent,
     ctx.treeMap,
+    ctx.updateNodeValue,
     ctx.opts.getNodeId,
     ctx.usedIds
   )
