@@ -1,16 +1,11 @@
 <script lang="ts">
+  import { handleLogNode, handleCopyNodeToClipboard } from 'svelte-tree-view/DefaultNode.svelte'
+
   import type { NodeProps } from 'svelte-tree-view'
 
-  let {
-    node,
-    TreeViewNode,
-    getTreeContext,
-    handleLogNode,
-    handleCopyNodeToClipboard,
-    handleToggleCollapse
-  }: NodeProps = $props()
+  let { node, TreeViewNode, getTreeContext }: NodeProps = $props()
 
-  const { viewProps } = getTreeContext()
+  const { viewProps, collapseOrScrollIntoCircularNode } = getTreeContext()
 
   let hasChildren = $derived(node.children.length > 0)
   let descend = $derived(!node.collapsed && hasChildren)
@@ -112,7 +107,7 @@
       <button
         class="arrow-button"
         class:collapsed={node.collapsed}
-        onclick={handleToggleCollapse}
+        onclick={() => collapseOrScrollIntoCircularNode(node.id)}
         aria-label={node.collapsed ? 'Expand' : 'Collapse'}
       >
         <svg class="arrow-icon" viewBox="0 0 20 20" fill="currentColor">
@@ -128,7 +123,11 @@
     {/if}
 
     <!-- Node content -->
-    <button class="node-content" class:cursor-pointer={hasChildren} onclick={handleToggleCollapse}>
+    <button
+      class="node-content"
+      class:cursor-pointer={hasChildren}
+      onclick={() => collapseOrScrollIntoCircularNode(node.id)}
+    >
       <!-- Key section -->
       <div class="node-key-section">
         <span class="node-key">{node.key}:</span>
@@ -147,7 +146,7 @@
       {#if $viewProps.showLogButton}
         <button
           class="action-button log-button"
-          onclick={handleLogNode}
+          onclick={() => handleLogNode(node)}
           aria-label="Log to console"
         >
           <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -163,7 +162,7 @@
       {#if $viewProps.showCopyButton}
         <button
           class="action-button copy-button"
-          onclick={handleCopyNodeToClipboard}
+          onclick={() => handleCopyNodeToClipboard(node)}
           aria-label="Copy to clipboard"
         >
           <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

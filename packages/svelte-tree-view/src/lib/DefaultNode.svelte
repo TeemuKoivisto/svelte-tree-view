@@ -1,23 +1,88 @@
+<script module lang="ts">
+  import type { TreeNode } from './types'
+
+  declare global {
+    interface Window {
+      _node?: any
+    }
+  }
+
+  export interface Base16Theme {
+    scheme?: string
+    author?: string
+    /** Default Background */
+    base00: string
+    /** Lighter Background (Used for status bars, line number and folding marks) */
+    base01: string
+    /** Selection Background */
+    base02: string
+    /** Comments, Invisibles, Line Highlighting */
+    base03: string
+    /** Dark Foreground (Used for status bars) */
+    base04: string
+    /** Default Foreground, Caret, Delimiters, Operators */
+    base05: string
+    /** Light Foreground (Not often used) */
+    base06: string
+    /** Light Background (Not often used) */
+    base07: string
+    /** Variables, XML Tags, Markup Link Text, Markup Lists, Diff Deleted */
+    base08: string
+    /** Integers, Boolean, Constants, XML Attributes, Markup Link Url */
+    base09: string
+    /** Classes, Markup Bold, Search Text Background */
+    base0A: string
+    /** Strings, Inherited Class, Markup Code, Diff Inserted */
+    base0B: string
+    /** Support, Regular Expressions, Escape Characters, Markup Quotes */
+    base0C: string
+    /** Functions, Methods, Attribute IDs, Headings */
+    base0D: string
+    /** Keywords, Storage, Selector, Markup Italic, Diff Changed */
+    base0E: string
+    /** Deprecated, Opening/Closing Embedded Language Tags, e.g. <?php ?> */
+    base0F: string
+  }
+
+  export function applyBase16Theme(element: HTMLElement, theme: Base16Theme) {
+    for (const key in theme) {
+      const value = theme[key as keyof Base16Theme]
+      if (key.startsWith('base') && value) {
+        element.style.setProperty(`--tree-view-${key}`, value)
+      }
+    }
+  }
+
+  export function handleLogNode(node: TreeNode) {
+    console.log(node.getValue())
+    try {
+      window._node = node.getValue()
+      console.info('%c [svelte-tree-view]: Property added to window._node', 'color: #b8e248')
+    } catch (err) {
+      console.error('[svelte-tree-view]: handleLogNode() errored', err)
+    }
+  }
+
+  export function handleCopyNodeToClipboard(node: TreeNode) {
+    try {
+      navigator.clipboard.writeText(JSON.stringify(node.getValue()))
+    } catch (err) {
+      console.error('[svelte-tree-view]: handleCopyNodeToClipboard() errored', err)
+    }
+  }
+</script>
+
 <script lang="ts">
   import type { Snippet } from 'svelte'
-  import type { NodeProps, TreeNode } from './types'
+  import type { NodeProps } from './types'
 
   type DefaultNodeProps = NodeProps & {
     keySnippet?: Snippet<[TreeNode]>
     valueSnippet?: Snippet<[TreeNode]>
   }
 
-  let {
-    node,
-    keySnippet,
-    valueSnippet,
-    TreeViewNode,
-    getTreeContext,
-    handleLogNode,
-    handleCopyNodeToClipboard,
-    handleToggleCollapse
-  }: DefaultNodeProps = $props()
-  const { viewProps, formatValue } = getTreeContext()
+  let { node, keySnippet, valueSnippet, TreeViewNode, getTreeContext }: DefaultNodeProps = $props()
+  const { viewProps, formatValue, collapseOrScrollIntoCircularNode } = getTreeContext()
   let hasChildren = $derived(node.children.length > 0)
   let descend = $derived(!node.collapsed && hasChildren)
   let valueStr = $derived(formatValue(node.getValue(), node))
@@ -25,7 +90,10 @@
 
 <li class="row" class:collapsed={node.collapsed && hasChildren} data-tree-node-id={node.id}>
   {#if hasChildren}
-    <button class={`arrow-btn ${node.collapsed ? 'collapsed' : ''}`} onclick={handleToggleCollapse}>
+    <button
+      class={`arrow-btn ${node.collapsed ? 'collapsed' : ''}`}
+      onclick={() => collapseOrScrollIntoCircularNode(node.id)}
+    >
       ▶
     </button>
   {/if}
@@ -33,7 +101,7 @@
     class="node-key"
     class:has-children={hasChildren}
     class:p-left={!hasChildren}
-    onclick={handleToggleCollapse}
+    onclick={() => collapseOrScrollIntoCircularNode(node.id)}
     role="presentation"
   >
     {#if keySnippet}
@@ -47,7 +115,7 @@
     data-type={node.type}
     class:expanded={!node.collapsed && hasChildren}
     class:has-children={hasChildren}
-    onclick={handleToggleCollapse}
+    onclick={() => collapseOrScrollIntoCircularNode(node.id)}
     role="presentation"
   >
     {#if valueSnippet}
@@ -58,10 +126,10 @@
   </div>
   <div class="buttons">
     {#if $viewProps.showLogButton}
-      <button class="log-copy-button" onclick={handleLogNode}>log</button>
+      <button class="log-copy-button" onclick={() => handleLogNode(node)}>log</button>
     {/if}
     {#if $viewProps.showCopyButton}
-      <button class="log-copy-button" onclick={handleCopyNodeToClipboard}>copy</button>
+      <button class="log-copy-button" onclick={() => handleCopyNodeToClipboard(node)}>copy</button>
     {/if}
   </div>
 </li>

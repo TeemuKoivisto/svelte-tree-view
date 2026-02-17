@@ -7,7 +7,6 @@
     treeOpts,
     parsedData,
     parsedRecursionOpts,
-    parsedTheme,
     parsedValueFormatter,
     setExampleData
   } from '$lib/store'
@@ -26,7 +25,6 @@
   showCopyButton={$treeOpts.showCopyButton}
   recursionOpts={$parsedRecursionOpts}
   valueFormatter={$parsedValueFormatter}
-  theme={$parsedTheme}
 >
   {#snippet rootNode(children)}
     <div class="svelte-tree-view w-1/2 px-4 text-sm">

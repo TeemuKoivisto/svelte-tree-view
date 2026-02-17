@@ -1,6 +1,6 @@
 import type { Component, Snippet } from 'svelte'
 import type { HTMLAttributes } from 'svelte/elements'
-import type { TreeStore } from './store.svelte'
+import type { TreeStore } from './store'
 
 export type ValueType =
   | 'array'
@@ -49,75 +49,6 @@ export interface TreeNode<T = any> {
    */
   circularOfId: string | null
   children: string[]
-}
-
-export interface Base16Theme {
-  scheme?: string
-  author?: string
-  /**
-   * Default Background
-   */
-  base00: string
-  /**
-   * Lighter Background (Used for status bars, line number and folding marks)
-   */
-  base01: string
-  /**
-   * Selection Background
-   */
-  base02: string
-  /**
-   * Comments, Invisibles, Line Highlighting
-   */
-  base03: string
-  /**
-   * Dark Foreground (Used for status bars)
-   */
-  base04: string
-  /**
-   * Default Foreground, Caret, Delimiters, Operators
-   */
-  base05: string
-  /**
-   * Light Foreground (Not often used)
-   */
-  base06: string
-  /**
-   * Light Background (Not often used)
-   */
-  base07: string
-  /**
-   * Variables, XML Tags, Markup Link Text, Markup Lists, Diff Deleted
-   */
-  base08: string
-  /**
-   * Integers, Boolean, Constants, XML Attributes, Markup Link Url
-   */
-  base09: string
-  /**
-   * Classes, Markup Bold, Search Text Background
-   */
-  base0A: string
-  /**
-   * Strings, Inherited Class, Markup Code, Diff Inserted
-   */
-  base0B: string
-  /**
-   * Support, Regular Expressions, Escape Characters, Markup Quotes
-   */
-  base0C: string
-  /**
-   * Functions, Methods, Attribute IDs, Headings
-   */
-  base0D: string
-  /**
-   * Keywords, Storage, Selector, Markup Italic, Diff Changed
-   */
-  base0E: string
-  /**
-   * Deprecated, Opening/Closing Embedded Language Tags, e.g. <?php ?>
-   */
-  base0F: string
 }
 
 export interface TreeRecursionOpts<T = any> {
@@ -171,9 +102,6 @@ export interface NodeProps<T = any> {
   node: TreeNode<T>
   TreeViewNode: Component<{ id: string }>
   getTreeContext: () => TreeStore
-  handleLogNode(): void
-  handleCopyNodeToClipboard(): void
-  handleToggleCollapse(): void
 }
 
 /** Props passed to the main component */
@@ -190,7 +118,7 @@ export interface TreeViewProps<T = any> {
    * The rendered treeNode. DefaultNode.svelte can be used as the default
    */
   treeNode: Snippet<[NodeProps<T>]>
-  theme?: Base16Theme
+
   showLogButton?: boolean
   showCopyButton?: boolean
   recursionOpts?: TreeRecursionOpts<T>

@@ -1,7 +1,8 @@
 import { render, fireEvent, findAllByText } from '@testing-library/svelte'
 import { describe, expect, it, vi } from 'vitest'
 
-import { createNode, recurseObjectProperties } from '../tree-utils.svelte'
+import { createNode } from '../tree-node.svelte'
+import { recurseObjectProperties } from '../tree-recursion'
 
 import DefaultTree from './DefaultTree.svelte'
 
@@ -10,20 +11,14 @@ import type { TreeNode, TreeRecursionOpts } from '../types'
 function buildTree(data: unknown, opts: TreeRecursionOpts = {}) {
   const treeMap: Record<string, TreeNode> = {}
   const usedIds = new Set<string>()
-  const root = recurseObjectProperties(
-    -1,
-    'root',
-    data,
-    0,
-    true,
-    null,
+  const root = recurseObjectProperties(-1, 'root', data, 0, true, null, {
     treeMap,
-    new Set(),
-    new Map(),
-    false,
+    oldIds: new Set(),
+    iteratedValues: new Map(),
+    recomputeExpandNode: false,
     opts,
     usedIds
-  )
+  })
   return { treeMap, root: root!, usedIds }
 }
 
@@ -163,21 +158,14 @@ describe('getNodeId', () => {
       treeMap['[]/a'].collapsed = false
 
       // Rebuild with same data — should preserve collapsed state
-      const usedIds = new Set<string>()
-      recurseObjectProperties(
-        -1,
-        'root',
-        data,
-        0,
-        true,
-        null,
+      recurseObjectProperties(-1, 'root', data, 0, true, null, {
         treeMap,
-        new Set(Object.keys(treeMap)),
-        new Map(),
-        false,
-        { getNodeId, shouldExpandNode: () => false },
-        usedIds
-      )
+        oldIds: new Set(Object.keys(treeMap)),
+        iteratedValues: new Map(),
+        recomputeExpandNode: false,
+        opts: { getNodeId, shouldExpandNode: () => false },
+        usedIds: new Set<string>()
+      })
 
       expect(treeMap['[]/a'].collapsed).toBe(false)
       expect(treeMap['[]/b'].collapsed).toBe(true)
@@ -223,22 +211,14 @@ describe('getNodeId', () => {
 
       // Simulate reorder: swap a and c
       const reordered = { c: { z: 3 }, b: { y: 2 }, a: { x: 1 } }
-      const usedIds = new Set<string>()
-      const oldIds = new Set(Object.keys(treeMap))
-      recurseObjectProperties(
-        -1,
-        'root',
-        reordered,
-        0,
-        true,
-        null,
+      recurseObjectProperties(-1, 'root', reordered, 0, true, null, {
         treeMap,
-        oldIds,
-        new Map(),
-        false,
-        { getNodeId, shouldExpandNode: () => false },
-        usedIds
-      )
+        oldIds: new Set(Object.keys(treeMap)),
+        iteratedValues: new Map(),
+        recomputeExpandNode: false,
+        opts: { getNodeId, shouldExpandNode: () => false },
+        usedIds: new Set<string>()
+      })
 
       // Collapsed state preserved despite different order
       expect(treeMap['[]/a'].collapsed).toBe(false)

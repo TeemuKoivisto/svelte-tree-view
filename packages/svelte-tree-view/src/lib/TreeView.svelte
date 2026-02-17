@@ -3,9 +3,9 @@
   import { get } from 'svelte/store'
 
   import TreeViewNode from './TreeViewNode.svelte'
-  import { createStore, type TreeStore } from './store.svelte'
+  import { createStore, type TreeStore } from './store'
 
-  import type { Props, TreeViewProps } from './types'
+  import type { Props } from './types'
 
   const DEFAULT_RECURSION_OPTS = {
     maxDepth: 16,
@@ -18,7 +18,6 @@
     data,
     rootNode,
     treeNode,
-    theme,
     showLogButton,
     showCopyButton,
     recursionOpts,
@@ -27,9 +26,8 @@
     ...rest
   }: Props = $props()
 
-  let propsObj: Omit<TreeViewProps, 'data'> = {
+  let propsObj = {
     treeNode,
-    theme,
     showLogButton,
     showCopyButton,
     recursionOpts: { ...DEFAULT_RECURSION_OPTS, ...recursionOpts },
@@ -75,15 +73,6 @@
       propsObj.recursionOpts = opts
     })
   })
-
-  $effect(() => {
-    for (const key in theme) {
-      const value = theme[key as keyof typeof theme]
-      if (rootElement && key.includes('base') && value) {
-        rootElement.style.setProperty(`--tree-view-${key}`, value)
-      }
-    }
-  })
 </script>
 
 {#snippet children()}
@@ -102,7 +91,6 @@
 
 <style>
   .svelte-tree-view {
-    background: var(--tree-view-base00);
     font-family: var(--tree-view-font-family);
     font-size: var(--tree-view-font-size);
     height: max-content;
