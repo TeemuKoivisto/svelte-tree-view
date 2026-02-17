@@ -1,6 +1,11 @@
 import { get } from 'svelte/store'
 
-import { recurseObjectProperties } from './tree-utils.svelte'
+import {
+  buildTree,
+  expandAllNodesToNode as _expandAllNodesToNode,
+  expandNodeChildren as _expandNodeChildren,
+  formatValue as _formatValue
+} from './store-methods'
 import { TreeState, type StoreOptions } from './TreeState.svelte'
 import type { TreeNode, TreeRecursionOpts, TreeViewProps } from './types'
 
@@ -19,29 +24,7 @@ export const createStore = (initialProps: StoreOptions) => {
 
   function formatValue(val: any, node: TreeNode): string {
     const { valueFormatter } = get(state.viewProps)
-    const customFormat = valueFormatter ? valueFormatter(val, node) : undefined
-    if (customFormat) {
-      return customFormat
-    }
-    switch (node.type) {
-      case 'array':
-        return `${node.circularOfId ? 'circular' : ''} [] ${val.length} items`
-      case 'object':
-        return `${node.circularOfId ? 'circular' : ''} {} ${Object.keys(val).length} keys`
-      case 'map':
-      case 'set':
-        return `${node.circularOfId ? 'circular' : ''} () ${val.size} entries`
-      case 'date':
-        return `${val.toISOString()}`
-      case 'string':
-        return `"${val}"`
-      case 'number':
-      case 'boolean':
-      case 'symbol':
-        return String(val)
-      default:
-        return node.type
-    }
+    return _formatValue(val, node, valueFormatter)
   }
 
   function createTree(
@@ -49,26 +32,14 @@ export const createStore = (initialProps: StoreOptions) => {
     recursionOpts: TreeRecursionOpts<any>,
     recomputeExpandNode: boolean
   ) {
-    const oldIds = new Set(Object.keys(state.treeMap))
-    const usedIds = new Set<string>()
-    state.iteratedValues.clear()
-    recurseObjectProperties(
-      state.defaultRootNode.index,
-      state.defaultRootNode.key,
+    buildTree(
       data,
-      state.defaultRootNode.depth,
-      true,
-      null,
+      state.defaultRootNode,
       state.treeMap,
-      oldIds,
       state.iteratedValues,
-      recomputeExpandNode,
       recursionOpts,
-      usedIds
+      recomputeExpandNode
     )
-    for (const id of oldIds) {
-      delete state.treeMap[id]
-    }
     get(state.viewProps).onUpdate?.(state.treeMap)
   }
 
@@ -87,37 +58,12 @@ export const createStore = (initialProps: StoreOptions) => {
   }
 
   function expandNodeChildren(node: TreeNode, recursionOpts: TreeRecursionOpts) {
-    const parent = state.treeMap[node.parentId || '']
-    if (!parent) {
-      // Only root node has no parent and it should not be expandable
-      throw Error('No parent in expandNodeChildren for node: ' + JSON.stringify(node))
-    }
-    recurseObjectProperties(
-      node.index,
-      node.key,
-      node.getValue(),
-      node.depth,
-      !node.collapsed, // Ensure that when uncollapsed the node's children are always recursed
-      parent,
-      state.treeMap,
-      new Set(),
-      state.iteratedValues,
-      false, // Never recompute shouldExpandNode since it may override the collapsing of this node
-      recursionOpts,
-      new Set<string>()
-    )
+    _expandNodeChildren(node, state.treeMap, state.iteratedValues, recursionOpts)
     get(state.viewProps).onUpdate?.(state.treeMap)
   }
 
   function expandAllNodesToNode(id: string) {
-    function recurseNodeUpwards(node?: TreeNode | null) {
-      if (!node) return
-      state.treeMap[node.id]!.collapsed = false
-      if (node.parentId) {
-        recurseNodeUpwards(state.treeMap[node.parentId])
-      }
-    }
-    recurseNodeUpwards(state.treeMap[id])
+    _expandAllNodesToNode(id, state.treeMap)
     get(state.viewProps).onUpdate?.(state.treeMap)
   }
 

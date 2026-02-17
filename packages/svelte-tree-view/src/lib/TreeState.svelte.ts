@@ -18,6 +18,6 @@ export class TreeState {
 
   constructor(initialProps: StoreOptions) {
     this.viewProps = writable<StoreOptions>(initialProps)
-    this.recursionOpts = derived(this.viewProps, (p) => p.recursionOpts)
+    this.recursionOpts = derived(this.viewProps, p => p.recursionOpts)
   }
 }
