@@ -56,6 +56,15 @@ export function buildTree(
   }
 }
 
+function deleteNodeAndDescendants(id: string, treeMap: Record<string, TreeNode>) {
+  const node = treeMap[id]
+  if (!node) return
+  for (const childId of node.children) {
+    deleteNodeAndDescendants(childId, treeMap)
+  }
+  delete treeMap[id]
+}
+
 export function expandNodeChildren(
   node: TreeNode,
   treeMap: Record<string, TreeNode>,
@@ -67,6 +76,7 @@ export function expandNodeChildren(
     // Only root node has no parent and it should not be expandable
     throw Error('No parent in expandNodeChildren for node: ' + JSON.stringify(node))
   }
+  const oldChildren = new Set(node.children)
   recurseObjectProperties(
     node.index,
     node.key,
@@ -85,6 +95,12 @@ export function expandNodeChildren(
       usedIds: new Set<string>()
     }
   )
+  // Delete children that were removed (and their descendants)
+  for (const id of oldChildren) {
+    if (!node.children.includes(id)) {
+      deleteNodeAndDescendants(id, treeMap)
+    }
+  }
 }
 
 export function expandAllNodesToNode(id: string, treeMap: Record<string, TreeNode>) {
