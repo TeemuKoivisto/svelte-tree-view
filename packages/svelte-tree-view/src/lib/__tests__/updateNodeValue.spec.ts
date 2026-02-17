@@ -240,6 +240,49 @@ describe('updateNodeValue', () => {
       expect(treeMap['[2,0,2]'].collapsed).toBe(true) // Was false! Clobbered by index shift
     })
 
+    it('cleans up deep orphans when a reused node has fewer children than before', () => {
+      // lib has: utils[0], schema[1], tmp[2]
+      // schema has children: schema.ts[2,1,0], parse.ts[2,1,1]
+      // tmp is an empty object with no children
+      const { treeMap, iteratedValues } = buildTree(fileTree, indexOpts)
+
+      const lib = treeMap['[2]'] // lib
+      expect(getChildKeys(lib, treeMap)).toEqual(['utils', 'schema', 'tmp'])
+
+      // Verify schema's children exist
+      expect(treeMap['[2,1]'].key).toBe('schema')
+      expect(treeMap['[2,1,0]'].key).toBe('schema.ts')
+      expect(treeMap['[2,1,1]'].key).toBe('parse.ts')
+
+      // --- Move schema out of lib to docs ---
+      const docs = treeMap['[1]']
+      const libVal = lib.getValue() as Record<string, any>
+      const { schema: schemaVal, ...restLib } = libVal
+
+      lib.updateValue(restLib)
+      docs.updateValue({ ...docs.getValue(), schema: schemaVal })
+
+      reexpand(lib, treeMap, iteratedValues, indexOpts)
+      reexpand(docs, treeMap, iteratedValues, indexOpts)
+
+      // After removal, lib's children shift: utils[0], tmp[1]
+      expect(getChildKeys(lib, treeMap)).toEqual(['utils', 'tmp'])
+
+      // tmp now occupies index 1 → ID [2,1] which was schema's old ID.
+      // tmp is an empty object (0 children), but the old schema had 2 children.
+      expect(treeMap['[2,1]'].key).toBe('tmp')
+      expect(treeMap['[2,1]'].children).toEqual([])
+
+      // Deep orphan bug: schema's old children at [2,1,0] and [2,1,1] must be
+      // cleaned up. Without the prevChildren tracking in recurseObjectProperties,
+      // these would remain as orphans in treeMap.
+      expect(treeMap['[2,1,0]']).toBeUndefined()
+      expect(treeMap['[2,1,1]']).toBeUndefined()
+
+      // The old schema at [2,2] (tmp's old index) should also be cleaned up
+      expect(treeMap['[2,2]']).toBeUndefined()
+    })
+
     it('stable IDs preserve collapsed state correctly after the same move', () => {
       const { treeMap, iteratedValues } = buildTree(fileTree) // uses defaultOpts with getNodeId
 
