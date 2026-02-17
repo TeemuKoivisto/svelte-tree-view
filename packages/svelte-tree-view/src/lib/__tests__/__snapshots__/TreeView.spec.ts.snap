@@ -9177,7 +9177,6 @@ exports[`TreeView > should render with almost all props defined 1`] = `
   <!---->
   <ul
     class="svelte-tree-view  svelte-hlnt2e"
-    style="--tree-view-base00: #16130F; --tree-view-base01: #2C2620; --tree-view-base02: #433B32; --tree-view-base03: #5A5047; --tree-view-base04: #8A8075; --tree-view-base05: #A39A90; --tree-view-base06: #BEB6AE; --tree-view-base07: #DBD6D1; --tree-view-base08: #826D57; --tree-view-base09: #828257; --tree-view-base0A: #6D8257; --tree-view-base0B: #57826D; --tree-view-base0C: #576D82; --tree-view-base0D: #6D5782; --tree-view-base0E: #82576D; --tree-view-base0F: #825757;"
   >
     <!---->
     <!---->
