@@ -59,6 +59,7 @@ export const createStore = (initialProps: StoreOptions) => {
     recomputeExpandNode: boolean
   ) {
     const oldIds = new Set(Object.keys(treeMap))
+    const usedIds = new Set<string>()
     iteratedValues.clear()
     recurseObjectProperties(
       defaultRootNode.index,
@@ -71,7 +72,8 @@ export const createStore = (initialProps: StoreOptions) => {
       oldIds,
       iteratedValues,
       recomputeExpandNode,
-      recursionOpts
+      recursionOpts,
+      usedIds
     )
     for (const id of oldIds) {
       delete treeMap[id]
@@ -110,7 +112,8 @@ export const createStore = (initialProps: StoreOptions) => {
       new Set(),
       iteratedValues,
       false, // Never recompute shouldExpandNode since it may override the collapsing of this node
-      recursionOpts
+      recursionOpts,
+      new Set<string>()
     )
     get(viewProps).onUpdate?.(treeMap)
   }

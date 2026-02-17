@@ -147,6 +147,16 @@ export interface TreeRecursionOpts<T = any> {
    */
   shouldExpandNode?: (n: TreeNode<T>) => boolean
   /**
+   * Provide stable node IDs, eg for drag-and-drop. When not provided, IDs are derived from
+   * the index path (eg "[0,1,2]") which changes when nodes move position.
+   * On duplicate IDs, an error is logged and a random fallback ID is used.
+   * @param value The node's value
+   * @param key The node's key in its parent (eg property name or array index)
+   * @param parent The parent TreeNode (never null — root node always uses a path-based ID)
+   * @returns A unique string ID for this node
+   */
+  getNodeId?: (value: any, key: string, parent: TreeNode<T>) => string
+  /**
    * For customizing the created key-value pairs
    * @param val Iterated value
    * @param type

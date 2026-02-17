@@ -6,10 +6,24 @@ export function createNode(
   value: any,
   depth: number,
   parent: TreeNode | null,
-  treeMap: Record<string, TreeNode>
+  treeMap: Record<string, TreeNode>,
+  getNodeId?: (value: any, key: string, parent: TreeNode) => string,
+  usedIds?: Set<string>
 ): [TreeNode, TreeNode | undefined] {
   const path = parent ? [...parent.path, index] : []
-  const id = `[${path.join(',')}]`
+  let id: string
+  if (getNodeId && parent) {
+    id = getNodeId(value, key, parent)
+    if (usedIds?.has(id)) {
+      console.error(
+        `[svelte-tree-view]: Duplicate node id "${id}" for key "${key}". Falling back to generated id.`
+      )
+      id = crypto.randomUUID()
+    }
+  } else {
+    id = `[${path.join(',')}]`
+  }
+  usedIds?.add(id)
   const oldNode = treeMap[id]
   if (oldNode) {
     const sameValue = oldNode.getValue() === value
@@ -150,12 +164,22 @@ export function recurseObjectProperties(
   oldIds: Set<string>,
   iteratedValues: Map<any, TreeNode>,
   recomputeExpandNode: boolean,
-  opts: TreeRecursionOpts
+  opts: TreeRecursionOpts,
+  usedIds: Set<string>
 ): TreeNode | null {
   if (opts.omitKeys?.includes(key) || (opts.maxDepth && depth > opts.maxDepth)) {
     return null
   }
-  const [node, oldNode] = createNode(index, key, value, depth, parent, treeMap)
+  const [node, oldNode] = createNode(
+    index,
+    key,
+    value,
+    depth,
+    parent,
+    treeMap,
+    opts.getNodeId,
+    usedIds
+  )
   if (ensureNotCollapsed) {
     // Used to ensure that either root node is always uncollapsed or when uncollapsing new nodes
     // with expandNodeChildren the node children are recursed (if applicable) with mapChildren
@@ -188,7 +212,8 @@ export function recurseObjectProperties(
         oldIds,
         iteratedValues,
         recomputeExpandNode,
-        opts
+        opts,
+        usedIds
       )
       // Child is null if maxDepth reached or it's filtered
       if (child) {

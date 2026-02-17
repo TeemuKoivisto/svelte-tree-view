@@ -95,13 +95,13 @@
 {#if rootNode}
   {@render rootNode(children)}
 {:else}
-  <ul {...rest} class={`${rest.class || ''} svelte-tree-view`} bind:this={rootElement}>
+  <ul {...rest} class={`svelte-tree-view ${rest.class || ''}`} bind:this={rootElement}>
     {@render children()}
   </ul>
 {/if}
 
 <style>
-  ul.svelte-tree-view {
+  .svelte-tree-view {
     background: var(--tree-view-base00);
     font-family: var(--tree-view-font-family);
     font-size: var(--tree-view-font-size);
