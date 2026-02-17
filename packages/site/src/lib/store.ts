@@ -157,6 +157,7 @@ const testNode: TreeNode = {
   index: 0,
   key: `test`,
   getValue: () => [1, 2, 3],
+  updateValue: () => {},
   depth: 0,
   collapsed: false,
   type: 'array',

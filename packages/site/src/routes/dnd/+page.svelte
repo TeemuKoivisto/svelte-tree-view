@@ -15,7 +15,6 @@
     treeOpts,
     parsedData,
     parsedRecursionOpts,
-    parsedTheme,
     parsedValueFormatter,
     setExampleData
   } from '$lib/store'
@@ -74,7 +73,6 @@
   showCopyButton={$treeOpts.showCopyButton}
   recursionOpts={$parsedRecursionOpts}
   valueFormatter={$parsedValueFormatter}
-  theme={$parsedTheme}
   onUpdate={treeMap => dnd.setTreeMap(treeMap)}
 >
   {#snippet rootNode(children)}

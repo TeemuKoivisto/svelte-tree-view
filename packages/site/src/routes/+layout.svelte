@@ -1,6 +1,6 @@
 <script lang="ts">
   import { base } from '$app/paths'
-  import type { Base16Theme } from 'svelte-tree-view'
+  import type { Base16Theme } from 'svelte-tree-view/DefaultNode.svelte'
 
   import DataSelector from '$components/DataSelector.svelte'
   import PropsForm from '$components/PropsForm.svelte'

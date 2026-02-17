@@ -23,7 +23,7 @@ const fileTree = {
       'helper.ts': 'function helper() {}',
       jwt: {
         'decode.ts': 'function decode() {}',
-        'encode.ts': 'function encode() {}',
+        'encode.ts': 'function encode() {}'
       }
     },
     schema: {
@@ -197,12 +197,7 @@ describe('updateNodeValue', () => {
       // With index-based IDs, lib is at index 2 and utils is at [2,0]
       // lib/utils children are at [2,0,0]=counter, [2,0,1]=format, [2,0,2]=helper, [2,0,3]=jwt
       const utils = treeMap['[2,0]'] // lib/utils
-      expect(getChildKeys(utils, treeMap)).toEqual([
-        'counter.ts',
-        'format.ts',
-        'helper.ts',
-        'jwt'
-      ])
+      expect(getChildKeys(utils, treeMap)).toEqual(['counter.ts', 'format.ts', 'helper.ts', 'jwt'])
 
       // Give jwt and helper.ts distinct collapsed states:
       // helper.ts (index 2) → collapsed=true, jwt (index 3) → collapsed=false
@@ -249,12 +244,7 @@ describe('updateNodeValue', () => {
       const { treeMap, iteratedValues } = buildTree(fileTree) // uses defaultOpts with getNodeId
 
       const utils = treeMap['[]/lib/utils']
-      expect(getChildKeys(utils, treeMap)).toEqual([
-        'counter.ts',
-        'format.ts',
-        'helper.ts',
-        'jwt'
-      ])
+      expect(getChildKeys(utils, treeMap)).toEqual(['counter.ts', 'format.ts', 'helper.ts', 'jwt'])
 
       // Uncollapse jwt
       treeMap['[]/lib/utils/jwt'].collapsed = false
