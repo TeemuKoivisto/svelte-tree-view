@@ -43,6 +43,10 @@ export const createStore = (initialProps: StoreOptions) => {
     get(state.viewProps).onUpdate?.(state.treeMap)
   }
 
+  /**
+   * Collapses node's children if they are shown, uncollapses otherwise
+   * @param id
+   */
   function toggleCollapse(id: string) {
     const node = state.treeMap[id]
     if (!node) {
@@ -65,6 +69,22 @@ export const createStore = (initialProps: StoreOptions) => {
   function expandAllNodesToNode(id: string) {
     _expandAllNodesToNode(id, state.treeMap)
     get(state.viewProps).onUpdate?.(state.treeMap)
+  }
+
+  /**
+   * Either collapses a node normally, or incase a circular node, scrolls into the original node
+   * @param id
+   */
+  function collapseOrScrollIntoCircularNode(id: string) {
+    const node = state.treeMap[id]
+    if (node.children.length > 0) {
+      toggleCollapse(id)
+    } else if (node.circularOfId) {
+      expandAllNodesToNode(node.circularOfId)
+      get(state.rootElement)
+        ?.querySelector(`[data-tree-node-id="${node.circularOfId}"]`)
+        ?.scrollIntoView()
+    }
   }
 
   return {
@@ -90,6 +110,7 @@ export const createStore = (initialProps: StoreOptions) => {
     createTree,
     toggleCollapse,
     expandNodeChildren,
-    expandAllNodesToNode
+    expandAllNodesToNode,
+    collapseOrScrollIntoCircularNode
   }
 }

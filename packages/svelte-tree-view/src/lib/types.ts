@@ -171,9 +171,6 @@ export interface NodeProps<T = any> {
   node: TreeNode<T>
   TreeViewNode: Component<{ id: string }>
   getTreeContext: () => TreeStore
-  handleLogNode(): void
-  handleCopyNodeToClipboard(): void
-  handleToggleCollapse(): void
 }
 
 /** Props passed to the main component */
