@@ -76,7 +76,7 @@ export function expandNodeChildren(
     // Only root node has no parent and it should not be expandable
     throw Error('No parent in expandNodeChildren for node: ' + JSON.stringify(node))
   }
-  const oldChildren = new Set(node.children)
+  const oldIds = new Set<string>()
   recurseObjectProperties(
     node.index,
     node.key,
@@ -86,7 +86,7 @@ export function expandNodeChildren(
     parent,
     {
       treeMap,
-      oldIds: new Set(),
+      oldIds,
       iteratedValues,
       // Never recompute shouldExpandNode since it may override the collapsing of this node
       recomputeExpandNode: false,
@@ -95,11 +95,8 @@ export function expandNodeChildren(
       usedIds: new Set<string>()
     }
   )
-  // Delete children that were removed (and their descendants)
-  for (const id of oldChildren) {
-    if (!node.children.includes(id)) {
-      deleteNodeAndDescendants(id, treeMap)
-    }
+  for (const id of oldIds) {
+    deleteNodeAndDescendants(id, treeMap)
   }
 }
 

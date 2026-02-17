@@ -415,26 +415,6 @@
     "children": [],
     "value": []
   },
-  "[0,2,0,2,1,2]": {
-    "id": "[0,2,0,2,1,2]",
-    "index": 2,
-    "key": "children",
-    "depth": 6,
-    "collapsed": false,
-    "type": "array",
-    "path": [
-      0,
-      2,
-      0,
-      2,
-      1,
-      2
-    ],
-    "parentId": "[0,2,0,2,1]",
-    "circularOfId": null,
-    "children": [],
-    "value": []
-  },
   "[1]": {
     "id": "[1]",
     "index": 1,

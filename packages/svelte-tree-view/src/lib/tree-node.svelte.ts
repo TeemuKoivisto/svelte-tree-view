@@ -49,8 +49,6 @@ export function createNode(
     oldNode.depth = depth
     oldNode.type = getValueType(value)
     oldNode.circularOfId = sameValue ? oldNode.circularOfId : null
-    // @TODO must somehow mark these children AND their descendants to be deleted
-    oldNode.children = []
     return [oldNode, oldNode]
   }
   const node = $state({

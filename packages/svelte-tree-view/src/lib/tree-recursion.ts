@@ -101,6 +101,9 @@ export function recurseObjectProperties(
   ctx.treeMap[node.id] = node
   ctx.oldIds.delete(node.id)
 
+  // Save old children before recursion overwrites them (copy to avoid proxy issues)
+  const prevChildren = oldNode ? [...node.children] : []
+
   if (shouldRecurseChildren(node, parent, ctx.iteratedValues, ctx.opts)) {
     const mappedChildren =
       ctx.opts.mapChildren && ctx.opts.mapChildren(value, getValueType(value), node)
@@ -115,6 +118,15 @@ export function recurseObjectProperties(
       }
     }
     node.children = ids
+  } else {
+    node.children = []
+  }
+
+  // Mark old children that are no longer referenced for cleanup
+  for (const id of prevChildren) {
+    if (!node.children.includes(id)) {
+      ctx.oldIds.add(id)
+    }
   }
 
   return node
