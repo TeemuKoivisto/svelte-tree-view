@@ -1,5 +1,4 @@
 import { getContext, setContext } from 'svelte'
-import type { Writable } from 'svelte/store'
 import type {
   BaseEventPayload,
   ElementDragType
@@ -20,7 +19,7 @@ export const DND_CTX = 'dnd'
 export const getDndContext = () => getContext<DndContext>(DND_CTX)
 export const setDndContext = (val: DndContext) => setContext(DND_CTX, val)
 
-export function createDndContext(data: Writable<any>) {
+export function createDndContext() {
   // This registry is used to maintain focus between drops. Not working for now
   const registry = new Map<string, HTMLElement>()
   let treeMap: Record<string, TreeNode> = {}
@@ -85,7 +84,6 @@ export function createDndContext(data: Writable<any>) {
   }
 
   return {
-    data,
     registerElement,
     handleDrop,
     setTreeMap

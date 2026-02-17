@@ -1,7 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine'
-  import { extractClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge'
   import {
     dropTargetForElements,
     type ElementDropTargetEventBasePayload,
@@ -22,13 +21,9 @@
 
   let element: HTMLDivElement
   let groupState = $state<'idle' | 'is-innermost-over'>('idle')
-  const dnd = createDndContext(parsedData)
-  setDndContext(dnd)
-  const data = dnd.data
 
-  data.subscribe(v => {
-    console.log('data changed ', v)
-  })
+  const dnd = createDndContext()
+  setDndContext(dnd)
 
   function onDropTargetChange({ location, self }: ElementDropTargetEventBasePayload) {
     const [innerMost] = location.current.dropTargets.filter(
