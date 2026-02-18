@@ -1,0 +1,24 @@
+.svelte-tree-view {
+  font-family: var(--tree-view-font-family);
+  font-size: var(--tree-view-font-size);
+  height: max-content;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: max-content;
+
+  --tree-view-font-family: "Helvetica Neue", "Calibri Light", Roboto, sans-serif;
+  --tree-view-font-size: 13px;
+  --tree-view-left-indent: 0.875em;
+  --tree-view-line-height: 1.1;
+  --tree-view-key-margin-right: 0.5em;
+}
+.svelte-tree-view ul {
+  margin-top: 0.25em;
+}
+.svelte-tree-view li {
+  margin-top: 0.25em;
+}
+.svelte-tree-view ul > li:first-child {
+  margin-top: 0;
+}

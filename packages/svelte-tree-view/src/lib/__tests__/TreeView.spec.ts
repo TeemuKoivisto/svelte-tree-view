@@ -35,7 +35,7 @@ describe('TreeView', () => {
     })
 
     expect(results.container.querySelectorAll('ul').length).toEqual(37)
-    expect(results.container.querySelectorAll('li').length).toEqual(270)
+    expect(results.container.querySelectorAll('li').length).toEqual(234)
     expect(results.container).toMatchSnapshot()
   })
 
@@ -86,7 +86,7 @@ describe('TreeView', () => {
     })
 
     expect(results.container.querySelectorAll('ul').length).toEqual(34)
-    expect(results.container.querySelectorAll('li').length).toEqual(118)
+    expect(results.container.querySelectorAll('li').length).toEqual(85)
     expect(results.container).toMatchSnapshot()
   })
 
@@ -113,26 +113,26 @@ describe('TreeView', () => {
     expect(results.container.querySelectorAll('li').length).toEqual(2)
 
     await clickByText(results.container, 'b:')
-    expect(results.container.querySelectorAll('li').length).toEqual(5)
+    expect(results.container.querySelectorAll('li').length).toEqual(4)
 
     await clickByText(results.container, '[map entry 1]:')
-    expect(results.container.querySelectorAll('li').length).toEqual(8)
+    expect(results.container.querySelectorAll('li').length).toEqual(6)
 
     await clickByText(results.container, '[value]:')
-    expect(results.container.querySelectorAll('li').length).toEqual(10)
+    expect(results.container.querySelectorAll('li').length).toEqual(7)
 
     // Here should not expand the 'f:' value since it's beyond maxDepth
     await clickByText(results.container, 'f:')
-    expect(results.container.querySelectorAll('li').length).toEqual(10)
+    expect(results.container.querySelectorAll('li').length).toEqual(7)
 
     // Collapsing and uncollapsing should not change anything
     await clickByText(results.container, '[value]:')
     await clickByText(results.container, '[value]:')
-    expect(results.container.querySelectorAll('li').length).toEqual(10)
+    expect(results.container.querySelectorAll('li').length).toEqual(7)
 
     await clickByText(results.container, 'b:')
     await clickByText(results.container, 'b:')
-    expect(results.container.querySelectorAll('li').length).toEqual(10)
+    expect(results.container.querySelectorAll('li').length).toEqual(7)
 
     // Add circular node to the data and use stopCircularRecursion
     data.b = data.b.set('g', data.b.get('e'))
@@ -153,28 +153,28 @@ describe('TreeView', () => {
     expect(results.container.querySelectorAll('li').length).toEqual(2)
 
     await clickByText(results.container, 'b:')
-    expect(results.container.querySelectorAll('li').length).toEqual(6)
+    expect(results.container.querySelectorAll('li').length).toEqual(5)
 
     await expect(JSON.stringify(map)).toMatchFileSnapshot(snapPath(0, 1, 'treemap'))
     await clickByText(results.container, '[map entry 1]:')
     await expect(JSON.stringify(map)).toMatchFileSnapshot(snapPath(0, 2, 'treemap'))
 
-    expect(results.container.querySelectorAll('li').length).toEqual(9)
+    expect(results.container.querySelectorAll('li').length).toEqual(7)
 
     await clickByText(results.container, '[value]:')
-    expect(results.container.querySelectorAll('li').length).toEqual(11)
+    expect(results.container.querySelectorAll('li').length).toEqual(8)
 
     // Now clicking f: should expand more nodes since maxDepth was increased
     await clickByText(results.container, 'f:')
-    expect(results.container.querySelectorAll('li').length).toEqual(15)
+    expect(results.container.querySelectorAll('li').length).toEqual(11)
 
     // Clicking the added 'g' value open
     await clickByText(results.container, '[map entry 2]:')
-    expect(results.container.querySelectorAll('li').length).toEqual(18)
+    expect(results.container.querySelectorAll('li').length).toEqual(13)
 
     // Should not expand since it's a circular value
     await clickByText(results.container, '[value]:', 1)
-    expect(results.container.querySelectorAll('li').length).toEqual(18)
+    expect(results.container.querySelectorAll('li').length).toEqual(13)
   })
 
   it('should not map primitive values and renders them correctly in list', async () => {
