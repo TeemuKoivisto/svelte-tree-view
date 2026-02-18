@@ -1,5 +1,33 @@
 # svelte-tree-view
 
+## 2.0.0
+
+### Major Changes
+
+- ef98d90: migrate to Svelte 5, update all deps, switch valueComponent to snippet
+
+  BREAKING:
+  - incompatible with Svelte < 5
+  - `valueComponent` is now `treeNode` snippet
+  - `rootNode` snippet added
+  - default styles not applied to `:root` anymore but `ul.svelte-tree-view`
+  - changed `treeMap` from `Map` to `Record` to allow use of proxies
+
+### Minor Changes
+
+- 2571374: make treeNode required, update site to use new API
+- 8d6dc20: move showCopy & showLogButton to DefaultNode, add regexp & error types
+- 92ed815: move base16 theming, utility methods from core to DefaultNode export, refactor internal logic
+- c911f1e: use user defined / stable ids for nodes to better handle dragn drop
+- f1a0f8c: invert isCircularNode return value for node collapsing, make DefaultNode ESM export, refactor stores into one
+- 05b33fc: move default root styles to default.css, use css layer for importing it in site
+
+### Patch Changes
+
+- 05b33fc: improve aria of DefaultNode.svelte, nest children ul within same li
+- 6f67518: perf: remove $derived from TreeViewNode, expose createStore, update comments
+- 5d204c8: update all dependencies to latest
+
 ## 1.4.2
 
 ### Patch Changes
