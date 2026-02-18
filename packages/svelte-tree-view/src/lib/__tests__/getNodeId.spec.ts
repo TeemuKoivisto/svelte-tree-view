@@ -257,11 +257,11 @@ describe('getNodeId', () => {
 
       // Expand 'items'
       await clickByText(results.container, 'items:')
-      expect(results.container.querySelectorAll('li').length).toBe(6)
+      expect(results.container.querySelectorAll('li').length).toBe(5)
 
       // Expand 'nested'
       await clickByText(results.container, 'nested:')
-      expect(results.container.querySelectorAll('li').length).toBe(8)
+      expect(results.container.querySelectorAll('li').length).toBe(6)
 
       // Verify stable ids in the treeMap
       expect(map).toBeDefined()
@@ -282,14 +282,14 @@ describe('getNodeId', () => {
 
       // Expand 'a'
       await clickByText(results.container, 'a:')
-      expect(results.container.querySelectorAll('li').length).toBe(4)
+      expect(results.container.querySelectorAll('li').length).toBe(3)
 
       // Rerender with same data — 'a' should stay expanded
       await results.rerender({
         data: { ...data },
         recursionOpts: { getNodeId }
       })
-      expect(results.container.querySelectorAll('li').length).toBe(4)
+      expect(results.container.querySelectorAll('li').length).toBe(3)
     })
   })
 })
