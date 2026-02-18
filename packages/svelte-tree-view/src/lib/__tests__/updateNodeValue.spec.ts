@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
-import { expandNodeChildren, updateNodeValue } from '../store-methods'
+import { buildTree, expandNodeChildren, updateNodeValue } from '../store-methods'
+import { createRootNode } from '../tree-node.svelte'
 import { recurseObjectProperties } from '../tree-recursion'
 
 import type { TreeNode, TreeRecursionOpts } from '../types'
@@ -39,29 +40,12 @@ const defaultOpts: TreeRecursionOpts = {
   shouldExpandNode: () => true
 }
 
-function buildTree(data: unknown, opts: TreeRecursionOpts = defaultOpts) {
+function makeTree(data: unknown, opts: TreeRecursionOpts = defaultOpts) {
   const treeMap: Record<string, TreeNode> = {}
   const iteratedValues = new Map<any, TreeNode>()
-  const root = recurseObjectProperties(-1, 'root', data, 0, true, null, {
-    treeMap,
-    oldIds: new Set(),
-    iteratedValues,
-    recomputeExpandNode: false,
-    updateNodeValue: (id, newValue) => updateNodeValue(id, newValue, treeMap, iteratedValues),
-    opts,
-    usedIds: new Set<string>()
-  })
-  return { treeMap, root: root!, iteratedValues }
-}
-
-/** Re-recurse a node's children after its value was changed */
-function reexpand(
-  node: TreeNode,
-  treeMap: Record<string, TreeNode>,
-  iteratedValues: Map<any, TreeNode>,
-  opts: TreeRecursionOpts
-) {
-  expandNodeChildren(node, treeMap, iteratedValues, opts)
+  const rootNode = createRootNode()
+  buildTree(data, rootNode, treeMap, iteratedValues, opts, false)
+  return { treeMap, root: rootNode, iteratedValues }
 }
 
 function getChildKeys(node: TreeNode, treeMap: Record<string, TreeNode>) {
@@ -70,7 +54,7 @@ function getChildKeys(node: TreeNode, treeMap: Record<string, TreeNode>) {
 
 describe('updateNodeValue', () => {
   it('updates getValue and type for a leaf node', () => {
-    const { treeMap } = buildTree(fileTree)
+    const { treeMap } = makeTree(fileTree)
     const node = treeMap['[]/src/index.ts']
 
     expect(node.getValue()).toBe('export {}')
@@ -83,7 +67,7 @@ describe('updateNodeValue', () => {
   })
 
   it('updates getValue for an object node', () => {
-    const { treeMap } = buildTree(fileTree)
+    const { treeMap } = makeTree(fileTree)
     const node = treeMap['[]/docs']
 
     expect(node.type).toBe('object')
@@ -95,7 +79,7 @@ describe('updateNodeValue', () => {
 
   describe('drag-and-drop with stable IDs', () => {
     it('moves a file: only the moved node is new, siblings are reused', () => {
-      const { treeMap, iteratedValues } = buildTree(fileTree)
+      const { treeMap, iteratedValues } = makeTree(fileTree)
 
       const srcComponents = treeMap['[]/src/components']
       const docs = treeMap['[]/docs']
@@ -118,8 +102,9 @@ describe('updateNodeValue', () => {
       srcComponents.updateValue(srcVal)
       docs.updateValue({ ...docs.getValue(), 'Nav.svelte': movedValue })
 
-      reexpand(srcComponents, treeMap, iteratedValues, defaultOpts)
-      reexpand(docs, treeMap, iteratedValues, defaultOpts)
+      /** You must manually recurse a node's children after its value was changed */
+      expandNodeChildren(srcComponents, treeMap, iteratedValues, defaultOpts)
+      expandNodeChildren(docs, treeMap, iteratedValues, defaultOpts)
 
       expect(getChildKeys(srcComponents, treeMap)).toEqual(['App.svelte'])
       expect(getChildKeys(docs, treeMap)).toEqual(['README.md', 'Nav.svelte'])
@@ -143,7 +128,7 @@ describe('updateNodeValue', () => {
     })
 
     it('moves a folder: children of the moved folder get new IDs under the new parent', () => {
-      const { treeMap, iteratedValues } = buildTree(fileTree)
+      const { treeMap, iteratedValues } = makeTree(fileTree)
 
       const src = treeMap['[]/src']
       const docs = treeMap['[]/docs']
@@ -158,8 +143,8 @@ describe('updateNodeValue', () => {
       src.updateValue({ 'index.ts': src.getValue()['index.ts'] })
       docs.updateValue({ ...docs.getValue(), components: componentsVal })
 
-      reexpand(src, treeMap, iteratedValues, defaultOpts)
-      reexpand(docs, treeMap, iteratedValues, defaultOpts)
+      expandNodeChildren(src, treeMap, iteratedValues, defaultOpts)
+      expandNodeChildren(docs, treeMap, iteratedValues, defaultOpts)
 
       expect(getChildKeys(src, treeMap)).toEqual(['index.ts'])
       expect(getChildKeys(docs, treeMap)).toEqual(['README.md', 'components'])
@@ -192,7 +177,7 @@ describe('updateNodeValue', () => {
 
     it('index IDs shift when a sibling is removed, causing wrong node reuse', () => {
       // lib/utils has: counter.ts[0], format.ts[1], helper.ts[2], jwt[3]
-      const { treeMap, iteratedValues } = buildTree(fileTree, indexOpts)
+      const { treeMap, iteratedValues } = makeTree(fileTree, indexOpts)
 
       // With index-based IDs, lib is at index 2 and utils is at [2,0]
       // lib/utils children are at [2,0,0]=counter, [2,0,1]=format, [2,0,2]=helper, [2,0,3]=jwt
@@ -217,8 +202,8 @@ describe('updateNodeValue', () => {
       utils.updateValue(restUtils)
       docs.updateValue({ ...docs.getValue(), 'format.ts': formatVal })
 
-      reexpand(utils, treeMap, iteratedValues, indexOpts)
-      reexpand(docs, treeMap, iteratedValues, indexOpts)
+      expandNodeChildren(utils, treeMap, iteratedValues, indexOpts)
+      expandNodeChildren(docs, treeMap, iteratedValues, indexOpts)
 
       // After removal, indices shift: counter.ts[0], helper.ts[1], jwt[2]
       expect(getChildKeys(utils, treeMap)).toEqual(['counter.ts', 'helper.ts', 'jwt'])
@@ -244,7 +229,7 @@ describe('updateNodeValue', () => {
       // lib has: utils[0], schema[1], tmp[2]
       // schema has children: schema.ts[2,1,0], parse.ts[2,1,1]
       // tmp is an empty object with no children
-      const { treeMap, iteratedValues } = buildTree(fileTree, indexOpts)
+      const { treeMap, iteratedValues } = makeTree(fileTree, indexOpts)
 
       const lib = treeMap['[2]'] // lib
       expect(getChildKeys(lib, treeMap)).toEqual(['utils', 'schema', 'tmp'])
@@ -262,8 +247,8 @@ describe('updateNodeValue', () => {
       lib.updateValue(restLib)
       docs.updateValue({ ...docs.getValue(), schema: schemaVal })
 
-      reexpand(lib, treeMap, iteratedValues, indexOpts)
-      reexpand(docs, treeMap, iteratedValues, indexOpts)
+      expandNodeChildren(lib, treeMap, iteratedValues, indexOpts)
+      expandNodeChildren(docs, treeMap, iteratedValues, indexOpts)
 
       // After removal, lib's children shift: utils[0], tmp[1]
       expect(getChildKeys(lib, treeMap)).toEqual(['utils', 'tmp'])
@@ -284,7 +269,7 @@ describe('updateNodeValue', () => {
     })
 
     it('stable IDs preserve collapsed state correctly after the same move', () => {
-      const { treeMap, iteratedValues } = buildTree(fileTree) // uses defaultOpts with getNodeId
+      const { treeMap, iteratedValues } = makeTree(fileTree) // uses defaultOpts with getNodeId
 
       const utils = treeMap['[]/lib/utils']
       expect(getChildKeys(utils, treeMap)).toEqual(['counter.ts', 'format.ts', 'helper.ts', 'jwt'])
@@ -300,8 +285,8 @@ describe('updateNodeValue', () => {
       utils.updateValue(restUtils)
       docs.updateValue({ ...docs.getValue(), 'format.ts': formatVal })
 
-      reexpand(utils, treeMap, iteratedValues, defaultOpts)
-      reexpand(docs, treeMap, iteratedValues, defaultOpts)
+      expandNodeChildren(utils, treeMap, iteratedValues, defaultOpts)
+      expandNodeChildren(docs, treeMap, iteratedValues, defaultOpts)
 
       expect(getChildKeys(utils, treeMap)).toEqual(['counter.ts', 'helper.ts', 'jwt'])
 

@@ -20,6 +20,8 @@ export function getValueType(value: any): ValueType {
   }
 }
 
+export const createRootNode = () => createNode(-1, 'root', [], 0, null, {}, () => {})[0]
+
 export function createNode(
   index: number,
   key: string,
