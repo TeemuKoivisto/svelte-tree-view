@@ -25,14 +25,16 @@
 
 <TreeView
   data={$parsedData}
-  showLogButton={$treeOpts.showLogButton}
-  showCopyButton={$treeOpts.showCopyButton}
   recursionOpts={$parsedRecursionOpts}
   valueFormatter={$parsedValueFormatter}
   class="w-1/2 bg-(--tree-view-base00) px-4"
 >
   {#snippet treeNode(props)}
-    <DefaultNode {...props} />
+    <DefaultNode
+      {...props}
+      showLogButton={$treeOpts.showLogButton}
+      showCopyButton={$treeOpts.showCopyButton}
+    />
   {/snippet}
 </TreeView>
 

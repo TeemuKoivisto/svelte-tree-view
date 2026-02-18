@@ -21,8 +21,6 @@
 
 <TreeView
   data={$parsedData}
-  showLogButton={$treeOpts.showLogButton}
-  showCopyButton={$treeOpts.showCopyButton}
   recursionOpts={$parsedRecursionOpts}
   valueFormatter={$parsedValueFormatter}
 >
@@ -32,7 +30,11 @@
     </div>
   {/snippet}
   {#snippet treeNode(props)}
-    <TailwindNode {...props} />
+    <TailwindNode
+      {...props}
+      showLogButton={$treeOpts.showLogButton}
+      showCopyButton={$treeOpts.showCopyButton}
+    />
   {/snippet}
 </TreeView>
 

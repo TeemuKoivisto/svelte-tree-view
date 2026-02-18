@@ -3,7 +3,12 @@
 
   import type { NodeProps } from 'svelte-tree-view'
 
-  let props: NodeProps = $props()
+  type DiffValueProps = NodeProps & {
+    showLogButton?: boolean
+    showCopyButton?: boolean
+  }
+
+  let { showLogButton, showCopyButton, ...props }: DiffValueProps = $props()
   let value = $derived(props.node.getValue())
   const { formatValue } = props.getTreeContext()
 
@@ -37,7 +42,7 @@
   }
 </script>
 
-<DefaultNode {...props}>
+<DefaultNode {...props} {showLogButton} {showCopyButton}>
   {#snippet valueSnippet(node)}
     {#if Array.isArray(value)}
       <!-- The why https://github.com/benjamine/jsondiffpatch/blob/master/docs/deltas.md -->

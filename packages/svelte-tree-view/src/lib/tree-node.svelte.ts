@@ -3,6 +3,10 @@ import type { TreeNode, ValueType } from './types'
 export function getValueType(value: any): ValueType {
   if (Array.isArray(value)) {
     return 'array'
+  } else if (value instanceof RegExp) {
+    return 'regexp'
+  } else if (value instanceof Error) {
+    return 'error'
   } else if (value instanceof Map) {
     return 'map'
   } else if (value instanceof Set) {

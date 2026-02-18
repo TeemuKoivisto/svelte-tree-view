@@ -5,7 +5,7 @@
   import TreeViewNode from './TreeViewNode.svelte'
   import { createStore, type TreeStore } from './store'
 
-  import type { Props } from './types'
+  import type { TreeViewElementProps } from './types'
 
   const DEFAULT_RECURSION_OPTS = {
     maxDepth: 16,
@@ -18,18 +18,14 @@
     data,
     rootNode,
     treeNode,
-    showLogButton,
-    showCopyButton,
     recursionOpts,
     valueFormatter,
     onUpdate,
     ...rest
-  }: Props = $props()
+  }: TreeViewElementProps = $props()
 
   let propsObj = {
     treeNode,
-    showLogButton,
-    showCopyButton,
     recursionOpts: { ...DEFAULT_RECURSION_OPTS, ...recursionOpts },
     valueFormatter,
     onUpdate
@@ -51,8 +47,6 @@
     // in the recomputeTree.
     propsObj = {
       treeNode,
-      showLogButton,
-      showCopyButton,
       recursionOpts: propsObj.recursionOpts,
       valueFormatter,
       onUpdate

@@ -77,12 +77,22 @@
   import type { NodeProps } from './types'
 
   type DefaultNodeProps = NodeProps & {
+    showLogButton?: boolean
+    showCopyButton?: boolean
     keySnippet?: Snippet<[TreeNode]>
     valueSnippet?: Snippet<[TreeNode]>
   }
 
-  let { node, keySnippet, valueSnippet, TreeViewNode, getTreeContext }: DefaultNodeProps = $props()
-  const { viewProps, formatValue, collapseOrScrollIntoCircularNode } = getTreeContext()
+  let {
+    node,
+    showLogButton,
+    showCopyButton,
+    keySnippet,
+    valueSnippet,
+    TreeViewNode,
+    getTreeContext
+  }: DefaultNodeProps = $props()
+  const { formatValue, collapseOrScrollIntoCircularNode } = getTreeContext()
   let hasChildren = $derived(node.children.length > 0)
   let descend = $derived(!node.collapsed && hasChildren)
   let valueStr = $derived(formatValue(node.getValue(), node))
@@ -137,10 +147,10 @@
       {/if}
     </div>
     <div class="buttons">
-      {#if $viewProps.showLogButton}
+      {#if showLogButton}
         <button class="log-copy-button" onclick={() => handleLogNode(node)}>log</button>
       {/if}
-      {#if $viewProps.showCopyButton}
+      {#if showCopyButton}
         <button class="log-copy-button" onclick={() => handleCopyNodeToClipboard(node)}>copy</button
         >
       {/if}
