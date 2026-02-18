@@ -12,7 +12,6 @@
     setExampleData
   } from '$lib/store'
 
-
   onMount(() => {
     setExampleData('basic')
     parsedRecursionOpts.update(v => {

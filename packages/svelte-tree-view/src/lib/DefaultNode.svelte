@@ -86,62 +86,74 @@
   let hasChildren = $derived(node.children.length > 0)
   let descend = $derived(!node.collapsed && hasChildren)
   let valueStr = $derived(formatValue(node.getValue(), node))
+  let selected = $state(false)
 </script>
 
-<li class="row" class:collapsed={node.collapsed && hasChildren} data-tree-node-id={node.id}>
-  {#if hasChildren}
-    <button
-      class={`arrow-btn ${node.collapsed ? 'collapsed' : ''}`}
+<li
+  class="row"
+  class:collapsed={node.collapsed && hasChildren}
+  data-tree-node-id={node.id}
+  role="treeitem"
+  aria-expanded={hasChildren ? (node.collapsed ? 'false' : 'true') : undefined}
+  aria-level={node.depth}
+  aria-selected={selected ? 'true' : 'false'}
+>
+  <div class="row-body">
+    {#if hasChildren}
+      <button
+        class={`arrow-btn ${node.collapsed ? 'collapsed' : ''}`}
+        onclick={() => collapseOrScrollIntoCircularNode(node.id)}
+        onfocus={() => (selected = true)}
+        onblur={() => (selected = false)}
+      >
+        ▶
+      </button>
+    {/if}
+    <div
+      class="node-key"
+      class:has-children={hasChildren}
+      class:p-left={!hasChildren}
       onclick={() => collapseOrScrollIntoCircularNode(node.id)}
+      role="presentation"
     >
-      ▶
-    </button>
-  {/if}
-  <div
-    class="node-key"
-    class:has-children={hasChildren}
-    class:p-left={!hasChildren}
-    onclick={() => collapseOrScrollIntoCircularNode(node.id)}
-    role="presentation"
-  >
-    {#if keySnippet}
-      {@render keySnippet(node)}
-    {:else}
-      {node.key}:
-    {/if}
+      {#if keySnippet}
+        {@render keySnippet(node)}
+      {:else}
+        {node.key}:
+      {/if}
+    </div>
+    <div
+      class="node-value"
+      data-type={node.type}
+      class:expanded={!node.collapsed && hasChildren}
+      class:has-children={hasChildren}
+      onclick={() => collapseOrScrollIntoCircularNode(node.id)}
+      role="presentation"
+    >
+      {#if valueSnippet}
+        {@render valueSnippet(node)}
+      {:else}
+        {valueStr}
+      {/if}
+    </div>
+    <div class="buttons">
+      {#if $viewProps.showLogButton}
+        <button class="log-copy-button" onclick={() => handleLogNode(node)}>log</button>
+      {/if}
+      {#if $viewProps.showCopyButton}
+        <button class="log-copy-button" onclick={() => handleCopyNodeToClipboard(node)}>copy</button
+        >
+      {/if}
+    </div>
   </div>
-  <div
-    class="node-value"
-    data-type={node.type}
-    class:expanded={!node.collapsed && hasChildren}
-    class:has-children={hasChildren}
-    onclick={() => collapseOrScrollIntoCircularNode(node.id)}
-    role="presentation"
-  >
-    {#if valueSnippet}
-      {@render valueSnippet(node)}
-    {:else}
-      {valueStr}
-    {/if}
-  </div>
-  <div class="buttons">
-    {#if $viewProps.showLogButton}
-      <button class="log-copy-button" onclick={() => handleLogNode(node)}>log</button>
-    {/if}
-    {#if $viewProps.showCopyButton}
-      <button class="log-copy-button" onclick={() => handleCopyNodeToClipboard(node)}>copy</button>
-    {/if}
-  </div>
-</li>
-{#if descend}
-  <li class="row">
-    <ul>
+  {#if descend}
+    <ul class="row" role="group">
       {#each node.children as id}
         <TreeViewNode {id} />
       {/each}
     </ul>
-  </li>
-{/if}
+  {/if}
+</li>
 
 <style lang="scss">
   ul {
@@ -151,19 +163,20 @@
     list-style: none;
     padding: 0;
     padding-left: var(--tree-view-left-indent);
-    margin: 0;
     width: 100%;
   }
   li {
-    align-items: baseline;
     display: flex;
+    flex-direction: column;
     height: max-content;
-    line-height: var(--tree-view-line-height);
     list-style: none;
     width: 100%;
   }
-  li + li {
-    margin-top: 0.25em;
+  .row-body {
+    align-items: baseline;
+    display: flex;
+    line-height: var(--tree-view-line-height);
+    width: 100%;
   }
   .empty-block {
     visibility: hidden;

@@ -1,4 +1,5 @@
-import type { Base16Theme, TreeNode } from 'svelte-tree-view'
+import type { TreeNode } from 'svelte-tree-view'
+import type { Base16Theme } from 'svelte-tree-view/DefaultNode.svelte'
 
 export const parseData = (str: string) => {
   try {
