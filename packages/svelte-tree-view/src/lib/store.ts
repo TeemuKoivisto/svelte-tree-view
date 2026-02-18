@@ -48,7 +48,7 @@ export const createStore = (initialProps: StoreOptions) => {
    * @param id
    */
   function toggleCollapse(id: string) {
-    const node = state.treeMap[id]
+    const node = state.treeMap[id] as TreeNode | undefined
     if (!node) {
       throw Error(`Attempted to collapse non-existent node: ` + JSON.stringify(node))
     }

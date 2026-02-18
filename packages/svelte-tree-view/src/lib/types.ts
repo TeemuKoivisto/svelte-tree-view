@@ -7,6 +7,8 @@ export type ValueType =
   | 'map'
   | 'set'
   | 'date'
+  | 'regexp'
+  | 'error'
   | 'object'
   | 'function'
   | 'string'
@@ -118,11 +120,8 @@ export interface TreeViewProps<T = any> {
    * The rendered treeNode. To use the default implementation use 'svelte-tree-view/DefaultNode.svelte' export
    */
   treeNode: Snippet<[NodeProps<T>]>
-
-  showLogButton?: boolean
-  showCopyButton?: boolean
   recursionOpts?: TreeRecursionOpts<T>
-  onUpdate?: (newMap: Record<string, TreeNode>) => void
+  onUpdate?: (newMap: Record<string, TreeNode<T>>) => void
   /**
    * For custom formatting of the value string. Returning undefined will pass the value to the default formatter
    * @param val
@@ -132,4 +131,4 @@ export interface TreeViewProps<T = any> {
   valueFormatter?: (val: any, n: TreeNode<T>) => string | undefined
 }
 
-export type Props = TreeViewProps & HTMLAttributes<HTMLUListElement>
+export type TreeViewElementProps = TreeViewProps & HTMLAttributes<HTMLUListElement>

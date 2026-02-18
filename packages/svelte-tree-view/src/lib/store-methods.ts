@@ -20,6 +20,10 @@ export function formatValue(
       return `${node.circularOfId ? 'circular' : ''} () ${val.size} entries`
     case 'date':
       return `${val.toISOString()}`
+    case 'regexp':
+      return `${val}`
+    case 'error':
+      return `${val.name}: ${val.message}`
     case 'string':
       return `"${val}"`
     case 'number':

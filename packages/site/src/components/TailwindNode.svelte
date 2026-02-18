@@ -3,7 +3,13 @@
 
   import type { NodeProps } from 'svelte-tree-view'
 
-  let { node, TreeViewNode, getTreeContext }: NodeProps = $props()
+  type TailwindNodeProps = NodeProps & {
+    showLogButton?: boolean
+    showCopyButton?: boolean
+  }
+
+  let { node, TreeViewNode, getTreeContext, showLogButton, showCopyButton }: TailwindNodeProps =
+    $props()
 
   const { viewProps, collapseOrScrollIntoCircularNode } = getTreeContext()
 
@@ -143,7 +149,7 @@
 
     <!-- Action buttons -->
     <div class="action-buttons">
-      {#if $viewProps.showLogButton}
+      {#if showLogButton}
         <button
           class="action-button log-button"
           onclick={() => handleLogNode(node)}
@@ -159,7 +165,7 @@
           </svg>
         </button>
       {/if}
-      {#if $viewProps.showCopyButton}
+      {#if showCopyButton}
         <button
           class="action-button copy-button"
           onclick={() => handleCopyNodeToClipboard(node)}
