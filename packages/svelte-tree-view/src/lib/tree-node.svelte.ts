@@ -27,6 +27,7 @@ export function createNode(
   depth: number,
   parent: TreeNode | null,
   treeMap: Record<string, TreeNode>,
+  updateNodeValue: (id: string, val: any) => void,
   getNodeId?: (value: any, key: string, parent: TreeNode) => string,
   usedIds?: Set<string>
 ): [TreeNode, TreeNode | undefined] {
@@ -52,8 +53,6 @@ export function createNode(
     oldNode.depth = depth
     oldNode.type = getValueType(value)
     oldNode.circularOfId = sameValue ? oldNode.circularOfId : null
-    // @TODO must somehow mark these children AND their descendants to be deleted
-    oldNode.children = []
     return [oldNode, oldNode]
   }
   const node = $state({
@@ -61,6 +60,9 @@ export function createNode(
     index,
     key,
     getValue: () => value,
+    updateValue: function (val: any) {
+      return updateNodeValue(this.id, val)
+    },
     depth,
     collapsed: true,
     type: getValueType(value),

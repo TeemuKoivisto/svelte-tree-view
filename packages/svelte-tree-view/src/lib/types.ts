@@ -39,6 +39,11 @@ export interface TreeNode<T = any> {
    */
   getValue: () => T
   /**
+   * Updates node's getValue() and type but does _NOT_ recurse its children. You should it
+   * call yourself manually afterwards.
+   */
+  updateValue: (newVal: T) => void
+  /**
    * Node depth in the tree. Root node is 0 so all 'normal' nodes start at 1
    */
   depth: number

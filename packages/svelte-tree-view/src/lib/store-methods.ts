@@ -1,3 +1,4 @@
+import { getValueType } from './tree-node.svelte'
 import { recurseObjectProperties } from './tree-recursion'
 import type { TreeNode, TreeRecursionOpts, TreeViewProps } from './types'
 
@@ -50,12 +51,22 @@ export function buildTree(
     oldIds,
     iteratedValues,
     recomputeExpandNode,
+    updateNodeValue: (id, newValue) => updateNodeValue(id, newValue, treeMap, iteratedValues),
     opts: recursionOpts,
     usedIds: new Set<string>()
   })
   for (const id of oldIds) {
     delete treeMap[id]
   }
+}
+
+function deleteNodeAndDescendants(id: string, treeMap: Record<string, TreeNode>) {
+  const node = treeMap[id]
+  if (!node) return
+  for (const childId of node.children) {
+    deleteNodeAndDescendants(childId, treeMap)
+  }
+  delete treeMap[id]
 }
 
 export function expandNodeChildren(
@@ -69,6 +80,7 @@ export function expandNodeChildren(
     // Only root node has no parent and it should not be expandable
     throw Error('No parent in expandNodeChildren for node: ' + JSON.stringify(node))
   }
+  const oldIds = new Set<string>()
   recurseObjectProperties(
     node.index,
     node.key,
@@ -78,13 +90,18 @@ export function expandNodeChildren(
     parent,
     {
       treeMap,
-      oldIds: new Set(),
+      oldIds,
       iteratedValues,
-      recomputeExpandNode: false, // Never recompute shouldExpandNode since it may override the collapsing of this node
+      // Never recompute shouldExpandNode since it may override the collapsing of this node
+      recomputeExpandNode: false,
+      updateNodeValue: (id, newValue) => updateNodeValue(id, newValue, treeMap, iteratedValues),
       opts: recursionOpts,
       usedIds: new Set<string>()
     }
   )
+  for (const id of oldIds) {
+    deleteNodeAndDescendants(id, treeMap)
+  }
 }
 
 export function expandAllNodesToNode(id: string, treeMap: Record<string, TreeNode>) {
@@ -96,4 +113,17 @@ export function expandAllNodesToNode(id: string, treeMap: Record<string, TreeNod
     }
   }
   recurseNodeUpwards(treeMap[id])
+}
+
+export function updateNodeValue(
+  id: string,
+  newValue: any,
+  treeMap: Record<string, TreeNode>,
+  iteratedValues: Map<any, TreeNode>
+) {
+  const node = treeMap[id]
+  const oldValue = node.getValue()
+  node.getValue = () => newValue
+  node.type = getValueType(newValue)
+  iteratedValues.delete(oldValue)
 }
