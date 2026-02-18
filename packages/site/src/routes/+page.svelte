@@ -12,6 +12,7 @@
     setExampleData
   } from '$lib/store'
 
+
   onMount(() => {
     setExampleData('basic')
     parsedRecursionOpts.update(v => {
@@ -29,12 +30,8 @@
   showCopyButton={$treeOpts.showCopyButton}
   recursionOpts={$parsedRecursionOpts}
   valueFormatter={$parsedValueFormatter}
+  class="w-1/2 bg-(--tree-view-base00) px-4"
 >
-  {#snippet rootNode(children)}
-    <ul class="svelte-tree-view w-1/2 px-4">
-      {@render children()}
-    </ul>
-  {/snippet}
   {#snippet treeNode(props)}
     <DefaultNode {...props} />
   {/snippet}
@@ -42,16 +39,4 @@
 
 <style lang="postcss">
   @reference "#app.css";
-
-  .svelte-tree-view {
-    background: var(--tree-view-base00);
-    font-family: var(--tree-view-font-family);
-    font-size: var(--tree-view-font-size);
-
-    --tree-view-font-family: 'Helvetica Neue', 'Calibri Light', Roboto, sans-serif;
-    --tree-view-font-size: 13px;
-    --tree-view-left-indent: 0.875em;
-    --tree-view-line-height: 1.1;
-    --tree-view-key-margin-right: 0.5em;
-  }
 </style>

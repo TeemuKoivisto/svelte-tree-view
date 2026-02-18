@@ -27,7 +27,7 @@
   valueFormatter={$parsedValueFormatter}
 >
   {#snippet rootNode(children)}
-    <div class="svelte-tree-view w-1/2 px-4 text-sm">
+    <div class="svelte-tree-view w-1/2 px-4 text-sm" role="tree">
       {@render children()}
     </div>
   {/snippet}

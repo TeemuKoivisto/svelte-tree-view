@@ -25,7 +25,8 @@
     "./DefaultNode.svelte": {
       "types": "./pkg/DefaultNode.svelte.d.ts",
       "svelte": "./pkg/DefaultNode.svelte"
-    }
+    },
+    "./default.css": "./pkg/default.css"
   },
   "scripts": {
     "build": "pnpm build:pkg && pnpm build:dist",

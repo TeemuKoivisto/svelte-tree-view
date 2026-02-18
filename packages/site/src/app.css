@@ -151,6 +151,11 @@ a:hover {
   color: var(--tree-view-base0F);
 }
 
+@layer utilities {
+  /* Adding the default.css as a sublayer of utilities allows Tailwind utlities (px, w-1/2 etc) to override it */
+  @import 'svelte-tree-view/default.css' layer(svelte-tree-view-default);
+}
+
 @layer components {
   .btn-sm {
     background-color: var(--tree-view-base01);

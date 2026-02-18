@@ -111,11 +111,11 @@ export interface TreeViewProps<T = any> {
    */
   data: unknown
   /**
-   * Custom root node. Default <ul> with .svelte-tree-view class
+   * The root node. To default is unstyled <ul class="svelte-tree-view" role="tree"> which you can style manually or by importing default.css
    */
   rootNode?: Snippet<[Snippet]>
   /**
-   * The rendered treeNode. DefaultNode.svelte can be used as the default
+   * The rendered treeNode. To use the default implementation use 'svelte-tree-view/DefaultNode.svelte' export
    */
   treeNode: Snippet<[NodeProps<T>]>
 
