@@ -36,7 +36,8 @@ const fileTree = {
 }
 
 const defaultOpts: TreeRecursionOpts = {
-  getNodeId: (_val: any, key: string, parent: TreeNode) => `${parent.id}/${key}`,
+  getNodeId: (_val: any, key: string, parent: TreeNode) =>
+    `${parent.index !== -1 ? parent.id : ''}/${key}`,
   shouldExpandNode: () => true
 }
 
@@ -55,9 +56,9 @@ function getChildKeys(node: TreeNode, treeMap: Record<string, TreeNode>) {
 describe('updateNodeValue', () => {
   it('updates getValue and type for a leaf node', () => {
     const { treeMap } = makeTree(fileTree)
-    const node = treeMap['[]/src/index.ts']
+    const node = treeMap['/src/index.ts']
 
-    expect(node.getValue()).toBe('export {}')
+    expect(node.getValue()).toBe(fileTree['src']['index.ts'])
     expect(node.type).toBe('string')
 
     node.updateValue(42)
@@ -68,8 +69,9 @@ describe('updateNodeValue', () => {
 
   it('updates getValue for an object node', () => {
     const { treeMap } = makeTree(fileTree)
-    const node = treeMap['[]/docs']
+    const node = treeMap['/docs']
 
+    expect(node.getValue()).toBe(fileTree['docs'])
     expect(node.type).toBe('object')
     node.updateValue({ 'CHANGELOG.md': '# Changes' })
 
@@ -81,21 +83,21 @@ describe('updateNodeValue', () => {
     it('moves a file: only the moved node is new, siblings are reused', () => {
       const { treeMap, iteratedValues } = makeTree(fileTree)
 
-      const srcComponents = treeMap['[]/src/components']
-      const docs = treeMap['[]/docs']
+      const srcComponents = treeMap['/src/components']
+      const docs = treeMap['/docs']
 
       // Capture references to nodes that should be reused after the move
-      const appNodeBefore = treeMap['[]/src/components/App.svelte']
-      const readmeNodeBefore = treeMap['[]/docs/README.md']
+      const appNodeBefore = treeMap['/src/components/App.svelte']
+      const readmeNodeBefore = treeMap['/docs/README.md']
       // Capture all lib/* nodes to confirm they're completely untouched
-      const libBefore = treeMap['[]/lib']
-      const utilsBefore = treeMap['[]/lib/utils']
-      const counterBefore = treeMap['[]/lib/utils/counter.ts']
-      const jwtBefore = treeMap['[]/lib/utils/jwt']
-      const schemaBefore = treeMap['[]/lib/schema']
+      const libBefore = treeMap['/lib']
+      const utilsBefore = treeMap['/lib/utils']
+      const counterBefore = treeMap['/lib/utils/counter.ts']
+      const jwtBefore = treeMap['/lib/utils/jwt']
+      const schemaBefore = treeMap['/lib/schema']
 
       // --- Move Nav.svelte from src/components → docs ---
-      const movedValue = treeMap['[]/src/components/Nav.svelte'].getValue()
+      const movedValue = treeMap['/src/components/Nav.svelte'].getValue()
 
       const srcVal = { ...srcComponents.getValue() }
       delete srcVal['Nav.svelte']
@@ -110,35 +112,35 @@ describe('updateNodeValue', () => {
       expect(getChildKeys(docs, treeMap)).toEqual(['README.md', 'Nav.svelte'])
 
       // Stable IDs: siblings that didn't move are the same object reference (reused via oldNode path)
-      expect(treeMap['[]/src/components/App.svelte']).toBe(appNodeBefore)
-      expect(treeMap['[]/docs/README.md']).toBe(readmeNodeBefore)
+      expect(treeMap['/src/components/App.svelte']).toBe(appNodeBefore)
+      expect(treeMap['/docs/README.md']).toBe(readmeNodeBefore)
 
-      // The moved file gets a new ID ([]/docs/Nav.svelte) — a fresh node
-      expect(treeMap['[]/docs/Nav.svelte']).toBeDefined()
+      // The moved file gets a new ID (/docs/Nav.svelte) — a fresh node
+      expect(treeMap['/docs/Nav.svelte']).toBeDefined()
 
       // Old node is cleaned up — no orphans in treeMap
-      expect(treeMap['[]/src/components/Nav.svelte']).toBeUndefined()
+      expect(treeMap['/src/components/Nav.svelte']).toBeUndefined()
 
-      // lib/ and everything under it was never touched by reexpand
-      expect(treeMap['[]/lib']).toBe(libBefore)
-      expect(treeMap['[]/lib/utils']).toBe(utilsBefore)
-      expect(treeMap['[]/lib/utils/counter.ts']).toBe(counterBefore)
-      expect(treeMap['[]/lib/utils/jwt']).toBe(jwtBefore)
-      expect(treeMap['[]/lib/schema']).toBe(schemaBefore)
+      // lib/ and everything under it was never touched by expandNodeChildren
+      expect(treeMap['/lib']).toBe(libBefore)
+      expect(treeMap['/lib/utils']).toBe(utilsBefore)
+      expect(treeMap['/lib/utils/counter.ts']).toBe(counterBefore)
+      expect(treeMap['/lib/utils/jwt']).toBe(jwtBefore)
+      expect(treeMap['/lib/schema']).toBe(schemaBefore)
     })
 
     it('moves a folder: children of the moved folder get new IDs under the new parent', () => {
       const { treeMap, iteratedValues } = makeTree(fileTree)
 
-      const src = treeMap['[]/src']
-      const docs = treeMap['[]/docs']
+      const src = treeMap['/src']
+      const docs = treeMap['/docs']
 
       // Capture a deep child inside components before the move
-      const appNodeBefore = treeMap['[]/src/components/App.svelte']
-      const indexTsBefore = treeMap['[]/src/index.ts']
+      const appNodeBefore = treeMap['/src/components/App.svelte']
+      const indexTsBefore = treeMap['/src/index.ts']
 
       // Move entire "components" folder from src → docs
-      const componentsVal = treeMap['[]/src/components'].getValue()
+      const componentsVal = treeMap['/src/components'].getValue()
 
       src.updateValue({ 'index.ts': src.getValue()['index.ts'] })
       docs.updateValue({ ...docs.getValue(), components: componentsVal })
@@ -150,22 +152,22 @@ describe('updateNodeValue', () => {
       expect(getChildKeys(docs, treeMap)).toEqual(['README.md', 'components'])
 
       // index.ts stayed in src — same object, reused
-      expect(treeMap['[]/src/index.ts']).toBe(indexTsBefore)
+      expect(treeMap['/src/index.ts']).toBe(indexTsBefore)
 
       // Old path nodes and their descendants are cleaned up
-      expect(treeMap['[]/src/components']).toBeUndefined()
-      expect(treeMap['[]/src/components/App.svelte']).toBeUndefined()
-      expect(treeMap['[]/src/components/Nav.svelte']).toBeUndefined()
+      expect(treeMap['/src/components']).toBeUndefined()
+      expect(treeMap['/src/components/App.svelte']).toBeUndefined()
+      expect(treeMap['/src/components/Nav.svelte']).toBeUndefined()
 
       // New path nodes exist under docs
-      expect(treeMap['[]/docs/components']).toBeDefined()
-      expect(treeMap['[]/docs/components/App.svelte']).toBeDefined()
+      expect(treeMap['/docs/components']).toBeDefined()
+      expect(treeMap['/docs/components/App.svelte']).toBeDefined()
 
       // New nodes are different references (new IDs → fresh nodes)
-      expect(treeMap['[]/docs/components/App.svelte']).not.toBe(appNodeBefore)
+      expect(treeMap['/docs/components/App.svelte']).not.toBe(appNodeBefore)
 
       // Children of the moved folder are intact
-      const movedComponents = treeMap['[]/docs/components']
+      const movedComponents = treeMap['/docs/components']
       expect(getChildKeys(movedComponents, treeMap)).toEqual(['App.svelte', 'Nav.svelte'])
     })
   })
@@ -271,14 +273,14 @@ describe('updateNodeValue', () => {
     it('stable IDs preserve collapsed state correctly after the same move', () => {
       const { treeMap, iteratedValues } = makeTree(fileTree) // uses defaultOpts with getNodeId
 
-      const utils = treeMap['[]/lib/utils']
+      const utils = treeMap['/lib/utils']
       expect(getChildKeys(utils, treeMap)).toEqual(['counter.ts', 'format.ts', 'helper.ts', 'jwt'])
 
       // Uncollapse jwt
-      treeMap['[]/lib/utils/jwt'].collapsed = false
+      treeMap['/lib/utils/jwt'].collapsed = false
 
       // Same move: remove format.ts from utils, add to docs
-      const docs = treeMap['[]/docs']
+      const docs = treeMap['/docs']
       const utilsVal = utils.getValue() as Record<string, any>
       const { 'format.ts': formatVal, ...restUtils } = utilsVal
 
@@ -292,11 +294,11 @@ describe('updateNodeValue', () => {
 
       // With stable IDs, jwt keeps its ID regardless of index shift
       // → collapsed state is preserved correctly
-      expect(treeMap['[]/lib/utils/jwt'].collapsed).toBe(false)
+      expect(treeMap['/lib/utils/jwt'].collapsed).toBe(false)
 
       // helper.ts also keeps its own ID and state
-      expect(treeMap['[]/lib/utils/helper.ts']).toBeDefined()
-      expect(treeMap['[]/lib/utils/helper.ts'].key).toBe('helper.ts')
+      expect(treeMap['/lib/utils/helper.ts']).toBeDefined()
+      expect(treeMap['/lib/utils/helper.ts'].key).toBe('helper.ts')
     })
   })
 })
