@@ -152,7 +152,7 @@ a:hover {
 }
 
 @layer utilities {
-  /* Adding the default.css as a sublayer of utilities allows Tailwind utlities (px, w-1/2 etc) to override it */
+  /* Adding the default.css as a sublayer of utilities allows Tailwind utilities (px, w-1/2 etc) to override it */
   @import "svelte-tree-view/default.css" layer(svelte-tree-view-default);
 }
 
