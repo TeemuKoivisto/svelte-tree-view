@@ -4,7 +4,8 @@ import {
   buildTree,
   expandAllNodesToNode as _expandAllNodesToNode,
   expandNodeChildren as _expandNodeChildren,
-  formatValue as _formatValue
+  formatValue as _formatValue,
+  refreshNodeChildren as _refreshNodeChildren
 } from './store-methods'
 import { TreeState, type StoreOptions } from './TreeState.svelte'
 import type { TreeNode, TreeRecursionOpts, TreeViewProps } from './types'
@@ -87,6 +88,16 @@ export const createStore = (initialProps: StoreOptions) => {
     }
   }
 
+  function refreshNodeChildren(ids: string[], depth = 1) {
+    const recurOpts = get(state.recursionOpts)
+    if (!recurOpts) {
+      console.warn('refreshNodeChildren: no recursionOpts set')
+      return
+    }
+    _refreshNodeChildren(ids, state.treeMap, state.iteratedValues, recurOpts, depth)
+    get(state.viewProps).onUpdate?.(state.treeMap)
+  }
+
   return {
     get recursionOpts() {
       return state.recursionOpts
@@ -111,6 +122,7 @@ export const createStore = (initialProps: StoreOptions) => {
     toggleCollapse,
     expandNodeChildren,
     expandAllNodesToNode,
-    collapseOrScrollIntoCircularNode
+    collapseOrScrollIntoCircularNode,
+    refreshNodeChildren
   }
 }

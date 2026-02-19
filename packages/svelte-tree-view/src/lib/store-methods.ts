@@ -1,5 +1,5 @@
-import { getValueType } from './tree-node.svelte'
-import { recurseObjectProperties } from './tree-recursion'
+import { createNode, getValueType } from './tree-node.svelte'
+import { getChildren, recurseObjectProperties } from './tree-recursion'
 import type { TreeNode, TreeRecursionOpts, TreeViewProps } from './types'
 
 export function formatValue(
@@ -126,4 +126,77 @@ export function updateNodeValue(
   node.getValue = () => newValue
   node.type = getValueType(newValue)
   iteratedValues.delete(oldValue)
+}
+
+export function refreshNodeChildren(
+  ids: string[],
+  treeMap: Record<string, TreeNode>,
+  iteratedValues: Map<any, TreeNode>,
+  recursionOpts: TreeRecursionOpts,
+  depth = 1
+) {
+  const refreshed = new Set<string>()
+  const toDelete = new Set<string>()
+  const usedIds = new Set<string>()
+  const _updateNodeValue = (id: string, newValue: any) =>
+    updateNodeValue(id, newValue, treeMap, iteratedValues)
+
+  function refreshNode(node: TreeNode, remainingDepth: number) {
+    if (refreshed.has(node.id)) return
+    refreshed.add(node.id)
+
+    const value = node.getValue()
+    const type = getValueType(value)
+    node.type = type
+
+    const mappedChildren = recursionOpts.mapChildren && recursionOpts.mapChildren(value, type, node)
+    const childEntries = mappedChildren ?? getChildren(value, type)
+
+    const prevChildren = [...node.children]
+    const newChildIds: string[] = []
+
+    for (let i = 0; i < childEntries.length; i++) {
+      const [key, val] = childEntries[i]
+      const [child, oldChild] = createNode(
+        i,
+        key,
+        val,
+        node.depth + 1,
+        node,
+        treeMap,
+        _updateNodeValue,
+        recursionOpts.getNodeId,
+        usedIds
+      )
+      if (!oldChild && recursionOpts.shouldExpandNode) {
+        child.collapsed = !recursionOpts.shouldExpandNode(child)
+      }
+      treeMap[child.id] = child
+      newChildIds.push(child.id)
+
+      if (remainingDepth > 1) {
+        refreshNode(child, remainingDepth - 1)
+      }
+    }
+
+    node.children = newChildIds
+
+    for (const childId of prevChildren) {
+      if (!newChildIds.includes(childId)) {
+        const child = treeMap[childId]
+        if (!child || child.parentId === node.id) {
+          toDelete.add(childId)
+        }
+      }
+    }
+  }
+
+  for (const id of ids) {
+    const node = treeMap[id]
+    if (node) refreshNode(node, depth)
+  }
+
+  for (const id of toDelete) {
+    deleteNodeAndDescendants(id, treeMap)
+  }
 }

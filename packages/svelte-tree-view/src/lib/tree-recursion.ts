@@ -11,7 +11,7 @@ export interface RecursionContext {
   usedIds: Set<string>
 }
 
-function getChildren(value: any, type: ValueType): [string, any][] {
+export function getChildren(value: any, type: ValueType): [string, any][] {
   switch (type) {
     case 'array':
       return value.map((v: any, i: number) => [i.toString(), v])
