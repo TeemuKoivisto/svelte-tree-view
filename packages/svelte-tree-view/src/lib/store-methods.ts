@@ -136,21 +136,22 @@ export function refreshNodeChildren(
   depth = -1
 ) {
   const maxDepth = depth === -1 ? (recursionOpts.maxDepth ?? 16) : depth
-  const refreshed = new Set<string>()
+  const refreshedAt = new Map<string, number>()
   const toDelete = new Set<string>()
   const usedIds = new Set<string>()
   const _updateNodeValue = (id: string, newValue: any) =>
     updateNodeValue(id, newValue, treeMap, iteratedValues)
 
   function refreshNode(node: TreeNode, remainingDepth: number) {
-    if (refreshed.has(node.id)) return
+    const prevDepth = refreshedAt.get(node.id)
+    if (prevDepth !== undefined && prevDepth >= remainingDepth) return
     if (remainingDepth <= 0) {
       console.warn(
         `refreshNodeChildren: maxDepth ${maxDepth} reached at node "${node.id}" (depth ${node.depth}). Children beyond this point may be stale.`
       )
       return
     }
-    refreshed.add(node.id)
+    refreshedAt.set(node.id, remainingDepth)
 
     const value = node.getValue()
     const type = getValueType(value)
