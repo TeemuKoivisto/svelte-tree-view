@@ -122,10 +122,14 @@ export function recurseObjectProperties(
     node.children = []
   }
 
-  // Mark old children that are no longer referenced for cleanup
+  // Mark old children that are no longer referenced for cleanup,
+  // but only if they haven't been reparented to a different node
   for (const id of prevChildren) {
     if (!node.children.includes(id)) {
-      ctx.oldIds.add(id)
+      const child = ctx.treeMap[id]
+      if (!child || child.parentId === node.id) {
+        ctx.oldIds.add(id)
+      }
     }
   }
 

@@ -1,3 +1,12 @@
+<script module lang="ts">
+  export const DEFAULT_RECURSION_OPTS: TreeRecursionOpts = {
+    maxDepth: 16,
+    omitKeys: [],
+    stopCircularRecursion: false,
+    shouldExpandNode: () => false
+  }
+</script>
+
 <script lang="ts">
   import { onMount, setContext, untrack } from 'svelte'
   import { get } from 'svelte/store'
@@ -5,14 +14,7 @@
   import TreeViewNode from './TreeViewNode.svelte'
   import { createStore, type TreeStore } from './store'
 
-  import type { TreeViewElementProps } from './types'
-
-  const DEFAULT_RECURSION_OPTS = {
-    maxDepth: 16,
-    omitKeys: [],
-    stopCircularRecursion: false,
-    shouldExpandNode: () => false
-  }
+  import type { TreeRecursionOpts, TreeViewElementProps } from './types'
 
   let {
     data,

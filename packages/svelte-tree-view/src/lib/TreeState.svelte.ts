@@ -1,12 +1,12 @@
 import { derived, writable } from 'svelte/store'
 
-import { createNode } from './tree-node.svelte'
+import { createRootNode } from './tree-node.svelte'
 import type { TreeNode, TreeRecursionOpts, TreeViewProps } from './types'
 
 export type StoreOptions = Omit<TreeViewProps, 'data' | 'rootNode'>
 
 export class TreeState {
-  defaultRootNode = createNode(-1, 'root', [], 0, null, {}, () => {})[0]
+  defaultRootNode = createRootNode()
   treeMap = $state<Record<string, TreeNode>>({
     [this.defaultRootNode.id]: this.defaultRootNode
   })

@@ -50,10 +50,13 @@ export function createNode(
   const oldNode = treeMap[id]
   if (oldNode) {
     const sameValue = oldNode.getValue() === value
+    oldNode.index = index
     oldNode.key = key
     oldNode.getValue = () => value
     oldNode.depth = depth
     oldNode.type = getValueType(value)
+    oldNode.path = path
+    oldNode.parentId = parent ? parent.id : null
     oldNode.circularOfId = sameValue ? oldNode.circularOfId : null
     return [oldNode, oldNode]
   }
