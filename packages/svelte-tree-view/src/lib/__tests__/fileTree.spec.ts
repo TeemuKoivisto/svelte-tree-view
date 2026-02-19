@@ -1,10 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 
-import { buildTree, expandNodeChildren, updateNodeValue } from '../store-methods'
-import { createRootNode } from '../tree-node.svelte'
-import { recurseObjectProperties } from '../tree-recursion'
 import { createStore } from '../store'
-import { generateObj } from './generateObj'
 
 import fileTree from './__fixtures__/file-tree.json'
 // import fileTree from './__fixtures__/file-tree-2.json'
@@ -22,14 +18,9 @@ const intoJSON = (map: Record<string, TreeNode<any>>) =>
     {}
   )
 
-const DEFAULT_RECURSION_OPTS: TreeRecursionOpts = {
-  maxDepth: 16,
-  omitKeys: [],
-  stopCircularRecursion: false,
-  shouldExpandNode: () => false
-}
-
 const defaultOpts: TreeRecursionOpts = {
+  maxDepth: 16,
+  stopCircularRecursion: false,
   getNodeId: (val: any, key: string, parent: TreeNode) => {
     const parentId = parent.index !== -1 ? parent.id : ''
     // For array items, use the name property if available
@@ -39,14 +30,6 @@ const defaultOpts: TreeRecursionOpts = {
     return `${parentId}:${key}`
   },
   shouldExpandNode: () => true
-}
-
-function makeTree(data: unknown, opts: TreeRecursionOpts = defaultOpts) {
-  const treeMap: Record<string, TreeNode> = {}
-  const iteratedValues = new Map<any, TreeNode>()
-  const rootNode = createRootNode()
-  buildTree(data, rootNode, treeMap, iteratedValues, opts, false)
-  return { treeMap, root: rootNode, iteratedValues }
 }
 
 describe('file-tree', () => {
@@ -79,17 +62,8 @@ describe('file-tree', () => {
     //     return val
     //   })()
     // )
-    // recurseObjectProperties(
-    //   newParent.index,
-    //   newParent.key,
-    //   newParent.getValue(),
-    //   newParent.depth,
-    //   false,
-    //   treeMap[newParent.parentId || ''] ?? null
-    // )
-    expandNodeChildren(newParent, treeMap, new Map(), defaultOpts)
-    expandNodeChildren(oldParent, treeMap, new Map(), defaultOpts)
-    // store.refreshNodeChildren([newParent.id, oldParent.id], 2)
+
+    store.refreshNodeChildren([newParent.id, oldParent.id], 3)
 
     await expect(data).toMatchFileSnapshot(snapPath('file-tree', 0, 1))
     await expect(intoJSON(treeMap)).toMatchFileSnapshot(snapPath('file-tree', 0, 2))

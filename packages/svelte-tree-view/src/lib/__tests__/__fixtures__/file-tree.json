@@ -1,0 +1,85 @@
+[
+  {
+    "name": "src",
+    "children": [
+      {
+        "name": "index.ts",
+        "content": "export {}"
+      },
+      {
+        "name": "components",
+        "children": [
+          {
+            "name": "App.svelte",
+            "content": "<div>App</div>"
+          },
+          {
+            "name": "Nav.svelte",
+            "content": "<nav />"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "docs",
+    "children": [
+      {
+        "name": "README.md",
+        "content": "# Docs"
+      }
+    ]
+  },
+  {
+    "name": "lib",
+    "children": [
+      {
+        "name": "utils",
+        "children": [
+          {
+            "name": "counter.ts",
+            "content": "function count() {}"
+          },
+          {
+            "name": "format.ts",
+            "content": "function format() {}"
+          },
+          {
+            "name": "helper.ts",
+            "content": "function helper() {}"
+          },
+          {
+            "name": "jwt",
+            "children": [
+              {
+                "name": "decode.ts",
+                "content": "function decode() {}"
+              },
+              {
+                "name": "encode.ts",
+                "content": "function encode() {}"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "schema",
+        "children": [
+          {
+            "name": "schema.ts",
+            "content": "const schema = {}"
+          },
+          {
+            "name": "parse.ts",
+            "content": "function parse() {}"
+          }
+        ]
+      },
+      {
+        "name": "tmp",
+        "children": []
+      }
+    ]
+  }
+]

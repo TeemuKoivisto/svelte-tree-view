@@ -133,8 +133,9 @@ export function refreshNodeChildren(
   treeMap: Record<string, TreeNode>,
   iteratedValues: Map<any, TreeNode>,
   recursionOpts: TreeRecursionOpts,
-  depth = 1
+  depth = -1
 ) {
+  const maxDepth = depth === -1 ? (recursionOpts.maxDepth ?? 16) : depth
   const refreshed = new Set<string>()
   const toDelete = new Set<string>()
   const usedIds = new Set<string>()
@@ -143,6 +144,12 @@ export function refreshNodeChildren(
 
   function refreshNode(node: TreeNode, remainingDepth: number) {
     if (refreshed.has(node.id)) return
+    if (remainingDepth <= 0) {
+      console.warn(
+        `refreshNodeChildren: maxDepth ${maxDepth} reached at node "${node.id}" (depth ${node.depth}). Children beyond this point may be stale.`
+      )
+      return
+    }
     refreshed.add(node.id)
 
     const value = node.getValue()
@@ -174,9 +181,7 @@ export function refreshNodeChildren(
       treeMap[child.id] = child
       newChildIds.push(child.id)
 
-      if (remainingDepth > 1) {
-        refreshNode(child, remainingDepth - 1)
-      }
+      refreshNode(child, remainingDepth - 1)
     }
 
     node.children = newChildIds
@@ -193,7 +198,7 @@ export function refreshNodeChildren(
 
   for (const id of ids) {
     const node = treeMap[id]
-    if (node) refreshNode(node, depth)
+    if (node) refreshNode(node, maxDepth)
   }
 
   for (const id of toDelete) {

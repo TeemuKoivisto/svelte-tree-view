@@ -88,7 +88,7 @@ export const createStore = (initialProps: StoreOptions) => {
     }
   }
 
-  function refreshNodeChildren(ids: string[], depth = 1) {
+  function refreshNodeChildren(ids: string[], depth = -1) {
     const recurOpts = get(state.recursionOpts)
     if (!recurOpts) {
       console.warn('refreshNodeChildren: no recursionOpts set')
