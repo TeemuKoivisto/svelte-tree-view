@@ -39,8 +39,8 @@ export interface TreeNode<T = any> {
    */
   getValue: () => T
   /**
-   * Updates node's getValue() and type but does _NOT_ recurse its children. You should it
-   * call yourself manually afterwards.
+   * Updates node's getValue() and type but does _NOT_ recurse its children. You should call
+   * recomputeNodeChildren() manually to recompute the new children nodes.
    */
   updateValue: (newVal: T) => void
   /**

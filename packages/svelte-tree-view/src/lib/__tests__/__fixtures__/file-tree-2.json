@@ -1,0 +1,47 @@
+[
+  {
+    "id": "src",
+    "isOpen": true,
+    "children": [
+      {
+        "id": "components",
+        "isOpen": true,
+        "children": [
+          {
+            "id": "App.svelte",
+            "children": []
+          },
+          {
+            "id": "Nav.svelte",
+            "isDraft": true,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "docs",
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "lib",
+    "isOpen": true,
+    "children": [
+      {
+        "id": "utils",
+        "isOpen": true,
+        "children": [
+          {
+            "id": "counter.ts",
+            "children": []
+          },
+          {
+            "id": "format.ts",
+            "children": []
+          }
+        ]
+      }
+    ]
+  }
+]

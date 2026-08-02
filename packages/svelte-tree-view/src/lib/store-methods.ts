@@ -1,5 +1,5 @@
-import { createNode, getValueType } from './tree-node.svelte'
-import { getChildren, recurseObjectProperties } from './tree-recursion'
+import { getValueType } from './tree-node.svelte'
+import { recurseObjectProperties } from './tree-recursion'
 import type { TreeNode, TreeRecursionOpts, TreeViewProps } from './types'
 
 export function formatValue(
@@ -128,6 +128,39 @@ export function updateNodeValue(
   iteratedValues.delete(oldValue)
 }
 
+export function recomputeNodeChildren(
+  ids: string[],
+  treeMap: Record<string, TreeNode>,
+  iteratedValues: Map<any, TreeNode>,
+  usedIds: Set<string>,
+  recursionOpts: TreeRecursionOpts,
+  depth = -1
+) {
+  const oldIds = new Set<string>()
+
+  for (const id of ids) {
+    const node = treeMap[id]
+    if (!node) continue
+    // Max depth is relative as node.depth + given depth OR maxDepth - node's current depth
+    const maxDepth = depth === -1 ? (recursionOpts.maxDepth ?? 16) : node.depth + depth
+    const parent = treeMap[node.parentId || '']
+    recurseObjectProperties(node.index, node.key, node.getValue(), node.depth, false, parent, {
+      treeMap,
+      oldIds,
+      iteratedValues,
+      recomputeExpandNode: false,
+      updateNodeValue: (id, newValue) => updateNodeValue(id, newValue, treeMap, iteratedValues),
+      opts: { ...recursionOpts, maxDepth },
+      usedIds,
+      preserveChildrenBeyondMaxDepth: true
+    })
+  }
+
+  for (const id of oldIds) {
+    deleteNodeAndDescendants(id, treeMap)
+  }
+}
+
 export function refreshNodeChildren(
   ids: string[],
   treeMap: Record<string, TreeNode>,
@@ -144,8 +177,10 @@ export function refreshNodeChildren(
 
   function refreshNode(node: TreeNode, remainingDepth: number) {
     const prevDepth = refreshedAt.get(node.id)
-    if (prevDepth !== undefined && prevDepth >= remainingDepth) return
-    if (remainingDepth <= 0) {
+    if (prevDepth !== undefined && prevDepth >= remainingDepth) {
+      // Already recursed to the max depth allowed
+      return
+    } else if (remainingDepth <= 0) {
       console.warn(
         `refreshNodeChildren: maxDepth ${maxDepth} reached at node "${node.id}" (depth ${node.depth}). Children beyond this point may be stale.`
       )

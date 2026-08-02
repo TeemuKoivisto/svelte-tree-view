@@ -52,7 +52,7 @@ describe('file-tree', () => {
     const newParent = treeMap['src']
     const node = treeMap['counter.ts']
     const oldParent = treeMap[node.parentId ?? '']
-    // // remove counter.ts from old parent
+    // Alternative way
     // oldParent.updateValue(oldParent.getValue().filter((v: any) => v.name !== 'counter.ts'))
     // // add counter.ts below index.ts
     // newParent.updateValue(
@@ -63,7 +63,7 @@ describe('file-tree', () => {
     //   })()
     // )
 
-    store.refreshNodeChildren([newParent.id, oldParent.id], 3)
+    store.recomputeNodeChildren([newParent.id, oldParent.id])
 
     await expect(data).toMatchFileSnapshot(snapPath('file-tree', 0, 1))
     await expect(intoJSON(treeMap)).toMatchFileSnapshot(snapPath('file-tree', 0, 2))

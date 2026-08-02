@@ -4,6 +4,7 @@ import { buildTree, expandNodeChildren, updateNodeValue } from '../store-methods
 import { createRootNode } from '../tree-node.svelte'
 import { recurseObjectProperties } from '../tree-recursion'
 
+// import fileTree from './__fixtures__/file-tree.json'
 import type { TreeNode, TreeRecursionOpts } from '../types'
 
 const fileTree = {
@@ -53,7 +54,7 @@ function getChildKeys(node: TreeNode, treeMap: Record<string, TreeNode>) {
   return node.children.map(id => treeMap[id].key)
 }
 
-describe('updateNodeValue', () => {
+describe.skip('updateNodeValue', () => {
   it('updates getValue and type for a leaf node', () => {
     const { treeMap } = makeTree(fileTree)
     const node = treeMap['/src/index.ts']

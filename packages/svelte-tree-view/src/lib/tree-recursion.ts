@@ -9,6 +9,15 @@ export interface RecursionContext {
   opts: TreeRecursionOpts
   updateNodeValue: (id: string, newValue: any) => void
   usedIds: Set<string>
+  recomputeRange?: {
+    from: number
+    to: number
+    remainingDepth: number
+    scannedAtDepths: Map<string, number>
+  }
+  // recomputeToDepths?: Map<string, number>
+  /** When true, nodes beyond maxDepth are created/updated but their existing children are preserved */
+  preserveChildrenBeyondMaxDepth?: boolean
 }
 
 export function getChildren(value: any, type: ValueType): [string, any][] {
@@ -68,13 +77,16 @@ export function recurseObjectProperties(
   key: string,
   value: any,
   depth: number,
+  maxDepth: number,
   ensureNotCollapsed: boolean,
   parent: TreeNode | null,
   ctx: RecursionContext
 ): TreeNode | null {
+  // if (ctx.opts.omitKeys?.includes(key)) {
   if (ctx.opts.omitKeys?.includes(key) || (ctx.opts.maxDepth && depth > ctx.opts.maxDepth)) {
     return null
   }
+  // if at maxDepth && ctx.remcomputeRange -> continue
   const [node, oldNode] = createNode(
     index,
     key,
@@ -101,6 +113,17 @@ export function recurseObjectProperties(
   ctx.treeMap[node.id] = node
   ctx.oldIds.delete(node.id)
 
+  const prevDepth = ctx.recomputeRange?.scannedAtDepths.get(node.id)
+  // || node.depth >= maxDepth
+  if (prevDepth && prevDepth >= node.depth) {
+    // Terminate early incase the node was already recursed at enough depth
+    return node
+  } else if (ctx.recomputeRange) {
+    // We are tracking node depths to limit our scan range to only recompute what's needed
+    // const remainingDepth = Math.max(ctx.recomputeRange.to - node.depth, 0)
+    ctx.recomputeRange.scannedAtDepths.set(node.id, maxDepth)
+  }
+
   // Save old children before recursion overwrites them (copy to avoid proxy issues)
   const prevChildren = oldNode ? [...node.children] : []
 
@@ -111,7 +134,10 @@ export function recurseObjectProperties(
     const ids: string[] = []
     for (let i = 0; i < children.length; i += 1) {
       const [key, val] = children[i]
-      const child = recurseObjectProperties(i, key, val, depth + 1, false, node, ctx)
+      if (ctx.recomputeRange) {
+        ctx.recomputeRange.remainingDepth -= 1
+      }
+      const child = recurseObjectProperties(i, key, val, depth + 1, maxDepth, false, node, ctx)
       // Child is null if maxDepth reached or it's filtered
       if (child) {
         ids.push(child.id)
@@ -134,4 +160,80 @@ export function recurseObjectProperties(
   }
 
   return node
+}
+
+export function recomputeNodeChildrenToDepth(ids: string[], ctx: RecursionContext, depth = -1) {
+  const maxDepth = depth === -1 ? (ctx.opts.maxDepth ?? 16) : depth
+  const refreshedAt = new Map<string, number>()
+  const toDelete = new Set<string>()
+  const usedIds = new Set<string>()
+
+  function refreshNode(node: TreeNode, remainingDepth: number) {
+    const prevDepth = refreshedAt.get(node.id)
+    if (prevDepth !== undefined && prevDepth >= remainingDepth) {
+      // Already recursed to the max depth allowed
+      return
+    } else if (remainingDepth <= 0) {
+      console.warn(
+        `refreshNodeChildren: maxDepth ${maxDepth} reached at node "${node.id}" (depth ${node.depth}). Children beyond this point may be stale.`
+      )
+      return
+    }
+    refreshedAt.set(node.id, remainingDepth)
+
+    const value = node.getValue()
+    const type = getValueType(value)
+    node.type = type
+
+    const mappedChildren = ctx.opts.mapChildren && ctx.opts.mapChildren(value, type, node)
+    const childEntries = mappedChildren ?? getChildren(value, type)
+
+    const prevChildren = [...node.children]
+    const newChildIds: string[] = []
+
+    for (let i = 0; i < childEntries.length; i++) {
+      const [key, val] = childEntries[i]
+      const [child, oldChild] = createNode(
+        i,
+        key,
+        val,
+        node.depth + 1,
+        node,
+        ctx.treeMap,
+        ctx.updateNodeValue,
+        ctx.opts.getNodeId,
+        usedIds
+      )
+      if (!oldChild && ctx.opts.shouldExpandNode) {
+        child.collapsed = !ctx.opts.shouldExpandNode(child)
+      }
+      ctx.treeMap[child.id] = child
+      newChildIds.push(child.id)
+
+      refreshNode(child, remainingDepth - 1)
+    }
+
+    node.children = newChildIds
+
+    for (const childId of prevChildren) {
+      if (!newChildIds.includes(childId)) {
+        const child = ctx.treeMap[childId]
+        if (!child || child.parentId === node.id) {
+          toDelete.add(childId)
+        }
+      }
+    }
+  }
+
+  for (const id of ids) {
+    const node = ctx.treeMap[id]
+    if (!node) continue
+    // Max depth is relative as node.depth + given depth OR maxDepth - node's current depth
+    const maxDepth = depth === -1 ? (ctx.opts.maxDepth ?? 16) : node.depth + depth
+    refreshNode(node, maxDepth)
+  }
+
+  for (const id of toDelete) {
+    deleteNodeAndDescendants(id, ctx.treeMap)
+  }
 }
